@@ -1,0 +1,291 @@
+2006-04-19  Sebastian Luque  <spluque@gmail.com>
+
+	* velCalib.R:
+	Made plot regions square in rqPlot, to make it conform to equal scale
+	comparisons
+	Included respect=TRUE for creating plots
+
+2006-04-18  Sebastian P. Luque  <spluque@gmail.com>
+
+	* velCalib.R:
+	Added argument postscript to choose whether to output to eps
+
+2006-04-17  Sebastian Luque  <spluque@gmail.com>
+
+	* calibrate.R:
+	Added argument coefs to allow using known coefficients for calibration
+
+2006-04-16  Sebastian Luque  <spluque@gmail.com>
+
+	* plotDive.R: renamed argument colsec to phaseCol
+
+	* readTDR.R: More appropriate default velCol argument to readTDR
+
+	* velCalib.R:
+	bandwidths for the calibration plots are now chosen optimally through
+	bw.nrd
+	Added a box() around image plot
+	Got rid of contour plot which were not very useful; replaced them with
+	image plots
+	postscript output has been made horizontal
+
+	* calibrate.R:
+	Added ellipsis argument to calibrateVel to pass to doVelCalib
+
+	* AllMethod.R:
+	Removed white space at beginning and of 'show' method
+	Renamed velCCoefs to velCoef
+
+2006-04-15  Sebastian Luque  <spluque@gmail.com>
+
+	* calibrate.R: New argument 'offset' to be passed to calibrateDepth
+
+	* zoc.R:
+	Removed initial message and 'readline' call, as it fits better in the
+	documentation
+
+	* zoc.R:
+	Added argument 'offset' to allow providing of known offset to use for
+	entire record
+
+	* AllMethod.R:
+	Modified messages in show method for TDRcalibrate to more accurate ones
+
+2006-04-14  Sebastian Luque  <spluque@gmail.com>
+
+	* readTDR.R:
+	New function .createChron and new arguments to readTDR to provide
+	flexibility in input file structure
+
+	* AllMethod.R:
+	Renamed buildTDR to createTDR
+	Modified messages in show method for TDRcalibrate to more accurate ones
+
+2006-03-31  Sebastian Luque  <spluque@gmail.com>
+
+	* track.R: Corrected id default value
+
+	* distSpeed.R: Better names in value
+
+	* track.R: Renamed function
+
+2006-03-28  Sebastian Luque  <spluque@gmail.com>
+
+	* diveStats.R: Returns a data frame now
+
+	* diveStats.R: Changed units output from postdive.dur to s
+
+	* getDive.R:
+	Changed output units for duration (time) variables so they're in s
+
+	* AllMethod.R:
+	new method for dPhaseLab to extract the factor for given dives
+
+2006-03-28  Sebastian Luque  <spluque@gmail.com>
+
+	* plotDive.R: new argument 'colsec' to color dive sections
+
+	* diveStats.R: Returns a data frame now
+
+	* getDive.R:
+	Changed output units for duration (time) variables so they're in s
+
+	* AllMethod.R:
+	new method for dPhaseLab to extract the factor for given dives
+
+2006-03-26  Sebastian Luque  <spluque@gmail.com>
+
+	* getVelStats.R:
+	Test for missing or NULL coefVcal arg now uses || rather than |
+
+	* calibrate.R:
+	Include calibrated velocity in value only if asked
+	Fixed bug where velocity wasn't being returned in calibrateVel
+
+2006-03-25  Sebastian Luque  <spluque@gmail.com>
+
+	* diveStats.R:
+	Fixed bug whereby postdive.dur was only being calculated for TDR class
+
+2006-03-24  Sebastian Luque  <spluque@gmail.com>
+
+	* diveStats.R:
+	Grave bug fixed where results were not being assigned for class TDR
+
+	* AllMethod.R: as.data.frame method was not giving proper column names
+
+	* austFilter.R: More helpful messages
+
+2006-03-23  Sebastian Luque  <spluque@gmail.com>
+
+	* austFilter.R:
+	Broke up austFilter into more discrete functions, which improved
+	efficiency considerably
+
+	* distSpeed.R:
+	Reversed the order of lat and lon in args, as lon lat, order makes more sense
+
+2006-03-22  Sebastian Luque  <spluque@gmail.com>
+
+	* diveStats.R: Value is now a data frame; makes life easier afterwards
+
+	* stampDive.R, getDive.R, diveStats.R, calibrate.R, detDive.R:
+	Replaced calls to generic time to tdrTime
+
+	* AllMethod.R:
+	changed name of time generic to tdrTime to avoid conflict with base
+
+	* stampDive.R, diveStats.R, calibrate.R: Renamed argument obj to x
+
+	* AllMethod.R: Standardized arg names in all methods
+
+	* AllMethod.R:
+	Changed argument name from 'x' to 'obj' when method is not an accessor;
+	for convenience
+
+	* stampDive.R: Added a class test for the 1st arg
+
+	* AllMethod.R: Added attendance method to obtain an attendance table
+
+	* stampDive.R: New file.
+
+2006-03-21  Sebastian Luque  <spluque@gmail.com>
+
+	* AllMethod.R:
+	grossAct method was not extracting properly due to use of "[" rather than
+	"[["
+
+	* velCalib.R:
+	Fixed axlims object in rqPlot that was only taking x to define the range
+
+	* readTDR.R:
+	Included a tolower() for making it easier to recognize the TDR model in
+	readTDR()
+
+	* calibrate.R:
+	Fixed bug in calibrateDepth which was testing for wrong class for its argument
+
+2006-03-20  Sebastian Luque  <spluque@gmail.com>
+
+	* calibrate.R:
+	Took into account change in name for doVelCalib
+	Included test for validity of obj argument
+
+	* AllMethod.R:
+	Moved calibrateDepth, calibrateVel, and diveStats to separate files, as I
+	can't get them to work like methods
+	Fixed signatures for TDRcalibrate method extractDive
+	Added diveStats method for TDRcalibrate
+
+	* getDive.R:
+	Moved diveStats to AllMethod.R and getDive now works with a matrix with
+	ncol >= 3
+
+2006-03-18  Sebastian Luque  <spluque@gmail.com>
+
+	* velCalib.R: Changed argument name rate to rdepth in rqPlot
+
+2006-03-17  Sebastian Luque  <spluque@gmail.com>
+
+	* detDive.R:
+	labDivePhase and .cutDive now detect phases based on changes in depth
+
+2006-03-16  Sebastian Luque  <spluque@gmail.com>
+
+	* zoc.R: No longer use 'invalid' so as to avoid requiring gtools
+
+	* plotDive.R: Removed require(gplot), as package no longer needed
+
+	* detDive.R: Moved .cutDive and labDivePhase here, makes more sense
+
+2006-03-15  Sebastian Luque  <spluque@gmail.com>
+
+	* detPhase.R: Renamed output names in both getAct and detPhase
+	Changed detPhase ... arg to be at the end
+	getAct now takes a factor, rather than a numeric vector as its second
+	argument.  Modified code in detPhase accordingly.
+
+2006-03-14  Sebastian Luque  <spluque@gmail.com>
+
+	* plotDive.R:
+	Eliminated dependency on gplots -- now uses simpler legend() from graphics
+	base package
+
+	* AllClass.R: Improved validity tests for TDR and TDRvel class
+
+	* getVelStats.R:
+	Single function .getVelStats now returns a 3-col matrix with total
+	distance travelled, mean velocity, and angle if appropriate
+
+	* velCalib.R:
+	Settled on using one data point for speed calibration per dive
+
+	* getDive.R:
+	diveStats now calls .getVelStats for velocity statistics, if needed
+
+2006-03-13  Sebastian Luque  <spluque@gmail.com>
+
+	* detDive.R:
+	labDive now returns a 2-col matrix with dive and postdive labels
+
+2006-03-12  Sebastian Luque  <spluque@gmail.com>
+
+	* detDive.R:
+	detDive now returns a data frame with dive ids and dive activity factor
+
+	* detPhase.R:
+	detPhases now uses a factor to label rows, rather than numeric vector
+
+2006-03-11  Sebastian Luque  <spluque@gmail.com>
+
+	* zoc.R: Arguments are now separate for time and depth
+
+	* readTDR.R: Moved .getInterval here, makes more sense.
+
+	* detDive.R: Much improved labelling of dives
+
+2006-03-10  Sebastian Luque  <spluque@gmail.com>
+
+	* detDive.R: More efficient handling of args in detDive
+
+	* detPhase.R:
+	More versatile handling of args, passing '...' to getAct, in case it needs
+	more args in the future
+
+2005-12-16  Sebastian Luque  <spluque@gmail.com>
+
+	* getDive.R:
+	Added rownames for output matrix because it's used by other functions.
+	Split velStats and it calls a new function breakDive() now.
+	Per dive statistics are now done with a call to by() preceded by building
+	a data frame.
+
+	* detDive.R:
+	We now do numbering of dives in separate function labdive().
+
+2005-12-15  Sebastian Luque  <spluque@gmail.com>
+
+	* readLocs.R:
+	Replaced assignment after testing for NULL argument, to a call to `missing'.
+
+	* getVelStats.R:
+	Split large function into two: getVelStats and velStats.
+
+2005-12-14  Sebastian Luque  <spluque@gmail.com>
+
+	* getDive.R:
+	Removed unused argument from argument list: `divethres', and renamed
+	`diveinds' to `dives'.
+
+	* detDive.R:
+	Replaced argument name: `phases' instead of previous `byphase'.
+
+2005-07-12  Sebastian Luque  <spluque@gmail.com>
+
+	* austfilter.R:
+	  Replaced sapply by lapply in first stage filter.
+
+2005-06-16  Sebastian Luque  <spluque@gmail.com>
+
+	* velcalib.R:
+	  Removed require()'s, since the package depends take care of that.
