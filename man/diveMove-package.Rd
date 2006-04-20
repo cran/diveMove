@@ -32,7 +32,8 @@
 
 \examples{
 ## read in data and create a TDR object
-(sealX <- readTDR(system.file("data/sealMK8.csv", package="diveMove")))
+(sealX <- readTDR(system.file(file.path("data", "/sealMK8.csv"),
+                              package="diveMove")))
 \dontrun{plot(sealX)}
 
 ## detect periods of activity, and calibrate depth, creating
