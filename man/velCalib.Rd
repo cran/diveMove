@@ -83,7 +83,7 @@ doVelCalib(rates, vel, calType="pooled", bad=c(0, 0), filename,
   recorders.  Marine Mammal Science \bold{15(3)}: 894-905.}
 
 
-\author{Sebastian P. Luque <\email{spluque@gmail.com}>}
+\author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
 \seealso{\code{\link{TDRcalibrate-class}}, \code{\link{rqPlot}}}

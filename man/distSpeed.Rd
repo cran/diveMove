@@ -53,7 +53,7 @@ track(txy, id=gl(1, nrow(txy)), subset)
   frame with an id column and the same columns as in \code{distSpeed}.}
 
 
-\author{Sebastian P. Luque <\email{spluque@gmail.com}>}
+\author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
 \keyword{math}% at least one, from doc/KEYWORDS

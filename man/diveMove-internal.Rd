@@ -101,7 +101,7 @@ stageOne(x, velthres, window=5)
 }
 
 
-\author{Sebastian P. Luque <\email{spluque@gmail.com}>}
+\author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
 \keyword{internal}

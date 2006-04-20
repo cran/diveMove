@@ -59,7 +59,7 @@ readLocs(file, loc.idCol, idCol, dateCol, timeCol=NULL,
 \value{A data frame.}
 
 
-\author{Sebastian P. Luque <\email{spluque@gmail.com}>}
+\author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
 \keyword{manip}

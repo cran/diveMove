@@ -57,11 +57,12 @@ createTDR(time, depth, vel, dtime, file)
 \value{An object of class \sQuote{TDR} or \sQuote{TDRvel}.}
 
 
-\author{Sebastian P. Luque <\email{spluque@gmail.com}>}
+\author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
 \examples{
-sealTDR <- readTDR(system.file("data/sealMK8.csv", package="diveMove"))
+readTDR(system.file(file.path("data", "sealMK8.csv"),
+                    package="diveMove"))
 }
 
 

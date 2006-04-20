@@ -16,7 +16,7 @@
   whole record, or at smaller scales within dives.}
 
 
-\author{Sebastian P. Luque <\email{spluque@gmail.com}>}
+\author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
 \details{A vignette with a guide to this package is available at
@@ -32,7 +32,7 @@
 
 \examples{
 ## read in data and create a TDR object
-(sealX <- readTDR(system.file(file.path("data", "/sealMK8.csv"),
+(sealX <- readTDR(system.file(file.path("data", "sealMK8.csv"),
                               package="diveMove")))
 \dontrun{plot(sealX)}
 

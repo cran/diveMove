@@ -42,7 +42,7 @@
 \source{Sebastian P. Luque, Christophe Guinet, John P.Y. Arnould}
 
 
-\author{Sebastian P. Luque <\email{spluque@gmail.com}>}
+\author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
 \keyword{datasets}

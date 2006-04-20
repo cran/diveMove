@@ -95,7 +95,7 @@
   \code{vel.calib.coefs}.}
 
 
-\author{Sebastian P. Luque <\email{spluque@gmail.com}>}
+\author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
 \seealso{\code{\link{TDR-class}} for links to other classes in the

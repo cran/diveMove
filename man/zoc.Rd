@@ -67,7 +67,8 @@ plotDive(time, depth, vel=NULL, xlim=NULL, phaseCol=NULL)
   \code{\link{locator}}.}
 
 
-\author{Sebastian P. Luque <\email{spluque@gmail.com}>}
+\author{Sebastian P. Luque \email{spluque@gmail.com}, with many ideas
+  from CRAN package sfsmisc.}
 
 
 \seealso{\code{\link{detDive}}}

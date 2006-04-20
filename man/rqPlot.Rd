@@ -38,10 +38,18 @@ rqPlot(rdepth, vel, rqFit, main="qtRegression",
   The other line represent the quantile regression fit.}
 
 
-\author{Sebastian P. Luque <\email{spluque@gmail.com}>}
+\author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
 \seealso{\code{\link{doVelCalib}}, \code{\link{diveStats}}}
+
+
+\examples{
+\dontrun{
+plot((sealX <- readTDR(system.file(file.path("data", "sealMK8.csv"),
+                                   package="diveMove"))))
+}
+}
 
 
 \keyword{manip}% at least one, from doc/KEYWORDS
