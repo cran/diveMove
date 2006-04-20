@@ -59,7 +59,8 @@ tdrTime(x)
   \code{depth}, \code{dtime}, \code{velocity}, and \code{tdrTime}
   extract depth, sampling interval, velocity, and time, respectively.}
 
-\author{Sebastian P. Luque <\email{spluque@gmail.com}>}
+
+\author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
 \keyword{methods}

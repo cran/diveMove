@@ -63,10 +63,7 @@ z=0, filename=slot(tdr(x), "file"), coefs, \ldots)
   functions.}
 
 
-}
-
-
-\author{Sebastian P. Luque <\email{spluque@gmail.com}>}
+\author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
 \keyword{manip}% at least one, from doc/KEYWORDS

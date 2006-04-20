@@ -83,7 +83,7 @@ labDivePhase(x, diveID)
 }
 
 
-\author{Sebastian P. Luque <\email{spluque@gmail.com}>}
+\author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
 \seealso{\code{\link{detPhase}}, \code{\link{zoc}}}

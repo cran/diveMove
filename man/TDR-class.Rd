@@ -45,7 +45,7 @@
   function \code{readTDR} to retrieve all the necessary information.}
 
 
-\author{Sebastian P. Luque <\email{spluque@gmail.com}>}
+\author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
 \seealso{\code{\link{readTDR}}, \code{\link{TDRcalibrate-class}}}

@@ -88,7 +88,7 @@ getAct(time, act, interval)
   \item{end.time}{ending time for each phase.}}
 
 
-\author{Sebastian P. Luque <\email{spluque@gmail.com}>}
+\author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
 \seealso{\code{\link{detDive}}}
