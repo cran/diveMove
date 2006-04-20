@@ -1,7 +1,12 @@
 -- Dive and movement analyses and plots --
 Set of functions to analyse time-depth recorder and location data.
 
-The documentation is still under heavy development, but have a look at
-?diveMove for a quick overview of the major functionality of the package.
-A vignette, incomplete (but already useable), is also available by doing
+The documentation is still under development, but have a look at ?diveMove
+for a quick overview of the major functionality of the package.  A
+vignette, incomplete (but already useable), is also available by doing
 vignette("diveMove").
+
+NOTE:
+
+Comments from users and researchers are very welcome and should be
+directed to the author (Sebastian P. Luque <spluque@gmail.com>).

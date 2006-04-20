@@ -400,12 +400,22 @@ derived values, by extracting them using the standard \R{} subscripting
 facilities.
 
 
+\section{Miscellaneous functions}
+\label{sec:misc}
+
+Other functions are included for handling location data, and these are
+\Rfunction{readLocs}, \Rfunction{austFilter}, and \Rfunction{distSpeed}.
+These are useful for reading, filtering, and summarizing travel
+information.  For extensive animal movement analyses, refer to package
+\Rpackage{timeTrack} available at
+\url{http://www.antcrc.utas.edu.au/~mdsumner/timeTrack/}.
+
 
 \section{Acknowledgements}
 \label{sec:acknowledgements}
 
 Invaluable input and help during development of this package has been
-offered by John~P.Y. Arnould, and contributors to R-help.
+offered by John~P.Y. Arnould, and regular contributors to R-help.
 
 
 \bibliographystyle{apalike}

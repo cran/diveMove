@@ -78,7 +78,7 @@ authors may be using it inconsistently.}
 }
 
 
-\author{Sebastian P. Luque <\email{spluque@gmail.com}>}
+\author{Sebastian P. Luque <\email{spluque@gmail.com}> and Andy Liaw.}
 
 
 \seealso{\code{\link{distSpeed}}}
