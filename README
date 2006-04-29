@@ -2,9 +2,8 @@
 Set of functions to analyse time-depth recorder and location data.
 
 The documentation is still under development, but have a look at ?diveMove
-for a quick overview of the major functionality of the package.  A
-vignette, incomplete (but already useable), is also available by doing
-vignette("diveMove").
+for a quick overview of the major functionality.  A vignette, incomplete
+(but already useable), is also available by doing vignette("diveMove").
 
 NOTE:
 

@@ -113,23 +113,18 @@ temperature and any other variables beyond column 6 are ignored.
 To read the file into \R{}, use the function \Rfunction{readTDR}:
 \begin{Schunk}
 \begin{Sinput}
-> sealX <- readTDR(system.file("data/sealMK8.csv", 
-+     package = "diveMove"), velCol = 6)
+> sealX <- readTDR(system.file(file.path("data", 
++     "sealMK8.csv"), package = "diveMove"))
 \end{Sinput}
 \end{Schunk}
-Read the help page for \Rfunction{readTDR} using:
+Read the help page for \Rfunction{readTDR} using \verb|?readTDR| following
+common \R{} help facilities.  Thus, data could have been subsampled at a
+larger interval than that in the original file, so that the time interval
+between readings is 10 s:
 \begin{Schunk}
 \begin{Sinput}
-> "?"(readTDR)
-\end{Sinput}
-\end{Schunk}
-following the common \R{} help facilities.  Thus, data could have been
-subsampled at a larger interval than that in the original file, so that
-the time interval between readings is 10 s:
-\begin{Schunk}
-\begin{Sinput}
-> sealX <- readTDR(system.file("data/sealMK8.csv", 
-+     package = "diveMove"), subsamp = 10)
+> sealX <- readTDR(system.file(file.path("data", 
++     "sealMK8.csv"), package = "diveMove"), subsamp = 10)
 \end{Sinput}
 \end{Schunk}
 But since the original 5 s interval (which is the default value for
@@ -137,8 +132,8 @@ But since the original 5 s interval (which is the default value for
 recreated it here:
 \begin{Schunk}
 \begin{Sinput}
-> sealX <- readTDR(system.file("data/sealMK8.csv", 
-+     package = "diveMove"), velCol = 6)
+> sealX <- readTDR(system.file(file.path("data", 
++     "sealMK8.csv"), package = "diveMove"))
 \end{Sinput}
 \end{Schunk}
 
@@ -534,7 +529,7 @@ Other functions are included for handling location data, and these are
 These are useful for reading, filtering, and summarizing travel
 information.  For extensive animal movement analyses, refer to package
 \Rpackage{timeTrack} available at
-\url{http://www.antcrc.utas.edu.au/~mdsumner/timeTrack/}.
+\url{http://staff.acecrc.org.au/~mdsumner/Rutas/}.
 
 
 \section{Acknowledgements}

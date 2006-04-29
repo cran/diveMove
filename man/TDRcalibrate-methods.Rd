@@ -46,6 +46,7 @@ attendance(obj, ignoreZ)
 
 
 \arguments{
+
   \item{x, obj}{a \code{TDRcalibrate} object.}
 
   \item{y}{a string indicating the element from x to extract.  In the
@@ -58,6 +59,7 @@ attendance(obj, ignoreZ)
 
   \item{ignoreZ}{logical indicating whether or not trivial aquatic
     activities should be ignored when calculating attendance.}
+
 }
 
 

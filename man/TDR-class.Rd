@@ -23,20 +23,29 @@
 \section{Slots}{
   In class \emph{TDR}:
   \describe{
+
     \item{\code{file}:}{Object of class \code{"character"}, string
       indicating the file where the data comes from.}
+
     \item{\code{dtime}:}{Object of class \code{"numeric"}, sampling
       interval in \code{\link[chron]{chron}} units (d).}
+
     \item{\code{time}:}{Object of class \code{"chron"}, time stamp for
       every reading.}
+
     \item{\code{depth}:}{Object of class \code{"numeric"}, depth (m)
       readings.}
+
   }
+
   Class \emph{TDRvel} adds:
   \describe{
+
     \item{\code{velocity}:}{Object of class \code{"numeric"} velocity
       (m/s) readings.}
+
   }
+
 }
 
 

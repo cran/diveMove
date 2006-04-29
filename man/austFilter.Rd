@@ -36,6 +36,7 @@ austFilter(time, lon, lat, id=gl(1, 1, length(time)),
 
   \item{window}{integer indicating the size of the moving window over
     which tests should be carried out.}
+
 }
 
 

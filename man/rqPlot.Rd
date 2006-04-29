@@ -30,6 +30,7 @@ rqPlot(rdepth, vel, rqFit, main="qtRegression",
 
   \item{colramp}{function taking an integer n as an argument and
     returning n colors.}
+
 }
 
 
