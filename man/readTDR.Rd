@@ -26,19 +26,30 @@ createTDR(time, depth, vel, dtime, file)
 \arguments{
 
   \item{file}{A string indicating the path to the file to read.}
+
   \item{dateCol}{Column number containing dates, and optionally, times.}
+
   \item{timeCol}{Column number with times.}
+
   \item{depthCol}{Column number containing depth readings.}
+
   \item{velCol}{Column number containing velocity readings.}
+
   \item{subsamp}{Subsample rows in \code{file} with \code{subsamp}
     interval, in s.}
+
   \item{dtformat}{a character vector of length 2, specifying the format
     of the date and time columns, in that order.  See
     \code{\link[chron]{chron}} for valid format specifications.}
+
   \item{time}{a chron object}
+
   \item{depth}{numeric vector with depth readings}
+
   \item{vel}{optional numeric vector with velocity readings}
+
   \item{dtime}{sampling interval used in chron units (d)}
+
 }
 
 

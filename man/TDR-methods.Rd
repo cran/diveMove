@@ -41,6 +41,7 @@ tdrTime(x)
 
 
 \arguments{
+
   \item{obj, x}{a \dQuote{TDR} object or inheriting from it. For
     \code{extractDive}, it can also be a \dQuote{TDRcalibrate} object.}
 
@@ -50,6 +51,7 @@ tdrTime(x)
   \item{id}{a numeric vector of integers specifying where matches for
     \code{diveNo} should be sought.  It can be missing when \code{obj}
     is a \code{TDRcalibrate} objects.}
+
 }
 
 

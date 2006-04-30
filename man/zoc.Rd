@@ -35,6 +35,7 @@ plotDive(time, depth, vel=NULL, xlim=NULL, phaseCol=NULL)
     be plotted.}
 
   \item{phaseCol}{factor dividing rows into sections.}
+
 }
 
 
