@@ -52,9 +52,6 @@
     tdrtype <- sub(".*(mk.).*", "\\1", tolower(srcfile))
     rawdat <- read.csv(file, header=TRUE,
                        na.strings="", as.is=TRUE)
-    message(paste(srcfile, "starts:", rawdat[1, dateCol], rawdat[1, timeCol],
-                  "ends:", rawdat[nrow(rawdat), dateCol],
-                  rawdat[nrow(rawdat), timeCol]))
 
     datetime <- .createChron(rawdat[, dateCol], rawdat[, timeCol],
                              dtformat=dtformat)

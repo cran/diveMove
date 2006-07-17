@@ -19,15 +19,16 @@
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
-\details{A vignette with a guide to this package is available at
-  \url{file://../inst/doc/diveMove.pdf}}
+% \details{}
 
 
-\seealso{\code{\link[diveMove:diveMove-package]{TDR-class}},
+\seealso{A vignette with a guide to this package is available by doing
+  'vignette("diveMove")'.
+  \code{\link[diveMove:diveMove-package]{TDR-class}},
   \code{\link[diveMove:diveMove-package]{calibrateDepth}},
   \code{\link[diveMove:diveMove-package]{calibrateVel}},
   \code{\link[diveMove:diveMove-package]{attendance}},
-  \code{\link[diveMove:diveMove-package]{stampDive}}}
+  \code{\link[diveMove:diveMove-package]{stampDive}}.}
 
 
 \examples{
