@@ -216,7 +216,7 @@ if (!isGeneric("attendance")) {
 }
 setMethod("attendance",            # a table of general attendance pattern
           signature(obj="TDRcalibrate", ignoreZ="logical"),
-          function(obj, ignoreZ=TRUE) {
+          function(obj, ignoreZ) {
               act <- grossAct(obj, "trip.act")
               tt <- tdrTime(tdr(obj))
               interval <- dtime(tdr(obj))
@@ -224,14 +224,13 @@ setMethod("attendance",            # a table of general attendance pattern
                   act[act == "Z"] <- "L"
                   attlist <- getAct(tt, act, interval)
                   actlabel <- act[match(names(attlist[[3]]), attlist[[1]])]
-                  tripno <- numeric(length(actlabel))
-                  tripno[actlabel == "W"] <- seq(along=actlabel[actlabel == "W"])
+                  tripno <- seq(along=actlabel)
               } else {                    # count the short baths
                   attlist <- grossAct(obj)
                   actlabel <- act[match(names(attlist[[3]]), attlist[[1]])]
-                  tripno <- numeric(length(actlabel))
-                  tripno[actlabel != "L"] <- seq(along=actlabel[actlabel != "L"])
+                  tripno <- seq(along=actlabel)
               }
-              data.frame(trip=tripno, beg=chron(attlist[[3]]),
+              data.frame(phaseno=tripno, activity=actlabel,
+                         beg=chron(attlist[[3]]),
                          end=chron(attlist[[4]]), row.names=NULL)
           })

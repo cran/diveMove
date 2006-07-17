@@ -71,12 +71,13 @@ getAct(time, act, interval)
     animal activities.  Only \sQuote{L}, \sQuote{W}, and \sQuote{Z} are
     actually represented.}
 
-  \item{trip.beg}{a chron object as long as the number of unique
-    activity phases identified, with start times for each activity
-    phase.}
+  \item{trip.beg}{a numeric vector as long as the number of unique
+    activity phases identified, representing the time (in days) since
+    the origin set by chron to the start times for each activity phase.}
 
-  \item{trip.end}{a chron object as long as the number of unique
-    activity phases identified, with end times for each activity phase.}
+  \item{trip.end}{a numeric vector as long as the number of unique
+    activity phases identified, representing the time (in days) since
+    the origin set by chron to the end times for each activity phase.}
 
   \item{time.br}{a factor dividing the factor \code{act} in phases.}
 

@@ -142,6 +142,9 @@
     asc <- asc[asc[, 2] > 0 & asc[, 2] > bad[1] & asc[, 3] > bad[2], ]
     pooled <- rbind(desc, asc)
     full <- list(descent=desc, ascent=asc, pooled=pooled)
+    fullD <- lapply(full, function(x) density(x[, 3], "nrd"))
+    fullDx <- range(sapply(fullD, function(x) range(x$x)))
+    fullDy <- range(sapply(fullD, function(x) range(x$y)))
 
     prefix <- gsub("(.*).csv", "\\1", filename)
     if (postscript) {
@@ -150,7 +153,7 @@
                    horizontal=FALSE, pointsize=14,
                    title=paste(prefix, "speed calibration"))
     } else {
-        layout(matrix(c(1, 3, 2, 0), 2, 2), respect=TRUE)
+        layout(matrix(c(1, 4, 2, 3), 2, 2, byrow=TRUE), respect=TRUE)
     }
     for (i in names(full)) {
         ratedep <- full[[i]][, 2]
@@ -162,6 +165,9 @@
             rqcalibs <- list(coefficients=coef(rqfit), corrVel=corrvel)
         }
     }
+    plot(fullDx, fullDy, type="n", xlab="x", ylab="density")
+    for (i in seq(along=fullD)) lines(fullD[[i]], lty=seq(3, 1)[i])
+    legend("topright", names(full), lty=3:1, cex=0.7, bty="n")
     if (postscript) dev.off()
     if (calType != "none") rqcalibs
 }

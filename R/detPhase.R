@@ -84,12 +84,9 @@
         }
     }
 
-    indphases <- as.numeric(gsub("[[:alpha:]]* ([[:digit:]]+)",
-                                 "\\1", finacts[[1]]))
-    names(finacts[[3]]) <- gsub("[[:alpha:]]* ([[:digit:]]+)",
-                                "\\1", names(finacts[[3]]))
-    names(finacts[[4]]) <- gsub("[[:alpha:]]* ([[:digit:]]+)",
-                                "\\1", names(finacts[[4]]))
+    indphases <- as.numeric(finacts[[1]])
+    names(finacts[[3]]) <- seq(length(names(finacts[[3]])))
+    names(finacts[[4]]) <- seq(length(names(finacts[[4]])))
 
     ## Return list with vector indexing all per-row activities,
     ## a vector with the activities themselves, two chron vectors

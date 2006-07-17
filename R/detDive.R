@@ -16,7 +16,7 @@
                time[which(diffdive != 0)],
                time[length(time)] + interval)
     cuttimbr <- cut(time, br=timbr)
-    rawid <- as.numeric(gsub("[[:alpha:]]* ([[:digit:]]+)", "\\1", cuttimbr))
+    rawid <- as.numeric(cuttimbr)
 
     diveid <- rawid
     diveid[dive == 0] <- 0               # non-dive are 0, and dives conseq:
