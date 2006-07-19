@@ -1,3 +1,14 @@
+2006-07-18  Sebastian Luque  <spluque@gmail.com>
+
+	NAMESPACE is now successfully implemented.
+
+	* AllMethod.R: New accessor getFileName().
+
+	* zzz.R: New file.
+
+	* stampDive.R, diveStats.R, calibrate.R, detDive.R, AllMethod.R:
+	Standardized accessor method names.
+
 2006-07-17  Sebastian Luque  <spluque@gmail.com>
 
 	* plotDive.R:

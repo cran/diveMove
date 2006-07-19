@@ -8,19 +8,19 @@
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
     if (!is(x, "TDRcalibrate")) stop ("x needs to be a TDRcalibrate object")
-    act <- grossAct(x, "trip.act")
-    diveid <- diveAct(x, "dive.id")
+    act <- getGAct(x, "trip.act")
+    diveid <- getDAct(x, "dive.id")
 
     if (ignoreZ) {
-        tt <- tdrTime(tdr(x))
-        interval <- dtime(tdr(x))
+        tt <- getTime(getTDR(x))
+        interval <- getDtime(getTDR(x))
         act[act == "Z"] <- "L"
         attlist <- getAct(tt, act, interval) # recalculate
         phaseid <- as.numeric(gsub("[[:alpha:]]* ([[:digit:]]+)",
                                    "\\1", attlist[[1]])) # what phase.id is now
     } else {
-        attlist <- grossAct(x)
-        phaseid <- grossAct(x, "phase.id")
+        attlist <- getGAct(x)
+        phaseid <- getGAct(x, "phase.id")
     }
 
     beg <- rep(attlist[[3]], table(phaseid))

@@ -1,0 +1,25 @@
+importFrom(graphics, plot, image)
+import(methods)
+
+exportPattern("^[^\\.]")
+
+exportClasses("TDR",
+              "TDRvel",
+              "TDRcalibrate")
+
+exportMethods("as.data.frame",
+              "attendance",
+              "coerce",
+              "getDepth",
+              "getDAct",
+              "getDPhaseLab",
+              "getDtime",
+              "getFileName",
+              "extractDive",
+              "getGAct",
+              "plot",
+              "show",
+              "getTDR",
+              "getTime",
+              "getVelCoef",
+              "getVeloc")

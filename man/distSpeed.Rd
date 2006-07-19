@@ -1,8 +1,8 @@
 \name{distSpeed}
-\alias{distSpeed}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\alias{track}
 
+\alias{distSpeed}
+\alias{track}
+% -------------------------------------------------------------------------
 
 \title{Calculate distance and speed between locations}
 
@@ -39,6 +39,7 @@ track(txy, id=gl(1, nrow(txy)), subset)
 
   \item{subset}{a logical expression indicating the rows to be analyzed,
     in terms of elements of \code{txy}.}
+
 }
 
 
@@ -56,5 +57,6 @@ track(txy, id=gl(1, nrow(txy)), subset)
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
+% -------------------------------------------------------------------------
 \keyword{math}% at least one, from doc/KEYWORDS
 \keyword{manip}

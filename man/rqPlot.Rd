@@ -1,7 +1,7 @@
 \name{rqPlot}
-\alias{rqPlot}
-%- Also NEED an '\alias' for EACH other topic documented here.
 
+\alias{rqPlot}
+% -------------------------------------------------------------------------
 
 \title{Plot of quantile regression for velocity calibrations}
 
@@ -12,6 +12,8 @@
 
 \usage{
 rqPlot(rdepth, vel, rqFit, main="qtRegression",
+       xlab="rate of depth change (m/s)",
+       ylab="velocity (m/s)",
        colramp=colorRampPalette(c("white", "darkblue")))
 }
 %- maybe also 'usage' for other objects documented here.
@@ -27,6 +29,8 @@ rqPlot(rdepth, vel, rqFit, main="qtRegression",
     regression fit of rate of depth change on mean velocity.}
 
   \item{main}{string; title prefix to include in ouput plot.}
+
+  \item{xlab, ylab}{axis labels.}
 
   \item{colramp}{function taking an integer n as an argument and
     returning n colors.}
@@ -53,6 +57,7 @@ plot((sealX <- readTDR(system.file(file.path("data", "sealMK8.csv"),
 }
 
 
+% -------------------------------------------------------------------------
 \keyword{manip}% at least one, from doc/KEYWORDS
 \keyword{chron}
 \keyword{arith}

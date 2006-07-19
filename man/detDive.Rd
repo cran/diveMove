@@ -1,10 +1,9 @@
 \name{detDive}
-\alias{detDive}
 
+\alias{detDive}
 \alias{labDive}
 \alias{labDivePhase}
-%- Also NEED an '\alias' for EACH other topic documented here.
-
+% -------------------------------------------------------------------------
 
 \title{Detect dives from depth readings}
 
@@ -43,7 +42,7 @@ labDivePhase(x, diveID)
   \item{x}{a class \sQuote{TDR} object}
 
   \item{diveID}{numeric vector indexing each dive (non-dives should be
-    0)}
+  0)}
 
 }
 
@@ -70,7 +69,7 @@ labDivePhase(x, diveID)
     All levels may be represented.}
 
   \item{postdive.id}{numeric vector numbering each postdive interval
-  with the same value as the preceding dive.}
+    with the same value as the preceding dive.}
 
   \code{labDive} returns a matrix with as many rows as its first two
   arguments with two columns: dive.id, and postdive.id, each one
@@ -79,8 +78,7 @@ labDivePhase(x, diveID)
   \code{labDivePhase} returns a factor with levels \dQuote{D},
   \dQuote{DB}, \dQuote{B}, \dQuote{BA}, \dQuote{A}, \dQuote{DA}, and
   \dQuote{X}, breaking the input into descent, descent/bottom, bottom,
-  bottom/ascent, ascent, and non-dive, respectively.
-}
+  bottom/ascent, ascent, and non-dive, respectively.}
 
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
@@ -89,5 +87,6 @@ labDivePhase(x, diveID)
 \seealso{\code{\link{detPhase}}, \code{\link{zoc}}}
 
 
+% -------------------------------------------------------------------------
 \keyword{manip}% at least one, from doc/KEYWORDS
 \keyword{chron}

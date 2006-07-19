@@ -1,9 +1,9 @@
 \name{diveMove-package}
-\alias{diveMove-package}
-
-\alias{diveMove}
 \docType{package}
 
+\alias{diveMove-package}
+\alias{diveMove}
+% -------------------------------------------------------------------------
 
 \title{Time depth recorder analysis}
 
@@ -17,9 +17,6 @@
 
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
-
-
-% \details{}
 
 
 \seealso{A vignette with a guide to this package is available by doing
@@ -45,8 +42,8 @@
 ## plot dive number 100
 \dontrun{plot(extractDive(dcalib, 100))
 ## plot dives 160 to the last one and show dive phases
-plot(extractDive(dcalib, 160:max(diveAct(dcalib, "dive.id"))),
-     phaseCol=dPhaseLab(dcalib, 160:max(diveAct(dcalib, "dive.id"))))}
+plot(extractDive(dcalib, 160:max(getDAct(dcalib, "dive.id"))),
+     phaseCol=getDPhaseLab(dcalib, 160:max(getDAct(dcalib, "dive.id"))))}
 
 ## calibrate velocity
 (vcalib <- calibrateVel(dcalib))
@@ -67,4 +64,5 @@ head(sumtab)
 }
 
 
+% -------------------------------------------------------------------------
 \keyword{ package }

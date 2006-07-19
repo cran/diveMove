@@ -2,8 +2,7 @@
 
 \alias{zoc}
 \alias{plotDive}
-%- Also NEED an '\alias' for EACH other topic documented here.
-
+% -------------------------------------------------------------------------
 
 \title{Interactive zero-offset correction of TDR data}
 
@@ -55,8 +54,7 @@ plotDive(time, depth, vel=NULL, xlim=NULL, phaseCol=NULL)
 
   Once the whole record has been zero-offset corrected, remaining points
   with depth values lower than zero, are turned into zeroes, as these
-  are assumed to be values at the surface.
-}
+  are assumed to be values at the surface.}
 
 
 \value{ \code{zoc} returns a numeric vector, as long as \code{depth} of
@@ -75,4 +73,5 @@ plotDive(time, depth, vel=NULL, xlim=NULL, phaseCol=NULL)
 \seealso{\code{\link{detDive}}}
 
 
+% -------------------------------------------------------------------------
 \keyword{iplot}% at least one, from doc/KEYWORDS

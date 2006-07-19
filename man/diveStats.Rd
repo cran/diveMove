@@ -1,10 +1,9 @@
 \name{diveStats}
+
 \alias{diveStats}
-
 \alias{getDive}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \alias{stampDive}
-
+% -------------------------------------------------------------------------
 
 \title{Per-dive statistics}
 
@@ -37,16 +36,14 @@ stampDive(x, ignoreZ=TRUE)
 }
 
 
-\details{
-  \code{diveStats} calculates various dive statistics based on time and
-  depth for an entire TDR record.  \code{getDive} obtains these
+\details{\code{diveStats} calculates various dive statistics based on
+  time and depth for an entire TDR record.  \code{getDive} obtains these
   statistics from a single dive, and \code{stampDive} stamps each dive
   with associated trip information.}
 
 
-\value{
-  A \code{\link{data.frame}} with one row per dive detected (durations
-  are in s, and linear variables in m):
+\value{A \code{\link{data.frame}} with one row per dive detected
+  (durations are in s, and linear variables in m):
 
   \item{begdesc}{a chron object, specifying the start time of each
     dive.}
@@ -78,13 +75,13 @@ stampDive(x, ignoreZ=TRUE)
 
   \item{desc.angle}{numeric vector with descent angle.}
 
-  \item{bott.tdist}{numeric vector with bottom total distance,
-    estimated from velocity.}
+  \item{bott.tdist}{numeric vector with bottom total distance, estimated
+    from velocity.}
 
   \item{bott.mean.vel}{numeric vector with bottom mean velocity.}
 
-  \item{asc.tdist}{numeric vector with ascent total distance,
-    estimated from velocity.}
+  \item{asc.tdist}{numeric vector with ascent total distance, estimated
+    from velocity.}
 
   \item{asc.mean.vel}{numeric vector with ascent mean velocity.}
 
@@ -103,9 +100,8 @@ stampDive(x, ignoreZ=TRUE)
 
   The number of columns depends on the value of vel.
 
-  \code{stampDive} returns a data.frame with trip number, trip type,
-  and start and end times for each dive.
-}
+  \code{stampDive} returns a data.frame with trip number, trip type, and
+  start and end times for each dive.}
 
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
@@ -115,5 +111,6 @@ stampDive(x, ignoreZ=TRUE)
   \code{\link{TDRcalibrate-class}}}
 
 
+% -------------------------------------------------------------------------
 \keyword{arith}% at least one, from doc/KEYWORDS
 \keyword{math}

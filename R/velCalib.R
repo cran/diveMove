@@ -88,6 +88,8 @@
 ## CALIBRATING AND PLOTTING ###############################################
 
 "rqPlot" <- function(rdepth, vel, rqFit, main="qtRegression",
+                     xlab="rate of depth change (m/s)",
+                     ylab="velocity (m/s)",
                      colramp=colorRampPalette(c("white", "darkblue")))
 {
     ## Purpose: quantile regression plot for TDR velocity calibration
@@ -98,8 +100,6 @@
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
-    xlab <- "rate of depth change (m/s)"
-    ylab <- "velocity (m/s)"
     ## Bandwidths for the x and y axis for the kernel plot
     bandw <- c(bw.nrd(rdepth), bw.nrd(vel))
     z <- bkde2D(cbind(rdepth, vel), bandwidth=bandw)
@@ -128,7 +128,7 @@
     ## bad=vector (length 2) with lower threshold rate of depth change and
     ## velocity, respectively, below which data should be ignored, respectively,
     ## below which data should be excluded,
-    ## filename=base name for output eps files, ...=for rqPlot (colramp)
+    ## filename=base name for output eps files, ...=for rqPlot (colramp, etc.)
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
@@ -142,19 +142,19 @@
     asc <- asc[asc[, 2] > 0 & asc[, 2] > bad[1] & asc[, 3] > bad[2], ]
     pooled <- rbind(desc, asc)
     full <- list(descent=desc, ascent=asc, pooled=pooled)
-    fullD <- lapply(full, function(x) density(x[, 3], "nrd"))
-    fullDx <- range(sapply(fullD, function(x) range(x$x)))
-    fullDy <- range(sapply(fullD, function(x) range(x$y)))
+    fullD <- lapply(full, function(x) apply(x[, 2:3], 2, density, "nrd"))
+    fullDx <- range(sapply(fullD, function(x) sapply(x, function(k) range(k$x))))
+    fullDy <- range(sapply(fullD, function(x) sapply(x, function(k) range(k$y))))
 
     prefix <- gsub("(.*).csv", "\\1", filename)
     if (postscript) {
         outfile <- paste(prefix, "_velcal.eps", sep="")
         postscript(outfile, paper="special", width=6, height=6,
-                   horizontal=FALSE, pointsize=14,
+                   horizontal=FALSE, ## pointsize=14,
                    title=paste(prefix, "speed calibration"))
-    } else {
-        layout(matrix(c(1, 4, 2, 3), 2, 2, byrow=TRUE), respect=TRUE)
     }
+    layout(matrix(c(1, 2, 4, 3), 2, 2), respect=TRUE)
+    par(mar=c(4.5, 2, 3.5, 0))
     for (i in names(full)) {
         ratedep <- full[[i]][, 2]
         mvel <- full[[i]][, 3]
@@ -165,9 +165,18 @@
             rqcalibs <- list(coefficients=coef(rqfit), corrVel=corrvel)
         }
     }
-    plot(fullDx, fullDy, type="n", xlab="x", ylab="density")
-    for (i in seq(along=fullD)) lines(fullD[[i]], lty=seq(3, 1)[i])
-    legend("topright", names(full), lty=3:1, cex=0.7, bty="n")
+    plot(fullDx, fullDy, type="n", xlab="x",
+         ylab="density", cex.lab=1.3, las=1)
+    leg.lty <- 3:1
+    for (i in seq(along=fullD)) {
+        cur.d <- fullD[[i]]
+        lty <- leg.lty[i]
+        lines(cur.d[[1]], lty=lty)
+        lines(cur.d[[2]], lty=lty, col=2)
+    }
+    leg.t <- paste(rep(names(fullD), 2), rep(c("vert. v", "TDR v"), each=3))
+    legend("topright", leg.t, lty=rep(leg.lty, 2), col=rep(1:2, each=3),
+           cex=0.6, bty="n", x.intersp=0.6)
     if (postscript) dev.off()
     if (calType != "none") rqcalibs
 }

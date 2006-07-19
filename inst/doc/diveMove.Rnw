@@ -157,8 +157,8 @@ sealX
 @
 
 Other extractor methods are named after the component they extract:
-\Rmethod{tdrTime}, \Rmethod{depth}, \Rmethod{velocity}, and
-\Rmethod{dtime}, where the latter extracts the sampling interval.  The
+\Rmethod{getTime}, \Rmethod{getDepth}, \Rmethod{getVeloc}, and
+\Rmethod{getDtime}, where the latter extracts the sampling interval.  The
 \Rmethod{plot} method brings up a plot of the data covering the entire
 record, although a \Rpackage{tcltk} widget provides controls for zooming
 and panning to any particular time window.  Alernatively, the underlying
@@ -169,8 +169,8 @@ separate \Rfunarg{time} and \Rfunarg{depth} arguments, rather than a
 At any time, TDR objects can be coerced to a simple data frame, which can
 later be exported or manipulated any other way:
 <<asdataframe>>=
-sealXdf <- as.data.frame(sealX)
-head(sealXdf)
+sealX.df <- as.data.frame(sealX)
+head(sealX.df)
 @
 
 
@@ -246,34 +246,35 @@ dcalib
 \label{sec:wet-dry}
 
 Extractor methods are also available to access the information stored in
-\Rclass{TDRcalibrate} objects.  These include: tdr, grossAct, diveAct,
-dPhaseLab, and velCCoefs.  These are all generic functions\footnote{A few
-  of them with more than one method} that access the (depth) calibrated
+\Rclass{TDRcalibrate} objects.  These include: \Rmethod{getTDR},
+\Rmethod{getGAct}, \Rmethod{getDAct}, \Rmethod{getDPhaseLab}, and
+\Rmethod{getVelCoefs}.  These are all generic functions\footnote{A few of
+  them with more than one method} that access the (depth) calibrated
 \Rclass{TDR} object, details from wet/dry periods, dives, dive phases, and
 velocity calibration coefficients (see~Section~\ref{sec:velocity}),
 respectively.  Below is a short explanation of these methods.
 
 \begin{itemize}
-\item [\Rmethod{tdr}] This method simply takes the \Rclass{TDRcalibrate}
+\item [\Rmethod{getTDR}] This method simply takes the \Rclass{TDRcalibrate}
   object as its single argument and extracts the \Rclass{TDR}
   object\footnote{In fact, a \Rclass{TDRvel} object in this example}:
 <<tdr-extract>>=
-tdr(dcalib)
+getTDR(dcalib)
 @
 
-\item [\Rmethod{grossAct}] There are two methods for this generic,
+\item [\Rmethod{getGAct}] There are two methods for this generic,
   allowing access to a list with details about all wet/dry periods found.
   One of these extracts the entire \Rclass{list} (output omitted for
   brevity):
 <<grossact1, eval=FALSE>>=
-grossAct(dcalib)
+getGAct(dcalib)
 @
 The other provides access to particular elements of the \Rclass{list}, by
 their name.  For example, if we are interested in extracting only the
 vector that tells us to which period number every row in the record
 belongs to, we would issue the command:
 <<grossact2, eval=FALSE>>=
-grossAct(dcalib, "phase.id")
+getGAct(dcalib, "phase.id")
 @
 Other elements that can be extracted are named ``trip.act'', ``trip.beg'',
 and ``trip.end'', and can be extracted in a similar fashion.  These
@@ -281,28 +282,28 @@ elements correspond to the activity performed for each reading (see
 \verb|?detPhase| for a description of the labels for each activity), the
 beginning and ending time for each period, respectively.
 
-\item [\Rmethod{diveAct}] This generic also has two methods; one to
+\item [\Rmethod{getDAct}] This generic also has two methods; one to
   extract an entire data frame with details about all dive and postdive
   periods found (output omitted):
 <<diveact-1, eval=FALSE>>=
-diveAct(dcalib)
+getDAct(dcalib)
 @
 The other method provides access to the columns of this data frame, which
 are named ``dive.id'', ``dive.activity'', and ``postdive.id''.  Thus,
-providing any one of these strings to diveAct, as a second argument will
+providing any one of these strings to getDAct, as a second argument will
 extract the corresponding column.
 
-\item [\Rmethod{dPhaseLab}] This generic function extracts a factor
+\item [\Rmethod{getDPhaseLab}] This generic function extracts a factor
   identifying each row of the record to a particular dive phase (see
   \verb|?detDive| for a description of the labels of the factor
   identifying each dive phase).  Two methods are available; one to extract
   the entire factor, and the other to select particular dive(s), by its
   (their) number, respectively (output omitted):
 <<dphaselab1, eval=FALSE>>=
-dPhaseLab(dcalib)
-dPhaseLab(dcalib, 20)
+getDPhaseLab(dcalib)
+getDPhaseLab(dcalib, 20)
 <<dphaselab2>>=
-dphases <- dPhaseLab(dcalib, c(100:300))
+dphases <- getDPhaseLab(dcalib, c(100:300))
 @
 The latter method is useful for visually inspecting the assignment of
 points to particular dive phases.  Before doing that though, this is a
