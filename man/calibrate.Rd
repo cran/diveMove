@@ -1,25 +1,27 @@
 \name{calibrateDepth}
+
 \alias{calibrateDepth}
-
 \alias{calibrateVel}
+% -------------------------------------------------------------------------
 
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{Calibrate and build a "TDRcalibrate" object}
+
 
 \description{These functions create a "TDRcalibrate" object which is
   necessary to obtain dive summary statistics.}
 
+
 \usage{
 calibrateDepth(x, landerr=65, seaerr=3605, divethres=4, offset)
 calibrateVel(x, type="all", calType="pooled", bad=c(0, 0),
-z=0, filename=slot(tdr(x), "file"), coefs, \ldots)
+z=0, filename=slot(getTDR(x), "file"), coefs, \ldots)
 }
 
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
 
-  \item{x}{an object of class \code{TDR} for \code{calibrateDepth},
-    and an object of class \code{TDRcalibrate-class} for
+  \item{x}{an object of class \code{TDR} for \code{calibrateDepth}, and
+    an object of class \code{TDRcalibrate-class} for
     \code{calibrateVel}.}
 
   \item{landerr, seaerr}{arguments to \code{\link{detPhase}}.}
@@ -66,5 +68,6 @@ z=0, filename=slot(tdr(x), "file"), coefs, \ldots)
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
+% -------------------------------------------------------------------------
 \keyword{manip}% at least one, from doc/KEYWORDS
 \keyword{math}% __ONLY ONE__ keyword per line

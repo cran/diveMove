@@ -6,8 +6,7 @@
 \alias{.getInterval}
 \alias{.getVelCalib}
 \alias{.getVelStats}
-\alias{rmsDist}
-\alias{stageOne}
+% -------------------------------------------------------------------------
 
 \title{Internal diveMove Functions}
 
@@ -23,8 +22,6 @@
 .getInterval(time)
 .getVelCalib(time, zdepth, vel, dives, phase, \dots)
 .getVelStats(x, vdist)
-rmsDist(x, velthres, window=5, distthres)
-stageOne(x, velthres, window=5)
 }
 
 
@@ -32,10 +29,9 @@ stageOne(x, velthres, window=5)
 
   \item{x}{a single dive's data; for \emph{\code{.cutDive}}: a 2-col
     matrix with subscript in original TDR object and non NA depths.  For
-    \emph{\code{stageOne}} and \emph{\code{rmsDist}}, it's a matrix with
-    cols: chron, lon and lat.  For \emph{.descAsc}: a 4-col matrix with
-    dive id, time, depth, and velocity.  For \emph{.getVelStats}: a
-    3-col matrix with time, depth, and velocity.}
+    \emph{.descAsc}: a 4-col matrix with dive id, time, depth, and
+    velocity.  For \emph{.getVelStats}: a 3-col matrix with time, depth,
+    and velocity.}
 
   \item{date}{A vector to be converted to be converted to a chron
     object.}
@@ -70,13 +66,7 @@ stageOne(x, velthres, window=5)
 
   \item{vdist}{vertical distance travelled during ascent or descent.}
 
-  \item{velthres}{maximum velocity criteria for testing location
-    validity.}
-
-  \item{distthres}{maximum distance criteria for testing location
-    validity.}
 }
-
 
 
 \details{These functions are not meant to be called directly by the
@@ -92,16 +82,14 @@ stageOne(x, velthres, window=5)
   last measurement interval.}
 
 
-\value{
-
-  \emph{.getVelCalib}: A list with two elements (named \dQuote{descent}
-  and \dQuote{ascent}).  Each element is a 2-column matrix with rate of
-  depth change in the first column, and velocity in the second,
-  corresponding to the descent phase of each dive.
-}
+\value{\emph{.getVelCalib}: A list with two elements (named
+  \dQuote{descent} and \dQuote{ascent}).  Each element is a 2-column
+  matrix with rate of depth change in the first column, and velocity in
+  the second, corresponding to the descent phase of each dive.}
 
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
+% -------------------------------------------------------------------------
 \keyword{internal}

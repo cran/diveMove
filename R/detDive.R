@@ -143,8 +143,8 @@
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
     if (!is(x, "TDR")) stop("x must be a TDR object")
-    ok <- which(diveID > 0 & !is.na(depth(x))) # required diving indices
-    ddepths <- depth(x)[ok]               # diving depths
+    ok <- which(diveID > 0 & !is.na(getDepth(x))) # required diving indices
+    ddepths <- getDepth(x)[ok]               # diving depths
     dids <- diveID[ok]                    # dive IDs
     ## We send a matrix of indices and non-NA depths
     td <- matrix(data=c(ok, ddepths), ncol=2) # times & depth dives only

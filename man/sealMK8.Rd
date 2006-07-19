@@ -2,7 +2,7 @@
 \docType{data}
 
 \alias{sealMK8}
-
+% -------------------------------------------------------------------------
 
 \title{Sample TDR data from a fur seal}
 
@@ -45,4 +45,5 @@
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
+% -------------------------------------------------------------------------
 \keyword{datasets}

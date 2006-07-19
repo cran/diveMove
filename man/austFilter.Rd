@@ -1,7 +1,9 @@
 \name{austFilter}
-\alias{austFilter}
-%- Also NEED an '\alias' for EACH other topic documented here.
 
+\alias{grpSpeedFilter}
+\alias{rmsDistFilter}
+\alias{austFilter}
+% -------------------------------------------------------------------------
 
 \title{Filter satellite locations}
 
@@ -13,6 +15,8 @@
 \usage{
 austFilter(time, lon, lat, id=gl(1, 1, length(time)),
            velthres, distthres, window=5)
+grpSpeedFilter(x, velthres, window=5)
+rmsDistFilter(x, velthres, window=5, distthres)
 }
 %- maybe also 'usage' for other objects documented here.
 
@@ -37,11 +41,21 @@ austFilter(time, lon, lat, id=gl(1, 1, length(time)),
   \item{window}{integer indicating the size of the moving window over
     which tests should be carried out.}
 
+  \item{x}{3-column matrix with column 1: numeric chron vector; column
+    2: numeric longitude vector; column 3: numeric latitude vector.}
+
 }
 
 
-\details{The first stage of the filter is an iterative process which
-  tests every point, except the first and last two, for travel velocity
+\details{These functions implement the location filtering procedure
+  outlined in Austin et al. (2003).  \code{grpSpeedFilter} and
+  \code{rmsDistFilter} can be used to perform only the first stage or
+  the second and third stages of the algorithm on their own,
+  respectively.  Alternatively, the three filters can be run
+  sequentially using \code{austFilter}.
+
+  The first stage of the filter is an iterative process which tests
+  every point, except the first and last two, for travel velocity
   relative to the preceeding/following two points. If all these four
   velocities are greater than the specified threshold, the point is
   marked as failing the first stage. In this case, the next point is
@@ -67,16 +81,13 @@ whether the filter is applied iteratively or in a vectorized fashion, so
 authors may be using it inconsistently.}
 
 
-\value{
-  A matrix with three columns of logical vectors with values TRUE
-  for points that failed each stage.
-}
+\value{A matrix with three columns of logical vectors with values TRUE
+  for points that failed each stage.}
 
 
 \note{Points that fail the first stage also fail the second and third
   stage, but points that fail the second stage do not necessarily fail
-  the third stage.
-}
+  the third stage.}
 
 
 \author{Sebastian P. Luque \email{spluque@gmail.com} and Andy Liaw.}
@@ -85,16 +96,15 @@ authors may be using it inconsistently.}
 \seealso{\code{\link{distSpeed}}}
 
 
-\references{
-  McConnell BJ, Chambers C, Fedak MA. 1992. Foraging ecology of southern
-  elephant seals in relation to bathymetry and productivity of the
-  Southern Ocean. \emph{Antarctic Science} 4:393-398.
+\references{McConnell BJ, Chambers C, Fedak MA. 1992. Foraging ecology
+  of southern elephant seals in relation to bathymetry and productivity
+  of the Southern Ocean. \emph{Antarctic Science} 4:393-398.
 
   Austin D, McMillan JI, Bowen D. 2003. A three-stage algorithm for
   filtering erroneous Argos satellite locations. \emph{Marine Mammal
-    Science} 19: 371-383.
-}
+  Science} 19: 371-383.}
 
 
+% -------------------------------------------------------------------------
 \keyword{manip}% at least one, from doc/KEYWORDS
 \keyword{iteration}

@@ -1,18 +1,17 @@
 \name{readTDR}
+
 \alias{readTDR}
-%- Also NEED an '\alias' for EACH other topic documented here.
-
 \alias{createTDR}
-
+% -------------------------------------------------------------------------
 
 \title{Read comma-delimited file with TDR data}
 
 
 \description{Read a comma delimited (*.csv) file containing time-depth
   recorder (TDR) data from various TDR models.  Models supported are
-  MK5, MK7, and MK8 Wildlife Computers instruments.  Return a
-  \code{TDR} or \code{TDRvel} object. \code{buildTDR} creates an object
-  of one of these classes from other objects in the session.}
+  MK5, MK7, and MK8 Wildlife Computers instruments.  Return a \code{TDR}
+  or \code{TDRvel} object. \code{buildTDR} creates an object of one of
+  these classes from other objects in the session.}
 
 
 \usage{
@@ -77,4 +76,5 @@ readTDR(system.file(file.path("data", "sealMK8.csv"),
 }
 
 
+% -------------------------------------------------------------------------
 \keyword{manip}% at least one, from doc/KEYWORDS

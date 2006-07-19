@@ -1,7 +1,7 @@
 \name{doVelCalib}
-\alias{doVelCalib}
-%- Also NEED an '\alias' for EACH other topic documented here.
 
+\alias{doVelCalib}
+% -------------------------------------------------------------------------
 
 \title{Calibration of TDR velocity}
 
@@ -39,8 +39,8 @@ doVelCalib(rates, vel, calType="pooled", bad=c(0, 0), filename,
 
   \item{postscript}{logical; whether output plot to eps.}
 
-  \item{\ldots}{arguments passed to rqPlot; currently, colramp only is
-    recognized.}
+  \item{\ldots}{arguments passed to rqPlot; currently, xlab, ylab,
+    and colramp.}
 
 }
 
@@ -61,8 +61,7 @@ doVelCalib(rates, vel, calType="pooled", bad=c(0, 0), filename,
   quantile regression, respectively.}
 
 
-\value{
-  If \code{calType} is not \dQuote{none}, a list of two elements:
+\value{If \code{calType} is not \dQuote{none}, a list of two elements:
 
   \item{coefficients}{numeric vector of length two with the intercept
     and the slope of the quantile regression defining the calibration
@@ -74,9 +73,7 @@ doVelCalib(rates, vel, calType="pooled", bad=c(0, 0), filename,
   A plot (possibly via \code{\link{postscript}}, depending on the value
   of postscript argument) of the calibration lines for all possible
   cases: \dQuote{descent}, \dQuote{ascent}, and \dQuote{pooled}, is
-  created as a side effect.
-
-}
+  created as a side effect.}
 
 
 \references{Blackwell, S.  (1999) A method for calibrating swim-speed
@@ -89,5 +86,6 @@ doVelCalib(rates, vel, calType="pooled", bad=c(0, 0), filename,
 \seealso{\code{\link{TDRcalibrate-class}}, \code{\link{rqPlot}}}
 
 
+% -------------------------------------------------------------------------
 \keyword{manip}% at least one, from doc/KEYWORDS
 \keyword{math}

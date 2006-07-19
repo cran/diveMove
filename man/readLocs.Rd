@@ -1,7 +1,6 @@
 \name{readLocs}
 \alias{readLocs}
-%- Also NEED an '\alias' for EACH other topic documented here.
-
+% -------------------------------------------------------------------------
 
 \title{Read comma-delimited file with location data}
 
@@ -28,13 +27,14 @@ readLocs(file, loc.idCol, idCol, dateCol, timeCol=NULL,
   \item{idCol}{Column number containing an identifier for locations
     belonging to different groups.}
 
-  \item{dateCol}{Column number containing dates, and, optionally, times.}
+  \item{dateCol}{Column number containing dates, and, optionally,
+    times.}
 
   \item{timeCol}{Column number containing times.}
 
   \item{dtformat}{length-2 numeric vector specifying the format (as in
-    \code{chron}) in which date and time, respectively, should be read in
-    \code{file}}
+    \code{chron}) in which date and time, respectively, should be read
+    in \code{file}}
 
   \item{lonCol}{Column number containing longitude readings.}
 
@@ -47,8 +47,7 @@ readLocs(file, loc.idCol, idCol, dateCol, timeCol=NULL,
     readings.}
 
   \item{alt.latCol}{Column number containing alternative latitude
-    readings.}
-}
+    readings.}}
 
 
 \details{The file must have a header row identifying each field, and all
@@ -62,4 +61,5 @@ readLocs(file, loc.idCol, idCol, dateCol, timeCol=NULL,
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
+% -------------------------------------------------------------------------
 \keyword{manip}

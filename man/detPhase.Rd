@@ -1,9 +1,8 @@
 \name{detPhase}
+
 \alias{detPhase}
-
 \alias{getAct}
-%- Also NEED an '\alias' for EACH other topic documented here.
-
+% -------------------------------------------------------------------------
 
 \title{Detect phases of activity from depth readings}
 
@@ -26,8 +25,8 @@ getAct(time, act, interval)
 
   \item{depth}{numeric vector with depth readings.}
 
-  \item{landerr}{land error threshold in seconds.  On-land phases shorter
-    than this threshold will be considered as at-sea.}
+  \item{landerr}{land error threshold in seconds.  On-land phases
+    shorter than this threshold will be considered as at-sea.}
 
   \item{seaerr}{at-sea leisure threshold in seconds. At-sea phases
     shorter than this threshold will be considered as at-sea leisure.}
@@ -36,6 +35,7 @@ getAct(time, act, interval)
     of \code{time}.}
 
   \item{interval, \dots}{sampling interval in chron units (d).}
+
 }
 
 
@@ -58,9 +58,8 @@ getAct(time, act, interval)
   and end times.}
 
 
-\value{
-  A list with components; the first 4 are returned by \code{detPhase}
-  and the rest by \code{getAct}:
+\value{A list with components; the first 4 are returned by
+  \code{detPhase} and the rest by \code{getAct}:
 
   \item{phase.id}{numeric vector identifying each activity phase,
     starting from 1 for every input record.}
@@ -81,8 +80,7 @@ getAct(time, act, interval)
 
   \item{time.br}{a factor dividing the factor \code{act} in phases.}
 
-  \item{time.peract}{duration of each phase defined by
-    \code{time.br}.}
+  \item{time.peract}{duration of each phase defined by \code{time.br}.}
 
   \item{beg.time}{beginning time for each phase.}
 
@@ -95,5 +93,6 @@ getAct(time, act, interval)
 \seealso{\code{\link{detDive}}}
 
 
+% -------------------------------------------------------------------------
 \keyword{manip}% at least one, from doc/KEYWORDS
 \keyword{chron}

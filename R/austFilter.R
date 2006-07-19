@@ -1,4 +1,4 @@
-"stageOne" <- function(x, velthres, window=5)
+"grpSpeedFilter" <- function(x, velthres, window=5)
 {
     ## Purpose: Do stage one on matrix x (assuming it's a single unit)
     ## --------------------------------------------------------------------
@@ -17,21 +17,21 @@
         for (n in ref) vels[which(ref == n)] <- distSpeed(k[mid, ], k[n, ])[3]
         all(vels > velthres, na.rm=TRUE)
     }
-    nopassone <- logical(nrow(x))
+    failed <- logical(nrow(x))
     ## define all test rows and subscript for forward movement of window
     testrows <- seq(1 + tpos, nrow(x) - tpos); i <- 1
     for (j in testrows) {
         if(testfun(x[c(i:(i + tpos - 1), j:(j + tpos)), ])) {
-            nopassone[j] <- TRUE
+            failed[j] <- TRUE
         } else {
             i <- i + 1
         }
     }
-    nopassone
+    failed
 }
 
 
-"rmsDist" <- function(x, velthres, window=5, distthres)
+"rmsDistFilter" <- function(x, velthres, window=5, distthres)
 {
     ## Purpose:  Apply McConnell et al's filter and Austin et al's last stage
     ## --------------------------------------------------------------------
@@ -93,12 +93,13 @@
     locs <- matrix(c(time, lon, lat), ncol=3)
 
     ## Do first stage over each seal's data, returns vector as long as locs
-    first <- unlist(by(locs, id, stageOne, velthres, window), use.names=FALSE)
+    first <- unlist(by(locs, id, grpSpeedFilter, velthres, window),
+                    use.names=FALSE)
 
     ## SECOND AND THIRD STAGES ********************************************
     good <- which(!first)                 # native subscripts that passed
 
-    last <- do.call(rbind, by(locs[good, ], id[good], rmsDist,
+    last <- do.call(rbind, by(locs[good, ], id[good], rmsDistFilter,
                               velthres, window, distthres))
     filter23 <- logical(length(first))
 

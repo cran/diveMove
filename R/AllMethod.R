@@ -22,34 +22,38 @@ if (!isGeneric("plot")) {
 }
 setMethod("plot", signature(x="TDR", y="missing"),
           function(x, ...) {
-              plotDive(tdrTime(x), depth(x), ...)
+              plotDive(getTime(x), getDepth(x), ...)
           })
 setMethod("plot", signature(x="TDRvel", y="missing"),
           function(x, ...) {
-              plotDive(tdrTime(x), depth(x), velocity(x), ...)
+              plotDive(getTime(x), getDepth(x), getVeloc(x), ...)
           })
 
-
-if (!isGeneric("tdrTime")) {               # time accessor
-    setGeneric("tdrTime", function(x) standardGeneric("tdrTime"))
+if (!isGeneric("getFileName")) {               # File name accessor
+    setGeneric("getFileName", function(x) standardGeneric("getFileName"))
 }
-setMethod("tdrTime", signature(x="TDR"), function(x) x@time)
+setMethod("getFileName", signature(x="TDR"), function(x) x@file)
 
-if (!isGeneric("depth")) {               # depth accessor
-    setGeneric("depth", function(x) standardGeneric("depth"))
+if (!isGeneric("getTime")) {               # time accessor
+    setGeneric("getTime", function(x) standardGeneric("getTime"))
 }
-setMethod("depth", signature(x="TDR"), function(x) x@depth)
+setMethod("getTime", signature(x="TDR"), function(x) x@time)
 
-if (!isGeneric("velocity")) {               # velocity accessor
-    setGeneric("velocity", function(x) standardGeneric("velocity"))
+if (!isGeneric("getDepth")) {               # Depth accessor
+    setGeneric("getDepth", function(x) standardGeneric("getDepth"))
 }
-setMethod("velocity", signature(x="TDRvel"),
+setMethod("getDepth", signature(x="TDR"), function(x) x@depth)
+
+if (!isGeneric("getVeloc")) {               # velocity accessor
+    setGeneric("getVeloc", function(x) standardGeneric("getVeloc"))
+}
+setMethod("getVeloc", signature(x="TDRvel"),
           function(x) x@velocity)
 
-if (!isGeneric("dtime")) {               # interval accessor
-    setGeneric("dtime", function(x) standardGeneric("dtime"))
+if (!isGeneric("getDtime")) {               # interval accessor
+    setGeneric("getDtime", function(x) standardGeneric("getDtime"))
 }
-setMethod("dtime", signature(x="TDR"), function(x) x@dtime)
+setMethod("getDtime", signature(x="TDR"), function(x) x@dtime)
 
 
 ## Conversions
@@ -94,53 +98,54 @@ setMethod("show", signature=signature(object="TDRcalibrate"),
               } else cat("\n")
           })
 
-if (!isGeneric("tdr")) {               # zoc'ed TDR accessor
-    setGeneric("tdr", function(x) standardGeneric("tdr"))
+if (!isGeneric("getTDR")) {               # zoc'ed TDR accessor
+    setGeneric("getTDR", function(x) standardGeneric("getTDR"))
 }
-setMethod("tdr", signature(x="TDRcalibrate"), function(x) x@tdr)
+setMethod("getTDR", signature(x="TDRcalibrate"), function(x) x@tdr)
 
-if (!isGeneric("grossAct")) {               # gross activity accessor
-    setGeneric("grossAct", function(x, y) standardGeneric("grossAct"))
+if (!isGeneric("getGAct")) {               # gross activity accessor
+    setGeneric("getGAct", function(x, y) standardGeneric("getGAct"))
 }
 ## access the entire list
-setMethod("grossAct", signature(x="TDRcalibrate", y="missing"),
+setMethod("getGAct", signature(x="TDRcalibrate", y="missing"),
           function(x) x@gross.activity)
 ## access only a named element
-setMethod("grossAct", signature(x="TDRcalibrate", y="character"),
+setMethod("getGAct", signature(x="TDRcalibrate", y="character"),
           function(x, y) x@gross.activity[[y]])
 
-if (!isGeneric("diveAct")) {               # dive activity accessor
-    setGeneric("diveAct", function(x, y) standardGeneric("diveAct"))
+if (!isGeneric("getDAct")) {               # dive activity accessor
+    setGeneric("getDAct", function(x, y) standardGeneric("getDAct"))
 }
 ## access entire data frame
-setMethod("diveAct", signature(x="TDRcalibrate", y="missing"),
+setMethod("getDAct", signature(x="TDRcalibrate", y="missing"),
           function(x) x@dive.activity)
 ## access only a certain column
-setMethod("diveAct", signature(x="TDRcalibrate", y="character"),
+setMethod("getDAct", signature(x="TDRcalibrate", y="character"),
           function(x, y) x@dive.activity[, y])
 
-if (!isGeneric("dPhaseLab")) {               # dive phase label accessor
-    setGeneric("dPhaseLab", function(x, diveNo) standardGeneric("dPhaseLab"))
+if (!isGeneric("getDPhaseLab")) {       # dive phase label accessor
+    setGeneric("getDPhaseLab",
+               function(x, diveNo) standardGeneric("getDPhaseLab"))
 }
 ## access the entire factor
-setMethod("dPhaseLab", signature(x="TDRcalibrate", diveNo="missing"),
+setMethod("getDPhaseLab", signature(x="TDRcalibrate", diveNo="missing"),
           function(x) x@dive.phases)
 ## access only those from certain dives
-setMethod("dPhaseLab", signature(x="TDRcalibrate", diveNo="numeric"),
+setMethod("getDPhaseLab", signature(x="TDRcalibrate", diveNo="numeric"),
           function(x, diveNo) {
-              ctdr <- tdr(x)
+              ctdr <- getTDR(x)
               phases <- x@dive.phases
-              ok <- which(diveAct(x, "dive.id") %in% diveNo)
+              ok <- which(getDAct(x, "dive.id") %in% diveNo)
               okl <- setdiff(ok - 1, ok)
               okr <- setdiff(ok + 1, ok)
               okpts <- sort(c(okl, ok, okr))        # add the surface points
               phases[okpts]
           })
 
-if (!isGeneric("velCoef")) {               # vel calibration coefs accessor
-    setGeneric("velCoef", function(x) standardGeneric("velCoef"))
+if (!isGeneric("getVelCoef")) {         # vel calibration coefs accessor
+    setGeneric("getVelCoef", function(x) standardGeneric("getVelCoef"))
 }
-setMethod("velCoef", signature(x="TDRcalibrate"),
+setMethod("getVelCoef", signature(x="TDRcalibrate"),
           function(x) x@vel.calib.coefs)
 
 
@@ -171,7 +176,7 @@ if (!isGeneric("extractDive")) {               # extract a dive
 setMethod("extractDive", signature(obj="TDR", diveNo="numeric",
                                    id="numeric"), # for TDR object
           function(obj, diveNo, id) {
-              if (length(id) != length(tdrTime(obj))) {
+              if (length(id) != length(getTime(obj))) {
                   stop ("id and obj must have the equal number of rows")
               }
               ok <- which(id %in% diveNo)
@@ -179,33 +184,34 @@ setMethod("extractDive", signature(obj="TDR", diveNo="numeric",
               okr <- setdiff(ok + 1, ok)
               okpts <- sort(c(okl, ok, okr))        # add the surface points
               if (is(obj, "TDRvel")) {
-                  new("TDRvel", time=tdrTime(obj)[okpts],
-                      depth=depth(obj)[okpts],
-                      velocity=velocity(obj)[okpts], dtime=dtime(obj),
+                  new("TDRvel", time=getTime(obj)[okpts],
+                      depth=getDepth(obj)[okpts],
+                      velocity=getVeloc(obj)[okpts], dtime=getDtime(obj),
                       file=obj@file)
               } else {
-                  new("TDR", time=tdrTime(obj)[okpts], depth=depth(obj)[okpts],
-                      dtime=dtime(obj), file=obj@file)
+                  new("TDR", time=getTime(obj)[okpts],
+                      depth=getDepth(obj)[okpts],
+                      dtime=getDtime(obj), file=obj@file)
               }
           })
 
 setMethod("extractDive",                # for TDRcalibrate
           signature(obj="TDRcalibrate", diveNo="numeric", id="missing"),
           function(obj, diveNo) {
-              ctdr <- tdr(obj)
-              ok <- which(diveAct(obj, "dive.id") %in% diveNo)
+              ctdr <- getTDR(obj)
+              ok <- which(getDAct(obj, "dive.id") %in% diveNo)
               okl <- setdiff(ok - 1, ok)
               okr <- setdiff(ok + 1, ok)
               okpts <- sort(c(okl, ok, okr))        # add the surface points
               if (is(ctdr, "TDRvel")) {
-                  new("TDRvel", time=tdrTime(ctdr)[okpts],
-                      depth=depth(ctdr)[okpts],
-                      velocity=velocity(ctdr)[okpts],dtime=dtime(ctdr),
+                  new("TDRvel", time=getTime(ctdr)[okpts],
+                      depth=getDepth(ctdr)[okpts],
+                      velocity=getVeloc(ctdr)[okpts],dtime=getDtime(ctdr),
                       file=ctdr@file)
               } else {
-                  new("TDR", time=tdrTime(ctdr)[okpts],
-                      depth=depth(ctdr)[okpts],
-                      dtime=dtime(ctdr), file=ctdr@file)
+                  new("TDR", time=getTime(ctdr)[okpts],
+                      depth=getDepth(ctdr)[okpts],
+                      dtime=getDtime(ctdr), file=ctdr@file)
               }
           })
 
@@ -217,16 +223,16 @@ if (!isGeneric("attendance")) {
 setMethod("attendance",            # a table of general attendance pattern
           signature(obj="TDRcalibrate", ignoreZ="logical"),
           function(obj, ignoreZ) {
-              act <- grossAct(obj, "trip.act")
-              tt <- tdrTime(tdr(obj))
-              interval <- dtime(tdr(obj))
+              act <- getGAct(obj, "trip.act")
+              tt <- getTime(getTDR(obj))
+              interval <- getDtime(getTDR(obj))
               if (ignoreZ) {              # ignore the short baths
                   act[act == "Z"] <- "L"
                   attlist <- getAct(tt, act, interval)
                   actlabel <- act[match(names(attlist[[3]]), attlist[[1]])]
                   tripno <- seq(along=actlabel)
               } else {                    # count the short baths
-                  attlist <- grossAct(obj)
+                  attlist <- getGAct(obj)
                   actlabel <- act[match(names(attlist[[3]]), attlist[[1]])]
                   tripno <- seq(along=actlabel)
               }
