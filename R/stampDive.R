@@ -1,9 +1,9 @@
 "stampDive" <- function(x, ignoreZ=TRUE)
 {
-    ## Purpose:  Stamp each dive with trip number, trip type, and trip start
-    ##  	       and end time
+    ## Value: A data frame; stamping each dive with trip number, trip
+    ## type, and trip start and end time
     ## --------------------------------------------------------------------
-    ## Arguments:  x=TDRcalibrate object, ignoreZ=ignore Z phases?
+    ## Arguments: x=TDRcalibrate object, ignoreZ=ignore Z phases?
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
@@ -16,8 +16,7 @@
         interval <- getDtime(getTDR(x))
         act[act == "Z"] <- "L"
         attlist <- getAct(tt, act, interval) # recalculate
-        phaseid <- as.numeric(gsub("[[:alpha:]]* ([[:digit:]]+)",
-                                   "\\1", attlist[[1]])) # what phase.id is now
+        phaseid <- as.numeric(attlist[[1]])  # what phase.id is now
     } else {
         attlist <- getGAct(x)
         phaseid <- getGAct(x, "phase.id")
@@ -34,5 +33,5 @@
     trip.no <-  trip.no[ok]
     trip.type <- act[ok]
 
-    data.frame(trip.no, trip.type, beg=chron(beg[ok]), end=chron(end[ok]))
+    data.frame(trip.no, trip.type, beg=beg[ok], end=end[ok])
 }

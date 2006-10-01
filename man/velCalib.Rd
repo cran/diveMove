@@ -1,9 +1,11 @@
 \name{doVelCalib}
 
 \alias{doVelCalib}
+
 % -------------------------------------------------------------------------
 
 \title{Calibration of TDR velocity}
+
 
 
 \description{Calibrate velocity readings from a TDR, based on the
@@ -80,12 +82,12 @@ doVelCalib(rates, vel, calType="pooled", bad=c(0, 0), filename,
   recorders.  Marine Mammal Science \bold{15(3)}: 894-905.}
 
 
+\seealso{\code{\link{TDRcalibrate-class}}, \code{\link{rqPlot}}}
+
+% -------------------------------------------------------------------------
+
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
-\seealso{\code{\link{TDRcalibrate-class}}, \code{\link{rqPlot}}}
-
-
-% -------------------------------------------------------------------------
 \keyword{manip}% at least one, from doc/KEYWORDS
 \keyword{math}

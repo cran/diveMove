@@ -1,22 +1,21 @@
 ## CLASSES
-setOldClass("chron")
-
 setClass("TDR",
          representation=representation(file="character", dtime="numeric",
-             time="chron", depth="numeric"),
+             time="POSIXct", depth="numeric"),
          validity=function(object) {
-             if (length(slot(object, "time")) != length(slot(object, "depth"))) {
+             if (length(object@time) != length(object@depth)) {
                  return("depth and time have unequal lengths")
              }
              if (!slot(object, "dtime")) return("dtime cannot be missing")
-             ## if (!slot(object, "file")) return("file cannot be missing")
          })
 
 setClass("TDRvel",
          representation=representation("TDR", velocity="numeric"),
          contains="TDR",
          validity=function(object) {
-             if (length(slot(object, "velocity")) != length(slot(object, "time"))) {
+             vel.len <- length(slot(object, "velocity"))
+             tim.len <- length(slot(object, "time"))
+             if (vel.len != tim.len) {
                  return("velocity and time have unequal lengths")
              }
          })

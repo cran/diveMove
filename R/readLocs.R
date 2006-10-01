@@ -1,26 +1,24 @@
 "readLocs" <- function(file, loc.idCol, idCol, dateCol, timeCol=NULL,
-                       dtformat=c("m/d/y", "h:m:s"), classCol, lonCol,
-                       latCol, alt.lonCol=NULL, alt.latCol=NULL)
+                       dtformat="%m/%d/%Y %H:%M:%S", tz="GMT", classCol,
+                       lonCol, latCol, alt.lonCol=NULL, alt.latCol=NULL)
 {
-    ## Purpose: Read file with ARGOS locations and set up a data frame for
-    ## further analyses.
+    ## Value: A data frame with ARGOS locations.
     ## --------------------------------------------------------------------
     ## Arguments: file=quoted file name, including path, of file to read,
-    ## loc.idCol=column number containing the location id,
-    ## idCol=column number identifying locations belonging to different
-    ## groups, dateCol=column number containing dates and, optionally, times,
-    ## timeCol=optional column number containing times,
-    ## latCol and lonCol=latitude and longitude column numbers, respectively,
-    ## alt.latCol and alt.lonCol=alternative latitude and longitude columns,
-    ## respectively, classCol=ARGOS classification,
+    ## loc.idCol=column number containing the location id, idCol=column
+    ## number identifying locations belonging to different groups,
+    ## dateCol=column number containing dates and, optionally, times,
+    ## timeCol=optional column number containing times, latCol and
+    ## lonCol=latitude and longitude column numbers, respectively,
+    ## alt.latCol and alt.lonCol=alternative latitude and longitude
+    ## columns, respectively, classCol=ARGOS classification,
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
     srcfile <- basename(file)
     inLocs <- read.csv(file, header=TRUE, na.strings="", as.is=TRUE)
-
-    datetime <- .createChron(inLocs[, datecol], inLocs[, timeCol],
-                             dtformat=dtformat)
+    dtpasted <- paste(inLocs[, datecol], inLocs[, timeCol])
+    datetime <- as.POSIXct(strptime(dtpasted, format=dtformat), tz=tz)
     ## Set up data frame with loc id, animal id, time, year, doy, period,
     ## pttid, class, newclass, lat, lon, latalt, lonalt
     locs <- data.frame(loc.id=inLocs[, loc.idCol], id=inLocs[, idCol],

@@ -1,9 +1,10 @@
 "grpSpeedFilter" <- function(x, velthres, window=5)
 {
-    ## Purpose: Do stage one on matrix x (assuming it's a single unit)
+    ## Value: Do stage one on matrix x (assuming it's a single unit),
+    ## return a logical; whether each observation in x failed the test
     ## --------------------------------------------------------------------
-    ## Arguments: x=matrix with cols: chron, lon, lat
-    ## velthres=velocity threshold, window=size of window to test
+    ## Arguments: x=matrix with cols: POSIXct, lon, lat; velthres=velocity
+    ## threshold (m/s), window=size of window to test
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
@@ -33,10 +34,13 @@
 
 "rmsDistFilter" <- function(x, velthres, window=5, distthres)
 {
-    ## Purpose:  Apply McConnell et al's filter and Austin et al's last stage
+    ## Value: Apply McConnell et al's filter and Austin et al's last
+    ## stage, return 2-col matrix of logicals; whether each observation
+    ## failed each test.  These 2 filters are independent of each other.
     ## --------------------------------------------------------------------
-    ## Arguments: x=matrix with cols: chron, lon, lat
-    ## velthres=velocity threshold, window=size of window to test
+    ## Arguments: x=matrix with cols: POSIXct, lon, lat; velthres=velocity
+    ## threshold (m/s), window=size of window to test; distthres=distance
+    ## threshold (km)
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
@@ -79,18 +83,22 @@
 "austFilter" <- function(time, lon, lat, id=gl(1, 1, length(time)),
                          velthres, distthres, window=5)
 {
-    ## Purpose: Run the filters in Austin et al. (2003)
+    ## Value: A matrix with logicals indicating whether each reading
+    ## failed each filter.  This runs the filters in Austin et al. (2003).
+    ## Results are presented from each filter, independently of the others
+    ## for flexibility.
     ## --------------------------------------------------------------------
     ## Arguments: lat and lon=latitude and longitude vectors in degrees;
-    ## time=chron object with times for each point; id=factor identifying
-    ## sections of the data to be treated separately;
-    ## velthres=speed threshold (m/s); distthres=distance threshold (km)
+    ## time=POSIXct object with times for each point; id=factor
+    ## identifying sections of the data to be treated separately;
+    ## velthres=speed threshold (m/s); distthres=distance threshold (km);
+    ## window=size of window to test
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
-    ## FIRST STAGE ********************************************************
-    ## We split the data frame according to ID
-    locs <- matrix(c(time, lon, lat), ncol=3)
+    ## FIRST STAGE
+    ## ********************************************************
+    locs <- data.frame(time, lon, lat)
 
     ## Do first stage over each seal's data, returns vector as long as locs
     first <- unlist(by(locs, id, grpSpeedFilter, velthres, window),
@@ -98,11 +106,9 @@
 
     ## SECOND AND THIRD STAGES ********************************************
     good <- which(!first)                 # native subscripts that passed
-
     last <- do.call(rbind, by(locs[good, ], id[good], rmsDistFilter,
                               velthres, window, distthres))
     filter23 <- logical(length(first))
-
     filter123 <- cbind(firstFail=first,
                        secondFail=filter23,
                        thirdFail=filter23)

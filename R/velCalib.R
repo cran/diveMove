@@ -3,12 +3,13 @@
 ".descAsc" <- function(x, phase, type=c("all", "strict"),
                        interval, z=0)
 {
-    ## Purpose:  Get rate of depth change and velocity for ascent/descent
+    ## Value: 2-element list with rate of depth change (m/s) and velocity
+    ## (original units) for descent and ascent.
     ## --------------------------------------------------------------------
-    ## Arguments:  x=4-col matrix with a single dive (id, time, depth, vel)
+    ## Arguments: x=4-col matrix with a single dive (id, time, depth, vel)
     ## phase=factor labelling each row for its phase in dive
-    ## interval=sampling interval in chron units
-    ## z=minimum depth differences to use
+    ## interval=sampling interval in seconds; z=minimum depth differences
+    ## to use.
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
@@ -26,10 +27,10 @@
 
     bkdive <- lapply(phases, function(k) {
         if (nrow(k) > 2) {
-            difftim <- k[nrow(k), 2] - k[1, 2] + interval
+            difftim <- (k[nrow(k), 2] - k[1, 2]) + interval
             diffdep <- max(k[, 3], na.rm=TRUE)
             if (diffdep > z) {
-                dratedep <- diffdep / (difftim * 86400)
+                dratedep <- diffdep / difftim
                 mvel <- mean(k[-1, 4], na.rm=TRUE)
                 cbind(dive.id=unique(k[, 1]), dratedep, mvel)
             }
@@ -56,10 +57,10 @@
     ## Purpose: Select rate of depth change and vel broken by ascent and
     ## descent phases. Provides the data to perform calibration of velocity.
     ## --------------------------------------------------------------------
-    ## Arguments: time=chron object; depth=corrected depth m;
+    ## Arguments: time=POSIXct; zdepth=corrected depth m;
     ## vel=velocity in m/s; dives=3-col matrix as returned by detDive();
     ## phase=factor dividing dive into sections (see labDivePhase)
-    ## ...=passed to .descAsc (type, interval (in chron units), and z)
+    ## ...=passed to .descAsc (type, interval (in seconds), and z)
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
@@ -71,7 +72,8 @@
     dphase <- phase[ok]                   # diving phases
     dids <- dives[ok, 1]                  # dive IDs
 
-    tdv <- matrix(c(dids, dtimes, ddepth, dvel), ncol=4) # time-depth-vel mtx
+    ## time-depth-vel mtx, with time in numeric (seconds)
+    tdv <- matrix(c(dids, dtimes, ddepth, dvel), ncol=4)
 
     perdive <- by(tdv, tdv[, 1], function(k) {
         curdphase <- dphase[dids == k[1, 1]]

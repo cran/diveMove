@@ -1,5 +1,5 @@
 %\VignetteIndexEntry{Dive Analysis}
-%\VignetteDepends{chron,diveMove}
+%\VignetteDepends{diveMove}
 %\VignettePackage{diveMove}
 \documentclass[12pt, letterpaper]{scrartcl}
 \usepackage{pdfdraftcopy}
@@ -40,7 +40,7 @@
 \begin{document}
 
 \title{\bfseries{diveMove: dive analysis in R}}
-\author{Sebasti·n P. Luque\thanks{Contact: \texttt{spluque@gmail.com}.
+\author{Sebasti√°n P. Luque\thanks{Contact: \texttt{spluque@gmail.com}.
     Comments for improvement are very welcome!}}
 \date{}
 
@@ -170,8 +170,8 @@ Time-Depth Recorder data -- Class TDRvel object
   Source File             : sealMK8.csv 
   Sampling Interval (s)   : 5 
   Number of Samples       : 34199 
-  Sampling Begins         : (05/01/02 11:32:00) 
-  Sampling Ends           : (07/01/02 11:01:50) 
+  Sampling Begins         : 2002-01-05 11:32:00 
+  Sampling Ends           : 2002-01-07 11:01:50 
   Total Duration (d)      : 1.979 
 \end{Soutput}
 \end{Schunk}
@@ -195,12 +195,12 @@ later be exported or manipulated any other way:
 \end{Sinput}
 \begin{Soutput}
                  time depth velocity
-1 (05/01/02 11:32:00)    NA       NA
-2 (05/01/02 11:32:05)    NA       NA
-3 (05/01/02 11:32:10)    NA       NA
-4 (05/01/02 11:32:15)    NA       NA
-5 (05/01/02 11:32:20)    NA       NA
-6 (05/01/02 11:32:25)    NA       NA
+1 2002-01-05 11:32:00    NA       NA
+2 2002-01-05 11:32:05    NA       NA
+3 2002-01-05 11:32:10    NA       NA
+4 2002-01-05 11:32:15    NA       NA
+5 2002-01-05 11:32:20    NA       NA
+6 2002-01-05 11:32:25    NA       NA
 \end{Soutput}
 \end{Schunk}
 
@@ -277,8 +277,8 @@ Depth calibration -- Class TDRcalibrate object
   Number of dry phases              : 4 
   Number of aquatic phases          : 3 
   Number of dives detected          : 317 
-  Dry threshold used (s)            : 65 
-  Aquatic theshold used (s)         : 3605 
+  Dry threshold used (s)            : 70 
+  Aquatic theshold used (s)         : 3610 
   Dive threshold used (s)           : 4 
   Velocity calibration coefficients : a = 0 ; b = 1 
 \end{Soutput}
@@ -310,8 +310,8 @@ Time-Depth Recorder data -- Class TDRvel object
   Source File             : sealMK8.csv 
   Sampling Interval (s)   : 5 
   Number of Samples       : 34199 
-  Sampling Begins         : (05/01/02 11:32:00) 
-  Sampling Ends           : (07/01/02 11:01:50) 
+  Sampling Begins         : 2002-01-05 11:32:00 
+  Sampling Ends           : 2002-01-07 11:01:50 
   Total Duration (d)      : 1.979 
 \end{Soutput}
 \end{Schunk}
@@ -385,8 +385,8 @@ Time-Depth Recorder data -- Class TDRvel object
   Source File             : sealMK8.csv 
   Sampling Interval (s)   : 5 
   Number of Samples       : 2410 
-  Sampling Begins         : (06/01/02 00:45:15) 
-  Sampling Ends           : (07/01/02 03:27:10) 
+  Sampling Begins         : 2002-01-06 00:45:15 
+  Sampling Ends           : 2002-01-07 03:27:10 
   Total Duration (d)      : 1.112 
 \end{Soutput}
 \end{Schunk}
@@ -434,8 +434,8 @@ Depth calibration -- Class TDRcalibrate object
   Number of dry phases              : 4 
   Number of aquatic phases          : 3 
   Number of dives detected          : 317 
-  Dry threshold used (s)            : 65 
-  Aquatic theshold used (s)         : 3605 
+  Dry threshold used (s)            : 70 
+  Aquatic theshold used (s)         : 3610 
   Dive threshold used (s)           : 4 
   Velocity calibration coefficients : a = 0.4 ; b = 0.64 
 \end{Soutput}
@@ -487,13 +487,13 @@ Once data have been calibrated and the record broken up at ``trip'' and
 \end{Sinput}
 \begin{Soutput}
               begdesc             enddesc
-1 (01/05/02 12:20:10) (01/05/02 12:20:15)
-2 (01/05/02 21:19:40) (01/05/02 21:20:20)
-3 (01/05/02 21:22:10) (01/05/02 21:23:15)
+1 2002-01-05 12:20:10 2002-01-05 12:20:15
+2 2002-01-05 21:19:40 2002-01-05 21:20:20
+3 2002-01-05 21:22:10 2002-01-05 21:23:15
                begasc desctim botttim asctim descdist
-1 (01/05/02 12:20:20)     7.5       5    7.5        6
-2 (01/05/02 21:20:40)    42.5      20   47.5       26
-3 (01/05/02 21:23:50)    67.5      35   72.5       63
+1 2002-01-05 12:20:20     7.5       5    7.5        6
+2 2002-01-05 21:20:40    42.5      20   47.5       26
+3 2002-01-05 21:23:50    67.5      35   72.5       63
   bottdist ascdist desc.tdist desc.mean.vel desc.angle
 1        0       6      22.44         4.488      15.51
 2        3      29     100.07         2.502      15.06

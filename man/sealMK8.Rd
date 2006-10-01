@@ -2,9 +2,11 @@
 \docType{data}
 
 \alias{sealMK8}
+
 % -------------------------------------------------------------------------
 
 \title{Sample TDR data from a fur seal}
+
 
 
 \description{This data set is meant to show the organization a TDR *.csv
@@ -41,9 +43,9 @@
 
 \source{Sebastian P. Luque, Christophe Guinet, John P.Y. Arnould}
 
+% -------------------------------------------------------------------------
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
-% -------------------------------------------------------------------------
 \keyword{datasets}

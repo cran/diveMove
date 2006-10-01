@@ -3,7 +3,6 @@
 
 \alias{TDR-class}
 \alias{TDRvel-class}
-\alias{chron-class}
 
 \alias{getDepth}
 \alias{getDtime}
@@ -22,9 +21,11 @@
 \alias{show,TDR-method}
 \alias{getTime,TDR-method}
 \alias{getVeloc,TDRvel-method}
+
 % -------------------------------------------------------------------------
 
 \title{Classes "TDR" and "TDRvel" for representing TDR information}
+
 
 
 \description{These classes store information gathered by time-depth
@@ -49,9 +50,9 @@
       indicating the file where the data comes from.}
 
     \item{\code{dtime}:}{Object of class \code{"numeric"}, sampling
-      interval in \code{\link[chron]{chron}} units (d).}
+      interval in seconds.}
 
-    \item{\code{time}:}{Object of class \code{"chron"}, time stamp for
+    \item{\code{time}:}{Object of class \code{"POSIXct"}, time stamp for
       every reading.}
 
     \item{\code{depth}:}{Object of class \code{"numeric"}, depth (m)
@@ -118,10 +119,11 @@
 
 
 \details{Since the data to store in objects of these clases usually come
-  from a file, the easiest way to construct such objects is by using the
+  from a file, the easiest way to construct such objects is with the
   function \code{readTDR} to retrieve all the necessary information.
   The methods listed above can thus be used to access all slots.}
 
+% -------------------------------------------------------------------------
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 
@@ -129,5 +131,4 @@
 \seealso{\code{\link{readTDR}}, \code{\link{TDRcalibrate-class}}.}
 
 
-% -------------------------------------------------------------------------
 \keyword{classes}

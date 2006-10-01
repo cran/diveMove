@@ -3,27 +3,25 @@
 \alias{detDive}
 \alias{labDive}
 \alias{labDivePhase}
+
 % -------------------------------------------------------------------------
 
 \title{Detect dives from depth readings}
+
 
 
 \description{Identify dives in TDR records based on a dive threshold.}
 
 
 \usage{
-detDive(time, zdepth, act, divethres=4, \dots)
-labDive(time, act, string, interval)
+detDive(zdepth, act, divethres=4, \dots)
+labDive(act, string, interval)
 labDivePhase(x, diveID)
 }
 %- maybe also 'usage' for other objects documented here.
 
 
 \arguments{
-
-  \item{time}{chron object specifying times for each depth reading.
-    This is most commonly the first element of the data frame returned
-    by \code{\link{readTDR}}.}
 
   \item{zdepth}{vector of zero-offset corrected depths.}
 
@@ -36,8 +34,7 @@ labDivePhase(x, diveID)
   \item{string}{a character belonging to a level of \code{act} to search
     for and label sequentially.}
 
-  \item{interval, \dots}{the sampling interval in
-    \code{\link[chron]{chron}} units (d).}
+  \item{interval, \dots}{the sampling interval in seconds.}
 
   \item{x}{a class \sQuote{TDR} object}
 
@@ -80,6 +77,7 @@ labDivePhase(x, diveID)
   \dQuote{X}, breaking the input into descent, descent/bottom, bottom,
   bottom/ascent, ascent, and non-dive, respectively.}
 
+% -------------------------------------------------------------------------
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 
@@ -87,6 +85,4 @@ labDivePhase(x, diveID)
 \seealso{\code{\link{detPhase}}, \code{\link{zoc}}}
 
 
-% -------------------------------------------------------------------------
 \keyword{manip}% at least one, from doc/KEYWORDS
-\keyword{chron}

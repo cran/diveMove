@@ -2,9 +2,11 @@
 
 \alias{readTDR}
 \alias{createTDR}
+
 % -------------------------------------------------------------------------
 
 \title{Read comma-delimited file with TDR data}
+
 
 
 \description{Read a comma delimited (*.csv) file containing time-depth
@@ -16,10 +18,9 @@
 
 \usage{
 readTDR(file, dateCol=1, timeCol=2, depthCol=3, velCol=6,
-        subsamp=5, dtformat=c("d/m/y", "h:m:s"))
+        subsamp=5, dtformat="\%d/\%m/\%Y \%H:\%M:\%S", tz="GMT")
 createTDR(time, depth, vel, dtime, file)
 }
-%- maybe also 'usage' for other objects documented here.
 
 
 \arguments{
@@ -37,17 +38,21 @@ createTDR(time, depth, vel, dtime, file)
   \item{subsamp}{Subsample rows in \code{file} with \code{subsamp}
     interval, in s.}
 
-  \item{dtformat}{a character vector of length 2, specifying the format
-    of the date and time columns, in that order.  See
-    \code{\link[chron]{chron}} for valid format specifications.}
+  \item{dtformat}{A string, specifying the format in which the date and
+    time columns, when pasted together, should be interpreted (see
+    \code{\link{strptime}}).}
 
-  \item{time}{a chron object}
+  \item{tz}{A string indicating the time zone assumed for the date and
+    time readings.}
 
-  \item{depth}{numeric vector with depth readings}
+  \item{time}{a \code{POSIXct} object with date and time readings for
+    locations.}
 
-  \item{vel}{optional numeric vector with velocity readings}
+  \item{depth}{numeric vector with depth readings.}
 
-  \item{dtime}{sampling interval used in chron units (d)}
+  \item{vel}{optional numeric vector with velocity readings.}
+
+  \item{dtime}{sampling interval used in seconds.}
 
 }
 
@@ -66,6 +71,7 @@ createTDR(time, depth, vel, dtime, file)
 
 \value{An object of class \sQuote{TDR} or \sQuote{TDRvel}.}
 
+% -------------------------------------------------------------------------
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 
@@ -76,5 +82,4 @@ readTDR(system.file(file.path("data", "sealMK8.csv"),
 }
 
 
-% -------------------------------------------------------------------------
 \keyword{manip}% at least one, from doc/KEYWORDS

@@ -1,10 +1,10 @@
 "zoc" <- function(time, depth, offset)
 {
-    ## Purpose: Return all depths with corrected values for time windows
-    ## selected with plotdives(). Make depths < 0 equal 0
+    ## Value: Vector with all depths with corrected values for time
+    ## windows selected with plotdives(). Make depths < 0 equal 0
     ## --------------------------------------------------------------------
-    ## Arguments: time=chron object, depth=uncalibrate depth,
-    ## offset=offset to use if already known
+    ## Arguments: time=POSIXct, depth=uncalibrated depth, offset=offset to
+    ## use if already known
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------

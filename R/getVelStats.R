@@ -12,7 +12,7 @@
     if (nrow(x) > 1) {
         vel <- x[-1, 2]
         time <- x[, 1]
-        difft <- diff(time) * 86400
+        difft <- diff(as.numeric(time)) # seconds
         mvel <- mean(vel, na.rm=TRUE)
         tdist <- sum(difft * vel, na.rm=TRUE)
         if (!missing(vdist)) {

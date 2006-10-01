@@ -1,8 +1,10 @@
 \name{readLocs}
 \alias{readLocs}
+
 % -------------------------------------------------------------------------
 
 \title{Read comma-delimited file with location data}
+
 
 
 \description{Read a comma delimited (*.csv) file with (at least) time,
@@ -11,8 +13,8 @@
 
 \usage{
 readLocs(file, loc.idCol, idCol, dateCol, timeCol=NULL,
-         dtformat=c("m/d/y", "h:m:s"), classCol, lonCol, latCol,
-         alt.lonCol=NULL, alt.latCol=NULL)
+         dtformat="\%m/\%d/\%Y \%H:\%M:\%S", tz="GMT",
+         classCol, lonCol, latCol, alt.lonCol=NULL, alt.latCol=NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 
@@ -32,9 +34,12 @@ readLocs(file, loc.idCol, idCol, dateCol, timeCol=NULL,
 
   \item{timeCol}{Column number containing times.}
 
-  \item{dtformat}{length-2 numeric vector specifying the format (as in
-    \code{chron}) in which date and time, respectively, should be read
-    in \code{file}}
+  \item{dtformat}{A string, specifying the format in which the date and
+    time columns, when pasted together, should be interpreted (see
+    \code{\link{strptime}}) in \code{file}.}
+
+  \item{tz}{A string indicating the time zone for the date and time
+    readings.}
 
   \item{lonCol}{Column number containing longitude readings.}
 
@@ -57,9 +62,9 @@ readLocs(file, loc.idCol, idCol, dateCol, timeCol=NULL,
 
 \value{A data frame.}
 
+% -------------------------------------------------------------------------
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
-% -------------------------------------------------------------------------
 \keyword{manip}

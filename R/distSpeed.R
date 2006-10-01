@@ -2,8 +2,8 @@
 {
     ## Purpose: Calculate distance and speed between two points
     ## --------------------------------------------------------------------
-    ## Arguments: pt1  and pt2=data frames for each point, with three
-    ## columns; the first for a chron object with time for each point,
+    ## Arguments: pt1 and pt2=data frames for each point, with three
+    ## columns; the first for a POSIXct object with time for each point,
     ## the second for longitude, and the third for latitude.
     ## velocity=logical; should velocity and time diffs be calculated?
     ## --------------------------------------------------------------------
@@ -36,7 +36,7 @@
     distance <- ifelse(dlat == 0 & dlon == 0, 0, ravg * fac)
     ## Calculate time difference (in hours) between locations.
     if(velocity) {
-        timdiff <- abs(pt2[, 1] - pt1[, 1]) * 24
+        timdiff <- abs(as.numeric(difftime(pt2[, 1], pt1[, 1], units="hours")))
         ## Speed in m/s.
         speed <- ifelse(timdiff == 0, 0, (distance * 1000) / (timdiff * 3600))
         cbind(distance, time.elapsed=timdiff, speed)

@@ -1,5 +1,5 @@
 %\VignetteIndexEntry{Dive Analysis}
-%\VignetteDepends{chron,diveMove}
+%\VignetteDepends{diveMove}
 %\VignettePackage{diveMove}
 \documentclass[12pt, letterpaper]{scrartcl}
 \usepackage{pdfdraftcopy}

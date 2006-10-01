@@ -1,9 +1,11 @@
 \name{rqPlot}
 
 \alias{rqPlot}
+
 % -------------------------------------------------------------------------
 
 \title{Plot of quantile regression for velocity calibrations}
+
 
 
 \description{Plot of quantile regression for assessing quality of
@@ -43,22 +45,16 @@ rqPlot(rdepth, vel, rqFit, main="qtRegression",
   The other line represent the quantile regression fit.}
 
 
+\seealso{\code{\link{doVelCalib}}, \code{\link{diveStats}}}
+
+% -------------------------------------------------------------------------
+
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
-\seealso{\code{\link{doVelCalib}}, \code{\link{diveStats}}}
+\examples{}
 
 
-\examples{
-\dontrun{
-plot((sealX <- readTDR(system.file(file.path("data", "sealMK8.csv"),
-                                   package="diveMove"))))
-}
-}
-
-
-% -------------------------------------------------------------------------
 \keyword{manip}% at least one, from doc/KEYWORDS
-\keyword{chron}
 \keyword{arith}
 \keyword{hplot}

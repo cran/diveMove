@@ -1,22 +1,18 @@
-"labDive" <- function(time, act, string, interval)
+"labDive" <- function(act, string, interval)
 {
-    ## Purpose: Label dives along vector of same length as input.
-    ## 	      Return a matrix labelling each dive and postdive reading
+    ## Value: Label dives along vector of same length as input.  Return a
+    ## matrix labelling each dive and postdive reading
     ## --------------------------------------------------------------------
-    ## Arguments: time=chron vector, act=factor with values to label,
-    ## string=character string to search in act to be labelled sequentially
-    ## interval=sampling interval in the input
+    ## Arguments: act=factor with values to label, string=character string
+    ## to search in act to be labelled sequentially, interval=sampling
+    ## interval in the input
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
-    dive <- vector(mode="numeric", length=length(time))
+    dive <- vector(mode="numeric", length=length(act))
     dive[act == string] <- 1
-    diffdive <- diff(dive)
-    timbr <- c(time[1] - interval,
-               time[which(diffdive != 0)],
-               time[length(time)] + interval)
-    cuttimbr <- cut(time, br=timbr)
-    rawid <- as.numeric(cuttimbr)
+    runs <- rle(dive)
+    rawid <- rep(seq(runs$lengths), runs$lengths)
 
     diveid <- rawid
     diveid[dive == 0] <- 0               # non-dive are 0, and dives conseq:
@@ -28,31 +24,28 @@
 }
 
 
-"detDive" <- function(time, zdepth, act, divethres=4, ...)
+"detDive" <- function(zdepth, act, divethres=4, ...)
 {
-    ## Purpose: Detect dives, using a depth threshold
+    ## Value: A data frame; detecting dives, using a depth threshold
     ## --------------------------------------------------------------------
-    ## Arguments: time=chron object with date and time
-    ## zdepth=depth vector of zoc'ed data
-    ## act=factor with land/sea activity IDs (2nd element returned
-    ##   	   by detPhase), with values "W" for at-sea
-    ## divethres=dive threshold in m/s
-    ## ...=sampling interval in chron units (d), to pass to labDive
+    ## Arguments: zdepth=depth vector of zoc'ed data, act=factor with
+    ## land/sea activity IDs (2nd element returned by detPhase), with
+    ## values "W" for at-sea, divethres=dive threshold in m/s ...=sampling
+    ## interval in (s), to pass to labDive
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
-    ## Get the indices of depths higher than the dive threshold
+    ## Get the indices of below surface activity and label as "U"
     underw <- which(act == "W" & zdepth > 0)
-    ## act="U" (underwater) for zdepths higher than zero
     act[underw] <- "U"
 
-    labuw <- labDive(time, act, "U", ...) # label underwater excursions
+    labuw <- labDive(act, "U", ...) # label underwater excursions
     ## Max depth of each "U" phase
-    uwdur <- tapply(zdepth[underw], labuw[underw, 1], max, na.rm=TRUE)
+    uwmax <- tapply(zdepth[underw], labuw[underw, 1], max, na.rm=TRUE)
     ## Change each "U" phase to "D" if its max depth > dive threshold
-    act[labuw[, 1] %in% as.numeric(names(uwdur[uwdur > divethres]))] <- "D"
+    act[labuw[, 1] %in% as.numeric(names(uwmax[uwmax > divethres]))] <- "D"
 
-    inddive <- labDive(time, act, "D", ...)
+    inddive <- labDive(act, "D", ...)
     ndives <- length(unique(inddive[act == "D", 1]))
     message(ndives, " dives detected")
 
@@ -65,11 +58,10 @@
 
 ".cutDive" <- function(x)
 {
-    ## Purpose: Create a factor that breaks a dive into descent,
-    ##	      descent/bottom, bottom, bottom/ascent, ascent, and/or
-    ##   	      descent/ascent given a proportion of maximum depth for
-    ##	      bottom time.  Return a character matrix with orig ID and
-    ##	      corresponding label.
+    ## Value: Create a factor that breaks a dive into descent,
+    ## descent/bottom, bottom, bottom/ascent, ascent, and/or
+    ## descent/ascent given a proportion of maximum depth for bottom time.
+    ## Return a character matrix with orig ID and corresponding label.
     ## --------------------------------------------------------------------
     ## Arguments: x=a 2-col matrix with index in original TDR object and
     ## non NA depths.  A single dive's data.
@@ -135,7 +127,7 @@
 
 "labDivePhase" <- function(x, diveID)
 {
-    ## Purpose: Return a factor labelling portions of dives
+    ## Value: A factor labelling portions of dives
     ## --------------------------------------------------------------------
     ## Arguments: x=class TDR object, diveID=numeric vector indexing
     ## each dive (non-dives should be 0)
