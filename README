@@ -1,11 +1,30 @@
--- Dive and movement analyses and plots --
+Dive and movement analyses and plots			-*-outline-*-
+====================================
+
 Set of functions to analyse time-depth recorder and location data.
 
-The documentation is still under development, but have a look at ?diveMove
-for a quick overview of the major functionality.  A vignette, incomplete
-(but already useable), is also available by doing vignette("diveMove").
+Read ?diveMove for a quick overview of the major functionality.  A
+vignette is also available by doing vignette("diveMove").
 
-NOTE:
 
-Comments from users and researchers are very welcome and should be
-directed to the author (Sebastian P. Luque <spluque@gmail.com>).
+* Overview
+==========
+
+Dive analysis usually involves handling of large amounts of data, as new
+instruments allow for frequent sampling of variables over long periods of
+time.  The aim of this package is to make this process more efficient for
+summarizing and extracting information gathered by time-depth recorders
+(TDRs, hereafter).  The principal motivation for developing diveMove was
+to provide more flexibility during the various stages of analysis than
+that available in popular commercial software.  This is achieved by making
+the results from intermediate calculations easily accessible, allowing the
+user to make his/her own summaries beyond the default choices the package
+provides.
+
+
+* NOTE
+======
+
+Comments from users, especially bug reports, are very welcome:
+
+Sebastian P. Luque <spluque@gmail.com>

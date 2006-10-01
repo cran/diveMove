@@ -2,9 +2,11 @@
 
 \alias{distSpeed}
 \alias{track}
+
 % -------------------------------------------------------------------------
 
 \title{Calculate distance and speed between locations}
+
 
 
 \description{Calculate distance, time difference, and velocity between
@@ -22,17 +24,17 @@ track(txy, id=gl(1, nrow(txy)), subset)
 \arguments{
 
   \item{pt1}{a matrix or data frame with three columns; the first a
-    chron object with dates and times for all points, the second and
-    third numeric vectors of longitude and latitude for all points,
-    respectively, in decimal degrees.}
+    \code{POSIXct} object with dates and times for all points, the
+    second and third numeric vectors of longitude and latitude for all
+    points, respectively, in decimal degrees.}
 
   \item{pt2}{a matrix with the same structure as \code{pt1}.}
 
   \item{velocity}{logical; should velocity between points be
     calculated?}
 
-  \item{txy}{a data frame with a chron object in its first column, lon
-    and lat in second and third column, respectively.}
+  \item{txy}{a data frame with a \code{POSIXct} object in its first
+    column, lon and lat in second and third column, respectively.}
 
   \item{id}{a factor dividing the data in \code{txy} into distinct
     groups.}
@@ -53,10 +55,10 @@ track(txy, id=gl(1, nrow(txy)), subset)
   time difference (h), and velocity (m/s).  For \code{track}, a data
   frame with an id column and the same columns as in \code{distSpeed}.}
 
+% -------------------------------------------------------------------------
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
-% -------------------------------------------------------------------------
 \keyword{math}% at least one, from doc/KEYWORDS
 \keyword{manip}

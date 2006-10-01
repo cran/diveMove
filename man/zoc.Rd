@@ -2,6 +2,7 @@
 
 \alias{zoc}
 \alias{plotDive}
+
 % -------------------------------------------------------------------------
 
 \title{Interactive zero-offset correction of TDR data}
@@ -21,7 +22,7 @@ plotDive(time, depth, vel=NULL, xlim=NULL, phaseCol=NULL)
 
 \arguments{
 
-  \item{time}{chron object with date and time.}
+  \item{time}{\code{POSIXct} object with date and time.}
 
   \item{depth}{numeric vector with depth in m.}
 
@@ -66,12 +67,12 @@ plotDive(time, depth, vel=NULL, xlim=NULL, phaseCol=NULL)
   \code{\link{locator}}.}
 
 
+\seealso{\code{\link{detDive}}}
+
+% -------------------------------------------------------------------------
+
 \author{Sebastian P. Luque \email{spluque@gmail.com}, with many ideas
   from CRAN package sfsmisc.}
 
 
-\seealso{\code{\link{detDive}}}
-
-
-% -------------------------------------------------------------------------
 \keyword{iplot}% at least one, from doc/KEYWORDS

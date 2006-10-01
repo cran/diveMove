@@ -2,9 +2,11 @@
 
 \alias{calibrateDepth}
 \alias{calibrateVel}
+
 % -------------------------------------------------------------------------
 
 \title{Calibrate and build a "TDRcalibrate" object}
+
 
 
 \description{These functions create a "TDRcalibrate" object which is
@@ -12,7 +14,7 @@
 
 
 \usage{
-calibrateDepth(x, landerr=65, seaerr=3605, divethres=4, offset)
+calibrateDepth(x, landerr=70, seaerr=3610, divethres=4, offset)
 calibrateVel(x, type="all", calType="pooled", bad=c(0, 0),
 z=0, filename=slot(getTDR(x), "file"), coefs, \ldots)
 }
@@ -64,10 +66,10 @@ z=0, filename=slot(getTDR(x), "file"), coefs, \ldots)
   \code{\link{doVelCalib}}, \code{\link{zoc}}, for the underlying
   functions.}
 
+% -------------------------------------------------------------------------
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
-% -------------------------------------------------------------------------
 \keyword{manip}% at least one, from doc/KEYWORDS
 \keyword{math}% __ONLY ONE__ keyword per line

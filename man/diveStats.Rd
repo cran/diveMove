@@ -3,9 +3,11 @@
 \alias{diveStats}
 \alias{getDive}
 \alias{stampDive}
+
 % -------------------------------------------------------------------------
 
 \title{Per-dive statistics}
+
 
 
 \description{Calculate dive statistics in TDR records.}
@@ -45,14 +47,14 @@ stampDive(x, ignoreZ=TRUE)
 \value{A \code{\link{data.frame}} with one row per dive detected
   (durations are in s, and linear variables in m):
 
-  \item{begdesc}{a chron object, specifying the start time of each
-    dive.}
+  \item{begdesc}{A \code{POSIXct} object, specifying the start time of
+    each dive.}
 
-  \item{enddesc}{chron object, as \code{begdesc} indicating descent's
-    end time.}
+  \item{enddesc}{A \code{POSIXct} object, as \code{begdesc} indicating
+    descent's end time.}
 
-  \item{begasc}{chron object, as \code{begdesc} indicating the time
-    ascent began.}
+  \item{begasc}{A \code{POSIXct} object, as \code{begdesc} indicating
+    the time ascent began.}
 
   \item{desctim}{descent duration of each dive.}
 
@@ -104,13 +106,13 @@ stampDive(x, ignoreZ=TRUE)
   start and end times for each dive.}
 
 
-\author{Sebastian P. Luque \email{spluque@gmail.com}}
-
-
 \seealso{\code{\link{detPhase}}, \code{\link{zoc}},
   \code{\link{TDRcalibrate-class}}}
 
-
 % -------------------------------------------------------------------------
+
+\author{Sebastian P. Luque \email{spluque@gmail.com}}
+
+
 \keyword{arith}% at least one, from doc/KEYWORDS
 \keyword{math}

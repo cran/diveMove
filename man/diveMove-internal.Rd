@@ -1,14 +1,15 @@
 \name{diveMove-internal}
 
-\alias{.createChron}
 \alias{.cutDive}
 \alias{.descAsc}
 \alias{.getInterval}
 \alias{.getVelCalib}
 \alias{.getVelStats}
+
 % -------------------------------------------------------------------------
 
 \title{Internal diveMove Functions}
+
 
 
 \description{Functions used for very particular tasks within larger
@@ -17,7 +18,6 @@
 
 \usage{
 .cutDive(x)
-.createChron(date, time, dtformat)
 .descAsc(x, phase, type=c("all", "strict"), interval, z=0)
 .getInterval(time)
 .getVelCalib(time, zdepth, vel, dives, phase, \dots)
@@ -33,15 +33,10 @@
     velocity.  For \emph{.getVelStats}: a 3-col matrix with time, depth,
     and velocity.}
 
-  \item{date}{A vector to be converted to be converted to a chron
-    object.}
+  \item{time}{\code{POSIXct} object representing time.}
 
-  \item{time}{chron object representing time, or a vector to be
-    converted to such an object (for \code{.createChron}).  It can be
-    missing in the latter case.}
-
-  \item{dtformat}{A vector of length 2 indicating the format in which
-    \code{date} and \code{time} should be interpreted by \code{chron}.}
+  \item{dtformat}{A string to interpret date and time (see
+    \code{\link{strptime}}.}
 
   \item{phase}{factor labelling each row for its phase in dive.}
 
@@ -49,7 +44,7 @@
     descent/ascent should be included (\dQuote{all}), or points shared
     with bottom phase should be excluded (\dQuote{srict}).}
 
-  \item{interval}{sampling interval in chron units (d).}
+  \item{interval}{sampling interval in seconds.}
 
   \item{z}{minimum depth differences to use.}
 
@@ -87,9 +82,9 @@
   matrix with rate of depth change in the first column, and velocity in
   the second, corresponding to the descent phase of each dive.}
 
+% -------------------------------------------------------------------------
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
-% -------------------------------------------------------------------------
 \keyword{internal}

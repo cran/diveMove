@@ -1,10 +1,10 @@
 "plotDive" <- function(time, depth, vel=NULL, xlim=NULL, phaseCol=NULL)
 {
-    ## Purpose: Interactive plot of time, depth, velocity, mostly for ZOC.
-    ## 	      Returns a list with coordinates for each zoc'ed time window.
+    ## Value: Plot of time, depth, velocity, mostly for ZOC, returns a
+    ## list with coordinates for each zoc'ed time window.
     ## --------------------------------------------------------------------
-    ## Arguments: time=chron object with date and time;
-    ## depth and vel=numeric vectors of depth and velocity;
+    ## Arguments: time=POSIXct; depth and vel=numeric vectors of depth and
+    ## velocity
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
@@ -21,7 +21,7 @@
     xlmid <- tclVar(xlmid)                # initialize date range midpoint
     xZ <- as.numeric(tclvalue(xZoom))     # these 2 are to be dynamically changed
     xM <- as.numeric(tclvalue(xlmid))
-    ylim <- c(max(depth, na.rm=TRUE), min(depth, na.rm=TRUE))
+    ylim <- rev(range(depth, na.rm=TRUE))
     yMax <- tclVar(ylim[1])
     yTop <- as.numeric(tclvalue(yMax))
     replot <- function(...) {
@@ -37,24 +37,20 @@
         xM <<- as.numeric(tclvalue(xlmid))
         xr.half <- (xr0/2) * 100/xZ
         xlim <- xM + c(-xr.half, xr.half)
-        xticks <- chron(seq(from=xlim[1], to=xlim[2], length=20))
-        xlabels <- sprintf("%02i-%02i %02i:%02i:%02i",
-                           months(xticks), days(xticks),
-                           hours(xticks), minutes(xticks), seconds(xticks))
+        orig <- structure(0, class=class(time), tzone=attr(time, "tzone"))
+        xticks <- orig + seq(from=xlim[1], to=xlim[2], length=20)
         yTop <<- as.numeric(tclvalue(yMax))
         ylim <- c(yTop, ylim[2])
-        morn <- chron(dates=unique(dates(time)),
-                      times=rep("06:00:00",
-                          times=length(unique(dates(time))))) + 1
-        night <- chron(dates=unique(dates(time)),
-                       times=rep("18:00:00",
-                           times=length(unique(dates(time)))))
+        morn.uniq <- unique(format(time, format="%F 06:00:00"))
+        morn <- as.POSIXct(morn.uniq, tz=attr(time, "tzone")) + 86400
+        night.uniq <- unique(format(time, format="%F 18:00:00"))
+        night <- as.POSIXct(night.uniq, tz=attr(time, "tzone"))
         plot(depth ~ time, type="n", xlim=xlim, ylim=ylim,
              xlab="date (mm-dd hh:mm:ss)",
              ylab="depth (m)", xaxt="n", yaxt="n")
         usr <- par("usr")
         rect(night, usr[3], morn, usr[4], col="black")
-        axis(side=1, lwd=2, at=xticks, labels=xlabels)
+        axis.POSIXct(side=1, time, at=xticks, lwd=2, format="%m-%d %H:%M:%S")
         axis(side=2, lwd=2)
         lines(time, depth, col="blue")
         if (!is.null(phaseCol)) {
@@ -63,10 +59,8 @@
             legend("bottomright", legend=levels(phaseCol), col=colors,
                    pch=19, cex=0.7, ncol=nlevels(phaseCol), bg="white")
         }
-        grid(nx=0, ny=NULL)
-        legend("bottomleft", legend=c("06:00 - 18:00", "18:00 - 06:00"),
-               fill=c("white", "black"), cex=0.7, bg="white",
-               y.intersp=1.2)
+        legend("bottomleft", legend=c("18:00 - 06:00"), fill=c("black"),
+               cex=0.7, bg="white", y.intersp=1.2)
         if(!is.null(vel)) {
             par(mar=c(-0.1, 4, 1, 1) + 0.1)
             ylim <- range(vel, na.rm=TRUE)
@@ -77,7 +71,6 @@
             if (!is.null(phaseCol)) {           # we already have 'colors'
                 points(time, vel, col=colors[phaseCol], pch=19, cex=0.4)
             }
-            grid(nx=0, ny=NULL)
             axis(side=2, lwd=2)
         }
     }
@@ -123,17 +116,16 @@
     ## Pan
     tkpack(tklabel(xmid.frame, text="Pan through Date"))
     tkpack(tkscale(xmid.frame, command=replot.maybe,
-                   from=xm0 - xr0, to=xm0 + xr0, showvalue=TRUE,
+                   from=xm0 - xr0, to=xm0 + xr0, showvalue=FALSE,
                    variable=xlmid, resolution=xr0/2000, length=200,
                    orient="horiz"))
     ## Maximum depth selection
     tkpack(tklabel(dep.frame, text="Max. Depth (m)"))
     tkpack(tkscale(dep.frame, command=replot.maybe,
-                   from=0, to=1000, length=150, showvalue=TRUE,
-                   variable=yMax, orient="horiz"))
+                   from=0, to=max(depth, na.rm=TRUE), length=150,
+                   showvalue=TRUE, variable=yMax, orient="horiz"))
 
-    if(is.null(vel)) {x11(width=12)} else {x11(width=12, height=9)}
     replot()
     tkwait.window(base)
-    coords
+    invisible(coords)
 }

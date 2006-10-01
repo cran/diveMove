@@ -3,9 +3,11 @@
 \alias{grpSpeedFilter}
 \alias{rmsDistFilter}
 \alias{austFilter}
+
 % -------------------------------------------------------------------------
 
 \title{Filter satellite locations}
+
 
 
 \description{Apply a three stage algorithm to eliminate erroneous
@@ -23,7 +25,8 @@ rmsDistFilter(x, velthres, window=5, distthres)
 
 \arguments{
 
-  \item{time}{chron object with dates and times for each point.}
+  \item{time}{\code{POSIXct} object with dates and times for each
+    point.}
 
   \item{lon}{numeric vectors of longitudes, in decimal degrees.}
 
@@ -32,8 +35,8 @@ rmsDistFilter(x, velthres, window=5, distthres)
   \item{id}{a factor grouping points in different categories
     (e.g. individuals).}
 
-  \item{velthres}{velocity threshold above which filter tests should
-    fail any given point.}
+  \item{velthres}{velocity threshold (m/s) above which filter tests
+    should fail any given point.}
 
   \item{distthres}{distance threshold above which the last filter test
     should fail any given point.}
@@ -41,7 +44,7 @@ rmsDistFilter(x, velthres, window=5, distthres)
   \item{window}{integer indicating the size of the moving window over
     which tests should be carried out.}
 
-  \item{x}{3-column matrix with column 1: numeric chron vector; column
+  \item{x}{3-column matrix with column 1: \code{POSIXct} vector; column
     2: numeric longitude vector; column 3: numeric latitude vector.}
 
 }
@@ -82,15 +85,9 @@ authors may be using it inconsistently.}
 
 
 \value{A matrix with three columns of logical vectors with values TRUE
-  for points that failed each stage.}
-
-
-\note{Points that fail the first stage also fail the second and third
-  stage, but points that fail the second stage do not necessarily fail
-  the third stage.}
-
-
-\author{Sebastian P. Luque \email{spluque@gmail.com} and Andy Liaw.}
+  for points that failed each stage.  Results from each filter are
+  presented independently of the others; i.e. points marked as failing
+  one filter are not necessarily marked as failing the next one.}
 
 
 \seealso{\code{\link{distSpeed}}}
@@ -104,7 +101,10 @@ authors may be using it inconsistently.}
   filtering erroneous Argos satellite locations. \emph{Marine Mammal
   Science} 19: 371-383.}
 
-
 % -------------------------------------------------------------------------
+
+\author{Sebastian P. Luque \email{spluque@gmail.com} and Andy Liaw.}
+
+
 \keyword{manip}% at least one, from doc/KEYWORDS
 \keyword{iteration}

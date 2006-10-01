@@ -6,14 +6,14 @@ setMethod("show", signature=signature(object="TDR"),
               cat("Time-Depth Recorder data -- Class",
                   class(object), "object\n")
               cat("  Source File             :", object@file, "\n")
-              cat("  Sampling Interval (s)   :", object@dtime * 86400, "\n")
+              cat("  Sampling Interval (s)   :", object@dtime, "\n")
               cat("  Number of Samples       :", length(object@time), "\n")
               cat("  Sampling Begins         :",
                   paste(object@time[1]), "\n")
               cat("  Sampling Ends           :",
                   paste(object@time[length(object@time)]), "\n")
               cat("  Total Duration (d)      :",
-                  diff(range(object@time, na.rm=TRUE)), "\n")
+                  diff(range(object@time)), "\n")
           })
 
 
@@ -73,11 +73,11 @@ setMethod("as.data.frame", signature("TDR"),
 ## FOR TDRcalibrate -------------------------------------------------------
 setMethod("show", signature=signature(object="TDRcalibrate"),
           definition=function(object) {
-              dd <- length(unique(object@gross.activity$
-                                  phase.id[object@gross.activity$trip.act == "L"]))
-              ww <- length(unique(object@gross.activity$
-                                  phase.id[object@gross.activity$trip.act == "W" |
-                                           object@gross.activity$trip.act == "Z"]))
+              dry <- object@gross.activity$trip.act == "L"
+              dd <- length(unique(object@gross.activity$ phase.id[dry]))
+              wet <- object@gross.activity$trip.act == "W"
+              wetz <- object@gross.activity$trip.act == "Z"
+              ww <- length(unique(object@gross.activity$ phase.id[wet | wetz]))
               cat("Depth calibration -- Class", class(object), "object\n")
               cat("  Source file                       :",
                   object@tdr@file, "\n")
@@ -177,7 +177,7 @@ setMethod("extractDive", signature(obj="TDR", diveNo="numeric",
                                    id="numeric"), # for TDR object
           function(obj, diveNo, id) {
               if (length(id) != length(getTime(obj))) {
-                  stop ("id and obj must have the equal number of rows")
+                  stop ("id and obj must have equal number of rows")
               }
               ok <- which(id %in% diveNo)
               okl <- setdiff(ok - 1, ok)
@@ -229,14 +229,14 @@ setMethod("attendance",            # a table of general attendance pattern
               if (ignoreZ) {              # ignore the short baths
                   act[act == "Z"] <- "L"
                   attlist <- getAct(tt, act, interval)
-                  actlabel <- act[match(names(attlist[[3]]), attlist[[1]])]
+                  actlabel <- rle(as.vector(act))$values
                   tripno <- seq(along=actlabel)
               } else {                    # count the short baths
                   attlist <- getGAct(obj)
-                  actlabel <- act[match(names(attlist[[3]]), attlist[[1]])]
+                  actlabel <- rle(as.vector(act))$values
                   tripno <- seq(along=actlabel)
               }
               data.frame(phaseno=tripno, activity=actlabel,
-                         beg=chron(attlist[[3]]),
-                         end=chron(attlist[[4]]), row.names=NULL)
+                         beg=attlist[[3]], end=attlist[[4]],
+                         row.names=NULL)
           })

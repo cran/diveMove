@@ -22,9 +22,11 @@
 \alias{show,TDRcalibrate-method}
 \alias{getTDR,TDRcalibrate-method}
 \alias{getVelCoef,TDRcalibrate-method}
+
 % -------------------------------------------------------------------------
 
 \title{Class "TDRcalibrate" for dive analysis}
+
 
 
 \description{This class holds information produced at various stages of
@@ -141,7 +143,7 @@
   on-land, at-sea, or leisure at-sea activity.  These two elements are
   as long as there are rows in \code{tdr}.  This slot also contains two
   more vectors: one with the beginning time of each phase, and another
-  with the ending time; both represented as \code{chron} objects.  See
+  with the ending time; both represented as \code{POSIXct} objects.  See
   \code{detPhase}.
 
   The slot \code{dive.activity} contains a data.frame, again with as
@@ -167,6 +169,7 @@
   have an accessor function.  See \code{\link{getVelCoef}} for accessing
   \code{vel.calib.coefs}.}
 
+% -------------------------------------------------------------------------
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 
@@ -175,5 +178,4 @@
   package}
 
 
-% -------------------------------------------------------------------------
 \keyword{classes}

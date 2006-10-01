@@ -2,9 +2,11 @@
 
 \alias{detPhase}
 \alias{getAct}
+
 % -------------------------------------------------------------------------
 
 \title{Detect phases of activity from depth readings}
+
 
 
 \description{Functions to identify sections of a TDR record displaying
@@ -13,7 +15,7 @@
 
 
 \usage{
-detPhase(time, depth, landerr=65, seaerr=3605, \dots)
+detPhase(time, depth, landerr, seaerr, \dots)
 getAct(time, act, interval)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -21,7 +23,7 @@ getAct(time, act, interval)
 
 \arguments{
 
-  \item{time}{chron object with date and time for all depths.}
+  \item{time}{\code{POSIXct} object with date and time for all depths.}
 
   \item{depth}{numeric vector with depth readings.}
 
@@ -34,7 +36,7 @@ getAct(time, act, interval)
   \item{act}{A numeric vector indicating the activity for every element
     of \code{time}.}
 
-  \item{interval, \dots}{sampling interval in chron units (d).}
+  \item{interval, \dots}{sampling interval in seconds.}
 
 }
 
@@ -70,29 +72,28 @@ getAct(time, act, interval)
     animal activities.  Only \sQuote{L}, \sQuote{W}, and \sQuote{Z} are
     actually represented.}
 
-  \item{trip.beg}{a numeric vector as long as the number of unique
-    activity phases identified, representing the time (in days) since
-    the origin set by chron to the start times for each activity phase.}
+  \item{trip.beg}{a \code{POSIXct} object as long as the number of
+    unique activity phases identified, indicating the start times for
+    each activity phase.}
 
-  \item{trip.end}{a numeric vector as long as the number of unique
-    activity phases identified, representing the time (in days) since
-    the origin set by chron to the end times for each activity phase.}
+  \item{trip.end}{a \code{POSIXct} object as long as the number of
+    unique activity phases identified, indicating the end times for each
+    activity phase.}
 
   \item{time.br}{a factor dividing the factor \code{act} in phases.}
 
   \item{time.peract}{duration of each phase defined by \code{time.br}.}
 
-  \item{beg.time}{beginning time for each phase.}
+  \item{beg.time}{\code{POSIXct} object; beginning time for each phase.}
 
-  \item{end.time}{ending time for each phase.}}
-
-
-\author{Sebastian P. Luque \email{spluque@gmail.com}}
+  \item{end.time}{\code{POSIXct} object; ending time for each phase.}}
 
 
 \seealso{\code{\link{detDive}}}
 
-
 % -------------------------------------------------------------------------
+
+\author{Sebastian P. Luque \email{spluque@gmail.com} and Andy Liaw.}
+
+
 \keyword{manip}% at least one, from doc/KEYWORDS
-\keyword{chron}

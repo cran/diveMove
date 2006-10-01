@@ -1,4 +1,4 @@
-"calibrateDepth" <-  function(x, landerr=65, seaerr=3605,
+"calibrateDepth" <-  function(x, landerr=70, seaerr=3610,
                               divethres=4, offset)
 {
     ## Purpose: Detect water/land phases in TDR object, zoc data, detect
@@ -11,15 +11,14 @@
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
     if (!is(x, "TDR")) stop ("x is not a TDR object")
-    ## Detect trips
+    ## Detect trips and dives
     detp <- detPhase(getTime(x), getDepth(x), landerr=landerr,
                      seaerr=seaerr, getDtime(x))
     zd <- if (missing(offset)) {
         zoc(getTime(x), getDepth(x))
     } else zoc(getTime(x), getDepth(x), offset=offset)
     if (!is.null(zd)) x@depth <- zd
-    detd <- detDive(getTime(x), getDepth(x), detp[[2]],
-                    divethres, getDtime(x))
+    detd <- detDive(getDepth(x), detp[[2]], divethres, getDtime(x))
 
     ## label phases of dives with their activity
     phaselabs <- labDivePhase(x, detd[, 1])
@@ -35,20 +34,19 @@
 }
 
 
-"calibrateVel" <- function(x, type="all", calType="pooled",
-                           bad=c(0, 0), z=0,
+"calibrateVel" <- function(x, type="all", calType="pooled", bad=c(0, 0), z=0,
                            filename=slot(getTDR(x), "file"), coefs, ...)
 {
-    ## Purpose: Calibrate velocity
+    ## Value: TDRcalibrate object with calibrated velocity and calibration
+    ## coefficients
     ## --------------------------------------------------------------------
-    ## Arguments: x=a TDRcalibrate object; type, z, calType, bad, filename,
-    ## ... see documentation for .getVelCalib and doVelCalib.  Return a
-    ## TDRcalibrate object
+    ## Arguments: x=a TDRcalibrate object; type, z, calType, bad,
+    ## filename, ... see doVelCalib.
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
-    if (!is(slot(x, "tdr"), "TDRvel")) {
-        stop ("tdr slot in x does not contain a TDRvel object")
+    if (!is(x@tdr, "TDRvel")) {
+        stop ("tdr slot in x is not a TDRvel object")
     }
     tt <- getTDR(x)
     if (!missing(coefs)) {
