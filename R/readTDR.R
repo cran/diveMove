@@ -18,14 +18,14 @@
 }
 
 
-"readTDR" <- function(file, dateCol=1, timeCol=2, depthCol=3, velCol=6,
+"readTDR" <- function(file, dateCol=1, timeCol=2, depthCol=3, speedCol=6,
                       subsamp=5, dtformat="%d/%m/%Y %H:%M:%S", tz="GMT")
 {
-    ## Value: TDR or TDRvel object from *.csv file
+    ## Value: TDR or TDRspeed object from *.csv file
     ## --------------------------------------------------------------------
     ## Arguments: file=path to file to read; dateCol=col no. with date,
-    ## timeCol=col no. with time, depthCol=col no. with depth, velCol=col
-    ## no. with velocity, subsamp=subsample at this interval,
+    ## timeCol=col no. with time, depthCol=col no. with depth,
+    ## speedCol=col no. with speed, subsamp=subsample at this interval,
     ## dtformat=format to interpret the pasted date and time columns,
     ## tz=time zone to assume
     ## --------------------------------------------------------------------
@@ -48,7 +48,7 @@
         new("TDR", file=srcfile, time=datetime,
             depth=rawdat[, depthCol], dtime=.getInterval(datetime))
     } else {
-        new("TDRvel", file=srcfile, time=datetime, depth=rawdat[, depthCol],
-            velocity=rawdat[, velCol], dtime=.getInterval(datetime))
+        new("TDRspeed", file=srcfile, time=datetime, depth=rawdat[, depthCol],
+            speed=rawdat[, speedCol], dtime=.getInterval(datetime))
     }
 }

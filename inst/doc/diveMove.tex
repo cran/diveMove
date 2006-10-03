@@ -2,6 +2,9 @@
 %\VignetteDepends{diveMove}
 %\VignettePackage{diveMove}
 \documentclass[12pt, letterpaper]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage{pdfdraftcopy}
 \usepackage[margin=3cm]{geometry}
 \usepackage{graphicx}
@@ -99,7 +102,7 @@ default, which is a standard structure of files from common TDR models.
   \caption{Sample TDR file structure.}
   \centering
   \begin{tabular}{rrrrrr}\toprule
-    date       & time     & depth  & light  & temperature & velocity \\\midrule
+    date       & time     & depth  & light  & temperature & speed    \\\midrule
     16/02/2004 & 14:30:00 & 12     & 200    & 8.4         & 1.44     \\
     16/02/2004 & 14:30:05 & 15     & 180    & 8.0         & 1.75     \\
     16/02/2004 & 14:30:10 & 19     & 170    & 7.6         & 1.99     \\
@@ -108,7 +111,7 @@ default, which is a standard structure of files from common TDR models.
   \label{tab:file-str}
 \end{table}
 
-Depending on the TDR model, velocity may be omitted.  Currently, light,
+Depending on the TDR model, speed may be omitted.  Currently, light,
 temperature and any other variables beyond column 6 are ignored.
 
 To read the file into \R{}, use the function \Rfunction{readTDR}:
@@ -145,16 +148,16 @@ in the \R{} session, e.g. as a \Robject{data frame}, then the function
 further analyses.
 
 Both of these functions store the data in an object of class \Rclass{TDR}
-or \Rclass{TDRvel}, which hold information on the source file and sampling
-interval, in addition to the variables described above.  Which of these
-objects is created is determined by the name of the input file.  All files
-should contain the letter sequence ``mk'' followed by a number, as these
-correspond to the names of common TDR models.  If the number following
-this sequence is 8, then a \Rclass{TDRvel} object is created, otherwise
-the function returns a \Rclass{TDR} object.
+or \Rclass{TDRspeed}, which hold information on the source file and
+sampling interval, in addition to the variables described above.  Which of
+these objects is created is determined by the name of the input file.  All
+files should contain the letter sequence ``mk'' followed by a number, as
+these correspond to the names of common TDR models.  If the number
+following this sequence is 8, then a \Rclass{TDRspeed} object is created,
+otherwise the function returns a \Rclass{TDR} object.
 
 
-\section{Extraction and Display of Information from TDR and TDRvel
+\section{Extraction and Display of Information from TDR and TDRspeed
   Objects}
 \label{sec:extract}
 
@@ -166,7 +169,7 @@ will display the usual overview information on the object:
 > sealX
 \end{Sinput}
 \begin{Soutput}
-Time-Depth Recorder data -- Class TDRvel object
+Time-Depth Recorder data -- Class TDRspeed object
   Source File             : sealMK8.csv 
   Sampling Interval (s)   : 5 
   Number of Samples       : 34199 
@@ -177,7 +180,7 @@ Time-Depth Recorder data -- Class TDRvel object
 \end{Schunk}
 
 Other extractor methods are named after the component they extract:
-\Rmethod{getTime}, \Rmethod{getDepth}, \Rmethod{getVeloc}, and
+\Rmethod{getTime}, \Rmethod{getDepth}, \Rmethod{getSpeed}, and
 \Rmethod{getDtime}, where the latter extracts the sampling interval.  The
 \Rmethod{plot} method brings up a plot of the data covering the entire
 record, although a \Rpackage{tcltk} widget provides controls for zooming
@@ -194,13 +197,13 @@ later be exported or manipulated any other way:
 > head(sealX.df)
 \end{Sinput}
 \begin{Soutput}
-                 time depth velocity
-1 2002-01-05 11:32:00    NA       NA
-2 2002-01-05 11:32:05    NA       NA
-3 2002-01-05 11:32:10    NA       NA
-4 2002-01-05 11:32:15    NA       NA
-5 2002-01-05 11:32:20    NA       NA
-6 2002-01-05 11:32:25    NA       NA
+                 time depth speed
+1 2002-01-05 11:32:00    NA    NA
+2 2002-01-05 11:32:05    NA    NA
+3 2002-01-05 11:32:10    NA    NA
+4 2002-01-05 11:32:15    NA    NA
+5 2002-01-05 11:32:20    NA    NA
+6 2002-01-05 11:32:25    NA    NA
 \end{Soutput}
 \end{Schunk}
 
@@ -280,7 +283,7 @@ Depth calibration -- Class TDRcalibrate object
   Dry threshold used (s)            : 70 
   Aquatic theshold used (s)         : 3610 
   Dive threshold used (s)           : 4 
-  Velocity calibration coefficients : a = 0 ; b = 1 
+  Speed calibration coefficients : a = 0 ; b = 1 
 \end{Soutput}
 \end{Schunk}
 
@@ -291,22 +294,23 @@ Depth calibration -- Class TDRcalibrate object
 Extractor methods are also available to access the information stored in
 \Rclass{TDRcalibrate} objects.  These include: \Rmethod{getTDR},
 \Rmethod{getGAct}, \Rmethod{getDAct}, \Rmethod{getDPhaseLab}, and
-\Rmethod{getVelCoefs}.  These are all generic functions\footnote{A few of
-  them with more than one method} that access the (depth) calibrated
+\Rmethod{getSpeedCoefs}.  These are all generic functions\footnote{A few
+  of them with more than one method} that access the (depth) calibrated
 \Rclass{TDR} object, details from wet/dry periods, dives, dive phases, and
-velocity calibration coefficients (see~Section~\ref{sec:velocity}),
+speed calibration coefficients (see~Section~\ref{sec:speed}),
 respectively.  Below is a short explanation of these methods.
 
 \begin{itemize}
-\item [\Rmethod{getTDR}] This method simply takes the \Rclass{TDRcalibrate}
-  object as its single argument and extracts the \Rclass{TDR}
-  object\footnote{In fact, a \Rclass{TDRvel} object in this example}:
+\item [\Rmethod{getTDR}] This method simply takes the
+  \Rclass{TDRcalibrate} object as its single argument and extracts the
+  \Rclass{TDR} object\footnote{In fact, a \Rclass{TDRspeed} object in this
+    example}:
 \begin{Schunk}
 \begin{Sinput}
 > getTDR(dcalib)
 \end{Sinput}
 \begin{Soutput}
-Time-Depth Recorder data -- Class TDRvel object
+Time-Depth Recorder data -- Class TDRspeed object
   Source File             : sealMK8.csv 
   Sampling Interval (s)   : 5 
   Number of Samples       : 34199 
@@ -316,10 +320,9 @@ Time-Depth Recorder data -- Class TDRvel object
 \end{Soutput}
 \end{Schunk}
 
-\item [\Rmethod{getGAct}] There are two methods for this generic,
-  allowing access to a list with details about all wet/dry periods found.
-  One of these extracts the entire \Rclass{list} (output omitted for
-  brevity):
+\item [\Rmethod{getGAct}] There are two methods for this generic, allowing
+  access to a list with details about all wet/dry periods found.  One of
+  these extracts the entire \Rclass{list} (output omitted for brevity):
 \begin{Schunk}
 \begin{Sinput}
 > getGAct(dcalib)
@@ -381,7 +384,7 @@ data:
 > subSealX
 \end{Sinput}
 \begin{Soutput}
-Time-Depth Recorder data -- Class TDRvel object
+Time-Depth Recorder data -- Class TDRspeed object
   Source File             : sealMK8.csv 
   Sampling Interval (s)   : 5 
   Number of Samples       : 2410 
@@ -409,11 +412,11 @@ method\footnote{The function that the method uses is actually
 \end{itemize}
 
 
-\section{Velocity Calibration}
-\label{sec:velocity}
+\section{Speed Calibration}
+\label{sec:speed}
 
-Calibration of velocity readings is done using the principles described in
-\citet{1929} and \citet{1291}.  The function \Rfunction{calibrateVel}
+Calibration of speed readings is done using the principles described in
+\citet{1929} and \citet{1291}.  The function \Rfunction{calibrateSpeed}
 performs this operation\footnote{CAUTION: This implementation is
   experimental, and may give unexpected results.}, and allows the
 selection of the particular subset of the data that should be used for the
@@ -421,7 +424,7 @@ calibration:
 
 \begin{Schunk}
 \begin{Sinput}
-> vcalib <- calibrateVel(dcalib, calType = "pooled")
+> vcalib <- calibrateSpeed(dcalib, calType = "pooled")
 \end{Sinput}
 \end{Schunk}
 \begin{Schunk}
@@ -437,7 +440,7 @@ Depth calibration -- Class TDRcalibrate object
   Dry threshold used (s)            : 70 
   Aquatic theshold used (s)         : 3610 
   Dive threshold used (s)           : 4 
-  Velocity calibration coefficients : a = 0.4 ; b = 0.64 
+  Speed calibration coefficients : a = 0.4 ; b = 0.64 
 \end{Soutput}
 \end{Schunk}
 A side effect of such a call is the production of a plot displaying the
@@ -449,7 +452,7 @@ representation.
 \begin{figure}[hbtp]
   \centering
   \includegraphics[trim=0 0 10 0, width=\textwidth]{diveMove-vcalibration}
-  \caption{Example velocity calibration lines, dividing dives into
+  \caption{Example speed calibration lines, dividing dives into
     descent, ascent, or pooling both phases from a TDR record.}
   \label{fig:rqplots}
 \end{figure}
@@ -457,16 +460,16 @@ representation.
 The default (calType=''pooled'') is to use data from the descent and
 ascent phases of all dives, but possible values also include ``descent'',
 ``ascent'', and ``none''.  Because the function produces three plots of
-velocity vs. rate of depth change, the latter is useful in cases where
-velocity does not need any calibration, but inspection of the plots is
-desired.  Finer control is possible by the use of arguments
-\Rfunarg{type}, which controls whether descent or ascent readings that are
-shared with the bottom phase of the dive should be included or not, and
-\Rfunarg{bad}, which controls minimum velocities and rates of depth change
-through which the calibration line should be drawn.  Finally, a maximum
-depth threshold can be supplied as the argument z, so that only data from
-dives where maximum depth was greater than this value are included in the
-construction of the calibration line.
+speed vs. rate of depth change, the latter is useful in cases where speed
+does not need any calibration, but inspection of the plots is desired.
+Finer control is possible by the use of arguments \Rfunarg{type}, which
+controls whether descent or ascent readings that are shared with the
+bottom phase of the dive should be included or not, and \Rfunarg{bad},
+which controls minimum speeds and rates of depth change through which the
+calibration line should be drawn.  Finally, a maximum depth threshold can
+be supplied as the argument z, so that only data from dives where maximum
+depth was greater than this value are included in the construction of the
+calibration line.
 
 If the calibration coefficients from the implicit quantile regression are
 known a priori, then these can be supplied to the function via its
@@ -494,22 +497,22 @@ Once data have been calibrated and the record broken up at ``trip'' and
 1 2002-01-05 12:20:20     7.5       5    7.5        6
 2 2002-01-05 21:20:40    42.5      20   47.5       26
 3 2002-01-05 21:23:50    67.5      35   72.5       63
-  bottdist ascdist desc.tdist desc.mean.vel desc.angle
-1        0       6      22.44         4.488      15.51
-2        3      29     100.07         2.502      15.06
-3        8      67     107.84         1.659      35.75
-  bott.tdist bott.mean.vel asc.tdist asc.mean.vel asc.angle
-1      15.22         3.043     18.04        3.609     19.42
-2      53.96         2.698     71.78        1.595     23.83
-3      56.11         1.603     98.09        1.401     43.08
-  divetim maxdep postdive.dur postdive.tdist
-1      20      6        32345       50445.70
-2     110     29           35          16.85
-3     175     67           75          58.18
-  postdive.mean.vel
-1            1.5652
-2            0.4815
-3            0.7758
+  bottdist ascdist desc.tdist desc.mean.speed desc.angle
+1        0       6      22.44           4.488      15.51
+2        3      29     100.07           2.502      15.06
+3        8      67     107.84           1.659      35.75
+  bott.tdist bott.mean.speed asc.tdist asc.mean.speed
+1      15.22           3.043     18.04          3.609
+2      53.96           2.698     71.78          1.595
+3      56.11           1.603     98.09          1.401
+  asc.angle divetim maxdep postdive.dur postdive.tdist
+1     19.42      20      6        32345       50445.70
+2     23.83     110     29           35          16.85
+3     43.08     175     67           75          58.18
+  postdive.mean.speed
+1              1.5652
+2              0.4815
+3              0.7758
 \end{Soutput}
 \end{Schunk}
 

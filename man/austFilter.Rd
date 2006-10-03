@@ -16,9 +16,9 @@
 
 \usage{
 austFilter(time, lon, lat, id=gl(1, 1, length(time)),
-           velthres, distthres, window=5)
-grpSpeedFilter(x, velthres, window=5)
-rmsDistFilter(x, velthres, window=5, distthres)
+           speedthres, distthres, window=5)
+grpSpeedFilter(x, speedthres, window=5)
+rmsDistFilter(x, speedthres, window=5, distthres)
 }
 %- maybe also 'usage' for other objects documented here.
 
@@ -35,7 +35,7 @@ rmsDistFilter(x, velthres, window=5, distthres)
   \item{id}{a factor grouping points in different categories
     (e.g. individuals).}
 
-  \item{velthres}{velocity threshold (m/s) above which filter tests
+  \item{speedthres}{speed threshold (m/s) above which filter tests
     should fail any given point.}
 
   \item{distthres}{distance threshold above which the last filter test
@@ -60,14 +60,14 @@ rmsDistFilter(x, velthres, window=5, distthres)
   The first stage of the filter is an iterative process which tests
   every point, except the first and last two, for travel velocity
   relative to the preceeding/following two points. If all these four
-  velocities are greater than the specified threshold, the point is
-  marked as failing the first stage. In this case, the next point is
-  tested, removing the failing point from the set of test points.
+  speeds are greater than the specified threshold, the point is marked
+  as failing the first stage. In this case, the next point is tested,
+  removing the failing point from the set of test points.
 
   The second stage runs McConnell et al. (1992) algorithm, which tests
   all the points that passed the first stage, in the same manner as
-  above. The root mean square of all four velocities is calculated, and
-  if it is greater than the specified threshold, the point is marked as
+  above. The root mean square of all four speeds is calculated, and if
+  it is greater than the specified threshold, the point is marked as
   failing the second stage.
 
   The third stage is run simultaneously with the second stage, but if

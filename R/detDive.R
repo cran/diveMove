@@ -49,8 +49,8 @@
     ndives <- length(unique(inddive[act == "D", 1]))
     message(ndives, " dives detected")
 
-    ## Return data frame with vectors of dive indices, adjusted activity, and
-    ## postdive indices
+    ## Return data frame with vectors of dive indices, adjusted activity,
+    ## and postdive indices
     data.frame(dive.id=inddive[, 1], dive.activity=act,
                postdive.id=inddive[, 2])
 }
@@ -69,11 +69,11 @@
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
     ## Descent detection
-    descdd <- diff(x[, 2])                # sequential differences
+    descdd <- diff(x[, 2])              # sequential differences
     ## subscript of diffs <= 0 -- no further increase in depth
     descinf <- which(descdd <= 0)
-    ## descent ends at inflection point, or first row if non detected
-    ## We allow for a maximum of 1 histeresis event at the beginning and end
+    ## descent ends at inflection point, or first row if non detected We
+    ## allow for a maximum of 1 histeresis event at the beginning and end
     ## of dive
     descind <- if (length(descinf) > 0) {
         if (length(descinf) > 1 & descinf[2] != descinf[1] + 1) {
@@ -129,8 +129,8 @@
 {
     ## Value: A factor labelling portions of dives
     ## --------------------------------------------------------------------
-    ## Arguments: x=class TDR object, diveID=numeric vector indexing
-    ## each dive (non-dives should be 0)
+    ## Arguments: x=class TDR object, diveID=numeric vector indexing each
+    ## dive (non-dives should be 0)
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
@@ -146,4 +146,20 @@
     ff <- factor(rep("X", length(diveID)), levels=c(unique(labdF[, 2]), "X"))
     ff[as.numeric(labdF[, 1])] <- labdF[, 2]
     ff
+}
+
+".diveIndices" <- function(diveID, diveNo)
+{
+    ## Value: A numeric vector with the indices of dives (and their
+    ## beginning/end indices) in diveID
+    ## --------------------------------------------------------------------
+    ## Arguments: diveID=numeric vector numbering all dives and non-dives,
+    ## diveNo=numeric vector of unique dive indices to extract fromdiveID.
+    ## --------------------------------------------------------------------
+    ## Author: Sebastian P. Luque
+    ## --------------------------------------------------------------------
+    ok <- which(diveID %in% diveNo)
+    okl <- setdiff(ok - 1, ok)
+    okr <- setdiff(ok + 1, ok)
+    sort(c(okl, ok, okr))               # add the surface points
 }

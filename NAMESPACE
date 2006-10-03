@@ -4,7 +4,7 @@ import(methods)
 exportPattern("^[^\\.]")
 
 exportClasses("TDR",
-              "TDRvel",
+              "TDRspeed",
               "TDRcalibrate")
 
 exportMethods("as.data.frame",
@@ -21,5 +21,5 @@ exportMethods("as.data.frame",
               "show",
               "getTDR",
               "getTime",
-              "getVelCoef",
-              "getVeloc")
+              "getSpeedCoef",
+              "getSpeed")

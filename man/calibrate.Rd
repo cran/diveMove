@@ -1,7 +1,7 @@
 \name{calibrateDepth}
 
 \alias{calibrateDepth}
-\alias{calibrateVel}
+\alias{calibrateSpeed}
 
 % -------------------------------------------------------------------------
 
@@ -15,7 +15,7 @@
 
 \usage{
 calibrateDepth(x, landerr=70, seaerr=3610, divethres=4, offset)
-calibrateVel(x, type="all", calType="pooled", bad=c(0, 0),
+calibrateSpeed(x, type="all", calType="pooled", bad=c(0, 0),
 z=0, filename=slot(getTDR(x), "file"), coefs, \ldots)
 }
 
@@ -24,7 +24,7 @@ z=0, filename=slot(getTDR(x), "file"), coefs, \ldots)
 
   \item{x}{an object of class \code{TDR} for \code{calibrateDepth}, and
     an object of class \code{TDRcalibrate-class} for
-    \code{calibrateVel}.}
+    \code{calibrateSpeed}.}
 
   \item{landerr, seaerr}{arguments to \code{\link{detPhase}}.}
 
@@ -33,14 +33,14 @@ z=0, filename=slot(getTDR(x), "file"), coefs, \ldots)
   \item{offset}{argument to \code{\link{zoc}}.}
 
   \item{type, calType, bad, z, filename}{further arguments for
-    \code{\link{.getVelCalib}} and \code{\link{doVelCalib}}.}
+    \code{\link{.getSpeedCalib}} and \code{\link{doSpeedCalib}}.}
 
-  \item{coefs}{known velocity calibration coefficients from quantile
+  \item{coefs}{known speed calibration coefficients from quantile
     regression as a vector of length 2 (intercept, slope).  If provided,
-    these coefficients are used for calibrating velocity, ignoring all
+    these coefficients are used for calibrating speed, ignoring all
     other arguments, except \code{x}.}
 
-  \item{\ldots}{argument passed to \code{\link{doVelCalib}}.}
+  \item{\ldots}{argument passed to \code{\link{doSpeedCalib}}.}
 
 }
 
@@ -54,7 +54,7 @@ z=0, filename=slot(getTDR(x), "file"), coefs, \ldots)
   wet/dry phase detection, and detection of dives, as well as proper
   labelling of the latter.
 
-  \code{calibrateVel} calibrates velocity readings.
+  \code{calibrateSpeed} calibrates speed readings.
 
 }
 
@@ -63,7 +63,7 @@ z=0, filename=slot(getTDR(x), "file"), coefs, \ldots)
 
 
 \seealso{\code{\link{detPhase}}, \code{\link{detDive}},
-  \code{\link{doVelCalib}}, \code{\link{zoc}}, for the underlying
+  \code{\link{doSpeedCalib}}, \code{\link{zoc}}, for the underlying
   functions.}
 
 % -------------------------------------------------------------------------

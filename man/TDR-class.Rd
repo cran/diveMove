@@ -2,13 +2,13 @@
 \docType{class}
 
 \alias{TDR-class}
-\alias{TDRvel-class}
+\alias{TDRspeed-class}
 
 \alias{getDepth}
 \alias{getDtime}
 \alias{getFileName}
 \alias{getTime}
-\alias{getVeloc}
+\alias{getSpeed}
 
 \alias{as.data.frame,TDR-method}
 \alias{coerce,TDR,data.frame-method}
@@ -17,14 +17,14 @@
 \alias{extractDive,TDR,numeric,numeric-method}
 \alias{getFileName,TDR-method}
 \alias{plot,TDR,missing-method}
-\alias{plot,TDRvel,missing-method}
+\alias{plot,TDRspeed,missing-method}
 \alias{show,TDR-method}
 \alias{getTime,TDR-method}
-\alias{getVeloc,TDRvel-method}
+\alias{getSpeed,TDRspeed-method}
 
 % -------------------------------------------------------------------------
 
-\title{Classes "TDR" and "TDRvel" for representing TDR information}
+\title{Classes "TDR" and "TDRspeed" for representing TDR information}
 
 
 
@@ -32,13 +32,30 @@
   recorders.}
 
 
+\usage{
+\S4method{extractDive}{TDR,numeric,numeric}(obj, diveNo, id)
+}
+
+
+\arguments{
+
+  \item{obj}{\code{"\linkS4class{TDR}"} object.}
+
+  \item{diveNo}{numeric vector or scalar with dive numbers to extract.}
+
+  \item{id}{numeric vector of dive numbers from where \code{diveNo}
+    should be chosen.}
+
+}
+
+
 \section{Objects from the Class}{Objects can be created by calls of the
-  form \code{new("TDR", \dots)} and \code{new("TDRvel", \dots)}.
+  form \code{new("TDR", \dots)} and \code{new("TDRspeed", \dots)}.
 
   \code{TDR} objects contain concurrent time and depth readings, as well
   as a string indicating the file the data originates from, and a number
-  indicating the sampling interval for these data.  \code{TDRvel}
-  extends \code{TDR} objects containing additional concurrent velocity
+  indicating the sampling interval for these data.  \code{TDRspeed}
+  extends \code{TDR} objects containing additional concurrent speed
   readings.}
 
 
@@ -60,11 +77,11 @@
 
   }
 
-  Class \emph{TDRvel} adds:
+  Class \emph{TDRspeed} adds:
   \describe{
 
-    \item{\code{velocity}:}{Object of class \code{"numeric"} velocity
-      (m/s) readings.}
+    \item{\code{speed}:}{Object of class \code{"numeric"} speed (m/s)
+      readings.}
 
   }
 
@@ -77,13 +94,13 @@
     \item{as.data.frame}{\code{signature(x="TDR")}: Coerce object to
       data.frame.}
 
-    \item{as.data.frame}{\code{signature(x="TDRvel")}: Coerce object to
-      data.frame.}
+    \item{as.data.frame}{\code{signature(x="TDRspeed")}: Coerce object
+      to data.frame.}
 
     \item{coerce}{\code{signature(from="TDR", to="data.frame")}: Coerce
       object to data.frame.}
 
-    \item{coerce}{\code{signature(from="TDRvel", to="data.frame")}:
+    \item{coerce}{\code{signature(from="TDRspeed", to="data.frame")}:
       Coerce object to data.frame.}
 
     \item{getDepth}{\code{signature(x = "TDR")}: depth slot accessor.}
@@ -101,16 +118,16 @@
       graphical display of the data, with zooming and panning
       capabilities.}
 
-    \item{plot}{\code{signature(x = "TDRvel", y = "missing")}: As the
-      TDR method, but also plots the velocity slot.}
+    \item{plot}{\code{signature(x = "TDRspeed", y = "missing")}: As the
+      TDR method, but also plots the speed slot.}
 
     \item{show}{\code{signature(object = "TDR")}: print an informative
       summary of the data.}
 
     \item{getTime}{\code{signature(x = "TDR")}: time slot accessor.}
 
-    \item{getVeloc}{\code{signature(x = "TDRvel")}: velocity accessor
-	for \code{TDRvel} objects.}
+    \item{getSpeed}{\code{signature(x = "TDRspeed")}: speed accessor for
+	\code{TDRspeed} objects.}
 
     }
 

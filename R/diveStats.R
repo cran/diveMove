@@ -16,8 +16,7 @@
     ddepths <- getDepth(zvtdr)[ok]                   # diving depths
     dids <- diveid[ok]                               # dive IDs
     dphases <- getDPhaseLab(x)[ok]                   # dive phase labels
-                                        # postdive subscripts:
-    okpd <- which(postdiveid %in% unique(dids))
+    okpd <- which(postdiveid %in% unique(dids)) # postdive subscripts
     pdtimes <- getTime(zvtdr)[okpd]          # required postdive times
     pddepths <- getDepth(zvtdr)[okpd]        # required postdive depths
     pdids <- postdiveid[okpd]                # required postdive IDs
@@ -27,7 +26,7 @@
     })
 
     dtimestz <- attr(dtimes, "tzone")
-    if (!is(zvtdr, "TDRvel")) {
+    if (!is(zvtdr, "TDRspeed")) {
         td <- data.frame(dphases, dtimes, ddepths)
         perdive <- do.call(rbind, by(td, dids, getDive, interval=interval))
         res <- data.frame(perdive, postdive.dur)
@@ -35,15 +34,15 @@
                                              class=c("POSIXt", "POSIXct"),
                                              tzone=dtimestz)
     } else {
-        dvels <- getVeloc(zvtdr)[ok]    # diving velocities
-        td <- data.frame(dphases, dtimes, ddepths, dvels)
+        dspeeds <- getSpeed(zvtdr)[ok]  # diving speeds
+        td <- data.frame(dphases, dtimes, ddepths, dspeeds)
         perdive <- do.call(rbind, by(td, dids, getDive, interval=interval,
-                                     vel=TRUE))
-        ## for postdive total distance and mean velocity
-        ptd <- matrix(c(pdtimes, getVeloc(zvtdr)[okpd]), ncol=2)
-        pdv <- do.call(rbind, by(ptd, pdids, .getVelStats))
+                                     speed=TRUE))
+        ## for postdive total distance and mean speed
+        ptd <- matrix(c(pdtimes, getSpeed(zvtdr)[okpd]), ncol=2)
+        pdv <- do.call(rbind, by(ptd, pdids, .getSpeedStats))
         res <- data.frame(perdive, postdive.dur, postdive.tdist=pdv[, 1],
-                          postdive.mean.vel=pdv[, 2])
+                          postdive.mean.speed=pdv[, 2])
         for (i in 1:3) res[, i] <- structure(res[, i],
                                              class=c("POSIXt", "POSIXct"),
                                              tzone=dtimestz)

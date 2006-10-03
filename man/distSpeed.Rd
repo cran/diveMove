@@ -9,13 +9,13 @@
 
 
 
-\description{Calculate distance, time difference, and velocity between
+\description{Calculate distance, time difference, and speed between
   pairs of points defined by latitude and longitude, given the time at
   which all points were measured.}
 
 
 \usage{
-distSpeed(pt1, pt2, velocity=TRUE)
+distSpeed(pt1, pt2, speed=TRUE)
 track(txy, id=gl(1, nrow(txy)), subset)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -30,8 +30,7 @@ track(txy, id=gl(1, nrow(txy)), subset)
 
   \item{pt2}{a matrix with the same structure as \code{pt1}.}
 
-  \item{velocity}{logical; should velocity between points be
-    calculated?}
+  \item{speed}{logical; should speed between points be calculated?}
 
   \item{txy}{a data frame with a \code{POSIXct} object in its first
     column, lon and lat in second and third column, respectively.}
@@ -52,8 +51,8 @@ track(txy, id=gl(1, nrow(txy)), subset)
 
 
 \value{For \code{distSpeed}, a matrix with three columns: distance (km),
-  time difference (h), and velocity (m/s).  For \code{track}, a data
-  frame with an id column and the same columns as in \code{distSpeed}.}
+  time difference (h), and speed (m/s).  For \code{track}, a data frame
+  with an id column and the same columns as in \code{distSpeed}.}
 
 % -------------------------------------------------------------------------
 

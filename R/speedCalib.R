@@ -3,11 +3,11 @@
 ".descAsc" <- function(x, phase, type=c("all", "strict"),
                        interval, z=0)
 {
-    ## Value: 2-element list with rate of depth change (m/s) and velocity
+    ## Value: 2-element list with rate of depth change (m/s) and speed
     ## (original units) for descent and ascent.
     ## --------------------------------------------------------------------
-    ## Arguments: x=4-col matrix with a single dive (id, time, depth, vel)
-    ## phase=factor labelling each row for its phase in dive
+    ## Arguments: x=4-col matrix with a single dive (id, time, depth,
+    ## speed) phase=factor labelling each row for its phase in dive
     ## interval=sampling interval in seconds; z=minimum depth differences
     ## to use.
     ## --------------------------------------------------------------------
@@ -31,8 +31,8 @@
             diffdep <- max(k[, 3], na.rm=TRUE)
             if (diffdep > z) {
                 dratedep <- diffdep / difftim
-                mvel <- mean(k[-1, 4], na.rm=TRUE)
-                cbind(dive.id=unique(k[, 1]), dratedep, mvel)
+                mspeed <- mean(k[-1, 4], na.rm=TRUE)
+                cbind(dive.id=unique(k[, 1]), dratedep, mspeed)
             }
         }
     })
@@ -43,8 +43,8 @@
     ##     difftim <- diff(k[, 2])           # time differences
     ##     diffdep <- diff(k[, 3])           # depth differences
     ##     dratedep <- diffdep / (difftim * 86400) # rates of depth change
-    ##     mvel <- k[-1, 4]                  # mean velocities for the above
-    ##     cbind(dive.id=unique(k[, 1]), dratedep, mvel)
+    ##     mspeed <- k[-1, 4]                  # mean speeds for the above
+    ##     cbind(dive.id=unique(k[, 1]), dratedep, mspeed)
     ##   }
     ## })
 
@@ -52,15 +52,16 @@
 }
 
 
-".getVelCalib" <- function(time, zdepth, vel, dives, phase, ...)
+".getSpeedCalib" <- function(time, zdepth, speed, dives, phase, ...)
 {
-    ## Purpose: Select rate of depth change and vel broken by ascent and
-    ## descent phases. Provides the data to perform calibration of velocity.
+    ## Value: A 2-element list with rate of depth change and speed for
+    ## ascent and descent phases. Provides the data to perform calibration
+    ## of speed.
     ## --------------------------------------------------------------------
-    ## Arguments: time=POSIXct; zdepth=corrected depth m;
-    ## vel=velocity in m/s; dives=3-col matrix as returned by detDive();
-    ## phase=factor dividing dive into sections (see labDivePhase)
-    ## ...=passed to .descAsc (type, interval (in seconds), and z)
+    ## Arguments: time=POSIXct; zdepth=corrected depth m; speed=speed in
+    ## m/s; dives=3-col matrix as returned by detDive(); phase=factor
+    ## dividing dive into sections (see labDivePhase) ...=passed to
+    ## .descAsc (type, interval (in seconds), and z)
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
@@ -68,12 +69,12 @@
     ok <- which(dives[, 2] == "D")
     dtimes <- time[ok]                    # diving times
     ddepth <- zdepth[ok]                  # diving depths
-    dvel <- vel[ok]                       # diving velocities
+    dspeed <- speed[ok]                   # diving speeds
     dphase <- phase[ok]                   # diving phases
     dids <- dives[ok, 1]                  # dive IDs
 
-    ## time-depth-vel mtx, with time in numeric (seconds)
-    tdv <- matrix(c(dids, dtimes, ddepth, dvel), ncol=4)
+    ## time-depth-speed mtx, with time in numeric (seconds)
+    tdv <- matrix(c(dids, dtimes, ddepth, dspeed), ncol=4)
 
     perdive <- by(tdv, tdv[, 1], function(k) {
         curdphase <- dphase[dids == k[1, 1]]
@@ -89,29 +90,28 @@
 
 ## CALIBRATING AND PLOTTING ###############################################
 
-"rqPlot" <- function(rdepth, vel, rqFit, main="qtRegression",
-                     xlab="rate of depth change (m/s)",
-                     ylab="velocity (m/s)",
+"rqPlot" <- function(rdepth, speed, rqFit, main="qtRegression",
+                     xlab="rate of depth change (m/s)", ylab="speed (m/s)",
                      colramp=colorRampPalette(c("white", "darkblue")))
 {
-    ## Purpose: quantile regression plot for TDR velocity calibration
+    ## Value: A quantile regression plot for TDR speed calibration
     ## --------------------------------------------------------------------
-    ## Arguments: rdepth=rate of depth change (m), vel=velocity (m/s),
-    ## rqFit=quantile regression fit object
-    ## main=title to display in the plot
+    ## Arguments: rdepth=rate of depth change (m), speed=speed (m/s),
+    ## rqFit=quantile regression fit object; main=title to display in the
+    ## plot
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
     ## Bandwidths for the x and y axis for the kernel plot
-    bandw <- c(bw.nrd(rdepth), bw.nrd(vel))
-    z <- bkde2D(cbind(rdepth, vel), bandwidth=bandw)
+    bandw <- c(bw.nrd(rdepth), bw.nrd(speed))
+    z <- bkde2D(cbind(rdepth, speed), bandwidth=bandw)
 
-    axlims <- range(rdepth, vel, na.rm=TRUE)
+    axlims <- range(rdepth, speed, na.rm=TRUE)
     par(pty="s")
     image(z$x1, z$x2, z$fhat, xlim=axlims, ylim=axlims, col=colramp(256),
           main=main, xlab=xlab, ylab=ylab, cex.lab=1.3, las=1)
     box()
-    points(rdepth, vel, pch=".")
+    points(rdepth, speed, pch=".")
     abline(rqFit)
     abline(0, 1, lty=2)
     mtext(bquote(y == .(round(coef(rqFit)[1], 3)) +
@@ -119,16 +119,16 @@
 }
 
 
-"doVelCalib" <- function(rates, vel, calType="pooled", bad=c(0, 0),
-                         filename, postscript=FALSE, ...)
+"doSpeedCalib" <- function(rates, speed, calType="pooled", bad=c(0, 0),
+                           filename, postscript=FALSE, ...)
 {
-    ## Purpose: Quantile regressions of velocity on rate of depth change
+    ## Value: Quantile regressions of speed on rate of depth change
     ## --------------------------------------------------------------------
-    ## Arguments: rates=list returned from .getVelCalib,
-    ## vel=vector with uncalibrated velocities,
+    ## Arguments: rates=list returned from .getSpeedCalib,
+    ## speed=vector with uncalibrated speeds,
     ## calType=string ("ascent", "descent", or "pooled") which one?
     ## bad=vector (length 2) with lower threshold rate of depth change and
-    ## velocity, respectively, below which data should be ignored, respectively,
+    ## speed, respectively, below which data should be ignored, respectively,
     ## below which data should be excluded,
     ## filename=base name for output eps files, ...=for rqPlot (colramp, etc.)
     ## --------------------------------------------------------------------
@@ -139,7 +139,7 @@
 
     desc <- na.omit(rates[[1]])
     asc <- na.omit(rates[[2]])
-    ## Subset rates of depth change > 0, > specified, and vel > specified
+    ## Subset rates of depth change > 0, > specified, and speed > specified
     desc <- desc[desc[, 2] > 0 & desc[, 2] > bad[1] & desc[, 3] > bad[2], ]
     asc <- asc[asc[, 2] > 0 & asc[, 2] > bad[1] & asc[, 3] > bad[2], ]
     pooled <- rbind(desc, asc)
@@ -150,7 +150,7 @@
 
     prefix <- gsub("(.*).csv", "\\1", filename)
     if (postscript) {
-        outfile <- paste(prefix, "_velcal.eps", sep="")
+        outfile <- paste(prefix, "_speedcal.eps", sep="")
         postscript(outfile, paper="special", width=6, height=6,
                    horizontal=FALSE, ## pointsize=14,
                    title=paste(prefix, "speed calibration"))
@@ -159,12 +159,12 @@
     par(mar=c(4.5, 2, 3.5, 0))
     for (i in names(full)) {
         ratedep <- full[[i]][, 2]
-        mvel <- full[[i]][, 3]
-        rqfit <- rq(mvel ~ ratedep, tau=0.02, na.action=na.omit)
-        rqPlot(ratedep, mvel, rqfit, paste(prefix, "--", i), ...)
+        mspeed <- full[[i]][, 3]
+        rqfit <- rq(mspeed ~ ratedep, tau=0.02, na.action=na.omit)
+        rqPlot(ratedep, mspeed, rqfit, paste(prefix, "--", i), ...)
         if (i == calType) {
-            corrvel <- (vel - coef(rqfit)[1]) / coef(rqfit)[2]
-            rqcalibs <- list(coefficients=coef(rqfit), corrVel=corrvel)
+            corrSpeed <- (speed - coef(rqfit)[1]) / coef(rqfit)[2]
+            rqcalibs <- list(coefficients=coef(rqfit), corrSpeed=corrSpeed)
         }
     }
     plot(fullDx, fullDy, type="n", xlab="x",

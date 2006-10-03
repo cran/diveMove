@@ -1,3 +1,61 @@
+2006-10-03  Sebastian P. Luque  <spluque@gmail.com>
+
+	* AllMethod.R:
+	Fixed bug in 'show' TDR method causing inconsistencies in the
+	units shown for the "Total Duration (d)".
+	New plot method for TDRcalibrate objects, with control over which dives to
+	plot, and whether to plot surface readings.
+
+	* plotDive.R:
+	Fixed bug due to out of range xright and xleft arguments to rect().
+	Drop unused levels from phaseCol argument, for creating meaningful legend.
+	Do not include a legend for the point labels if there are more than 10 of
+	them.
+
+	* detDive.R (.diveIndices):
+	New internal function to extract indices of dives and their
+	surface beginning/ending.
+
+2006-10-02  Sebastian P. Luque  <spluque@gmail.com>
+
+	* plotDive.R:
+	More control is now possible for zooming.
+	Better arrangement of tk widgets.
+
+2006-10-01  Sebastian P. Luque  <spluque@gmail.com>
+
+	* speedCalib.R:
+	Renamed arguments, objects and calls to methods related to speed.
+
+	* readTDR.R (readTDR):
+	Renamed argument to specify speed column and call to create new
+	class object, to reflect changes in slot name.
+
+	* plotDive.R: Renamed argument velocity to speed.
+
+	* getSpeedStats.R: Renamed objects related to speed.
+
+	* getDive.R:
+	Renamed argument vel to speed, and renamed calls to methods and functions
+	related to speed.
+
+	* diveStats.R:
+	Renamed calls to methods to reflect the new names of methods and functions
+	related to speed.
+
+	* distSpeed.R: Renamed argument vel to speed.
+
+	* calibrate.R:
+	Renamed function calibrateDepth to calibrateSpeed and reflected changes in
+	methods names related to speed.
+
+	* austFilter.R: Renamed argument velthres to speedthres.
+
+	* AllMethod.R:
+	Renamed methods related to velocity to speed to reflect changes in class slot.
+
+	* AllClass.R: Renamed class TDRvel to the more appropriate TDRspeed.
+
 2006-09-30  Sebastian P. Luque  <spluque@gmail.com>
 
 	* plotDive.R:
