@@ -29,7 +29,7 @@
 
   \item{temperature}{temperature in C}
 
-  \item{velocity}{velocity in m/s}
+  \item{speed}{speed in m/s}
 }
 
 

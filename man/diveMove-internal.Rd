@@ -2,9 +2,10 @@
 
 \alias{.cutDive}
 \alias{.descAsc}
+\alias{.diveIndices}
 \alias{.getInterval}
-\alias{.getVelCalib}
-\alias{.getVelStats}
+\alias{.getSpeedCalib}
+\alias{.getSpeedStats}
 
 % -------------------------------------------------------------------------
 
@@ -19,9 +20,10 @@
 \usage{
 .cutDive(x)
 .descAsc(x, phase, type=c("all", "strict"), interval, z=0)
+.diveIndices(diveID, diveNo)
 .getInterval(time)
-.getVelCalib(time, zdepth, vel, dives, phase, \dots)
-.getVelStats(x, vdist)
+.getSpeedCalib(time, zdepth, speed, dives, phase, \dots)
+.getSpeedStats(x, vdist)
 }
 
 
@@ -30,8 +32,8 @@
   \item{x}{a single dive's data; for \emph{\code{.cutDive}}: a 2-col
     matrix with subscript in original TDR object and non NA depths.  For
     \emph{.descAsc}: a 4-col matrix with dive id, time, depth, and
-    velocity.  For \emph{.getVelStats}: a 3-col matrix with time, depth,
-    and velocity.}
+    speed.  For \emph{.getSpeedStats}: a 3-col matrix with time, depth,
+    and speed.}
 
   \item{time}{\code{POSIXct} object representing time.}
 
@@ -50,7 +52,7 @@
 
   \item{zdepth}{zero-offset corrected depth m.}
 
-  \item{vel}{velocity in m/s.  For doVelCalib: uncalibrated velocities;
+  \item{speed}{speed in m/s.  For doSpeedCalib: uncalibrated speeds;
     ignored if \code{calType} is \dQuote{none}.}
 
   \item{dives}{3-col \code{data.frame} with dive id (numeric), activity
@@ -61,6 +63,11 @@
 
   \item{vdist}{vertical distance travelled during ascent or descent.}
 
+  \item{diveID}{Numeric vector of all dive and non dive IDs.}
+
+  \item{diveNo}{Numeric vector of unique dive IDs to index in
+    \code{diveID}.}
+
 }
 
 
@@ -68,19 +75,18 @@
   user, as he/she could not care less (right?).  This may change in the
   future.
 
-  \emph{.getVelCalib} extracts the rates of descent and ascent with
-  associated mean velocity during descent and ascent phases,
-  respectively and returns a list that is later manipulated by
-  doVelCalib to calibrate velocity.  The velocity used for each rate of
-  depth change corresponds to the velocity read for the last point,
-  assuming that each velocity reading is the average velocity for the
-  last measurement interval.}
+  \emph{.getSpeedCalib} extracts the rates of descent and ascent with
+  associated mean speed during descent and ascent phases, respectively
+  and returns a list that is later manipulated by doSpeedCalib to
+  calibrate speed.  The speed used for each rate of depth change
+  corresponds to the speed read for the last point, assuming that each
+  speed reading is the average speed for the last measurement interval.}
 
 
-\value{\emph{.getVelCalib}: A list with two elements (named
+\value{\emph{.getSpeedCalib}: A list with two elements (named
   \dQuote{descent} and \dQuote{ascent}).  Each element is a 2-column
-  matrix with rate of depth change in the first column, and velocity in
-  the second, corresponding to the descent phase of each dive.}
+  matrix with rate of depth change in the first column, and speed in the
+  second, corresponding to the descent phase of each dive.}
 
 % -------------------------------------------------------------------------
 

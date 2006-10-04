@@ -1,9 +1,9 @@
-"getDive" <- function(x, interval, vel=FALSE)
+"getDive" <- function(x, interval, speed=FALSE)
 {
     ## Value: A matrix with time/depth stats for each dive segment
     ## --------------------------------------------------------------------
     ## Arguments: x=a matrix with data for a single dive interval=sampling
-    ## interval vel=logical; should we calculate velocity stats?
+    ## interval speed=logical; should we calculate speed stats?
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
@@ -33,7 +33,7 @@
     ## MAXIMUM DIVE DEPTH
     maxdep <- max(x[, 3], na.rm=TRUE)
 
-    if (!vel) {
+    if (!speed) {
         cbind(begdesc=begdesc, enddesc=enddesc, begasc=begasc,
               desctim=desctim,
               botttim=ifelse(exists("botttim"), botttim, NA),
@@ -41,18 +41,18 @@
               bottdist=ifelse(exists("bottdist"), bottdist, NA),
               ascdist=ascdist, divetim=divetim, maxdep=maxdep)
     } else {
-        descv <- .getVelStats(desc[, -2], vdist=descdist)
-        bottv <- .getVelStats(bott[, -2])
-        ascv <- .getVelStats(asc[, -2], vdist=ascdist)
+        descv <- .getSpeedStats(desc[, -2], vdist=descdist)
+        bottv <- .getSpeedStats(bott[, -2])
+        ascv <- .getSpeedStats(asc[, -2], vdist=ascdist)
         cbind(begdesc=begdesc, enddesc=enddesc, begasc=begasc,
               desctim=desctim,
               botttim=if (exists("botttim")) botttim else NA,
               asctim=asctim, descdist=descdist,
               bottdist=if (exists("bottdist")) bottdist else NA,
               ascdist=ascdist, desc.tdist=descv[, 1],
-              desc.mean.vel=descv[, 2], desc.angle=descv[, 3],
-              bott.tdist=bottv[, 1], bott.mean.vel=bottv[, 2],
-              asc.tdist=ascv[, 1], asc.mean.vel=ascv[, 2],
+              desc.mean.speed=descv[, 2], desc.angle=descv[, 3],
+              bott.tdist=bottv[, 1], bott.mean.speed=bottv[, 2],
+              asc.tdist=ascv[, 1], asc.mean.speed=ascv[, 2],
               asc.angle=ascv[, 3], divetim=divetim,
               maxdep=maxdep)
     }

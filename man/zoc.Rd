@@ -15,7 +15,7 @@
 
 \usage{
 zoc(time, depth, offset)
-plotDive(time, depth, vel=NULL, xlim=NULL, phaseCol=NULL)
+plotDive(time, depth, speed=NULL, xlim=NULL, phaseCol=NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 
@@ -29,7 +29,7 @@ plotDive(time, depth, vel=NULL, xlim=NULL, phaseCol=NULL)
   \item{offset}{known amount of meters for zero-offset correcting depth
     throughout the entire TDR record.}
 
-  \item{vel}{numeric vector with velocity in m/s.}
+  \item{speed}{numeric vector with speed in m/s.}
 
   \item{xlim}{vector of length 2, with lower and upper limits of time to
     be plotted.}
@@ -41,7 +41,7 @@ plotDive(time, depth, vel=NULL, xlim=NULL, phaseCol=NULL)
 
 \details{These functions are used primarily to correct, visually, drifts
   in the pressure transducer of TDR records. \code{zoc} calls
-  \code{plotDive}, which plots depth and, optionally, velocity vs. time
+  \code{plotDive}, which plots depth and, optionally, speed vs. time
   with the possibility zooming in and out on time, changing maximum
   depths displayed, and panning through time. The option to zero-offset
   correct sections of the record gathers x and y coordinates for two

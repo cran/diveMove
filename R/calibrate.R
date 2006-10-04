@@ -1,9 +1,9 @@
 "calibrateDepth" <-  function(x, landerr=70, seaerr=3610,
                               divethres=4, offset)
 {
-    ## Purpose: Detect water/land phases in TDR object, zoc data, detect
-    ## 	      dives and their phases, and label them.  Return a TDRcalibrate
-    ## 	      object.
+    ## Value: A TDRcalibrate object.  Detect water/land phases in TDR
+    ## object, zoc data, detect dives and their phases, and label them.
+    ## Return a TDRcalibrate object.
     ## --------------------------------------------------------------------
     ## Arguments: x=a TDR object; landerr, seaerr and divethres (see
     ## detPhase, detDive, and labDivePhase documentation
@@ -34,42 +34,42 @@
 }
 
 
-"calibrateVel" <- function(x, type="all", calType="pooled", bad=c(0, 0), z=0,
-                           filename=slot(getTDR(x), "file"), coefs, ...)
+"calibrateSpeed" <- function(x, type="all", calType="pooled", bad=c(0, 0), z=0,
+                             filename=slot(getTDR(x), "file"), coefs, ...)
 {
-    ## Value: TDRcalibrate object with calibrated velocity and calibration
+    ## Value: TDRcalibrate object with calibrated speed and calibration
     ## coefficients
     ## --------------------------------------------------------------------
     ## Arguments: x=a TDRcalibrate object; type, z, calType, bad,
-    ## filename, ... see doVelCalib.
+    ## filename, ... see doSpeedCalib.
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
-    if (!is(x@tdr, "TDRvel")) {
-        stop ("tdr slot in x is not a TDRvel object")
+    if (!is(x@tdr, "TDRspeed")) {
+        stop ("tdr slot in x is not a TDRspeed object")
     }
     tt <- getTDR(x)
     if (!missing(coefs)) {
-        vel <- (getVeloc(tt) - coefs[1]) / coefs[2]
-        x@tdr@velocity <- vel
-        x@vel.calib.coefs <- coefs
+        speed <- (getSpeed(tt) - coefs[1]) / coefs[2]
+        x@tdr@speed <- speed
+        x@speed.calib.coefs <- coefs
         x
     } else {
-        ddepthvel <- .getVelCalib(time=getTime(tt),
-                                  zdepth=getDepth(tt),
-                                  vel=getVeloc(tt),
-                                  dives=getDAct(x),
-                                  phase=getDPhaseLab(x),
-                                  type=type, z=z,
-                                  interval=getDtime(tt))
+        ddepthspeed <- .getSpeedCalib(time=getTime(tt),
+                                      zdepth=getDepth(tt),
+                                      speed=getSpeed(tt),
+                                      dives=getDAct(x),
+                                      phase=getDPhaseLab(x),
+                                      type=type, z=z,
+                                      interval=getDtime(tt))
 
-        calibrate <- doVelCalib(ddepthvel, vel=getVeloc(tt),
-                                calType=calType, bad=bad,
-                                filename=filename, ...)
+        calibrate <- doSpeedCalib(ddepthspeed, speed=getSpeed(tt),
+                                  calType=calType, bad=bad,
+                                  filename=filename, ...)
 
         if (calType != "none") {
-            x@tdr@velocity <- calibrate[[2]]
-            x@vel.calib.coefs <- calibrate[[1]]
+            x@tdr@speed <- calibrate[[2]]
+            x@speed.calib.coefs <- calibrate[[1]]
         }
         x
     }

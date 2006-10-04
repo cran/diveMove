@@ -15,7 +15,7 @@
 
 \usage{
 diveStats(x)
-getDive(x, interval, vel=FALSE)
+getDive(x, interval, speed=FALSE)
 stampDive(x, ignoreZ=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -29,7 +29,7 @@ stampDive(x, ignoreZ=TRUE)
 
   \item{interval}{sampling interval for interpreting \code{x}.}
 
-  \item{vel}{logical; should velocity statistics be calculated?}
+  \item{speed}{logical; should speed statistics be calculated?}
 
   \item{ignoreZ}{logical indicating whether trips should be numbered
     considering all aquatic activities (\dQuote{W} and \dQuote{Z}) or
@@ -71,21 +71,21 @@ stampDive(x, ignoreZ=TRUE)
   \item{ascdist}{numeric vector with ascent depth.}
 
   \item{desc.tdist}{numeric vector with descent total distance,
-    estimated from velocity.}
+    estimated from speed.}
 
-  \item{desc.mean.vel}{numeric vector with descent mean velocity.}
+  \item{desc.mean.speed}{numeric vector with descent mean speed.}
 
   \item{desc.angle}{numeric vector with descent angle.}
 
   \item{bott.tdist}{numeric vector with bottom total distance, estimated
-    from velocity.}
+    from speed.}
 
-  \item{bott.mean.vel}{numeric vector with bottom mean velocity.}
+  \item{bott.mean.speed}{numeric vector with bottom mean speed.}
 
   \item{asc.tdist}{numeric vector with ascent total distance, estimated
-    from velocity.}
+    from speed.}
 
-  \item{asc.mean.vel}{numeric vector with ascent mean velocity.}
+  \item{asc.mean.speed}{numeric vector with ascent mean speed.}
 
   \item{asc.angle}{numeric vector with ascent angle.}
 
@@ -96,11 +96,11 @@ stampDive(x, ignoreZ=TRUE)
   \item{postdive.dur}{postdive duration.}
 
   \item{postdive.tdist}{numeric vector with postdive total distance,
-    estimated from velocity.}
+    estimated from speed.}
 
-  \item{postdive.mean.vel}{numeric vector with postdive mean velocity.}
+  \item{postdive.mean.speed}{numeric vector with postdive mean speed.}
 
-  The number of columns depends on the value of vel.
+  The number of columns depends on the value of speed.
 
   \code{stampDive} returns a data.frame with trip number, trip type, and
   start and end times for each dive.}

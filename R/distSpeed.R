@@ -1,11 +1,12 @@
-"distSpeed" <- function(pt1, pt2, velocity=TRUE)
+"distSpeed" <- function(pt1, pt2, speed=TRUE)
 {
-    ## Purpose: Calculate distance and speed between two points
+    ## Value: A 3-column matrix with distance, time elapsed and speed
+    ## between two points or set of points.
     ## --------------------------------------------------------------------
     ## Arguments: pt1 and pt2=data frames for each point, with three
     ## columns; the first for a POSIXct object with time for each point,
     ## the second for longitude, and the third for latitude.
-    ## velocity=logical; should velocity and time diffs be calculated?
+    ## speed=logical; should speed and time diffs be calculated?
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
@@ -35,7 +36,7 @@
     ## Distance (in Km)
     distance <- ifelse(dlat == 0 & dlon == 0, 0, ravg * fac)
     ## Calculate time difference (in hours) between locations.
-    if(velocity) {
+    if(speed) {
         timdiff <- abs(as.numeric(difftime(pt2[, 1], pt1[, 1], units="hours")))
         ## Speed in m/s.
         speed <- ifelse(timdiff == 0, 0, (distance * 1000) / (timdiff * 3600))

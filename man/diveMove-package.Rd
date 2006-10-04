@@ -12,9 +12,9 @@
 
 
 \description{This package is a collection of functions for visualizing,
-  and analyzing depth and velocity data from time-depth recorders
+  and analyzing depth and speed data from time-depth recorders
   \dfn{TDR}s.  These can be used to zero-offset correct depth, calibrate
-  velocity, and divide the record into different phases, or time budget.
+  speed, and divide the record into different phases, or time budget.
   Functions are provided for calculating summary dive statistics for the
   whole record, or at smaller scales within dives.}
 
@@ -23,7 +23,7 @@
   'vignette("diveMove")'.
   \code{\link[diveMove:diveMove-package]{TDR-class}},
   \code{\link[diveMove:diveMove-package]{calibrateDepth}},
-  \code{\link[diveMove:diveMove-package]{calibrateVel}},
+  \code{\link[diveMove:diveMove-package]{calibrateSpeed}},
   \code{\link[diveMove:diveMove-package]{attendance}},
   \code{\link[diveMove:diveMove-package]{stampDive}}.}
 
@@ -36,22 +36,25 @@
 ## read in data and create a TDR object
 (sealX <- readTDR(system.file(file.path("data", "sealMK8.csv"),
                               package="diveMove")))
-\dontrun{plot(sealX)}
+\dontrun{
+plot(sealX)  # pan and zoom through the record
+}
 
 ## detect periods of activity, and calibrate depth, creating
 ## a 'TDRcalibrate' object
-\dontrun{dcalib <- calibrateDepth(sealX)}
+\dontrun{dcalib <- calibrateDepth(sealX)} # interactively
 (dcalib <- calibrateDepth(sealX, offset=3)) # zero-offset correct at 3 m
 
-## plot dive number 100
-\dontrun{plot(extractDive(dcalib, 100))}
-## plot dives all dives, showing dive phases
-ddseq <- seq(max(getDAct(dcalib, "dive.id")))
-dd <- extractDive(dcalib, ddseq)
-\dontrun{plot(dd, phaseCol=getDPhaseLab(dcalib, ddseq))}
+\dontrun{
+## plot all readings and label them with the phase of the record
+## they belong to, excluding surface readings
+plot(dcalib, labels="phase.id", surface=FALSE)
+## plot the first 300 dives, showing dive phases and surface readings
+plot(dcalib, diveNo=seq(300), labels="dive.phase", surface=TRUE)
+}
 
-## calibrate velocity
-(vcalib <- calibrateVel(dcalib))
+## calibrate speed (using default remaining arguments)
+(vcalib <- calibrateSpeed(dcalib))
 
 ## Obtain dive statistics for all dives detected
 dives <- diveStats(vcalib)

@@ -28,7 +28,7 @@
     if (!is.null(alt.latCol)) locs$alt.lat <- inLocs[, alt.latCol]
     comment(locs) <- srcfile
 
-    locs[order(locs[, 2], locs[, 3]), ]         # sort by seal id and time
+    locs[order(locs[, 2], locs[, 3]), ] # sort by seal id and time
 }
 
 ## TEST ZONE --------------------------------------------------------------
