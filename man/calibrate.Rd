@@ -16,7 +16,7 @@
 \usage{
 calibrateDepth(x, landerr=70, seaerr=3610, divethres=4, offset)
 calibrateSpeed(x, type="all", calType="pooled", bad=c(0, 0),
-z=0, filename=slot(getTDR(x), "file"), coefs, \ldots)
+               z=0, filename=slot(getTDR(x), "file"), coefs, \ldots)
 }
 
 
