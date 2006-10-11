@@ -12,7 +12,7 @@
     dive <- vector(mode="numeric", length=length(act))
     dive[act == string] <- 1
     runs <- rle(dive)
-    rawid <- rep(seq(runs$lengths), runs$lengths)
+    rawid <- rep(seq(along=runs$lengths), runs$lengths)
 
     diveid <- rawid
     diveid[dive == 0] <- 0               # non-dive are 0, and dives conseq:

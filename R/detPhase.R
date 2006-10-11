@@ -10,7 +10,7 @@
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
     runs <- rle(as.vector(act))
-    cuttimbr <- factor(rep(seq(runs$lengths), runs$lengths))
+    cuttimbr <- factor(rep(seq(along=runs$lengths), runs$lengths))
     timsplit <- split(time, cuttimbr)
     begtim <- structure(sapply(timsplit, "[", 1), class=c("POSIXt", "POSIXct"),
                         tzone="GMT", names=NULL)

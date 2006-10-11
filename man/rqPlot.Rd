@@ -14,8 +14,7 @@
 
 \usage{
 rqPlot(rdepth, speed, rqFit, main="qtRegression",
-       xlab="rate of depth change (m/s)",
-       ylab="speed (m/s)",
+       xlab="rate of depth change (m/s)", ylab="speed (m/s)",
        colramp=colorRampPalette(c("white", "darkblue")))
 }
 %- maybe also 'usage' for other objects documented here.

@@ -54,12 +54,14 @@
         axis.POSIXct(side=1, time, at=xticks, lwd=2, format="%m-%d %H:%M:%S")
         axis(side=2, lwd=2)
         lines(time, depth, col="blue")
-        if (!is.null(phaseCol) & nlevels(phaseCol[drop=TRUE]) < 11) {
+        if (!is.null(phaseCol)) {
             phaseCol <- phaseCol[drop=TRUE]
             colors <- rainbow(nlevels(phaseCol))
             points(time, depth, col=colors[phaseCol], pch=19, cex=0.4)
-            legend("bottomright", legend=levels(phaseCol), col=colors,
-                   pch=19, cex=0.7, ncol=nlevels(phaseCol), bg="white")
+            if (nlevels(phaseCol) < 11) {
+                legend("bottomright", legend=levels(phaseCol), col=colors,
+                       pch=19, cex=0.7, ncol=nlevels(phaseCol), bg="white")
+            }
         }
         legend("bottomleft", legend=c("18:00 - 06:00"), fill=c("black"),
                cex=0.7, bg="white", y.intersp=1.2)
@@ -68,6 +70,7 @@
             ylim <- range(speed, na.rm=TRUE)
             plot(speed ~ time, type="n", xaxt="n", ylim=ylim,
                  xlab="", xlim=xlim, bty="n", ylab="speed (m/s)")
+            usr <- par("usr")           # to watch out for change in y coords
             rect(xleft, usr[3], xright, usr[4], col="black")
             lines(time, speed, col="green")
             if (!is.null(phaseCol)) {           # we already have 'colors'
