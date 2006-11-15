@@ -15,7 +15,10 @@
 
 \usage{
 zoc(time, depth, offset)
-plotDive(time, depth, speed=NULL, xlim=NULL, phaseCol=NULL)
+plotDive(time, depth, speed=NULL, xlim=NULL, phaseCol=NULL,
+         xlab="time (mm-dd hh:mm:ss)", ylab.depth="depth (m)",
+         ylab.speed="speed (m/s)", xlab.format="\%m-\%d \%H:\%M:\%S")
+
 }
 %- maybe also 'usage' for other objects documented here.
 
@@ -35,6 +38,12 @@ plotDive(time, depth, speed=NULL, xlim=NULL, phaseCol=NULL)
     be plotted.}
 
   \item{phaseCol}{factor dividing rows into sections.}
+
+  \item{xlab, ylab.depth, ylab.speed}{strings to label the corresponding
+    y-axes.}
+
+  \item{xlab.format}{format string for formatting the x axis; see
+  \code{\link{strptime}}.}
 
 }
 

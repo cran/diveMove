@@ -1,3 +1,8 @@
+2006-11-03  Sebastian P. Luque  <spluque@gmail.com>
+
+	* AllMethod.R: For as.data.frame method, return the file and dtime
+	slots as attributes.
+
 2006-10-05  Sebastian P. Luque  <spluque@gmail.com>
 
 	* plotDive.R: Moved 'if' statement checking for number of levels
@@ -5,8 +10,7 @@
 	labelling of points.
 
 	* detDive.R (labDive): Use arg 'along' in seq() call within rle.
-	This bug fix was causing an error when only one section was
-	present.
+	This bug was causing an error when only one section was present.
 
 	* detPhase.R (getAct): Modified seq() call within rle so it uses
 	its 'along' arg.  This bug was causing errors when only one phase

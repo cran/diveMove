@@ -1,4 +1,6 @@
-"plotDive" <- function(time, depth, speed=NULL, xlim=NULL, phaseCol=NULL)
+"plotDive" <- function(time, depth, speed=NULL, xlim=NULL, phaseCol=NULL,
+                       xlab="time (mm-dd hh:mm:ss)", ylab.depth="depth (m)",
+                       ylab.speed="speed (m/s)", xlab.format="%m-%d %H:%M:%S")
 {
     ## Value: Plot of time, depth, speed, mostly for ZOC, returns
     ## (invisibly) a list with coordinates for each zoc'ed time window.
@@ -45,13 +47,12 @@
         night.uniq <- unique(format(time, format="%F 18:00:00"))
         night <- as.POSIXct(night.uniq, tz=attr(time, "tzone"))
         plot(depth ~ time, type="n", xlim=xlim, ylim=ylim,
-             xlab="date (mm-dd hh:mm:ss)",
-             ylab="depth (m)", xaxt="n", yaxt="n")
+             xlab=xlab, ylab=ylab.depth, xaxt="n", yaxt="n")
         usr <- par("usr")
         xleft <- pmax(night, usr[1])
         xright <- pmin(morn, usr[2])
         rect(xleft, usr[3], xright, usr[4], col="black")
-        axis.POSIXct(side=1, time, at=xticks, lwd=2, format="%m-%d %H:%M:%S")
+        axis.POSIXct(side=1, time, at=xticks, lwd=2, format=xlab.format)
         axis(side=2, lwd=2)
         lines(time, depth, col="blue")
         if (!is.null(phaseCol)) {
@@ -69,7 +70,7 @@
             par(mar=c(-0.1, 4, 1, 1) + 0.1)
             ylim <- range(speed, na.rm=TRUE)
             plot(speed ~ time, type="n", xaxt="n", ylim=ylim,
-                 xlab="", xlim=xlim, bty="n", ylab="speed (m/s)")
+                 xlab="", xlim=xlim, bty="n", ylab=ylab.speed)
             usr <- par("usr")           # to watch out for change in y coords
             rect(xleft, usr[3], xright, usr[4], col="black")
             lines(time, speed, col="green")

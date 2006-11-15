@@ -59,11 +59,15 @@ setMethod("getDtime", signature(x="TDR"), function(x) x@dtime)
 
 ## Conversions
 setAs("TDR", "data.frame", function(from) {
+    file.src <- from@file
+    dtime <- from@dtime
     if (!is(from, "TDRspeed")) {
-        data.frame(time=from@time, depth=from@depth)
+        val <- data.frame(time=from@time, depth=from@depth)
     } else {
-        data.frame(time=from@time, depth=from@depth, speed=from@speed)
+        val <- data.frame(time=from@time, depth=from@depth, speed=from@speed)
     }
+    attr(val, "file") <- file.src
+    attr(val, "dtime") <- dtime
 })
 setMethod("as.data.frame", signature("TDR"),
           function(x, row.names=NULL, optional=FALSE) {

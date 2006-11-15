@@ -4,7 +4,7 @@ setClass("TDR",
              time="POSIXct", depth="numeric"),
          validity=function(object) {
              if (length(object@time) != length(object@depth)) {
-                 return("depth and time have unequal lengths")
+                 return("depth and time must have equal lengths")
              }
              if (!slot(object, "dtime")) return("dtime cannot be missing")
          })
@@ -16,7 +16,7 @@ setClass("TDRspeed",
              speed.len <- length(slot(object, "speed"))
              tim.len <- length(slot(object, "time"))
              if (speed.len != tim.len) {
-                 return("speed and time have unequal lengths")
+                 return("speed and time must have equal lengths")
              }
          })
 
