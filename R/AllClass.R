@@ -1,23 +1,28 @@
 ## CLASSES
 setClass("TDR",
          representation=representation(file="character", dtime="numeric",
-             time="POSIXct", depth="numeric"),
+             time="POSIXct", depth="numeric", concurrentData="data.frame"),
+         prototype=prototype(concurrentData=data.frame()),
          validity=function(object) {
              if (length(object@time) != length(object@depth)) {
                  return("depth and time must have equal lengths")
              }
              if (!slot(object, "dtime")) return("dtime cannot be missing")
+             return(TRUE)
          })
 
-setClass("TDRspeed",
-         representation=representation("TDR", speed="numeric"),
-         contains="TDR",
+.speedNames <- c("velocity", "speed")
+setClass("TDRspeed", contains="TDR",
          validity=function(object) {
-             speed.len <- length(slot(object, "speed"))
-             tim.len <- length(slot(object, "time"))
-             if (speed.len != tim.len) {
-                 return("speed and time must have equal lengths")
+             ccData <- object@concurrentData
+             ccDataNames <- names(ccData)
+             speedCol <- ccDataNames %in% .speedNames
+             if (length(ccDataNames[speedCol]) != 1) {
+                 return("speed is not available in concurrentData slot")
+             } else if (!is.numeric(ccData[, speedCol])) {
+                 return("speed must be of class numeric")
              }
+             return(TRUE)
          })
 
 setClass("TDRcalibrate",

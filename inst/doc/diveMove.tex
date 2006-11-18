@@ -118,7 +118,7 @@ To read the file into \R{}, use the function \Rfunction{readTDR}:
 \begin{Schunk}
 \begin{Sinput}
 > sealX <- readTDR(system.file(file.path("data", 
-+     "sealMK8.csv"), package = "diveMove"))
++     "sealMK8.csv"), package = "diveMove"), speed = TRUE)
 \end{Sinput}
 \end{Schunk}
 Read the help page for \Rfunction{readTDR} using \verb|?readTDR| following
@@ -128,7 +128,8 @@ between readings is 10 s:
 \begin{Schunk}
 \begin{Sinput}
 > sealX <- readTDR(system.file(file.path("data", 
-+     "sealMK8.csv"), package = "diveMove"), subsamp = 10)
++     "sealMK8.csv"), package = "diveMove"), speed = TRUE, 
++     subsamp = 10)
 \end{Sinput}
 \end{Schunk}
 But since the original 5 s interval (which is the default value for
@@ -137,7 +138,7 @@ recreated it here:
 \begin{Schunk}
 \begin{Sinput}
 > sealX <- readTDR(system.file(file.path("data", 
-+     "sealMK8.csv"), package = "diveMove"))
++     "sealMK8.csv"), package = "diveMove"), speed = TRUE)
 \end{Sinput}
 \end{Schunk}
 
@@ -176,6 +177,10 @@ Time-Depth Recorder data -- Class TDRspeed object
   Sampling Begins         : 2002-01-05 11:32:00 
   Sampling Ends           : 2002-01-07 11:01:50 
   Total Duration (d)      : 1.979 
+  Measured depth range (m): -4 - 91 
+  Speed range (m)     : 0 - 4.92 
+  Other variables     :
+ light temperature speed 
 \end{Soutput}
 \end{Schunk}
 
@@ -311,6 +316,10 @@ Time-Depth Recorder data -- Class TDRspeed object
   Sampling Begins         : 2002-01-05 11:32:00 
   Sampling Ends           : 2002-01-07 11:01:50 
   Total Duration (d)      : 1.979 
+  Measured depth range (m): 0 - 88 
+  Speed range (m)     : 0 - 4.92 
+  Other variables     :
+ light temperature speed 
 \end{Soutput}
 \end{Schunk}
 
@@ -385,6 +394,10 @@ Time-Depth Recorder data -- Class TDRspeed object
   Sampling Begins         : 2002-01-06 00:45:15 
   Sampling Ends           : 2002-01-07 03:27:10 
   Total Duration (d)      : 1.112 
+  Measured depth range (m): 0 - 88 
+  Speed range (m)     : 0 - 4.9 
+  Other variables     :
+ light temperature speed 
 \end{Soutput}
 \end{Schunk}
 

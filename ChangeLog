@@ -1,3 +1,38 @@
+2006-11-18  Sebastian P. Luque  <spluque@gmail.com>
+
+	* AllMethod.R: Removed time replacement method.
+
+	as.data.frame(): return also the entire concurrent data data frame.
+
+	extractDive():  Now handles new representation of TDR objects properly.
+
+	Adjusted show method according to new representation of TDR objects.
+
+	Modified getSpeed() accessor as above.
+
+	New replacement methods for time, depth, and speed.
+
+	Hidden function .speedCol() for calculating the column number of speed
+	vector in concurrentData slot of TDR objects.
+
+	* AllClass.R:
+	Added new slot concurrentData to TDR objects to handle additional data
+	that may need to be included for plotting/analyses for later development.
+
+	* calibrate.R:
+	calibrateSpeed(): Make use of new replacement method for speed.
+
+	* readTDR.R:
+	readTDR(): We don't rely on the input file's name to decide the class of
+	the value returned.
+
+	New arguments to map the input to the corresponding class.
+
+2006-11-15  Sebastian P. Luque  <spluque@gmail.com>
+
+	* plotDive.R:
+	More arguments for flexibility in axis label formatting and labelling.
+
 2006-11-03  Sebastian P. Luque  <spluque@gmail.com>
 
 	* AllMethod.R: For as.data.frame method, return the file and dtime

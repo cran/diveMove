@@ -115,7 +115,7 @@ temperature and any other variables beyond column 6 are ignored.
 To read the file into \R{}, use the function \Rfunction{readTDR}:
 <<read-in, results=hide>>=
 sealX <- readTDR(system.file(file.path("data", "sealMK8.csv"),
-                             package="diveMove"))
+                             package="diveMove"), speed=TRUE)
 @
 Read the help page for \Rfunction{readTDR} using \verb|?readTDR| following
 common \R{} help facilities.  Thus, data could have been subsampled at a
@@ -123,7 +123,7 @@ larger interval than that in the original file, so that the time interval
 between readings is 10 s:
 <<subsamp, results=hide>>=
 sealX <- readTDR(system.file(file.path("data", "sealMK8.csv"),
-                             package="diveMove"), subsamp = 10)
+                             package="diveMove"), speed=TRUE, subsamp = 10)
 @
 But since the original 5 s interval (which is the default value for
 \Rfunarg{subsamp}) is what will be used for the subsequent sections, it is

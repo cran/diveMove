@@ -17,9 +17,9 @@
     interval
 }
 
-
-"readTDR" <- function(file, dateCol=1, timeCol=2, depthCol=3, speedCol=6,
-                      subsamp=5, dtformat="%d/%m/%Y %H:%M:%S", tz="GMT")
+"readTDR" <- function(file, dateCol=1, timeCol=2, depthCol=3, speed=FALSE,
+                      subsamp=5, concurrentCols=4:6,
+                      dtformat="%d/%m/%Y %H:%M:%S", tz="GMT")
 {
     ## Value: TDR or TDRspeed object from *.csv file
     ## --------------------------------------------------------------------
@@ -32,9 +32,9 @@
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
     srcfile <- basename(file)
-    tdrtype <- sub(".*(mk.).*", "\\1", tolower(srcfile))
-    rawdat <- read.csv(file, header=TRUE,
-                       na.strings="", as.is=TRUE)
+    rawdat <- read.csv(file, header=TRUE, na.strings="", as.is=TRUE)
+    names(rawdat) <- tolower(names(rawdat))
+    rawdat.ncol <- seq(ncol(rawdat))
     dtpasted <- paste(rawdat[, dateCol], rawdat[, timeCol])
     datetime <- as.POSIXct(strptime(dtpasted, format=dtformat), tz=tz)
     origint <- .getInterval(datetime)
@@ -44,11 +44,25 @@
         datetime <- datetime[stepind]
         rawdat <- rawdat[stepind, ]
     }
-    if (tdrtype != "mk8") {
-        new("TDR", file=srcfile, time=datetime,
-            depth=rawdat[, depthCol], dtime=.getInterval(datetime))
-    } else {
-        new("TDRspeed", file=srcfile, time=datetime, depth=rawdat[, depthCol],
-            speed=rawdat[, speedCol], dtime=.getInterval(datetime))
+    goodcc <- concurrentCols[is.finite(concurrentCols)]
+    okconcurCols <- goodcc %in% rawdat.ncol
+    allbadcc <- all(!okconcurCols)
+    somebadcc <- any(!okconcurCols) && !allbadcc
+    if (somebadcc) { # warn of no concurrent data later
+        warning(paste("Columns", concurrentCols[!okconcurCols],
+                      "given as concurrentCols could not be found\n"))
     }
+    if (allbadcc && !is.null(concurrentCols)) {
+        warning("None of the columns given as concurrentCols exist\n")
+        tdr <- new("TDR", file=srcfile, time=datetime,
+                   depth=rawdat[, depthCol], dtime=.getInterval(datetime))
+    } else {
+        concurrentCols <- concurrentCols[okconcurCols]
+        ccData <- as.data.frame(rawdat[, concurrentCols[okconcurCols]])
+        names(ccData) <- names(rawdat)[concurrentCols[okconcurCols]]
+        tdr <- new("TDR", file=srcfile, time=datetime,
+                   depth=rawdat[, depthCol], dtime=.getInterval(datetime),
+                   concurrentData=ccData)
+    }
+    if (speed) as.TDRspeed(tdr) else tdr
 }

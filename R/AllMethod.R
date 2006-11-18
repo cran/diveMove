@@ -15,6 +15,13 @@ setMethod("show", signature=signature(object="TDR"),
                   paste(object@time[length(object@time)]), "\n")
               cat("  Total Duration (d)      :",
                   difftime(trange[2], trange[1], units="days"), "\n")
+              drange <- range(object@depth, na.rm=TRUE)
+              cat("  Measured depth range (m):",
+                  drange[1], "--", drange[2], "\n")
+              if (length(names(object@concurrentData)) > 0) {
+                  cat("  Other variables         :",
+                      names(object@concurrentData), "\n")
+              }
           })
 
 
@@ -48,13 +55,43 @@ setMethod("getDepth", signature(x="TDR"), function(x) x@depth)
 if (!isGeneric("getSpeed")) {               # speed accessor
     setGeneric("getSpeed", function(x) standardGeneric("getSpeed"))
 }
-setMethod("getSpeed", signature(x="TDRspeed"),
-          function(x) x@speed)
+".speedCol" <- function(x)
+{
+    ## Value: column number where speed is located in x
+    ## --------------------------------------------------------------------
+    ## Arguments: x=data frame
+    ## --------------------------------------------------------------------
+    ## Author: Sebastian P. Luque
+    ## --------------------------------------------------------------------
+    dataNames <- names(x)
+    which(dataNames %in% .speedNames)
+}
+setMethod("getSpeed", signature(x="TDRspeed"), function(x) {
+    ccData <- x@concurrentData
+    speedCol <- .speedCol(ccData)
+    ccData[, speedCol]
+})
 
 if (!isGeneric("getDtime")) {               # interval accessor
     setGeneric("getDtime", function(x) standardGeneric("getDtime"))
 }
 setMethod("getDtime", signature(x="TDR"), function(x) x@dtime)
+
+if (!isGeneric("getccData")) {               # concurrent data accessor
+    setGeneric("getccData", function(x, y) standardGeneric("getccData"))
+}
+## Get entire data frame
+setMethod("getccData", signature(x="TDR", y="missing"), function(x) {
+    if (nrow(x@concurrentData) > 0) {
+        x@concurrentData
+    } else return("No concurrent data are available")
+})
+## Get a named component of the data frame
+setMethod("getccData", signature(x="TDR", y="character"), function(x, y) {
+    if (nrow(x@concurrentData) > 0) {
+        x@concurrentData[[y]]
+    } else return("No concurrent data are available")
+})
 
 
 ## Conversions
@@ -62,17 +99,49 @@ setAs("TDR", "data.frame", function(from) {
     file.src <- from@file
     dtime <- from@dtime
     if (!is(from, "TDRspeed")) {
-        val <- data.frame(time=from@time, depth=from@depth)
+        val <- data.frame(time=from@time, depth=from@depth, getccData(from))
     } else {
-        val <- data.frame(time=from@time, depth=from@depth, speed=from@speed)
+        val <- data.frame(time=from@time, depth=from@depth, getccData(from))
     }
     attr(val, "file") <- file.src
     attr(val, "dtime") <- dtime
+    val
 })
 setMethod("as.data.frame", signature("TDR"),
           function(x, row.names=NULL, optional=FALSE) {
               as(x, "data.frame")
           })
+
+setAs("TDR", "TDRspeed", function(from) {
+    new("TDRspeed", file=from@file, time=from@time, depth=from@depth,
+        dtime=from@dtime, concurrentData=from@concurrentData)
+})
+if (!isGeneric("as.TDRspeed")) {               # zoc'ed TDR accessor
+    setGeneric("as.TDRspeed", function(x) standardGeneric("as.TDRspeed"))
+}
+setMethod("as.TDRspeed", signature("TDR"), function(x) as(x, "TDRspeed"))
+
+
+## Replacements
+if (!isGeneric("depth<-")) {               # depth
+    setGeneric("depth<-", function(x, value) standardGeneric("depth<-"))
+}
+setReplaceMethod("depth", signature(x="TDR"),
+                 function(x, value) {
+                     x@depth <- value
+                     x
+                 })
+
+if (!isGeneric("speed<-")) {               # speed
+    setGeneric("speed<-", function(x, value) standardGeneric("speed<-"))
+}
+setReplaceMethod("speed", signature(x="TDRspeed"),
+                 function(x, value) {
+                     ccData <- x@concurrentData
+                     speedCol <- .speedCol(ccData)
+                     x@concurrentData[, speedCol] <- value
+                     x
+                 })
 
 
 ## FOR TDRcalibrate -------------------------------------------------------
@@ -175,7 +244,7 @@ setMethod("getSpeedCoef", signature(x="TDRcalibrate"),
 
 
 ## Generators and subsetters ----------------------------------------------
-"createTDR" <- function(time, depth, speed, dtime, file)
+"createTDR" <- function(time, depth, concurrentData, speed=FALSE, dtime, file)
 {
     ## Value: An object of TDR or TDRspeed class.  Useful to recreate
     ## objects once depth has been zoc'ed and speed calibrated for further
@@ -185,10 +254,11 @@ setMethod("getSpeedCoef", signature(x="TDRcalibrate"),
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
-    if(missing(speed)) {
-        new("TDR", time=time, depth=depth, dtime=dtime, file=file)
+    if(speed) {
+        new("TDRspeed", time=time, depth=depth, concurrentData=concurrentData,
+            dtime=dtime, file=file)
     } else {
-        new("TDRspeed", time=time, depth=depth, speed=speed,
+        new("TDR", time=time, depth=depth, concurrentData=concurrentData,
             dtime=dtime, file=file)
     }
 }
@@ -208,11 +278,12 @@ setMethod("extractDive", signature(obj="TDR", diveNo="numeric",
               if (is(obj, "TDRspeed")) {
                   new("TDRspeed", time=getTime(obj)[okpts],
                       depth=getDepth(obj)[okpts],
-                      speed=getSpeed(obj)[okpts], dtime=getDtime(obj),
-                      file=obj@file)
+                      concurrentData=getccData(obj)[okpts, ],
+                      dtime=getDtime(obj), file=obj@file)
               } else {
                   new("TDR", time=getTime(obj)[okpts],
                       depth=getDepth(obj)[okpts],
+                      concurrentData=getccData(obj)[okpts, ],
                       dtime=getDtime(obj), file=obj@file)
               }
           })
@@ -225,11 +296,12 @@ setMethod("extractDive",                # for TDRcalibrate
               if (is(ctdr, "TDRspeed")) {
                   new("TDRspeed", time=getTime(ctdr)[okpts],
                       depth=getDepth(ctdr)[okpts],
-                      speed=getSpeed(ctdr)[okpts],dtime=getDtime(ctdr),
-                      file=ctdr@file)
+                      concurrentData=getccData(ctdr)[okpts, ],
+                      dtime=getDtime(ctdr), file=ctdr@file)
               } else {
                   new("TDR", time=getTime(ctdr)[okpts],
                       depth=getDepth(ctdr)[okpts],
+                      concurrentData=getccData(ctdr)[okpts, ],
                       dtime=getDtime(ctdr), file=ctdr@file)
               }
           })
