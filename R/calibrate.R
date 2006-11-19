@@ -50,8 +50,8 @@
     }
     tt <- getTDR(x)
     if (!missing(coefs)) {
-        speed <- (getSpeed(tt) - coefs[1]) / coefs[2]
-        x@tdr@speed <- speed
+        newspeed <- (getSpeed(tt) - coefs[1]) / coefs[2]
+        speed(x@tdr) <- speed
         x@speed.calib.coefs <- coefs
         x
     } else {
@@ -68,7 +68,7 @@
                                   filename=filename, ...)
 
         if (calType != "none") {
-            x@tdr@speed <- calibrate[[2]]
+            speed(x@tdr) <- calibrate[[2]]
             x@speed.calib.coefs <- calibrate[[1]]
         }
         x

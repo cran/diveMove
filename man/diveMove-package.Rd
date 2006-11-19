@@ -35,7 +35,7 @@
 \examples{
 ## read in data and create a TDR object
 (sealX <- readTDR(system.file(file.path("data", "sealMK8.csv"),
-                              package="diveMove")))
+                              package="diveMove"), speed=TRUE))
 \dontrun{
 plot(sealX)  # pan and zoom through the record
 }

@@ -4,6 +4,10 @@
 \alias{TDR-class}
 \alias{TDRspeed-class}
 
+\alias{as.TDRspeed}
+\alias{depth<-}
+\alias{speed<-}
+\alias{getccData}
 \alias{getDepth}
 \alias{getDtime}
 \alias{getFileName}
@@ -12,8 +16,13 @@
 
 \alias{as.data.frame,TDR-method}
 \alias{coerce,TDR,data.frame-method}
+\alias{as.TDRspeed,TDR-method}
+\alias{coerce,TDR,TDRspeed-method}
+\alias{getccData,TDR,missing-method}
+\alias{getccData,TDR,character-method}
 \alias{getDepth,TDR-method}
 \alias{getDtime,TDR-method}
+\alias{depth<-,TDR-method}
 \alias{extractDive,TDR,numeric,numeric-method}
 \alias{getFileName,TDR-method}
 \alias{plot,TDR,missing-method}
@@ -21,6 +30,7 @@
 \alias{show,TDR-method}
 \alias{getTime,TDR-method}
 \alias{getSpeed,TDRspeed-method}
+\alias{speed<-,TDRspeed-method}
 
 % -------------------------------------------------------------------------
 
@@ -77,11 +87,10 @@
 
   }
 
-  Class \emph{TDRspeed} adds:
-  \describe{
-
-    \item{\code{speed}:}{Object of class \code{"numeric"} speed (m/s)
-      readings.}
+  Class \emph{TDRspeed} must also satisfy the condition that a component
+  of the concurrentData slot is named speed or velocity, containing the
+  measured speed, a vector of class \code{"numeric"} containing speed
+  measurements in (m/s) readings.
 
   }
 
@@ -97,13 +106,27 @@
     \item{as.data.frame}{\code{signature(x="TDRspeed")}: Coerce object
       to data.frame.}
 
+    \item{as.TDRspeed}{\code{signature(x="TDR")}: Coerce object to
+      TDRspeed class.}
+
     \item{coerce}{\code{signature(from="TDR", to="data.frame")}: Coerce
       object to data.frame.}
 
     \item{coerce}{\code{signature(from="TDRspeed", to="data.frame")}:
       Coerce object to data.frame.}
 
+    \item{coerce}{\code{signature(from="TDR", to="TDRspeed")}: Coerce
+      object to TDRspeed class.}
+
     \item{getDepth}{\code{signature(x = "TDR")}: depth slot accessor.}
+
+    \item{depth<-}{\code{signature(x="TDR")}: depth replacement.}
+
+    \item{getccData}{\code{signature(x="TDR", y="missing")}:
+      concurrentData slot accessor.}
+
+    \item{getccData}{\code{signature(x="TDR", y="character")}: access
+      component named \var{y} in \var{x}.}
 
     \item{getDtime}{\code{signature(x = "TDR")}: sampling interval
       accessor.}
@@ -127,7 +150,9 @@
     \item{getTime}{\code{signature(x = "TDR")}: time slot accessor.}
 
     \item{getSpeed}{\code{signature(x = "TDRspeed")}: speed accessor for
-	\code{TDRspeed} objects.}
+      \code{TDRspeed} objects.}
+
+    \item{speed<-}{\code{signature(x="TDR")}: speed replacement.}
 
     }
 

@@ -10,39 +10,44 @@
 
 
 \description{Read a comma delimited (*.csv) file containing time-depth
-  recorder (TDR) data from various TDR models.  Models supported are
-  MK5, MK7, and MK8 Wildlife Computers instruments.  Return a \code{TDR}
-  or \code{TDRspeed} object. \code{buildTDR} creates an object of one of
-  these classes from other objects in the session.}
+  recorder (TDR) data from various TDR models.  Return a \code{TDR} or
+  \code{TDRspeed} object. \code{createTDR} creates an object of one of
+  these classes from other objects.}
 
 
 \usage{
-readTDR(file, dateCol=1, timeCol=2, depthCol=3, speedCol=6,
-        subsamp=5, dtformat="\%d/\%m/\%Y \%H:\%M:\%S", tz="GMT")
-createTDR(time, depth, speed, dtime, file)
+readTDR(file, dateCol=1, timeCol=2, depthCol=3, speed=FALSE,
+        subsamp=5, concurrentCols=4:6,
+        dtformat="\%d/\%m/\%Y \%H:\%M:\%S", tz="GMT")
+createTDR(time, depth, concurrentData, speed=FALSE, dtime, file)
 }
 
 
 \arguments{
 
-  \item{file}{A string indicating the path to the file to read.}
+  \item{file}{a string indicating the path to the file to read.}
 
-  \item{dateCol}{Column number containing dates, and optionally, times.}
+  \item{dateCol}{column number containing dates, and optionally, times.}
 
-  \item{timeCol}{Column number with times.}
+  \item{timeCol}{column number with times.}
 
-  \item{depthCol}{Column number containing depth readings.}
+  \item{depthCol}{column number containing depth readings.}
 
-  \item{speedCol}{Column number containing speed readings.}
+  \item{speed}{for \code{readTDR}: Logical indicating whether speed is
+    included in one of the columns of concurrentCols.  For createTDR:
+    optional numeric vector with speed readings.}
 
-  \item{subsamp}{Subsample rows in \code{file} with \code{subsamp}
+  \item{subsamp}{subsample rows in \code{file} with \code{subsamp}
     interval, in s.}
 
-  \item{dtformat}{A string, specifying the format in which the date and
+  \item{concurrentCols}{column numbers to include as concurrent data
+    collected.}
+
+  \item{dtformat}{a string, specifying the format in which the date and
     time columns, when pasted together, should be interpreted (see
     \code{\link{strptime}}).}
 
-  \item{tz}{A string indicating the time zone assumed for the date and
+  \item{tz}{a string indicating the time zone assumed for the date and
     time readings.}
 
   \item{time}{a \code{POSIXct} object with date and time readings for
@@ -50,7 +55,8 @@ createTDR(time, depth, speed, dtime, file)
 
   \item{depth}{numeric vector with depth readings.}
 
-  \item{speed}{optional numeric vector with speed readings.}
+  \item{concurrentData}{data frame with additional, concurrent data
+    collected.}
 
   \item{dtime}{sampling interval used in seconds.}
 
@@ -78,7 +84,7 @@ createTDR(time, depth, speed, dtime, file)
 
 \examples{
 readTDR(system.file(file.path("data", "sealMK8.csv"),
-                    package="diveMove"))
+                    package="diveMove"), speed=TRUE)
 }
 
 

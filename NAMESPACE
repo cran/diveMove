@@ -8,8 +8,12 @@ exportClasses("TDR",
               "TDRcalibrate")
 
 exportMethods("as.data.frame",
+              "as.TDRspeed",
               "attendance",
               "coerce",
+              "depth<-",
+              "speed<-",
+              "getccData",
               "getDepth",
               "getDAct",
               "getDPhaseLab",
