@@ -5,6 +5,7 @@
 \alias{TDRspeed-class}
 
 \alias{as.TDRspeed}
+\alias{ccData<-}
 \alias{depth<-}
 \alias{speed<-}
 \alias{getccData}
@@ -14,15 +15,17 @@
 \alias{getTime}
 \alias{getSpeed}
 
+\alias{[,TDR-method}
 \alias{as.data.frame,TDR-method}
 \alias{coerce,TDR,data.frame-method}
 \alias{as.TDRspeed,TDR-method}
 \alias{coerce,TDR,TDRspeed-method}
 \alias{getccData,TDR,missing-method}
 \alias{getccData,TDR,character-method}
+\alias{ccData<-,TDR,data.frame-method}
 \alias{getDepth,TDR-method}
 \alias{getDtime,TDR-method}
-\alias{depth<-,TDR-method}
+\alias{depth<-,TDR,numeric-method}
 \alias{extractDive,TDR,numeric,numeric-method}
 \alias{getFileName,TDR-method}
 \alias{plot,TDR,missing-method}
@@ -30,7 +33,7 @@
 \alias{show,TDR-method}
 \alias{getTime,TDR-method}
 \alias{getSpeed,TDRspeed-method}
-\alias{speed<-,TDRspeed-method}
+\alias{speed<-,TDRspeed,numeric-method}
 
 % -------------------------------------------------------------------------
 
@@ -44,17 +47,28 @@
 
 \usage{
 \S4method{extractDive}{TDR,numeric,numeric}(obj, diveNo, id)
+
+\S4method{plot}{TDRspeed,missing}(x, concurVars=NULL,
+     concurVarTitles="speed (m/s)", ...)
+
 }
 
 
 \arguments{
 
-  \item{obj}{\code{"\linkS4class{TDR}"} object.}
+  \item{obj, x}{\code{"\linkS4class{TDR}"} and
+  \code{"\linkS4class{TDR}"} objects, respectively.}
 
   \item{diveNo}{numeric vector or scalar with dive numbers to extract.}
 
   \item{id}{numeric vector of dive numbers from where \code{diveNo}
     should be chosen.}
+
+  \item{concurVars, concurVarTitles, ...}{arguments passed to
+    plotDive. In this TDRspeed method, \var{concurVars} is a matrix with
+    variables to plot, in addition to speed.  \var{concurVarTitles} in
+    this case is a character vector with axis labels for speed and the
+    additional variables supplied in \var{concurVars}.}
 
 }
 
@@ -99,6 +113,9 @@
 
 \section{Methods}{
   \describe{
+
+    \item{[}{\code{signature(x="TDR")}: Subset a TDR object; these
+      objects can be subsetted on a single index \var{i}.}
 
     \item{as.data.frame}{\code{signature(x="TDR")}: Coerce object to
       data.frame.}

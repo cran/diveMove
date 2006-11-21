@@ -111,8 +111,7 @@ default, which is a standard structure of files from common TDR models.
   \label{tab:file-str}
 \end{table}
 
-Depending on the TDR model, speed may be omitted.  Currently, light,
-temperature and any other variables beyond column 6 are ignored.
+Depending on the TDR model, speed may be omitted.
 
 To read the file into \R{}, use the function \Rfunction{readTDR}:
 \begin{Schunk}
@@ -151,11 +150,7 @@ further analyses.
 Both of these functions store the data in an object of class \Rclass{TDR}
 or \Rclass{TDRspeed}, which hold information on the source file and
 sampling interval, in addition to the variables described above.  Which of
-these objects is created is determined by the name of the input file.  All
-files should contain the letter sequence ``mk'' followed by a number, as
-these correspond to the names of common TDR models.  If the number
-following this sequence is 8, then a \Rclass{TDRspeed} object is created,
-otherwise the function returns a \Rclass{TDR} object.
+these objects is created is determined by the \Rfunarg{speed}.
 
 
 \section{Extraction and Display of Information from TDR and TDRspeed
@@ -177,10 +172,8 @@ Time-Depth Recorder data -- Class TDRspeed object
   Sampling Begins         : 2002-01-05 11:32:00 
   Sampling Ends           : 2002-01-07 11:01:50 
   Total Duration (d)      : 1.979 
-  Measured depth range (m): -4 - 91 
-  Speed range (m)     : 0 - 4.92 
-  Other variables     :
- light temperature speed 
+  Measured depth range (m): -4 -- 91 
+  Other variables         : light temperature speed 
 \end{Soutput}
 \end{Schunk}
 
@@ -202,7 +195,13 @@ later be exported or manipulated any other way:
 > head(sealX.df)
 \end{Sinput}
 \begin{Soutput}
-[1] 5
+                 time depth light temperature speed
+1 2002-01-05 11:32:00    NA    NA          NA    NA
+2 2002-01-05 11:32:05    NA    NA          NA    NA
+3 2002-01-05 11:32:10    NA    NA          NA    NA
+4 2002-01-05 11:32:15    NA    NA          NA    NA
+5 2002-01-05 11:32:20    NA    NA          NA    NA
+6 2002-01-05 11:32:25    NA    NA          NA    NA
 \end{Soutput}
 \end{Schunk}
 
@@ -316,10 +315,8 @@ Time-Depth Recorder data -- Class TDRspeed object
   Sampling Begins         : 2002-01-05 11:32:00 
   Sampling Ends           : 2002-01-07 11:01:50 
   Total Duration (d)      : 1.979 
-  Measured depth range (m): 0 - 88 
-  Speed range (m)     : 0 - 4.92 
-  Other variables     :
- light temperature speed 
+  Measured depth range (m): 0 -- 88 
+  Other variables         : light temperature speed 
 \end{Soutput}
 \end{Schunk}
 
@@ -394,10 +391,8 @@ Time-Depth Recorder data -- Class TDRspeed object
   Sampling Begins         : 2002-01-06 00:45:15 
   Sampling Ends           : 2002-01-07 03:27:10 
   Total Duration (d)      : 1.112 
-  Measured depth range (m): 0 - 88 
-  Speed range (m)     : 0 - 4.9 
-  Other variables     :
- light temperature speed 
+  Measured depth range (m): 0 -- 88 
+  Other variables         : light temperature speed 
 \end{Soutput}
 \end{Schunk}
 
@@ -540,8 +535,7 @@ Other functions are included for handling location data, and these are
 \Rfunction{readLocs}, \Rfunction{austFilter}, and \Rfunction{distSpeed}.
 These are useful for reading, filtering, and summarizing travel
 information.  For extensive animal movement analyses, refer to package
-\Rpackage{timeTrack} available at
-\url{http://staff.acecrc.org.au/~mdsumner/Rutas/}.
+\Rpackage{trip}.
 
 
 \section{Acknowledgements}
