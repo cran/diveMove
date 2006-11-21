@@ -1,3 +1,27 @@
+2006-11-21  Sebastian P. Luque  <spluque@gmail.com>
+
+	* AllMethod.R:
+	Corrected replacement methods to take only the right signature.
+
+	Removed unnecessary if test for as.data.frame method.
+
+2006-11-20  Sebastian P. Luque  <spluque@gmail.com>
+
+	* AllMethod.R: New subset method for TDR objects.
+
+	plot():  TDRcalibrate method adjusted to new plotDive() arguments.
+
+	getccData(): Subsetting is now done using [, y], rather than [[y]] for
+	more flexibility.
+
+	* plotDive.R: Better default for xlab format string.
+
+	New arguments concurVars, concurVarTitles, sunrise.time, and sunset.time
+	for better control of extra variables to plot.
+
+	Removed legend for sunrise/sunset times, as this is better left to the
+	user to handle.
+
 2006-11-18  Sebastian P. Luque  <spluque@gmail.com>
 
 	* AllMethod.R: Removed time replacement method.

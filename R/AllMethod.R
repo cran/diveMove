@@ -33,8 +33,10 @@ setMethod("plot", signature(x="TDR", y="missing"),
               plotDive(getTime(x), getDepth(x), ...)
           })
 setMethod("plot", signature(x="TDRspeed", y="missing"),
-          function(x, ...) {
-              plotDive(getTime(x), getDepth(x), getSpeed(x), ...)
+          function(x, concurVars=NULL, concurVarTitles="speed (m/s)", ...) {
+              plotDive(getTime(x), getDepth(x),
+                       concurVars=cbind(getSpeed(x), concurVars),
+                       concurVarTitles=concurVarTitles, ...)
           })
 
 if (!isGeneric("getFileName")) {               # File name accessor
@@ -64,7 +66,10 @@ if (!isGeneric("getSpeed")) {               # speed accessor
     ## Author: Sebastian P. Luque
     ## --------------------------------------------------------------------
     dataNames <- names(x)
-    which(dataNames %in% .speedNames)
+    colN <- dataNames %in% .speedNames
+    if (length(which(colN)) != 1)
+        stop("the column number for speed could not be determined")
+    which(colN)
 }
 setMethod("getSpeed", signature(x="TDRspeed"), function(x) {
     ccData <- x@concurrentData
@@ -89,7 +94,7 @@ setMethod("getccData", signature(x="TDR", y="missing"), function(x) {
 ## Get a named component of the data frame
 setMethod("getccData", signature(x="TDR", y="character"), function(x, y) {
     if (nrow(x@concurrentData) > 0) {
-        x@concurrentData[[y]]
+        x@concurrentData[, y]
     } else return("No concurrent data are available")
 })
 
@@ -98,11 +103,7 @@ setMethod("getccData", signature(x="TDR", y="character"), function(x, y) {
 setAs("TDR", "data.frame", function(from) {
     file.src <- from@file
     dtime <- from@dtime
-    if (!is(from, "TDRspeed")) {
-        val <- data.frame(time=from@time, depth=from@depth, getccData(from))
-    } else {
-        val <- data.frame(time=from@time, depth=from@depth, getccData(from))
-    }
+    val <- data.frame(time=from@time, depth=from@depth, getccData(from))
     attr(val, "file") <- file.src
     attr(val, "dtime") <- dtime
     val
@@ -126,8 +127,13 @@ setMethod("as.TDRspeed", signature("TDR"), function(x) as(x, "TDRspeed"))
 if (!isGeneric("depth<-")) {               # depth
     setGeneric("depth<-", function(x, value) standardGeneric("depth<-"))
 }
-setReplaceMethod("depth", signature(x="TDR"),
+setReplaceMethod("depth", signature(x="TDR", value="numeric"),
                  function(x, value) {
+                     orig <- getDepth(x)
+                     if (length(orig) != length(value))
+                         stop(paste("replacement must have length:",
+                                    length(orig),
+                                    "(i.e. same length as original)"))
                      x@depth <- value
                      x
                  })
@@ -135,13 +141,40 @@ setReplaceMethod("depth", signature(x="TDR"),
 if (!isGeneric("speed<-")) {               # speed
     setGeneric("speed<-", function(x, value) standardGeneric("speed<-"))
 }
-setReplaceMethod("speed", signature(x="TDRspeed"),
+setReplaceMethod("speed", signature(x="TDRspeed", value="numeric"),
                  function(x, value) {
                      ccData <- x@concurrentData
                      speedCol <- .speedCol(ccData)
+                     if (length(ccData[, speedCol]) != length(value))
+                         stop(paste("replacement must have length:",
+                                    length(ccData[, speedCol]),
+                                    "(i.e. same length as original)"))
                      x@concurrentData[, speedCol] <- value
                      x
                  })
+
+if (!isGeneric("ccData<-")) {               # speed
+    setGeneric("ccData<-", function(x, value) standardGeneric("ccData<-"))
+}
+setReplaceMethod("ccData", signature(x="TDR", value="data.frame"),
+                 function(x, value) {
+                     ccDataN <- nrow(getccData(x))
+                     valueN <- nrow(value)
+                     if (ccDataN != valueN)
+                         stop(paste("replacement must have:", ccDataN,
+                                    "rows (i.e. same as original)"))
+                     x@concurrentData <- value
+                     x
+                 })
+
+
+## Subsetting
+setMethod("[", signature("TDR"), function(x, i, j, ..., drop) {
+    if (!missing(j) && !missing(...) && !missing(drop))
+        stop("subsetting TDR objects can only be done on a single index")
+    new(class(x), file=getFileName(x), dtime=getDtime(x), time=getTime(x)[i],
+        depth=getDepth(x)[i], concurrentData=getccData(x)[i, ])
+})
 
 
 ## FOR TDRcalibrate -------------------------------------------------------
@@ -183,16 +216,11 @@ setMethod("plot", signature(x="TDRcalibrate", y="missing"),
                   postdives <- postdiveids %in% diveNo
                   ok <- seq(length(diveids))[dives | postdives]
               } else ok <- .diveIndices(diveids, diveNo)
-              dtime <- getTime(tdr)[ok]
-              ddepth <- getDepth(tdr)[ok]
+              newtdr <- tdr[ok]
               switch(labels,
                      phase.id={labs <- as.factor(getGAct(x, "phase.id")[ok])},
                      dive.phase={labs <- getDPhaseLab(x)[ok]})
-              if (is(tdr, "TDRspeed")) {
-                  plotDive(dtime, ddepth, getSpeed(tdr)[ok], phaseCol=labs, ...)
-              } else {
-                  plotDive(dtime, ddepth, phaseCol=labs, ...)
-              }
+              plot(newtdr, phaseCol=labs, ...)
           })
 
 if (!isGeneric("getTDR")) {               # zoc'ed TDR accessor

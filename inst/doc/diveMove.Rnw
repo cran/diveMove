@@ -109,8 +109,7 @@ default, which is a standard structure of files from common TDR models.
   \label{tab:file-str}
 \end{table}
 
-Depending on the TDR model, speed may be omitted.  Currently, light,
-temperature and any other variables beyond column 6 are ignored.
+Depending on the TDR model, speed may be omitted.
 
 To read the file into \R{}, use the function \Rfunction{readTDR}:
 <<read-in, results=hide>>=
@@ -123,7 +122,8 @@ larger interval than that in the original file, so that the time interval
 between readings is 10 s:
 <<subsamp, results=hide>>=
 sealX <- readTDR(system.file(file.path("data", "sealMK8.csv"),
-                             package="diveMove"), speed=TRUE, subsamp = 10)
+                             package="diveMove"),
+                 speed=TRUE, subsamp = 10)
 @
 But since the original 5 s interval (which is the default value for
 \Rfunarg{subsamp}) is what will be used for the subsequent sections, it is
@@ -141,11 +141,7 @@ further analyses.
 Both of these functions store the data in an object of class \Rclass{TDR}
 or \Rclass{TDRspeed}, which hold information on the source file and
 sampling interval, in addition to the variables described above.  Which of
-these objects is created is determined by the name of the input file.  All
-files should contain the letter sequence ``mk'' followed by a number, as
-these correspond to the names of common TDR models.  If the number
-following this sequence is 8, then a \Rclass{TDRspeed} object is created,
-otherwise the function returns a \Rclass{TDR} object.
+these objects is created is determined by the \Rfunarg{speed}.
 
 
 \section{Extraction and Display of Information from TDR and TDRspeed
@@ -411,8 +407,7 @@ Other functions are included for handling location data, and these are
 \Rfunction{readLocs}, \Rfunction{austFilter}, and \Rfunction{distSpeed}.
 These are useful for reading, filtering, and summarizing travel
 information.  For extensive animal movement analyses, refer to package
-\Rpackage{timeTrack} available at
-\url{http://staff.acecrc.org.au/~mdsumner/Rutas/}.
+\Rpackage{trip}.
 
 
 \section{Acknowledgements}

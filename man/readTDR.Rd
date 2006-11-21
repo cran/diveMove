@@ -34,8 +34,8 @@ createTDR(time, depth, concurrentData, speed=FALSE, dtime, file)
   \item{depthCol}{column number containing depth readings.}
 
   \item{speed}{for \code{readTDR}: Logical indicating whether speed is
-    included in one of the columns of concurrentCols.  For createTDR:
-    optional numeric vector with speed readings.}
+    included in one of the columns of concurrentCols.  For
+    \code{createTDR}: optional numeric vector with speed readings.}
 
   \item{subsamp}{subsample rows in \code{file} with \code{subsamp}
     interval, in s.}
@@ -63,16 +63,15 @@ createTDR(time, depth, concurrentData, speed=FALSE, dtime, file)
 }
 
 
-\details{The file name must contain the adjacent letter \dQuote{mk}
-  somewhere to be able to identify the TDR model.  If the number
-  following these letters is an 8, then a column for speed readings is
-  expected, in addition to depth.
+\details{The input file is assumed to have a header row identifying each
+  field, and all rows must be complete (i.e. have the same number of
+  fields).  Field names need not follow any convention.  However, depth
+  and speed are assumed to be in m, and \eqn{m \cdot s^{-1}}{m/s},
+  respectively, for further analyses.
 
-  The file must have a header row identifying each field, and all rows
-  must be complete (i.e. have the same number of fields).  Field names
-  need not follow any convention.  However, depth and speed should
-  preferably be given in m, and \eqn{m \cdot s^{-1}}{m/s} for further
-  analyses.}
+  If \var{speed} is TRUE and concurrentCols contains a column named
+  speed or velocity, then an object of class TDRspeed is created, where
+  speed is considered the column matching this name.}
 
 
 \value{An object of class \sQuote{TDR} or \sQuote{TDRspeed}.}

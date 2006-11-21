@@ -1,6 +1,8 @@
-"plotDive" <- function(time, depth, speed=NULL, xlim=NULL, phaseCol=NULL,
-                       xlab="time (mm-dd hh:mm:ss)", ylab.depth="depth (m)",
-                       ylab.speed="speed (m/s)", xlab.format="%m-%d %H:%M:%S")
+"plotDive" <- function(time, depth, concurVars=NULL, xlim=NULL, phaseCol=NULL,
+                       xlab="time (dd-mmm hh:mm)", ylab.depth="depth (m)",
+                       concurVarTitles=NULL, xlab.format="%d-%b %H:%M",
+                       sunrise.time="06:00:00", sunset.time="18:00:00",
+                       night.col="gray60")
 {
     ## Value: Plot of time, depth, speed, mostly for ZOC, returns
     ## (invisibly) a list with coordinates for each zoc'ed time window.
@@ -25,15 +27,19 @@
     ylim <- rev(range(depth, na.rm=TRUE))
     yMax <- tclVar(ylim[1])
     yTop <- as.numeric(tclvalue(yMax))
+    morn.uniq <- unique(format(time, format=paste("%F", sunrise.time)))
+    morn <- as.POSIXct(morn.uniq, tz=attr(time, "tzone")) + 86400
+    night.uniq <- unique(format(time, format=paste("%F", sunset.time)))
+    night <- as.POSIXct(night.uniq, tz=attr(time, "tzone"))
+    nconcurVars <- ifelse(is.null(concurVars), 0, ncol(concurVars))
+    plotrows <- nconcurVars + 1
+    ncheight <- 1.35 * (1/plotrows)
+    lheights <- c(rep((1 - ncheight)/nconcurVars, nconcurVars), ncheight)
+    mardepthonly <- c(4, 4, 1, 1) + 0.1 # for depth plot only
+    mardepthmore <- c(4, 4, -0.1, 1) + 0.1 # for depth plot and more vars
+    martop <- c(-0.1, 4, 1, 1) + 0.1       # for top plot
+    marnontop <- c(-0.1, 4, -0.1, 1) + 0.1 # for plots between depth and top one
     replot <- function(...) {
-        if(is.null(speed)) {
-            par(lab=c(10, 10, 7), las=1, xaxs="i", cex.axis=0.7,
-                cex.lab=1.3, bty="n", mar=c(4, 4, 1, 1) + 0.1)
-        } else {
-            par(lab=c(10, 10, 7), las=1, xaxs="i", cex.axis=0.7,
-                cex.lab=1.3, bty="n", mar=c(4, 4, -0.1, 1) + 0.1)
-            layout(matrix(c(2, 1), nrow=2, ncol=1), heights=c(0.7, 1.5))
-        }
         xZ <<- as.numeric(tclvalue(xZoom))
         xM <<- as.numeric(tclvalue(xlmid))
         xr.half <- (xr0/2) * 100/xZ
@@ -42,18 +48,23 @@
         xticks <- orig + seq(from=xlim[1], to=xlim[2], length=20)
         yTop <<- as.numeric(tclvalue(yMax))
         ylim <- c(yTop, ylim[2])
-        morn.uniq <- unique(format(time, format="%F 06:00:00"))
-        morn <- as.POSIXct(morn.uniq, tz=attr(time, "tzone")) + 86400
-        night.uniq <- unique(format(time, format="%F 18:00:00"))
-        night <- as.POSIXct(night.uniq, tz=attr(time, "tzone"))
+        if(is.null(concurVars)) {
+            par(lab=c(10, 10, 7), las=1, xaxs="i", cex.axis=0.9,
+                cex.lab=1.3, bty="n", mar=mardepthonly)
+        } else {
+            par(lab=c(10, 10, 7), las=1, xaxs="i", cex.axis=0.9,
+                cex.lab=1.3, bty="n", mar=mardepthmore)
+            layout(matrix(seq(plotrows, 1), nrow=plotrows, ncol=1),
+                   heights=lheights)
+        }
         plot(depth ~ time, type="n", xlim=xlim, ylim=ylim,
              xlab=xlab, ylab=ylab.depth, xaxt="n", yaxt="n")
         usr <- par("usr")
         xleft <- pmax(night, usr[1])
         xright <- pmin(morn, usr[2])
-        rect(xleft, usr[3], xright, usr[4], col="black")
-        axis.POSIXct(side=1, time, at=xticks, lwd=2, format=xlab.format)
-        axis(side=2, lwd=2)
+        rect(xleft, usr[3], xright, usr[4], col=night.col, border=NA)
+        axis.POSIXct(side=1, time, at=xticks, format=xlab.format)
+        axis(side=2)
         lines(time, depth, col="blue")
         if (!is.null(phaseCol)) {
             phaseCol <- phaseCol[drop=TRUE]
@@ -64,20 +75,21 @@
                        pch=19, cex=0.7, ncol=nlevels(phaseCol), bg="white")
             }
         }
-        legend("bottomleft", legend=c("18:00 - 06:00"), fill=c("black"),
-               cex=0.7, bg="white", y.intersp=1.2)
-        if(!is.null(speed)) {
-            par(mar=c(-0.1, 4, 1, 1) + 0.1)
-            ylim <- range(speed, na.rm=TRUE)
-            plot(speed ~ time, type="n", xaxt="n", ylim=ylim,
-                 xlab="", xlim=xlim, bty="n", ylab=ylab.speed)
-            usr <- par("usr")           # to watch out for change in y coords
-            rect(xleft, usr[3], xright, usr[4], col="black")
-            lines(time, speed, col="green")
-            if (!is.null(phaseCol)) {           # we already have 'colors'
-                points(time, speed, col=colors[phaseCol], pch=19, cex=0.4)
+        if(!is.null(concurVars)) {
+            for (i in seq(nconcurVars)) {
+                vari <- concurVars[, i]
+                if (i == nconcurVars) par(mar=martop) else par(mar=marnontop)
+                ylim <- range(vari, na.rm=TRUE)
+                plot(vari ~ time, type="n", xaxt="n", ylim=ylim,
+                     xlab="", xlim=xlim, bty="n", ylab=concurVarTitles[i])
+                usr <- par("usr")           # to watch out for change in y coords
+                rect(xleft, usr[3], xright, usr[4], col=night.col, border=NA)
+                lines(time, vari, col="green")
+                if (!is.null(phaseCol)) {           # we already have 'colors'
+                    points(time, vari, col=colors[phaseCol], pch=19, cex=0.4)
+                }
+                axis(side=2)
             }
-            axis(side=2, lwd=2)
         }
     }
     replot.maybe <- function(...) {

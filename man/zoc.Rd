@@ -15,9 +15,11 @@
 
 \usage{
 zoc(time, depth, offset)
-plotDive(time, depth, speed=NULL, xlim=NULL, phaseCol=NULL,
-         xlab="time (mm-dd hh:mm:ss)", ylab.depth="depth (m)",
-         ylab.speed="speed (m/s)", xlab.format="\%m-\%d \%H:\%M:\%S")
+plotDive(time, depth, concurVars=NULL, xlim=NULL, phaseCol=NULL,
+         xlab="time (dd-mmm hh:mm)", ylab.depth="depth (m)",
+         concurVarTitles=NULL, xlab.format="\%d-\%b \%H:\%M",
+         sunrise.time="06:00:00", sunset.time="18:00:00",
+         night.col="gray60")
 
 }
 %- maybe also 'usage' for other objects documented here.
@@ -29,21 +31,33 @@ plotDive(time, depth, speed=NULL, xlim=NULL, phaseCol=NULL,
 
   \item{depth}{numeric vector with depth in m.}
 
-  \item{offset}{known amount of meters for zero-offset correcting depth
-    throughout the entire TDR record.}
+  \item{concurVars}{matrix with additional variables in each column to
+    plot concurrently with depth.}
 
-  \item{speed}{numeric vector with speed in m/s.}
+  \item{offset}{known amount of meters to subtract for zero-offset
+    correcting depth throughout the entire TDR record.}
 
   \item{xlim}{vector of length 2, with lower and upper limits of time to
     be plotted.}
 
   \item{phaseCol}{factor dividing rows into sections.}
 
-  \item{xlab, ylab.depth, ylab.speed}{strings to label the corresponding
+  \item{xlab, ylab.depth}{strings to label the corresponding
     y-axes.}
 
   \item{xlab.format}{format string for formatting the x axis; see
-  \code{\link{strptime}}.}
+    \code{\link{strptime}}.}
+
+  \item{concurVarTitles}{character vector of titles to label each new
+    variable given in \var{concurVars}.}
+
+  \item{sunrise.time}{character string with time of sunrise in 24 hr
+    format.  This is used for shading night time.}
+
+  \item{sunset.time}{character string with time of sunset in 24 hr
+    format.  This is used for shading night time.}
+
+  \item{night.col}{color for shading night time.}
 
 }
 
