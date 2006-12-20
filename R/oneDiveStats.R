@@ -1,4 +1,4 @@
-"getDive" <- function(x, interval, speed=FALSE)
+"oneDiveStats" <- function(x, interval, speed=FALSE)
 {
     ## Value: A matrix with time/depth stats for each dive segment
     ## --------------------------------------------------------------------

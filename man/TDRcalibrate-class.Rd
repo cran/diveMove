@@ -45,7 +45,7 @@
 \S4method{getGAct}{TDRcalibrate,missing}(x)
 \S4method{getGAct}{TDRcalibrate,character}(x, y)
 \S4method{plot}{TDRcalibrate,missing}(x, diveNo=seq(unique(getDAct(x, "dive.id"))),
-     labels="phase.id", surface=FALSE, ...)
+     labels="phase.id", concurVars=NULL, surface=FALSE, ...)
 }
 
 
@@ -62,6 +62,10 @@
     specifying whether to label observations based on the gross phase ID
     of the \code{"\linkS4class{TDR}"} object, or based on each dive
     phase, respectively.}
+
+  \item{concurVars}{character vector indicating which additional
+    components from the concurrent data frame should also be plotted, if
+    any.}
 
   \item{surface}{logical indicating whether to plot surface readings.}
 

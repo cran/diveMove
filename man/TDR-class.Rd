@@ -8,7 +8,7 @@
 \alias{ccData<-}
 \alias{depth<-}
 \alias{speed<-}
-\alias{getccData}
+\alias{getCCData}
 \alias{getDepth}
 \alias{getDtime}
 \alias{getFileName}
@@ -20,8 +20,8 @@
 \alias{coerce,TDR,data.frame-method}
 \alias{as.TDRspeed,TDR-method}
 \alias{coerce,TDR,TDRspeed-method}
-\alias{getccData,TDR,missing-method}
-\alias{getccData,TDR,character-method}
+\alias{getCCData,TDR,missing-method}
+\alias{getCCData,TDR,character-method}
 \alias{ccData<-,TDR,data.frame-method}
 \alias{getDepth,TDR-method}
 \alias{getDtime,TDR-method}
@@ -48,8 +48,7 @@
 \usage{
 \S4method{extractDive}{TDR,numeric,numeric}(obj, diveNo, id)
 
-\S4method{plot}{TDRspeed,missing}(x, concurVars=NULL,
-     concurVarTitles="speed (m/s)", ...)
+\S4method{plot}{TDRspeed,missing}(x, concurVars=NULL, concurVarTitles, ...)
 
 }
 
@@ -139,10 +138,10 @@
 
     \item{depth<-}{\code{signature(x="TDR")}: depth replacement.}
 
-    \item{getccData}{\code{signature(x="TDR", y="missing")}:
+    \item{getCCData}{\code{signature(x="TDR", y="missing")}:
       concurrentData slot accessor.}
 
-    \item{getccData}{\code{signature(x="TDR", y="character")}: access
+    \item{getCCData}{\code{signature(x="TDR", y="character")}: access
       component named \var{y} in \var{x}.}
 
     \item{getDtime}{\code{signature(x = "TDR")}: sampling interval

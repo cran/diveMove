@@ -28,7 +28,7 @@
     dtimestz <- attr(dtimes, "tzone")
     if (!is(zvtdr, "TDRspeed")) {
         td <- data.frame(dphases, dtimes, ddepths)
-        perdive <- do.call(rbind, by(td, dids, getDive, interval=interval))
+        perdive <- do.call(rbind, by(td, dids, oneDiveStats, interval=interval))
         res <- data.frame(perdive, postdive.dur)
         for (i in 1:3) res[, i] <- structure(res[, i],
                                              class=c("POSIXt", "POSIXct"),
@@ -36,7 +36,7 @@
     } else {
         dspeeds <- getSpeed(zvtdr)[ok]  # diving speeds
         td <- data.frame(dphases, dtimes, ddepths, dspeeds)
-        perdive <- do.call(rbind, by(td, dids, getDive, interval=interval,
+        perdive <- do.call(rbind, by(td, dids, oneDiveStats, interval=interval,
                                      speed=TRUE))
         ## for postdive total distance and mean speed
         ptd <- matrix(c(pdtimes, getSpeed(zvtdr)[okpd]), ncol=2)

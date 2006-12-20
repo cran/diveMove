@@ -1,7 +1,7 @@
 \name{diveStats}
 
 \alias{diveStats}
-\alias{getDive}
+\alias{oneDiveStats}
 \alias{stampDive}
 
 % -------------------------------------------------------------------------
@@ -15,7 +15,7 @@
 
 \usage{
 diveStats(x)
-getDive(x, interval, speed=FALSE)
+oneDiveStats(x, interval, speed=FALSE)
 stampDive(x, ignoreZ=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -39,9 +39,9 @@ stampDive(x, ignoreZ=TRUE)
 
 
 \details{\code{diveStats} calculates various dive statistics based on
-  time and depth for an entire TDR record.  \code{getDive} obtains these
-  statistics from a single dive, and \code{stampDive} stamps each dive
-  with associated trip information.}
+  time and depth for an entire TDR record.  \code{oneDiveStats} obtains
+  these statistics from a single dive, and \code{stampDive} stamps each
+  dive with associated trip information.}
 
 
 \value{A \code{\link{data.frame}} with one row per dive detected
