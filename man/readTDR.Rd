@@ -34,8 +34,7 @@ createTDR(time, depth, concurrentData, speed=FALSE, dtime, file)
   \item{depthCol}{column number containing depth readings.}
 
   \item{speed}{for \code{readTDR}: Logical indicating whether speed is
-    included in one of the columns of concurrentCols.  For
-    \code{createTDR}: optional numeric vector with speed readings.}
+    included in one of the columns of concurrentCols.}
 
   \item{subsamp}{subsample rows in \code{file} with \code{subsamp}
     interval, in s.}
@@ -51,7 +50,7 @@ createTDR(time, depth, concurrentData, speed=FALSE, dtime, file)
     time readings.}
 
   \item{time}{a \code{POSIXct} object with date and time readings for
-    locations.}
+    each reading.}
 
   \item{depth}{numeric vector with depth readings.}
 

@@ -13,7 +13,7 @@ head(stamps <- stampDive(dcalib))
                              package="diveMove"),
                   speed=TRUE, concurrentCols=4:6))
 (dcalib <- calibrateDepth(sealX, offset=3))
-(vcalib <- calibrateSpeed(dcalib))
+(vcalib <- calibrateSpeed(dcalib, z=1))
 tdrstats <- diveStats(vcalib)
 head(tdrstats)
 head(stamps <- stampDive(vcalib))

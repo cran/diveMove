@@ -67,7 +67,7 @@
         axis(side=2)
         lines(time, depth, col="blue")
         if (!is.null(phaseCol)) {
-            phaseCol <- phaseCol[drop=TRUE]
+            phaseCol <- phaseCol[, drop=TRUE]
             colors <- rainbow(nlevels(phaseCol))
             points(time, depth, col=colors[phaseCol], pch=19, cex=0.4)
             if (nlevels(phaseCol) < 11) {

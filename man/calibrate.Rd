@@ -15,16 +15,17 @@
 
 \usage{
 calibrateDepth(x, landerr=70, seaerr=3610, divethres=4, offset)
-calibrateSpeed(x, type="all", calType="pooled", bad=c(0, 0),
-               z=0, filename=slot(getTDR(x), "file"), coefs, \ldots)
+calibrateSpeed(x, tau=0.1, contour.level=0.1, z=0, bad=c(0, 0),
+               main=slot(getTDR(x), "file"), coefs, plot=TRUE,
+               postscript=FALSE, \ldots)
 }
 
 
 \arguments{
 
-  \item{x}{an object of class \code{TDR} for \code{calibrateDepth}, and
-    an object of class \code{TDRcalibrate-class} for
-    \code{calibrateSpeed}.}
+  \item{x}{an object of class \code{TDR} for
+    \code{\link{calibrateDepth}} or an object of class
+    \code{TDRcalibrate} for \code{\link{calibrateSpeed}}.}
 
   \item{landerr, seaerr}{arguments to \code{\link{detPhase}}.}
 
@@ -32,15 +33,30 @@ calibrateSpeed(x, type="all", calType="pooled", bad=c(0, 0),
 
   \item{offset}{argument to \code{\link{zoc}}.}
 
-  \item{type, calType, bad, z, filename}{further arguments for
-    \code{\link{.getSpeedCalib}} and \code{\link{doSpeedCalib}}.}
+  \item{tau}{quantile on which to regress speed on rate of depth change;
+    passed to \code{\link[quantreg]{rq}}.}
+
+  \item{contour.level}{the mesh obtained from the bivariate kernel
+    density estimation corresponding to this contour will be used for
+    the quantile regression to define the calibration line.}
+
+  \item{z}{only changes in depth larger than this value will be used for
+    calibration.}
+
+  \item{bad}{length 2 numeric vector to indicate that only rates of
+    depth change and speed, respectively, will be used for calibration.}
 
   \item{coefs}{known speed calibration coefficients from quantile
     regression as a vector of length 2 (intercept, slope).  If provided,
     these coefficients are used for calibrating speed, ignoring all
     other arguments, except \code{x}.}
 
-  \item{\ldots}{argument passed to \code{\link{doSpeedCalib}}.}
+  \item{main, \ldots}{arguments passed to \code{\link{rqPlot}}.}
+
+  \item{plot}{logical indicating whether to plot the results.}
+
+  \item{postscript}{logical indicating whether to produce postscript
+    file output.}
 
 }
 
@@ -59,11 +75,13 @@ calibrateSpeed(x, type="all", calType="pooled", bad=c(0, 0),
 }
 
 
-\value{An object of class \code{\link{TDRcalibrate-class}}}
+\value{An object of class \code{\link{TDRcalibrate-class}} for
+  \code{\link{calibrateDepth}} and an object of class
+  \code{\link{TDRspeed-class}} for \code{\link{calibrateSpeed}}.}
 
 
 \seealso{\code{\link{detPhase}}, \code{\link{detDive}},
-  \code{\link{doSpeedCalib}}, \code{\link{zoc}}, for the underlying
+  \code{\link{zoc}}, for the underlying
   functions.}
 
 % -------------------------------------------------------------------------

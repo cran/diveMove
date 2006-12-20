@@ -172,7 +172,7 @@ Time-Depth Recorder data -- Class TDRspeed object
   Sampling Begins         : 2002-01-05 11:32:00 
   Sampling Ends           : 2002-01-07 11:01:50 
   Total Duration (d)      : 1.979 
-  Measured depth range (m): -4 -- 91 
+  Measured depth range (m): [ -4 , 91 ]
   Other variables         : light temperature speed 
 \end{Soutput}
 \end{Schunk}
@@ -315,7 +315,7 @@ Time-Depth Recorder data -- Class TDRspeed object
   Sampling Begins         : 2002-01-05 11:32:00 
   Sampling Ends           : 2002-01-07 11:01:50 
   Total Duration (d)      : 1.979 
-  Measured depth range (m): 0 -- 88 
+  Measured depth range (m): [ 0 , 88 ]
   Other variables         : light temperature speed 
 \end{Soutput}
 \end{Schunk}
@@ -391,7 +391,7 @@ Time-Depth Recorder data -- Class TDRspeed object
   Sampling Begins         : 2002-01-06 00:45:15 
   Sampling Ends           : 2002-01-07 03:27:10 
   Total Duration (d)      : 1.112 
-  Measured depth range (m): 0 -- 88 
+  Measured depth range (m): [ 0 , 88 ]
   Other variables         : light temperature speed 
 \end{Soutput}
 \end{Schunk}
@@ -426,7 +426,7 @@ calibration:
 
 \begin{Schunk}
 \begin{Sinput}
-> vcalib <- calibrateSpeed(dcalib, calType = "pooled")
+> vcalib <- calibrateSpeed(dcalib, z = 1)
 \end{Sinput}
 \end{Schunk}
 \begin{Schunk}
@@ -442,36 +442,25 @@ Depth calibration -- Class TDRcalibrate object
   Dry threshold used (s)            : 70 
   Aquatic theshold used (s)         : 3610 
   Dive threshold used (s)           : 4 
-  Speed calibration coefficients    : a = 0.4 ; b = 0.64 
+  Speed calibration coefficients    : a = -0.44 ; b = 1.1 
 \end{Soutput}
 \end{Schunk}
-A side effect of such a call is the production of a plot displaying the
-quantile regression fit for the three phases (Figure~\ref{fig:rqplots}).
-This can be displayed on the current device, or sent to a postscript file,
-using \Rfunction{postscript}=TRUE in the call, for a higher quality
-representation.
+Using \Rfunarg{plot=FALSE} it is possible to turn off the default side
+effect of producing a plot displaying the quantile regression fit
+(Figure~\ref{fig:rqplots}).
 
 \begin{figure}[hbtp]
   \centering
   \includegraphics[trim=0 0 10 0, width=\textwidth]{diveMove-vcalibration}
-  \caption{Example speed calibration lines, dividing dives into
-    descent, ascent, or pooling both phases from a TDR record.}
+  \caption{Example speed calibration line from a TDR record.}
   \label{fig:rqplots}
 \end{figure}
 
-The default (calType=''pooled'') is to use data from the descent and
-ascent phases of all dives, but possible values also include ``descent'',
-``ascent'', and ``none''.  Because the function produces three plots of
-speed vs. rate of depth change, the latter is useful in cases where speed
-does not need any calibration, but inspection of the plots is desired.
-Finer control is possible by the use of arguments \Rfunarg{type}, which
-controls whether descent or ascent readings that are shared with the
-bottom phase of the dive should be included or not, and \Rfunarg{bad},
-which controls minimum speeds and rates of depth change through which the
-calibration line should be drawn.  Finally, a maximum depth threshold can
-be supplied as the argument z, so that only data from dives where maximum
-depth was greater than this value are included in the construction of the
-calibration line.
+Control is possible by the use of arguments \Rfunarg{bad}, which controls
+minimum rates of depth change and speeds through which the calibration
+line should be drawn.  To control for the resolution of the TDR,
+\Rfunarg{z} can be used to include only changes in depth greater than a
+given value for the construction of the calibration line.
 
 If the calibration coefficients from the implicit quantile regression are
 known a priori, then these can be supplied to the function via its
@@ -500,21 +489,21 @@ Once data have been calibrated and the record broken up at ``trip'' and
 2 2002-01-05 21:20:40    42.5      20   47.5       26
 3 2002-01-05 21:23:50    67.5      35   72.5       63
   bottdist ascdist desc.tdist desc.mean.speed desc.angle
-1        0       6      22.44           4.488      15.51
-2        3      29     100.07           2.502      15.06
-3        8      67     107.84           1.659      35.75
+1        0       6      16.49           3.298      21.34
+2        3      29      86.78           2.170      17.43
+3        8      67     109.92           1.691      34.97
   bott.tdist bott.mean.speed asc.tdist asc.mean.speed
-1      15.22           3.043     18.04          3.609
-2      53.96           2.698     71.78          1.595
-3      56.11           1.603     98.09          1.401
+1      12.39           2.477     13.99          2.798
+2      45.62           2.281     74.47          1.655
+3      58.08           1.659    108.13          1.545
   asc.angle divetim maxdep postdive.dur postdive.tdist
-1     19.42      20      6        32345       50445.70
-2     23.83     110     29           35          16.85
-3     43.08     175     67           75          58.18
+1     25.39      20      6        32345       52784.67
+2     22.92     110     29           35          35.78
+3     38.29     175     67           75          89.21
   postdive.mean.speed
-1              1.5652
-2              0.4815
-3              0.7758
+1               1.638
+2               1.022
+3               1.189
 \end{Soutput}
 \end{Schunk}
 

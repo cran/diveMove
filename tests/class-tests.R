@@ -38,8 +38,8 @@ sealX <- createTDR(time=sealDat$time, depth=sealDat$depth,
 head(tt <- getTime(sealX))
 head(dd <- getDepth(sealX))
 head(ss <- getSpeed(sealX))
-head(cc <- getccData(sealX))
-head(cc <- getccData(sealX, "speed"))
+head(cc <- getCCData(sealX))
+head(cc <- getCCData(sealX, "speed"))
 getFileName(sealX)
 getDtime(sealX)
 

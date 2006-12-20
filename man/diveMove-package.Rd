@@ -53,8 +53,8 @@ plot(dcalib, labels="phase.id", surface=FALSE)
 plot(dcalib, diveNo=seq(300), labels="dive.phase", surface=TRUE)
 }
 
-## calibrate speed (using default remaining arguments)
-(vcalib <- calibrateSpeed(dcalib))
+## calibrate speed (using changes in depth > 1 m and default remaining arguments)
+(vcalib <- calibrateSpeed(dcalib, z=1))
 
 ## Obtain dive statistics for all dives detected
 dives <- diveStats(vcalib)

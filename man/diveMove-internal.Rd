@@ -1,10 +1,10 @@
 \name{diveMove-internal}
 
 \alias{.cutDive}
-\alias{.descAsc}
+% \alias{.descAsc}
 \alias{.diveIndices}
 \alias{.getInterval}
-\alias{.getSpeedCalib}
+% \alias{.getSpeedCalib}
 \alias{.getSpeedStats}
 
 % -------------------------------------------------------------------------
@@ -19,10 +19,10 @@
 
 \usage{
 .cutDive(x)
-.descAsc(x, phase, type=c("all", "strict"), interval, z=0)
+% .descAsc(x, phase, type=c("all", "strict"), interval, z=0)
 .diveIndices(diveID, diveNo)
 .getInterval(time)
-.getSpeedCalib(time, zdepth, speed, dives, phase, \dots)
+% .getSpeedCalib(time, zdepth, speed, dives, phase, \dots)
 .getSpeedStats(x, vdist)
 }
 
@@ -37,31 +37,31 @@
 
   \item{time}{\code{POSIXct} object representing time.}
 
-  \item{dtformat}{A string to interpret date and time (see
-    \code{\link{strptime}}.}
+  % \item{dtformat}{A string to interpret date and time (see
+  %   \code{\link{strptime}}.}
 
-  \item{phase}{factor labelling each row for its phase in dive.}
+  % \item{phase}{factor labelling each row for its phase in dive.}
 
-  \item{type}{string indicating whether all points belonging to
-    descent/ascent should be included (\dQuote{all}), or points shared
-    with bottom phase should be excluded (\dQuote{srict}).}
+  % \item{type}{string indicating whether all points belonging to
+  %   descent/ascent should be included (\dQuote{all}), or points shared
+  %   with bottom phase should be excluded (\dQuote{srict}).}
 
-  \item{interval}{sampling interval in seconds.}
+  % \item{interval}{sampling interval in seconds.}
 
-  \item{z}{minimum depth differences to use.}
+  % \item{z}{minimum depth differences to use.}
 
-  \item{zdepth}{zero-offset corrected depth m.}
+  % \item{zdepth}{zero-offset corrected depth m.}
 
-  \item{speed}{speed in m/s.  For doSpeedCalib: uncalibrated speeds;
-    ignored if \code{calType} is \dQuote{none}.}
+  % \item{speed}{speed in m/s.  For doSpeedCalib: uncalibrated speeds;
+  %   ignored if \code{calType} is \dQuote{none}.}
 
-  \item{dives}{3-col \code{data.frame} with dive id (numeric), activity
-    (factor), and postdive id (numeric).}
+  % \item{dives}{3-col \code{data.frame} with dive id (numeric), activity
+  %   (factor), and postdive id (numeric).}
 
-  \item{\dots}{arguments to pass to .descAsc (\code{type},
-    \code{interval}, and \code{z}).}
+  % \item{\dots}{arguments to pass to .descAsc (\code{type},
+  %   \code{interval}, and \code{z}).}
 
-  \item{vdist}{vertical distance travelled during ascent or descent.}
+  % \item{vdist}{vertical distance travelled during ascent or descent.}
 
   \item{diveID}{Numeric vector of all dive and non dive IDs.}
 

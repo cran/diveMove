@@ -13,7 +13,7 @@
 
 
 \usage{
-rqPlot(rdepth, speed, rqFit, main="qtRegression",
+rqPlot(rddepth, speed, z, contours, rqFit, main="qtRegression",
        xlab="rate of depth change (m/s)", ylab="speed (m/s)",
        colramp=colorRampPalette(c("white", "darkblue")))
 }
@@ -24,7 +24,14 @@ rqPlot(rdepth, speed, rqFit, main="qtRegression",
 
   \item{speed}{speed in m/s.}
 
-  \item{rdepth}{numeric vector with rate of depth change.}
+  \item{rddepth}{numeric vector with rate of depth change.}
+
+  \item{z}{a list with the bivariate kernel density estimates (1st
+    component the x points of the mesh, 2nd the y points, and 3rd the
+    matrix of densities).}
+
+  \item{contours}{numeric vector indicating which contours to draw;
+    passed to \code{\link{contour}}.}
 
   \item{rqFit}{object of class \dQuote{rq} representing a quantile
     regression fit of rate of depth change on mean speed.}
@@ -44,7 +51,7 @@ rqPlot(rdepth, speed, rqFit, main="qtRegression",
   other line represent the quantile regression fit.}
 
 
-\seealso{\code{\link{doSpeedCalib}}, \code{\link{diveStats}}}
+\seealso{\code{\link{diveStats}}}
 
 % -------------------------------------------------------------------------
 
