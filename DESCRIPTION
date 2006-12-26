@@ -1,7 +1,7 @@
 Package: diveMove
 Type: Package
 Title: Dive analysis and calibration
-Version: 0.6-8
+Version: 0.6-9
 Depends: R (>= 2.4.0), methods
 ZipData: no
 Suggests: KernSmooth, quantreg
@@ -11,4 +11,4 @@ Description: Functions to filter and summarize time-depth recorder (TDR)
              data, and miscellaneous functions for handling location data.
 SaveImage: yes
 License: GPL (GNU Public License), Version 2 or later
-Packaged: Wed Dec 20 17:09:07 2006; sluque
+Packaged: Tue Dec 26 19:17:32 2006; sluque

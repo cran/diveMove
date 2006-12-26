@@ -18,7 +18,7 @@
 
 
 \usage{
-.cutDive(x)
+.cutDive(x, descent.crit.q, ascent.crit.q, wiggle.tol)
 % .descAsc(x, phase, type=c("all", "strict"), interval, z=0)
 .diveIndices(diveID, diveNo)
 .getInterval(time)
@@ -68,6 +68,13 @@
   \item{diveNo}{Numeric vector of unique dive IDs to index in
     \code{diveID}.}
 
+  \item{descent.crit.q}{critical quantile below which descent is deemed
+    to have ended.}
+
+  \item{ascent.crit.q}{critical quantile above which ascent is deemed to
+    have started.}
+
+  \item{wiggle.tol}{tolerance to wiggles.}
 }
 
 

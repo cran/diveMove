@@ -15,11 +15,11 @@
 
 \usage{
 zoc(time, depth, offset)
-plotDive(time, depth, concurVars=NULL, xlim=NULL, phaseCol=NULL,
-         xlab="time (dd-mmm hh:mm)", ylab.depth="depth (m)",
+plotDive(time, depth, concurVars=NULL, xlim=NULL, depth.lim=NULL,
+         phaseCol=NULL, xlab="time (dd-mmm hh:mm)", ylab.depth="depth (m)",
          concurVarTitles=NULL, xlab.format="\%d-\%b \%H:\%M",
          sunrise.time="06:00:00", sunset.time="18:00:00",
-         night.col="gray60")
+         night.col="gray60", key=TRUE)
 
 }
 %- maybe also 'usage' for other objects documented here.
@@ -40,6 +40,9 @@ plotDive(time, depth, concurVars=NULL, xlim=NULL, phaseCol=NULL,
   \item{xlim}{vector of length 2, with lower and upper limits of time to
     be plotted.}
 
+  \item{depth.lim}{numeric vector of length 2, with the lower and upper
+    limits of depth to be plotted.}
+
   \item{phaseCol}{factor dividing rows into sections.}
 
   \item{xlab, ylab.depth}{strings to label the corresponding
@@ -58,6 +61,8 @@ plotDive(time, depth, concurVars=NULL, xlim=NULL, phaseCol=NULL,
     format.  This is used for shading night time.}
 
   \item{night.col}{color for shading night time.}
+
+  \item{key}{logical indicating whether to dray a key.}
 
 }
 

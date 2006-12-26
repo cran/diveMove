@@ -1,3 +1,31 @@
+2006-12-26  Sebastian P. Luque  <spluque@gmail.com>
+
+	* plotDive.R: plotDive(): New argument 'depth.lim' to set the
+	depth limits.
+
+	.night(): New function to do night time calculations separately and more
+	efficiently.
+
+	* calibrate.R, detDive.R:
+	.cutDive() and calibrateDepth(): New argument 'wiggle.tol' to control the
+	proportion of maximum depth above which wiggles should be ignored during
+	descent, or below which they should be considered as belonging to bottom
+	phase.
+
+2006-12-24  Sebastian P. Luque  <spluque@gmail.com>
+
+	* plotDive.R: New argument 'key'.
+
+	* detDive.R, calibrate.R:
+	.cutDive() and calibrate(): New arguments 'descent.crit.q' and
+	'ascent.crit.q' to control which quantiles should define the
+	critical rate of descent/ascent below/above which descent and
+	ascent should end/begin, respectively.
+
+2006-12-21  Sebastian P. Luque  <spluque@gmail.com>
+
+	* AllMethod.R: Renamed attendance to timeBudget for appropriateness.
+
 2006-12-20  Sebastian P. Luque  <spluque@gmail.com>
 
 	* AllMethod.R: getCCData():  We ensure that value is a data.frame.

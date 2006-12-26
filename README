@@ -7,6 +7,25 @@ Read ?diveMove for a quick overview of the major functionality.  A
 vignette is also available by doing vignette("diveMove").
 
 
+* News
+======
+
+** Changes/New Features
+
+Version 0.6-9:
+
+	* New arguments for calibrateDepth(), offering improved control
+	  over detection of descent, bottom, and ascent phases.  We now
+	  use rates of vertical movement for detection, with a further
+	  argument for defining what determines a bottom wiggle.
+
+	* New arguments for plotDive() to decide whether to plot legend
+          and to set limits for depth plot.
+
+	* Documentation for formal classes and methods was split to make
+          them easier to read.
+
+
 * Overview
 ==========
 

@@ -355,11 +355,11 @@ setMethod("extractDive",                # for TDRcalibrate
           })
 
 
-if (!isGeneric("attendance")) {
-    setGeneric("attendance",
-               function(obj, ignoreZ) standardGeneric("attendance"))
+if (!isGeneric("timeBudget")) {
+    setGeneric("timeBudget",
+               function(obj, ignoreZ) standardGeneric("timeBudget"))
 }
-setMethod("attendance",            # a table of general attendance pattern
+setMethod("timeBudget",            # a table of general attendance pattern
           signature(obj="TDRcalibrate", ignoreZ="logical"),
           function(obj, ignoreZ) {
               act <- getGAct(obj, "trip.act")

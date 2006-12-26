@@ -24,7 +24,7 @@
   \code{\link[diveMove:diveMove-package]{TDR-class}},
   \code{\link[diveMove:diveMove-package]{calibrateDepth}},
   \code{\link[diveMove:diveMove-package]{calibrateSpeed}},
-  \code{\link[diveMove:diveMove-package]{attendance}},
+  \code{\link[diveMove:diveMove-package]{timeBudget}},
   \code{\link[diveMove:diveMove-package]{stampDive}}.}
 
 % -------------------------------------------------------------------------
@@ -61,8 +61,8 @@ dives <- diveStats(vcalib)
 head(dives)
 
 ## Attendance table
-att <- attendance(vcalib, FALSE) # taking trivial aquatic activities into account
-att <- attendance(vcalib, TRUE)  # ignoring them
+att <- timeBudget(vcalib, FALSE) # taking trivial aquatic activities into account
+att <- timeBudget(vcalib, TRUE)  # ignoring them
 ## Add trip stamps to each dive
 stamps <- stampDive(vcalib)
 sumtab <- data.frame(stamps, dives)
