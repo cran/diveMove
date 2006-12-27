@@ -1,8 +1,28 @@
-"plotDive" <- function(time, depth, concurVars=NULL, xlim=NULL, phaseCol=NULL,
-                       xlab="time (dd-mmm hh:mm)", ylab.depth="depth (m)",
-                       concurVarTitles=NULL, xlab.format="%d-%b %H:%M",
-                       sunrise.time="06:00:00", sunset.time="18:00:00",
-                       night.col="gray60")
+".night" <- function(time, sunrise.time, sunset.time)
+{
+    ## Value: A list with sunset and sunrise times for dates in 'time'
+    ## --------------------------------------------------------------------
+    ## Arguments: Passed from plotDive
+    ## --------------------------------------------------------------------
+    ## Author: Sebastian P. Luque
+    ## --------------------------------------------------------------------
+    morn.uniq <- unique(format(time, format = paste("%F", sunrise.time)))
+    morn <- as.POSIXct(morn.uniq, tz = attr(time, "tzone")) + 86400
+    morn.before <- morn[1] - 86400
+    morn.all <- rbind(data.frame(x=morn.before), data.frame(x=morn))[[1]]
+    night.uniq <- unique(format(time, format=paste("%F", sunset.time)))
+    night <- as.POSIXct(night.uniq, tz=attr(time, "tzone"))
+    night.before <- night[1] - 86400
+    night.all <- rbind(data.frame(x=night.before), data.frame(x=night))[[1]]
+    list(sunrises=morn.all, sunsets=night.all)
+}
+
+
+"plotDive" <- function(time, depth, concurVars=NULL, xlim=NULL, depth.lim=NULL,
+                       phaseCol=NULL, xlab="time (dd-mmm hh:mm)",
+                       ylab.depth="depth (m)", concurVarTitles=NULL,
+                       xlab.format="%d-%b %H:%M", sunrise.time="06:00:00",
+                       sunset.time="18:00:00", night.col="gray60", key=TRUE)
 {
     ## Value: Plot of time, depth, speed, mostly for ZOC, returns
     ## (invisibly) a list with coordinates for each zoc'ed time window.
@@ -24,13 +44,12 @@
     xlmid <- tclVar(xlmid)                # initialize date range midpoint
     xZ <- as.numeric(tclvalue(xZoom)) # these 2 are to be dynamically changed
     xM <- as.numeric(tclvalue(xlmid))
-    ylim <- rev(range(depth, na.rm=TRUE))
+    ylim <- if (is.null(depth.lim)) {
+        rev(range(depth, na.rm=TRUE)) * 1.1
+    } else rev(depth.lim)
     yMax <- tclVar(ylim[1])
     yTop <- as.numeric(tclvalue(yMax))
-    morn.uniq <- unique(format(time, format=paste("%F", sunrise.time)))
-    morn <- as.POSIXct(morn.uniq, tz=attr(time, "tzone")) + 86400
-    night.uniq <- unique(format(time, format=paste("%F", sunset.time)))
-    night <- as.POSIXct(night.uniq, tz=attr(time, "tzone"))
+    nights <- .night(time, sunrise.time, sunset.time)
     nconcurVars <- ifelse(is.null(concurVars), 0, ncol(concurVars))
     plotrows <- nconcurVars + 1
     ncheight <- 1.35 * (1/plotrows)
@@ -60,8 +79,8 @@
         plot(depth ~ time, type="n", xlim=xlim, ylim=ylim,
              xlab=xlab, ylab=ylab.depth, xaxt="n", yaxt="n")
         usr <- par("usr")
-        xleft <- pmax(night, usr[1])
-        xright <- pmin(morn, usr[2])
+        xleft <- pmax(nights$sunsets, usr[1])
+        xright <- pmin(nights$sunrises, usr[2])
         rect(xleft, usr[3], xright, usr[4], col=night.col, border=NA)
         axis.POSIXct(side=1, time, at=xticks, format=xlab.format)
         axis(side=2)
@@ -70,7 +89,7 @@
             phaseCol <- phaseCol[, drop=TRUE]
             colors <- rainbow(nlevels(phaseCol))
             points(time, depth, col=colors[phaseCol], pch=19, cex=0.4)
-            if (nlevels(phaseCol) < 11) {
+            if (key && nlevels(phaseCol) < 11) {
                 legend("bottomright", legend=levels(phaseCol), col=colors,
                        pch=19, cex=0.7, ncol=nlevels(phaseCol), bg="white")
             }
@@ -143,9 +162,8 @@
                    orient="horiz"))
     ## Maximum depth selection
     tkpack(tklabel(dep.frame, text="Max. Depth (m)"))
-    tkpack(tkscale(dep.frame, command=replot.maybe,
-                   from=0, to=max(depth, na.rm=TRUE), length=150,
-                   showvalue=TRUE, variable=yMax, orient="horiz"))
+    tkpack(tkscale(dep.frame, command=replot.maybe, from=0, to=ylim[1],
+                   length=150, showvalue=TRUE, variable=yMax, orient="horiz"))
 
     replot()
     tkwait.window(base)

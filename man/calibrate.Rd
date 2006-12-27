@@ -14,7 +14,8 @@
 
 
 \usage{
-calibrateDepth(x, landerr=70, seaerr=3610, divethres=4, offset)
+calibrateDepth(x, landerr=70, seaerr=3610, divethres=4, offset,
+               descent.crit.q=0.1, ascent.crit.q=0.5, wiggle.tol=0.8)
 calibrateSpeed(x, tau=0.1, contour.level=0.1, z=0, bad=c(0, 0),
                main=slot(getTDR(x), "file"), coefs, plot=TRUE,
                postscript=FALSE, \ldots)
@@ -32,6 +33,17 @@ calibrateSpeed(x, tau=0.1, contour.level=0.1, z=0, bad=c(0, 0),
   \item{divethres}{argument to \code{\link{detDive}}.}
 
   \item{offset}{argument to \code{\link{zoc}}.}
+
+  \item{descent.crit.q}{critical quantile of rates of descent below
+    which descent is deemed to have ended.}
+
+  \item{ascent.crit.q}{critical quantile of rates of ascent above which
+    ascent is deemed to have started.}
+
+  \item{wiggle.tol}{Proportion of maximum depth above which wiggles
+    should not be allowed to define the end of descent.  It's also the
+    proportion of maximum depth below which wiggles should be considered
+    part of bottom phase.}
 
   \item{tau}{quantile on which to regress speed on rate of depth change;
     passed to \code{\link[quantreg]{rq}}.}

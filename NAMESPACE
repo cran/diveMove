@@ -9,7 +9,7 @@ exportClasses("TDR",
 
 exportMethods("as.data.frame",
               "as.TDRspeed",
-              "attendance",
+              "timeBudget",
               "coerce",
               "depth<-",
               "speed<-",

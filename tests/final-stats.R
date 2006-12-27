@@ -6,8 +6,8 @@ library(diveMove)
 tdrstats <- diveStats(dcalib)
 head(tdrstats)
 head(stamps <- stampDive(dcalib))
-(att <- attendance(dcalib, FALSE))
-(att <- attendance(dcalib, TRUE))
+(att <- timeBudget(dcalib, FALSE))
+(att <- timeBudget(dcalib, TRUE))
 
 (sealX <- readTDR(system.file(file.path("data", "sealMK8.csv"),
                              package="diveMove"),
@@ -17,5 +17,5 @@ head(stamps <- stampDive(dcalib))
 tdrstats <- diveStats(vcalib)
 head(tdrstats)
 head(stamps <- stampDive(vcalib))
-(att <- attendance(vcalib, FALSE))
-(att <- attendance(vcalib, TRUE))
+(att <- timeBudget(vcalib, FALSE))
+(att <- timeBudget(vcalib, TRUE))

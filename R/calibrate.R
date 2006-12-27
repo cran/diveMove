@@ -1,5 +1,6 @@
-"calibrateDepth" <-  function(x, landerr=70, seaerr=3610,
-                              divethres=4, offset)
+"calibrateDepth" <-  function(x, landerr=70, seaerr=3610, divethres=4,
+                              offset, descent.crit.q=0.1, ascent.crit.q=0.5,
+                              wiggle.tol=0.80)
 {
     ## Value: A TDRcalibrate object.  Detect water/land phases in TDR
     ## object, zoc data, detect dives and their phases, and label them.
@@ -21,7 +22,9 @@
     detd <- detDive(getDepth(x), detp[[2]], divethres, getDtime(x))
 
     ## label phases of dives with their activity
-    phaselabs <- labDivePhase(x, detd[, 1])
+    phaselabs <- labDivePhase(x, detd[, 1], descent.crit.q=descent.crit.q,
+                              ascent.crit.q=ascent.crit.q,
+                              wiggle.tol=wiggle.tol)
 
     new("TDRcalibrate",
         tdr=x,

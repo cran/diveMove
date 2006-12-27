@@ -55,8 +55,8 @@
                postdive.id=inddive[, 2])
 }
 
-
-".cutDive" <- function(x)
+##_+ Dive Detection with quantiles of rates of descent/ascent -------------
+".cutDive" <- function(x, descent.crit.q, ascent.crit.q, wiggle.tol)
 {
     ## Value: Create a factor that breaks a dive into descent,
     ## descent/bottom, bottom, bottom/ascent, ascent, and/or
@@ -68,35 +68,54 @@
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
-    ## Descent detection
-    descdd <- diff(x[, 2])              # sequential differences
-    ## subscript of diffs <= 0 -- no further increase in depth
-    descinf <- which(descdd <= 0)
-    ## descent ends at inflection point, or first row if non detected We
-    ## allow for a maximum of 1 histeresis event at the beginning and end
-    ## of dive
-    descind <- if (length(descinf) > 0) {
-        if (length(descinf) > 1 & descinf[2] != descinf[1] + 1) {
-            1:descinf[2]
+    depths <- x[, 2]
+    times <- x[, 3]
+    "det.fun" <- function(x, y, index, ascent=FALSE) {
+        bottom.depth <- y[index] * wiggle.tol
+        if (ascent) {
+            asc <- y[index:length(y)]
+            diffx <- diff(x[index:length(x)])
+            rate <- -diff(asc) / diffx
+            crit.rate <- quantile(rate[rate > 0], ascent.crit.q)
+            beyond <- which(rate > crit.rate)
+            bott.wiggle <- rate <= 0 & asc[-1] > bottom.depth
+            if (any(bott.wiggle)) {
+                crit.id <- index + max(which(bott.wiggle))
+            } else {
+                crit.id <- ifelse(length(beyond) < 1, length(x),
+                                  index + beyond[1] - 1)
+            }
+            crit.id:length(x)
         } else {
-            1:descinf[1]
+            desc <- y[1:index]
+            diffx <- diff(x[1:index])
+            rate <- diff(desc) / diffx
+            crit.rate <- quantile(rate[rate > 0], descent.crit.q)
+            low.rates <- which(rate < crit.rate)
+            desc.wiggle <- rate <= 0 & desc[-length(desc)] < bottom.depth
+            if (length(low.rates) > 0 & any(desc.wiggle)) {
+                low.below <- setdiff(low.rates, which(desc.wiggle))
+                crit.id <- ifelse(length(low.below) < 1, low.rates[1],
+                                  low.below[1])
+            } else if (length(low.rates) < 1) {
+                crit.id <- length(rate)
+            } else crit.id <- low.rates[1]
+            1:crit.id
         }
-    } else 1
+    }
+
+    ## Descent detection
+    desc.maxdd.id <- which.max(depths)
+    descind <- det.fun(times, depths, desc.maxdd.id, ascent=FALSE)
 
     ## Ascent detection
-    ascdd <- diff(rev(x[, 2]))            # we do it from end of dive
-    ascinf <- which(ascdd <= 0)           # same as above
-    ascind <- if (length(ascinf) > 0) {
-        if (length(ascinf) > 1 & ascinf[2] != ascinf[1] + 1) {
-            (nrow(x) - ascinf[2] + 1):nrow(x)
-        } else {
-            (nrow(x) - ascinf[1] + 1):nrow(x)
-        }
-    } else nrow(x)
+    depths.rev <- rev(depths)
+    asc.maxdd.id <- (nrow(x) - which.max(depths.rev)) + 1
+    ascind <- det.fun(times, depths, asc.maxdd.id, ascent=TRUE)
 
     ## Bottom detection
     bottind <- c(descind[length(descind)],
-                 setdiff(seq(length(x[, 1])), union(descind, ascind)),
+                 setdiff(seq(nrow(x)), union(descind, ascind)),
                  ascind[1])
 
     ## descent is everything in descind that's not in union of bottind and ascind
@@ -124,8 +143,7 @@
     cbind(rowids, labs)
 }
 
-
-"labDivePhase" <- function(x, diveID)
+"labDivePhase" <- function(x, diveID, descent.crit.q, ascent.crit.q, wiggle.tol)
 {
     ## Value: A factor labelling portions of dives
     ## --------------------------------------------------------------------
@@ -137,10 +155,12 @@
     if (!is(x, "TDR")) stop("x must be a TDR object")
     ok <- which(diveID > 0 & !is.na(getDepth(x))) # required diving indices
     ddepths <- getDepth(x)[ok]               # diving depths
-    dids <- diveID[ok]                    # dive IDs
-    ## We send a matrix of indices and non-NA depths
-    td <- matrix(data=c(ok, ddepths), ncol=2) # times & depth dives only
-    perdivetd <- by(td, dids, .cutDive)
+    dtimes <- getTime(x)[ok]                 # diving times
+    dids <- diveID[ok]                       # dive IDs
+    ## We send a matrix of indices, and non-NA depths and times
+    td <- matrix(data=c(ok, ddepths, as.numeric(dtimes)), ncol=3)
+    perdivetd <- by(td, dids, .cutDive, descent.crit.q, ascent.crit.q,
+                    wiggle.tol)
 
     labdF <- do.call(rbind, perdivetd)
     ff <- factor(rep("X", length(diveID)), levels=c(unique(labdF[, 2]), "X"))

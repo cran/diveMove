@@ -16,7 +16,7 @@
 \usage{
 detDive(zdepth, act, divethres=4, \dots)
 labDive(act, string, interval)
-labDivePhase(x, diveID)
+labDivePhase(x, diveID, descent.crit.q, ascent.crit.q, wiggle.tol)
 }
 %- maybe also 'usage' for other objects documented here.
 
@@ -39,7 +39,18 @@ labDivePhase(x, diveID)
   \item{x}{a class \sQuote{TDR} object}
 
   \item{diveID}{numeric vector indexing each dive (non-dives should be
-  0)}
+    0)}
+
+  \item{descent.crit.q}{critical quantile of rates of descent below
+    which descent is deemed to have ended.}
+
+  \item{ascent.crit.q}{critical quantile of rates of ascent above which
+    ascent is deemed to have started.}
+
+  \item{wiggle.tol}{Proportion of maximum depth above which wiggles
+    should not be allowed to define the end of descent.  It's also the
+    proportion of maximum depth below which wiggles should be considered
+    part of bottom phase.}
 
 }
 

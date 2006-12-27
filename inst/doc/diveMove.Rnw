@@ -345,13 +345,14 @@ vcalib <- calibrateSpeed(dcalib, z=1)
 <<>>=
 vcalib
 @
+
 Using \Rfunarg{plot=FALSE} it is possible to turn off the default side
 effect of producing a plot displaying the quantile regression fit
 (Figure~\ref{fig:rqplots}).
 
 \begin{figure}[hbtp]
   \centering
-  \includegraphics[trim=0 0 10 0, width=\textwidth]{diveMove-vcalibration}
+  \includegraphics[trim=0 0 10 0, width=0.7\textwidth]{diveMove-vcalibration}
   \caption{Example speed calibration line from a TDR record.}
   \label{fig:rqplots}
 \end{figure}
