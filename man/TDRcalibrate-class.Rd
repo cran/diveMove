@@ -66,15 +66,15 @@
       belonging to a particular phase of a dive.  It has the same form
       as objects returned by \code{\link{labDivePhase}}.}
 
-    \item{\code{land.threshold}:}{Object of class \code{"numeric"} the
+    \item{\code{dry.thr}:}{Object of class \code{"numeric"} the
       temporal criteria used for detecting periods on land that should
       be considered as at-sea.}
 
-    \item{\code{sea.threshold}:}{Object of class \code{"numeric"} the
+    \item{\code{wet.thr}:}{Object of class \code{"numeric"} the
       temporal criteria used for detecting periods at-sea that should
       not be considered as foraging time.}
 
-    \item{\code{dive.threshold}:}{Object of class \code{"numeric"} the
+    \item{\code{dive.thr}:}{Object of class \code{"numeric"} the
       criteria used for defining a dive.}
 
     \item{\code{speed.calib.coefs}:}{Object of class \code{"numeric"}

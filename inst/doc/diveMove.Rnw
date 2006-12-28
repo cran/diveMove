@@ -228,7 +228,7 @@ Records often have abherrant missing depth that should not be considered
 dry periods, as they are often of very short duration.  Likewise, there
 may be periods of wet activity that are too short to be compared with
 other wet periods.  This can be controlled by setting the arguments
-\Rfunarg{landerr} and \Rfunarg{seaerr}.
+\Rfunarg{dry.thr} and \Rfunarg{wet.thr}.
 
 Finally, \Rfunction{calibrateDepth} identifies all dives in the record,
 according to a minimum depth criteria given as its \Rfunarg{divethres}
@@ -345,17 +345,16 @@ vcalib <- calibrateSpeed(dcalib, z=1)
 <<>>=
 vcalib
 @
+\begin{figure}[hbtp]
+  \centering
+  \includegraphics[trim=0 0 10 0, width=0.5\textwidth]{diveMove-vcalibration}
+  \caption{Example speed calibration line from a TDR record.}
+  \label{fig:rqplots}
+\end{figure}
 
 Using \Rfunarg{plot=FALSE} it is possible to turn off the default side
 effect of producing a plot displaying the quantile regression fit
 (Figure~\ref{fig:rqplots}).
-
-\begin{figure}[hbtp]
-  \centering
-  \includegraphics[trim=0 0 10 0, width=0.7\textwidth]{diveMove-vcalibration}
-  \caption{Example speed calibration line from a TDR record.}
-  \label{fig:rqplots}
-\end{figure}
 
 Control is possible by the use of arguments \Rfunarg{bad}, which controls
 minimum rates of depth change and speeds through which the calibration

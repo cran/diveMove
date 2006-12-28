@@ -12,6 +12,17 @@ vignette is also available by doing vignette("diveMove").
 
 ** Changes/New Features
 
+Version 0.7-0:
+
+	* Arguments 'seaerr', 'landerr', and 'divethres' were renamed to
+          'wet.thr', 'dry.thr', and 'dive.thr'.  Likewise, slots
+          'land.threshold', 'sea.threshold', and 'dive.threshold' in class
+          TDRcalibrate were renamed to 'dry.thr', 'wet.thr', and
+          'dive.thr', respectively, for consistency/appropriateness.
+
+	* The argument 'contours' to rqPlot() should now be a list with 2
+          components.
+
 Version 0.6-9:
 
 	* New arguments for calibrateDepth(), offering improved control
@@ -24,6 +35,8 @@ Version 0.6-9:
 
 	* Documentation for formal classes and methods was split to make
           them easier to read.
+
+	* attendance() has been renamed to timeBudget().
 
 
 * Overview

@@ -14,7 +14,7 @@
 
 
 \usage{
-detDive(zdepth, act, divethres=4, \dots)
+detDive(zdepth, act, dive.thr=4, \dots)
 labDive(act, string, interval)
 labDivePhase(x, diveID, descent.crit.q, ascent.crit.q, wiggle.tol)
 }
@@ -28,7 +28,7 @@ labDivePhase(x, diveID, descent.crit.q, ascent.crit.q, wiggle.tol)
   \item{act}{factor as long as \code{depth} coding activity, with levels
   specified as in \code{\link{detPhase}}.}
 
-  \item{divethres}{threshold depth below which an underwater phase
+  \item{dive.thr}{threshold depth below which an underwater phase
     should be considered a dive.}
 
   \item{string}{a character belonging to a level of \code{act} to search
