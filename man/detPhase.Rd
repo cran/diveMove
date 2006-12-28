@@ -15,7 +15,7 @@
 
 
 \usage{
-detPhase(time, depth, landerr, seaerr, \dots)
+detPhase(time, depth, dry.thr, wet.thr, \dots)
 getAct(time, act, interval)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -27,10 +27,10 @@ getAct(time, act, interval)
 
   \item{depth}{numeric vector with depth readings.}
 
-  \item{landerr}{land error threshold in seconds.  On-land phases
+  \item{dry.thr}{land error threshold in seconds.  On-land phases
     shorter than this threshold will be considered as at-sea.}
 
-  \item{seaerr}{at-sea leisure threshold in seconds. At-sea phases
+  \item{wet.thr}{at-sea leisure threshold in seconds. At-sea phases
     shorter than this threshold will be considered as at-sea leisure.}
 
   \item{act}{A numeric vector indicating the activity for every element
@@ -45,10 +45,10 @@ getAct(time, act, interval)
   (on-land) for rows with NAs for \code{depth} and value \sQuote{W}
   (at-sea) otherwise. It subsequently calculates the duration of each of
   these phases of activity.  If the duration of an on-land phase
-  (\sQuote{L}) is less than \code{landerr}, then the values in the
+  (\sQuote{L}) is less than \code{dry.thr}, then the values in the
   factor for that phase are changed to \sQuote{W} (at-sea).  The
   duration of phases is then recalculated, and if the duration of a
-  phase of at-sea activity is less than \code{seaerr}, then the
+  phase of at-sea activity is less than \code{wet.thr}, then the
   corresponding value for the factor is changed to \sQuote{Z} (at-sea
   leisure).  The durations of all phases are recalculated a third time
   to provide final phase durations.

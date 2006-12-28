@@ -207,11 +207,11 @@ setMethod("show", signature=signature(object="TDRcalibrate"),
               cat("  Number of dives detected          :",
                   max(object@dive.activity$dive.id, na.rm=TRUE), "\n")
               cat("  Dry threshold used (s)            :",
-                  object@land.threshold, "\n")
+                  object@dry.thr, "\n")
               cat("  Aquatic theshold used (s)         :",
-                  object@sea.threshold, "\n")
+                  object@wet.thr, "\n")
               cat("  Dive threshold used (s)           :",
-                  object@dive.threshold, "\n")
+                  object@dive.thr, "\n")
               if (length(object@speed.calib.coefs) != 0) {
                   cat("  Speed calibration coefficients    : a =",
                       format(object@speed.calib.coefs[1], digits=2), "; b =",

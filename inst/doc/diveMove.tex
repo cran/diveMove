@@ -260,7 +260,7 @@ Records often have abherrant missing depth that should not be considered
 dry periods, as they are often of very short duration.  Likewise, there
 may be periods of wet activity that are too short to be compared with
 other wet periods.  This can be controlled by setting the arguments
-\Rfunarg{landerr} and \Rfunarg{seaerr}.
+\Rfunarg{dry.thr} and \Rfunarg{wet.thr}.
 
 Finally, \Rfunction{calibrateDepth} identifies all dives in the record,
 according to a minimum depth criteria given as its \Rfunarg{divethres}
@@ -445,17 +445,16 @@ Depth calibration -- Class TDRcalibrate object
   Speed calibration coefficients    : a = -0.44 ; b = 1.1 
 \end{Soutput}
 \end{Schunk}
+\begin{figure}[hbtp]
+  \centering
+  \includegraphics[trim=0 0 10 0, width=0.5\textwidth]{diveMove-vcalibration}
+  \caption{Example speed calibration line from a TDR record.}
+  \label{fig:rqplots}
+\end{figure}
 
 Using \Rfunarg{plot=FALSE} it is possible to turn off the default side
 effect of producing a plot displaying the quantile regression fit
 (Figure~\ref{fig:rqplots}).
-
-\begin{figure}[hbtp]
-  \centering
-  \includegraphics[trim=0 0 10 0, width=0.7\textwidth]{diveMove-vcalibration}
-  \caption{Example speed calibration line from a TDR record.}
-  \label{fig:rqplots}
-\end{figure}
 
 Control is possible by the use of arguments \Rfunarg{bad}, which controls
 minimum rates of depth change and speeds through which the calibration
@@ -487,19 +486,19 @@ Once data have been calibrated and the record broken up at ``trip'' and
 3 2002-01-05 21:22:10 2002-01-05 21:23:05
                begasc desctim botttim asctim descdist
 1 2002-01-05 12:20:25     2.5      15    2.5        3
-2 2002-01-05 21:21:00    32.5      50   27.5       24
+2 2002-01-05 21:20:50    32.5      40   37.5       24
 3 2002-01-05 21:23:50    57.5      45   72.5       61
   bottdist ascdist desc.tdist desc.mean.speed desc.angle
 1        6       3         NA              NA         NA
-2       15      19      63.62           2.121      22.16
+2        9      25      63.62           2.121      22.16
 3       10      67      98.08           1.783      38.46
   bott.tdist bott.mean.speed asc.tdist asc.mean.speed
 1      42.87           2.858        NA             NA
-2     105.76           2.115     37.50          1.500
+2      87.59           2.190     55.67          1.591
 3      69.92           1.554    108.13          1.545
   asc.angle divetim maxdep postdive.dur postdive.tdist
 1        NA      20      6        32345       52784.67
-2     30.45     110     29           35          35.78
+2     26.69     110     29           35          35.78
 3     38.29     175     67           75          89.21
   postdive.mean.speed
 1               1.638

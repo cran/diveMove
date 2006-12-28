@@ -24,13 +24,13 @@
 }
 
 
-"detDive" <- function(zdepth, act, divethres=4, ...)
+"detDive" <- function(zdepth, act, dive.thr=4, ...)
 {
     ## Value: A data frame; detecting dives, using a depth threshold
     ## --------------------------------------------------------------------
     ## Arguments: zdepth=depth vector of zoc'ed data, act=factor with
     ## land/sea activity IDs (2nd element returned by detPhase), with
-    ## values "W" for at-sea, divethres=dive threshold in m/s ...=sampling
+    ## values "W" for at-sea, dive.thr=dive threshold in m/s ...=sampling
     ## interval in (s), to pass to labDive
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
@@ -43,7 +43,7 @@
     ## Max depth of each "U" phase
     uwmax <- tapply(zdepth[underw], labuw[underw, 1], max, na.rm=TRUE)
     ## Change each "U" phase to "D" if its max depth > dive threshold
-    act[labuw[, 1] %in% as.numeric(names(uwmax[uwmax > divethres]))] <- "D"
+    act[labuw[, 1] %in% as.numeric(names(uwmax[uwmax > dive.thr]))] <- "D"
 
     inddive <- labDive(act, "D", ...)
     ndives <- length(unique(inddive[act == "D", 1]))

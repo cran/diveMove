@@ -23,14 +23,14 @@
          end.time=endtim)
 }
 
-"detPhase" <- function(time, depth, landerr, seaerr, ...)
+"detPhase" <- function(time, depth, dry.thr, wet.thr, ...)
 {
     ## Value: list with index of per-row activities, the activity code,
     ## and start and end of each activity phase
     ## --------------------------------------------------------------------
     ## Arguments: time=chron vector with date/time depth=numeric vector
     ## with depth readings (m) ...=sampling interval in POSIXct units (s),
-    ## to pass to getAct landerr=duration (in s) of on-land readings that
+    ## to pass to getAct dry.thr=duration (in s) of on-land readings that
     ## should be at-sea aquaerr=duration (in s) of at-sea readings to be
     ## taken as leisure
     ## --------------------------------------------------------------------
@@ -44,12 +44,12 @@
     act[!is.na(depth)] <- "W"
     ## First run calculates times in each activity phase from the raw data
     rawacts <- getAct(time, act, ...)
-    ## On-land activity < 'landerr' should be considered still at-sea
-    land <- levels(rawacts[[1]])[rawacts[[2]] < landerr]
+    ## On-land activity < 'dry.thr' should be considered still at-sea
+    land <- levels(rawacts[[1]])[rawacts[[2]] < dry.thr]
     act[rawacts[[1]] %in% land & act == "L"] <- "W"
-    ## Second run; at-sea phases < seaerr should be leisure
+    ## Second run; at-sea phases < wet.thr should be leisure
     leiacts <- getAct(time, act, ...)
-    leisure <- levels(leiacts[[1]])[leiacts[[2]] < seaerr]
+    leisure <- levels(leiacts[[1]])[leiacts[[2]] < wet.thr]
     act[leiacts[[1]] %in% leisure & act == "W"] <- "Z"
     ## Final run to determine times with all corrected activities
     finacts <- getAct(time, act, ...)

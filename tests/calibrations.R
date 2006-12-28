@@ -3,7 +3,7 @@ library(diveMove)
 (sealX <- readTDR(system.file(file.path("data", "sealMK8.csv"),
                              package="diveMove"),
                   concurrentCols=4:6, speed=TRUE))
-(dcalib <- calibrateDepth(sealX, landerr=3610, offset=3))
+(dcalib <- calibrateDepth(sealX, dry.thr=3610, offset=3))
 (dcalib <- calibrateDepth(sealX, offset=3, ascent.crit=0.1,
                           descent.crit=0.1, wiggle=0.75))
 
@@ -13,8 +13,8 @@ library(diveMove)
 ###_+ Check all calibrateDepth() procedure
 
 ###_ : Check phase detection
-detp <- detPhase(getTime(sealX), getDepth(sealX), landerr=70,
-                 seaerr=3610, getDtime(sealX))
+detp <- detPhase(getTime(sealX), getDepth(sealX), dry.thr=70,
+                 wet.thr=3610, getDtime(sealX))
 ###_ : Check zoc
 zd <- zoc(getTime(sealX), getDepth(sealX), offset=3)
 if (!is.null(zd)) sealX@depth <- zd
@@ -27,7 +27,7 @@ phaselabs <- labDivePhase(sealX, detd[, 1], descent.crit.q=0.1,
 ## (vcalib <- calibrateSpeed(dcalib, calType="ascent"))
 ## (vcalib <- calibrateSpeed(dcalib))
 
-vcalib <- calibrateSpeed(dcalib)
+vcalib <- calibrateSpeed(dcalib, z=0, cex.pts=0.2)
 
 ## ## ##_+ Phase Detection ------------------------------------------------------
 ## "cutDive" <- function(x, crit.quantile, tolerance)
@@ -104,7 +104,7 @@ vcalib <- calibrateSpeed(dcalib)
 
 ## debug(diveMove:::.cutDive)
 ## Extract dive 3 which is problematic
-## diveX <- extractDive(dcalib, 192)
+## diveX <- extractDive(dcalib, 127)
 ## depths <- getDepth(diveX)
 ## times <- getTime(diveX)
 ## pCol <- diveMove:::.cutDive(matrix(c(rep(1, length(times)), depths, as.numeric(times)),

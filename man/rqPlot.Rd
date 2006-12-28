@@ -15,7 +15,8 @@
 \usage{
 rqPlot(rddepth, speed, z, contours, rqFit, main="qtRegression",
        xlab="rate of depth change (m/s)", ylab="speed (m/s)",
-       colramp=colorRampPalette(c("white", "darkblue")))
+       colramp=colorRampPalette(c("white", "darkblue")),
+       col.line="red", cex.pts=1)
 }
 %- maybe also 'usage' for other objects documented here.
 
@@ -30,8 +31,10 @@ rqPlot(rddepth, speed, z, contours, rqFit, main="qtRegression",
     component the x points of the mesh, 2nd the y points, and 3rd the
     matrix of densities).}
 
-  \item{contours}{numeric vector indicating which contours to draw;
-    passed to \code{\link{contour}}.}
+  \item{contours}{list with components: \code{pts} which should be a
+    matrix with columns named \code{x} and \code{y}, \code{level} a
+    number indicating the contour level the points in \code{pts}
+    correspond to.}
 
   \item{rqFit}{object of class \dQuote{rq} representing a quantile
     regression fit of rate of depth change on mean speed.}
@@ -42,6 +45,11 @@ rqPlot(rddepth, speed, z, contours, rqFit, main="qtRegression",
 
   \item{colramp}{function taking an integer n as an argument and
     returning n colors.}
+
+  \item{col.line}{color to use for the regression line.}
+
+  \item{cex.pts}{a numerical value specifying the amount by which to
+    enlarge the size of points.}
 
 }
 

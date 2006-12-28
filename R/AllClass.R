@@ -41,18 +41,18 @@ setClass("TDRspeed", contains="TDR",
 setClass("TDRcalibrate",
          representation=representation(tdr="TDR", gross.activity="list",
              dive.activity="data.frame", dive.phases="factor",
-             land.threshold="numeric", sea.threshold="numeric",
-             dive.threshold="numeric", speed.calib.coefs="numeric"),
+             dry.thr="numeric", wet.thr="numeric",
+             dive.thr="numeric", speed.calib.coefs="numeric"),
          prototype=prototype(speed.calib.coefs=c(0, 1)),
          validity=function(object) {
-             if (length(slot(object, "land.threshold")) > 1) {
-                 return("land.threshold must be a single number")
+             if (length(slot(object, "dry.thr")) > 1) {
+                 return("dry.thr must be a single number")
              }
-             if (length(slot(object, "sea.threshold")) > 1) {
-                 return("sea.threshold must be a single number")
+             if (length(slot(object, "wet.thr")) > 1) {
+                 return("wet.thr must be a single number")
              }
-             if (length(slot(object, "dive.threshold")) > 1) {
-                 return("dive.threshold must be a single number")
+             if (length(slot(object, "dive.thr")) > 1) {
+                 return("dive.thr must be a single number")
              }
              if (length(slot(object, "speed.calib.coefs")) != 2) {
                  return("speed.calib.coefs must be a length-2 vector")

@@ -14,8 +14,8 @@
 
 
 \usage{
-calibrateDepth(x, landerr=70, seaerr=3610, divethres=4, offset,
-               descent.crit.q=0.1, ascent.crit.q=0.5, wiggle.tol=0.8)
+calibrateDepth(x, dry.thr=70, wet.thr=3610, dive.thr=4, offset,
+               descent.crit.q=0.1, ascent.crit.q=0.1, wiggle.tol=0.8)
 calibrateSpeed(x, tau=0.1, contour.level=0.1, z=0, bad=c(0, 0),
                main=slot(getTDR(x), "file"), coefs, plot=TRUE,
                postscript=FALSE, \ldots)
@@ -28,9 +28,9 @@ calibrateSpeed(x, tau=0.1, contour.level=0.1, z=0, bad=c(0, 0),
     \code{\link{calibrateDepth}} or an object of class
     \code{TDRcalibrate} for \code{\link{calibrateSpeed}}.}
 
-  \item{landerr, seaerr}{arguments to \code{\link{detPhase}}.}
+  \item{dry.thr, wet.thr}{arguments to \code{\link{detPhase}}.}
 
-  \item{divethres}{argument to \code{\link{detDive}}.}
+  \item{dive.thr}{argument to \code{\link{detDive}}.}
 
   \item{offset}{argument to \code{\link{zoc}}.}
 
@@ -55,8 +55,9 @@ calibrateSpeed(x, tau=0.1, contour.level=0.1, z=0, bad=c(0, 0),
   \item{z}{only changes in depth larger than this value will be used for
     calibration.}
 
-  \item{bad}{length 2 numeric vector to indicate that only rates of
-    depth change and speed, respectively, will be used for calibration.}
+  \item{bad}{length 2 numeric vector indicating that only rates of depth
+    change and speed greater than the given value should be used for
+    calibration, respectively.}
 
   \item{coefs}{known speed calibration coefficients from quantile
     regression as a vector of length 2 (intercept, slope).  If provided,
@@ -93,7 +94,7 @@ calibrateSpeed(x, tau=0.1, contour.level=0.1, z=0, bad=c(0, 0),
 
 
 \seealso{\code{\link{detPhase}}, \code{\link{detDive}},
-  \code{\link{zoc}}, for the underlying
+  \code{\link{zoc}}, \code{\link{rqPlot}}, for the underlying
   functions.}
 
 % -------------------------------------------------------------------------
