@@ -99,6 +99,18 @@ calibrateSpeed(x, tau=0.1, contour.level=0.1, z=0, bad=c(0, 0),
 
 % -------------------------------------------------------------------------
 
+\examples{
+data(divesTDR)
+
+## Consider a 3 m offset, and a dive threshold of 3 m
+dcalib <- calibrateDepth(divesTDR, dive.thr=3, offset=3)
+\dontrun{plotTDR(dcalib, labels="dive.phase", surface=TRUE)}
+
+## Calibrate speed using only changes in depth > 2 m
+vcalib <- calibrateSpeed(dcalib, z=2)
+}
+
+
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 

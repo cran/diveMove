@@ -35,9 +35,14 @@
 }
 
 % -------------------------------------------------------------------------
-% \examples{
-% ## TODO
-% }
+
+\examples{
+
+data(divesTDRcalibrate)
+
+timeBudget(divesTDRcalibrate, TRUE)
+
+}
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 

@@ -34,10 +34,10 @@
 
 \examples{
 ## read in data and create a TDR object
-(sealX <- readTDR(system.file(file.path("data", "sealMK8.csv"),
+(sealX <- readTDR(system.file(file.path("data", "dives.csv"),
                               package="diveMove"), speed=TRUE))
 \dontrun{
-plot(sealX)  # pan and zoom through the record
+plotTDR(sealX)  # pan and zoom through the record
 }
 
 ## detect periods of activity, and calibrate depth, creating
@@ -48,9 +48,9 @@ plot(sealX)  # pan and zoom through the record
 \dontrun{
 ## plot all readings and label them with the phase of the record
 ## they belong to, excluding surface readings
-plot(dcalib, labels="phase.id", surface=FALSE)
+plotTDR(dcalib, labels="phase.id", surface=FALSE)
 ## plot the first 300 dives, showing dive phases and surface readings
-plot(dcalib, diveNo=seq(300), labels="dive.phase", surface=TRUE)
+plotTDR(dcalib, diveNo=seq(300), labels="dive.phase", surface=TRUE)
 }
 
 ## calibrate speed (using changes in depth > 1 m and default remaining arguments)

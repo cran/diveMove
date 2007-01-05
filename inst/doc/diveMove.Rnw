@@ -67,7 +67,7 @@ is achieved by making the results from intermediate calculations easily
 accessible, allowing the user to make his/her own summaries beyond the
 default choices the package provides.  The following sections of this
 vignette illustrate a typical work flow during analysis of TDR data, using
-the \Robject{sealMK8} data available in \Rpackage{diveMove} as an example.
+the \Robject{dives} data available in \Rpackage{diveMove} as an example.
 
 
 \section{Starting up}
@@ -113,7 +113,7 @@ Depending on the TDR model, speed may be omitted.
 
 To read the file into \R{}, use the function \Rfunction{readTDR}:
 <<read-in, results=hide>>=
-sealX <- readTDR(system.file(file.path("data", "sealMK8.csv"),
+sealX <- readTDR(system.file(file.path("data", "dives.csv"),
                              package="diveMove"), speed=TRUE)
 @
 Read the help page for \Rfunction{readTDR} using \verb|?readTDR| following
@@ -121,7 +121,7 @@ common \R{} help facilities.  Thus, data could have been subsampled at a
 larger interval than that in the original file, so that the time interval
 between readings is 10 s:
 <<subsamp, results=hide>>=
-sealX <- readTDR(system.file(file.path("data", "sealMK8.csv"),
+sealX <- readTDR(system.file(file.path("data", "dives.csv"),
                              package="diveMove"),
                  speed=TRUE, subsamp = 10)
 @
@@ -158,10 +158,10 @@ sealX
 Other extractor methods are named after the component they extract:
 \Rmethod{getTime}, \Rmethod{getDepth}, \Rmethod{getSpeed}, and
 \Rmethod{getDtime}, where the latter extracts the sampling interval.  The
-\Rmethod{plot} method brings up a plot of the data covering the entire
+\Rmethod{plotTDR} method brings up a plot of the data covering the entire
 record, although a \Rpackage{tcltk} widget provides controls for zooming
 and panning to any particular time window.  Alernatively, the underlying
-function \Rfunction{plotDive} provides the same functionality, but takes
+function \Rfunction{plotTD} provides the same functionality, but takes
 separate \Rfunarg{time} and \Rfunarg{depth} arguments, rather than a
 \Rclass{TDR} object.
 
@@ -275,9 +275,9 @@ belongs to, we would issue the command:
 <<grossact2, eval=FALSE>>=
 getGAct(dcalib, "phase.id")
 @
-Other elements that can be extracted are named ``trip.act'', ``trip.beg'',
-and ``trip.end'', and can be extracted in a similar fashion.  These
-elements correspond to the activity performed for each reading (see
+Other elements that can be extracted are named ``activity'', ``begin'',
+and ``end'', and can be extracted in a similar fashion.  These elements
+correspond to the activity performed for each reading (see
 \verb|?detPhase| for a description of the labels for each activity), the
 beginning and ending time for each period, respectively.
 
@@ -318,13 +318,13 @@ As can be seen, the function takes a \Rclass{TDRcalibrate} object and a
 vector indicating the dive numbers to extract, and returns a \Rclass{TDR}
 object containing the subsetted data.  Once a subset of data has been
 selected, it is possible to plot them and pass the factor labelling dive
-phases as the argument \Rfunarg{phaseCol} to the \Rmethod{plot}
+phases as the argument \Rfunarg{phaseCol} to the \Rmethod{plotTDR}
 method\footnote{The function that the method uses is actually
-  \Rfunction{plotDive}, so all the possible arguments can be studied by
-  reading the help page for \Rfunction{plotDive}}:
+  \Rfunction{plotTD}, so all the possible arguments can be studied by
+  reading the help page for \Rfunction{plotTD}}:
 
 <<plot-phases, eval=FALSE>>=
-plot(subSealX, phaseCol=dphases)
+plotTDR(subSealX, phaseCol=dphases)
 @
 
 \end{itemize}

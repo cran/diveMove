@@ -37,7 +37,7 @@
     rawdat.ncol <- seq(ncol(rawdat))
     dtpasted <- paste(rawdat[, dateCol], rawdat[, timeCol])
     datetime <- as.POSIXct(strptime(dtpasted, format=dtformat), tz=tz)
-    origint <- .getInterval(datetime)
+    origint <- diveMove:::.getInterval(datetime)
     if(!identical(all.equal(origint, subsamp), TRUE)) {
         steptim <- as.numeric((subsamp) / origint)
         stepind <- seq(from=1, to=length(datetime), by=round(steptim))
@@ -55,13 +55,15 @@
     if (allbadcc && !is.null(concurrentCols)) {
         warning("None of the columns given as concurrentCols exist\n")
         tdr <- new("TDR", file=srcfile, time=datetime,
-                   depth=rawdat[, depthCol], dtime=.getInterval(datetime))
+                   depth=rawdat[, depthCol],
+                   dtime=diveMove:::.getInterval(datetime))
     } else {
         concurrentCols <- concurrentCols[okconcurCols]
         ccData <- as.data.frame(rawdat[, concurrentCols[okconcurCols]])
         names(ccData) <- names(rawdat)[concurrentCols[okconcurCols]]
         tdr <- new("TDR", file=srcfile, time=datetime,
-                   depth=rawdat[, depthCol], dtime=.getInterval(datetime),
+                   depth=rawdat[, depthCol],
+                   dtime=diveMove:::.getInterval(datetime),
                    concurrentData=ccData)
     }
     if (speed) as.TDRspeed(tdr) else tdr

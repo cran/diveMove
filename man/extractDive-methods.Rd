@@ -10,9 +10,8 @@
 \title{Extract Dives from "TDR" or "TDRcalibrate" Objects}
 
 
-\description{
-
-}
+\description{ Extract data corresponding to a particular dive(s),
+  referred to by number. }
 
 
 \usage{
@@ -32,13 +31,25 @@
 
 
 \value{
-An object of class \code{TDR} or \code{TDRspeed}.
+  An object of class \code{TDR} or \code{TDRspeed}.
 }
 
 % -------------------------------------------------------------------------
-% \examples{
-% ## TODO
-% }
+
+\examples{
+
+data(divesTDR)
+divesTDR
+data(divesTDRcalibrate)
+divesTDRcalibrate
+
+diveX <- extractDive(divesTDR, 9, getDAct(divesTDRcalibrate, "dive.id"))
+plotTDR(diveX, interact=FALSE)
+
+diveX <- extractDive(divesTDRcalibrate, 5:10)
+plotTDR(diveX, interact=FALSE)
+
+}
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 

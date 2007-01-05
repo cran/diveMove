@@ -12,6 +12,23 @@ vignette is also available by doing vignette("diveMove").
 
 ** Changes/New Features
 
+Version 0.7-1:
+
+	* 'TDRcalibrate' method for plot() now plots correctly if no dives
+          were identified.
+	  New argument 'interact' to allow for static plots, without
+          'tcltk' interaction.
+
+	* plot method replaced by 'plotTDR', to avoid unusual introduction
+          of arguments in methods and simplify code.  This method is now
+          based on the new function plotTD(), which replaces plotDive().
+          This system now makes the relationships between functions much
+          more clear.
+
+	* Function getAct() renamed to rleActivity() to make it clearer
+          that it calculates statistics from running series of readings
+          with the same activity.
+
 Version 0.7-0:
 
 	* Arguments 'seaerr', 'landerr', and 'divethres' were renamed to

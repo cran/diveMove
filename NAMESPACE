@@ -1,5 +1,5 @@
 importFrom(graphics, plot, image)
-import(methods)
+import(methods)                         # Paranoid measure
 
 exportPattern("^[^\\.]")
 
@@ -22,7 +22,7 @@ exportMethods("as.data.frame",
               "getFileName",
               "extractDive",
               "getGAct",
-              "plot",
+              "plotTDR",
               "show",
               "getTDR",
               "getTime",

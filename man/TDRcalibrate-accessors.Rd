@@ -1,6 +1,7 @@
-\name{TDRcalibrate-methods}
+\name{TDRcalibrate-accessors}
 \docType{methods}
 \alias{TDRcalibrate-methods}
+\alias{TDRcalibrate-accessors}
 
 \alias{getDAct}
 \alias{getDPhaseLab}
@@ -17,11 +18,11 @@
 \alias{show,TDRcalibrate-method}
 \alias{getTDR,TDRcalibrate-method}
 \alias{getSpeedCoef,TDRcalibrate-method}
-\alias{plot,TDRcalibrate,missing-method}
 
 % -------------------------------------------------------------------------
-\title{Methods to Print and Extract Basic Information from
-  "TDRcalibrate" Objects}
+
+\title{Methods to Show and Extract Basic Information from "TDRcalibrate"
+  Objects}
 
 
 \description{
@@ -36,8 +37,6 @@
 \S4method{getDPhaseLab}{TDRcalibrate,numeric}(x, diveNo)
 \S4method{getGAct}{TDRcalibrate,missing}(x)
 \S4method{getGAct}{TDRcalibrate,character}(x, y)
-\S4method{plot}{TDRcalibrate,missing}(x, diveNo=seq(unique(getDAct(x, "dive.id"))),
-     labels="phase.id", concurVars=NULL, surface=FALSE, ...)
 }
 
 
@@ -47,76 +46,61 @@
 
   \item{diveNo}{numeric vector with dive numbers to plot.}
 
-  \item{labels}{one of \dQuote{phase.id} or \dQuote{dive.phase},
-    specifying whether to label observations based on the gross phase ID
-    of the \code{"\linkS4class{TDR}"} object, or based on each dive
-    phase, respectively.}
-
-  \item{concurVars}{character vector indicating which additional
-    components from the concurrent data frame should also be plotted, if
-    any.}
-
-  \item{surface}{logical indicating whether to plot surface readings.}
-
-  \item{...}{further arguments to \code{\link{plotDive}}.}
-
   \item{y}{string; \dQuote{dive.id}, \dQuote{dive.activity}, or
     \dQuote{postdive.id} in the case of \code{getDAct}, to extract the
     numeric dive ID, the factor identifying dive phases in each dive, or
     the numeric postdive ID, respectively.  In the case of
     \code{getGAct} it should be one of \dQuote{phase.id},
-    \dQuote{trip.act}, \dQuote{trip.beg}, or \dQuote{trip.end}, to
-    extract the numeric phase ID for each observation, a factor
-    indicating what major activity the observation corresponds to, or
-    the beginning and end times of each phase in the record, respectively.}
-}
+    \dQuote{activity}, \dQuote{begin}, or \dQuote{end}, to extract the
+    numeric phase ID for each observation, a factor indicating what
+    major activity the observation corresponds to, or the beginning and
+    end times of each phase in the record, respectively.}  }
 
 
-\section{Plotting and Printing Methods}{
+\section{Show Methods}{
+  \describe{
 
-    \item{show}{\code{signature(object = "TDRcalibrate")}: prints an
+    \item{show}{\code{signature(object="TDRcalibrate")}: prints an
       informative summary of the data.}
 
-    \item{plot}{\code{signature(x = "TDRcalibrate", y = "missing")}:
-      plot the TDR object, labelling identified sections of it (see
-      \code{Usage}).}
-
   }
+
+}
 
 
 \section{Extractor Methods}{
   \describe{
 
-    \item{getDAct}{\code{signature(x = "TDRcalibrate", y = "missing")}:
+    \item{getDAct}{\code{signature(x="TDRcalibrate", y="missing")}:
       extracts a data frame with vectors identifying all readings to a
       particular dive and postdive number, and a factor identifying all
       readings to a particular activity.}
 
-    \item{getDAct}{\code{signature(x = "TDRcalibrate", y =
-	"character")}: as the method for missing \code{y}, but selects a
-	particular vector to extract.}
+    \item{getDAct}{\code{signature(x="TDRcalibrate", y = "character")}:
+	as the method for missing \code{y}, but selects a particular
+	vector to extract.}
 
-    \item{getDPhaseLab}{\code{signature(x = "TDRcalibrate", diveNo =
+    \item{getDPhaseLab}{\code{signature(x="TDRcalibrate", diveNo =
 	"missing")}: extracts a factor identifying all readings to a
 	particular dive phase.}
 
-    \item{getDPhaseLab}{\code{signature(x = "TDRcalibrate", diveNo =
+    \item{getDPhaseLab}{\code{signature(x="TDRcalibrate", diveNo =
 	"numeric")}: as the method for missing \code{y}, but selects
 	data from a particular dive number to extract.}
 
-    \item{getGAct}{\code{signature(x = "TDRcalibrate", y = "missing")}:
+    \item{getGAct}{\code{signature(x="TDRcalibrate", y="missing")}:
       extracts elements that divide the data into major wet and dry
       activities.}
 
-    \item{getGAct}{\code{signature(x = "TDRcalibrate", y =
-	"character")}: as the method for missing \code{y}, but extracts
-	particular elements.}
+    \item{getGAct}{\code{signature(x="TDRcalibrate", y="character")}: as
+	the method for missing \code{y}, but extracts particular
+	elements.}
 
-    \item{getTDR}{\code{signature(x = "TDRcalibrate")}: extracts the
+    \item{getTDR}{\code{signature(x="TDRcalibrate")}: extracts the
       \code{TDR} object.}
 
-    \item{getSpeedCoef}{\code{signature(x = "TDRcalibrate")}: extracts
-      the speed calibration coefficients.}
+    \item{getSpeedCoef}{\code{signature(x="TDRcalibrate")}: extracts the
+      speed calibration coefficients.}
 
   }
 
@@ -127,9 +111,24 @@
   elements of the slot they extracted. }
 
 % -------------------------------------------------------------------------
-% \examples{
-% ## TODO
-% }
+
+\examples{
+
+data(divesTDRcalibrate)
+
+divesTDRcalibrate		# show
+
+## Beginning times of each successive phase in record
+getGAct(divesTDRcalibrate, "begin")
+
+## Factor of dive IDs
+dids <- getDAct(divesTDRcalibrate, "dive.id")
+table(dids[dids > 0])		# samples per dive
+
+## Factor of dive phases for given dive
+getDPhaseLab(divesTDRcalibrate, 19)
+
+}
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 
