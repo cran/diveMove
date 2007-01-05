@@ -81,7 +81,7 @@ createTDR(time, depth, concurrentData, speed=FALSE, dtime, file)
 
 
 \examples{
-readTDR(system.file(file.path("data", "sealMK8.csv"),
+readTDR(system.file(file.path("data", "dives.csv"),
                     package="diveMove"), speed=TRUE)
 }
 

@@ -1,4 +1,4 @@
-"getAct" <- function(time, act, interval)
+"rleActivity" <- function(time, act, interval)
 {
     ## Value: list with factor breaking activity phases, duration of each,
     ## and beginning and end times of each
@@ -30,9 +30,9 @@
     ## --------------------------------------------------------------------
     ## Arguments: time=chron vector with date/time depth=numeric vector
     ## with depth readings (m) ...=sampling interval in POSIXct units (s),
-    ## to pass to getAct dry.thr=duration (in s) of on-land readings that
-    ## should be at-sea aquaerr=duration (in s) of at-sea readings to be
-    ## taken as leisure
+    ## to pass to rleActivity dry.thr=duration (in s) of on-land readings
+    ## that should be at-sea aquaerr=duration (in s) of at-sea readings to
+    ## be taken as leisure
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
@@ -43,16 +43,16 @@
     ## 10's when animal is wet; i.e. when depth is being recorded
     act[!is.na(depth)] <- "W"
     ## First run calculates times in each activity phase from the raw data
-    rawacts <- getAct(time, act, ...)
+    rawacts <- rleActivity(time, act, ...)
     ## On-land activity < 'dry.thr' should be considered still at-sea
     land <- levels(rawacts[[1]])[rawacts[[2]] < dry.thr]
     act[rawacts[[1]] %in% land & act == "L"] <- "W"
     ## Second run; at-sea phases < wet.thr should be leisure
-    leiacts <- getAct(time, act, ...)
+    leiacts <- rleActivity(time, act, ...)
     leisure <- levels(leiacts[[1]])[leiacts[[2]] < wet.thr]
     act[leiacts[[1]] %in% leisure & act == "W"] <- "Z"
     ## Final run to determine times with all corrected activities
-    finacts <- getAct(time, act, ...)
+    finacts <- rleActivity(time, act, ...)
     nphase <- length(levels(finacts[[1]]))
     if(act[1] == "L" & act[length(act)] == "L") {
         message("Record is complete\n", nphase, " phases detected")
@@ -74,7 +74,7 @@
     names(finacts[[3]]) <- seq(length(finacts[[3]]))
     names(finacts[[4]]) <- seq(length(finacts[[4]]))
     list(phase.id=indphases,            # index of per-row activities
-         trip.act=act,                  # activities themselves
-         trip.beg=finacts[[3]],         # start of activity phase
-         trip.end=finacts[[4]])         # end of activity phase
+         activity=act,                  # activities themselves
+         begin=finacts[[3]],            # start of activity phase
+         end=finacts[[4]])              # end of activity phase
 }

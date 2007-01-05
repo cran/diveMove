@@ -1,6 +1,8 @@
 \name{TDRcalibrate-class}
 \docType{class}
+
 \alias{TDRcalibrate-class}
+\alias{TDRcalibrate}
 
 % -------------------------------------------------------------------------
 
@@ -16,7 +18,7 @@
 \section{Objects from the Class}{ Objects can be created by calls of the
   form \code{new("TDRcalibrate", \dots)}.  The objects of this class
   contain information necessary to divide the record into sections
-  (e.g. land/water), dive/surface, and different sections within dives.
+  (e.g. dry/water), dive/surface, and different sections within dives.
   They also contain the parameters used to calibrate speed and criteria
   to divide the record into phases.}
 
@@ -37,13 +39,12 @@
       This slot holds a list of the form returned by
       \code{\link{detPhase}}, composed of 4 elements.  It contains a
       vector (named \code{phase.id}) numbering each major activity phase
-      found in the record, a factor (named \code{trip.act}) labelling
-      each row as being on-land, at-sea, or leisure at-sea activity.
-      These two elements are as long as there are rows in \code{tdr}.
-      This list also contains two more vectors: one with the beginning
-      time of each phase, and another with the ending time; both
-      represented as \code{POSIXct} objects.  See
-      \code{\link{detPhase}}.}
+      found in the record, a factor (named \code{activity}) labelling
+      each row as being dry, wet, or trivial wet activity.  These two
+      elements are as long as there are rows in \code{tdr}.  This list
+      also contains two more vectors: one with the beginning time of
+      each phase, and another with the ending time; both represented as
+      \code{POSIXct} objects.  See \code{\link{detPhase}}.}
 
     \item{\code{dive.activity}:}{Object of class \code{"data.frame"}.
 
@@ -52,7 +53,7 @@
       consisting of three vectors named: \code{dive.id}, which is an
       integer vector, sequentially numbering each dive (rows that are
       not part of a dive are labelled 0), dive.activity is a factor
-      which completes that in \code{trip.act} above, further identifying
+      which completes that in \code{activity} above, further identifying
       rows in the record belonging to a dive.  The third vector in
       \code{dive.activity} is an integer vector sequentially numbering
       each postdive interval (all rows that belong to a dive are
@@ -66,13 +67,13 @@
       belonging to a particular phase of a dive.  It has the same form
       as objects returned by \code{\link{labDivePhase}}.}
 
-    \item{\code{dry.thr}:}{Object of class \code{"numeric"} the
-      temporal criteria used for detecting periods on land that should
-      be considered as at-sea.}
+    \item{\code{dry.thr}:}{Object of class \code{"numeric"} the temporal
+      criteria used for detecting dry periods that should be considered
+      as wet.}
 
-    \item{\code{wet.thr}:}{Object of class \code{"numeric"} the
-      temporal criteria used for detecting periods at-sea that should
-      not be considered as foraging time.}
+    \item{\code{wet.thr}:}{Object of class \code{"numeric"} the temporal
+      criteria used for detecting periods wet that should not be
+      considered as foraging time.}
 
     \item{\code{dive.thr}:}{Object of class \code{"numeric"} the
       criteria used for defining a dive.}

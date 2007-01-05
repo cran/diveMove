@@ -24,8 +24,8 @@ stampDive(x, ignoreZ=TRUE)
 \arguments{
 
   \item{x}{a \code{\link{TDRcalibrate-class}} object for
-    \code{diveStats} and \code{stampDive}.  a data frame containing a
-    single dive's data.}
+    \code{diveStats} and \code{stampDive}, and a data frame containing a
+    single dive's data for \code{oneDiveStats}.}
 
   \item{interval}{sampling interval for interpreting \code{x}.}
 
@@ -110,6 +110,20 @@ stampDive(x, ignoreZ=TRUE)
   \code{\link{TDRcalibrate-class}}}
 
 % -------------------------------------------------------------------------
+
+\examples{
+
+data(divesTDRcalibrate)
+divesTDRcalibrate
+
+tdrX <- diveStats(divesTDRcalibrate)
+stamps <- stampDive(divesTDRcalibrate, ignoreZ=TRUE)
+tdrX.tab <- data.frame(stamps, tdrX)
+summary(tdrX.tab)
+
+}
+
+
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 

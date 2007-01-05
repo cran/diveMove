@@ -3,6 +3,8 @@
 
 \alias{TDR-class}
 \alias{TDRspeed-class}
+\alias{TDR}
+\alias{TDRspeed}
 
 % -------------------------------------------------------------------------
 

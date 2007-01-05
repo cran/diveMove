@@ -1,26 +1,26 @@
 library(diveMove)
 
 ###_ Reading and as.data.frame --------------------------------------------
-sealX <- readTDR(system.file(file.path("data", "sealMK8.csv"),
+sealX <- readTDR(system.file(file.path("data", "dives.csv"),
                              package="diveMove"), speed=TRUE)
 is(sealX, "TDR")
 is(sealX, "TDRspeed")
-sealX <- readTDR(system.file(file.path("data", "sealMK8.csv"),
+sealX <- readTDR(system.file(file.path("data", "dives.csv"),
                              package="diveMove"))
 is(sealX, "TDR")
 is(sealX, "TDRspeed")
 
 sealDat <- as.data.frame(sealX)
-sealX <- readTDR(system.file(file.path("data", "sealMK8.csv"),
+sealX <- readTDR(system.file(file.path("data", "dives.csv"),
                              package="diveMove"), concurrentCols=NULL)
 is(sealX, "TDR")
 is(sealX, "TDRspeed")
-sealX <- readTDR(system.file(file.path("data", "sealMK8.csv"),
+sealX <- readTDR(system.file(file.path("data", "dives.csv"),
                              package="diveMove"), subsamp=10, speed=TRUE,
                  concurrentCols=6)
 is(sealX, "TDR")
 is(sealX, "TDRspeed")
-sealX <- readTDR(system.file(file.path("data", "sealMK8.csv"),
+sealX <- readTDR(system.file(file.path("data", "dives.csv"),
                              package="diveMove"), subsamp=10, speed=TRUE,
                  concurrentCols=5:6)
 is(sealX, "TDR")

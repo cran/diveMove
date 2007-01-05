@@ -65,7 +65,7 @@ is achieved by making the results from intermediate calculations easily
 accessible, allowing the user to make his/her own summaries beyond the
 default choices the package provides.  The following sections of this
 vignette illustrate a typical work flow during analysis of TDR data, using
-the \Robject{sealMK8} data available in \Rpackage{diveMove} as an example.
+the \Robject{dives} data available in \Rpackage{diveMove} as an example.
 
 
 \section{Starting up}
@@ -117,7 +117,7 @@ To read the file into \R{}, use the function \Rfunction{readTDR}:
 \begin{Schunk}
 \begin{Sinput}
 > sealX <- readTDR(system.file(file.path("data", 
-+     "sealMK8.csv"), package = "diveMove"), speed = TRUE)
++     "dives.csv"), package = "diveMove"), speed = TRUE)
 \end{Sinput}
 \end{Schunk}
 Read the help page for \Rfunction{readTDR} using \verb|?readTDR| following
@@ -127,7 +127,7 @@ between readings is 10 s:
 \begin{Schunk}
 \begin{Sinput}
 > sealX <- readTDR(system.file(file.path("data", 
-+     "sealMK8.csv"), package = "diveMove"), speed = TRUE, 
++     "dives.csv"), package = "diveMove"), speed = TRUE, 
 +     subsamp = 10)
 \end{Sinput}
 \end{Schunk}
@@ -137,7 +137,7 @@ recreated it here:
 \begin{Schunk}
 \begin{Sinput}
 > sealX <- readTDR(system.file(file.path("data", 
-+     "sealMK8.csv"), package = "diveMove"), speed = TRUE)
++     "dives.csv"), package = "diveMove"), speed = TRUE)
 \end{Sinput}
 \end{Schunk}
 
@@ -166,7 +166,7 @@ will display the usual overview information on the object:
 \end{Sinput}
 \begin{Soutput}
 Time-Depth Recorder data -- Class TDRspeed object
-  Source File             : sealMK8.csv 
+  Source File             : dives.csv 
   Sampling Interval (s)   : 5 
   Number of Samples       : 34199 
   Sampling Begins         : 2002-01-05 11:32:00 
@@ -180,10 +180,10 @@ Time-Depth Recorder data -- Class TDRspeed object
 Other extractor methods are named after the component they extract:
 \Rmethod{getTime}, \Rmethod{getDepth}, \Rmethod{getSpeed}, and
 \Rmethod{getDtime}, where the latter extracts the sampling interval.  The
-\Rmethod{plot} method brings up a plot of the data covering the entire
+\Rmethod{plotTDR} method brings up a plot of the data covering the entire
 record, although a \Rpackage{tcltk} widget provides controls for zooming
 and panning to any particular time window.  Alernatively, the underlying
-function \Rfunction{plotDive} provides the same functionality, but takes
+function \Rfunction{plotTD} provides the same functionality, but takes
 separate \Rfunarg{time} and \Rfunarg{depth} arguments, rather than a
 \Rclass{TDR} object.
 
@@ -274,7 +274,7 @@ is available to display a short overview of such objects:
 \end{Sinput}
 \begin{Soutput}
 Depth calibration -- Class TDRcalibrate object
-  Source file                       : sealMK8.csv 
+  Source file                       : dives.csv 
   Number of dry phases              : 4 
   Number of aquatic phases          : 3 
   Number of dives detected          : 317 
@@ -309,7 +309,7 @@ respectively.  Below is a short explanation of these methods.
 \end{Sinput}
 \begin{Soutput}
 Time-Depth Recorder data -- Class TDRspeed object
-  Source File             : sealMK8.csv 
+  Source File             : dives.csv 
   Sampling Interval (s)   : 5 
   Number of Samples       : 34199 
   Sampling Begins         : 2002-01-05 11:32:00 
@@ -337,9 +337,9 @@ belongs to, we would issue the command:
 > getGAct(dcalib, "phase.id")
 \end{Sinput}
 \end{Schunk}
-Other elements that can be extracted are named ``trip.act'', ``trip.beg'',
-and ``trip.end'', and can be extracted in a similar fashion.  These
-elements correspond to the activity performed for each reading (see
+Other elements that can be extracted are named ``activity'', ``begin'',
+and ``end'', and can be extracted in a similar fashion.  These elements
+correspond to the activity performed for each reading (see
 \verb|?detPhase| for a description of the labels for each activity), the
 beginning and ending time for each period, respectively.
 
@@ -385,7 +385,7 @@ data:
 \end{Sinput}
 \begin{Soutput}
 Time-Depth Recorder data -- Class TDRspeed object
-  Source File             : sealMK8.csv 
+  Source File             : dives.csv 
   Sampling Interval (s)   : 5 
   Number of Samples       : 2410 
   Sampling Begins         : 2002-01-06 00:45:15 
@@ -400,14 +400,14 @@ As can be seen, the function takes a \Rclass{TDRcalibrate} object and a
 vector indicating the dive numbers to extract, and returns a \Rclass{TDR}
 object containing the subsetted data.  Once a subset of data has been
 selected, it is possible to plot them and pass the factor labelling dive
-phases as the argument \Rfunarg{phaseCol} to the \Rmethod{plot}
+phases as the argument \Rfunarg{phaseCol} to the \Rmethod{plotTDR}
 method\footnote{The function that the method uses is actually
-  \Rfunction{plotDive}, so all the possible arguments can be studied by
-  reading the help page for \Rfunction{plotDive}}:
+  \Rfunction{plotTD}, so all the possible arguments can be studied by
+  reading the help page for \Rfunction{plotTD}}:
 
 \begin{Schunk}
 \begin{Sinput}
-> plot(subSealX, phaseCol = dphases)
+> plotTDR(subSealX, phaseCol = dphases)
 \end{Sinput}
 \end{Schunk}
 
@@ -435,7 +435,7 @@ calibration:
 \end{Sinput}
 \begin{Soutput}
 Depth calibration -- Class TDRcalibrate object
-  Source file                       : sealMK8.csv 
+  Source file                       : dives.csv 
   Number of dry phases              : 4 
   Number of aquatic phases          : 3 
   Number of dives detected          : 317 

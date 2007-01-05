@@ -57,7 +57,7 @@ labDivePhase(x, diveID, descent.crit.q, ascent.crit.q, wiggle.tol)
 
 \details{\code{\emph{detDive}} detects a dive whenever the zero-offset
   corrected depth in an underwater phase is below the supplied dive
-  threshold.  The adjustment is done only for phases of at-sea activity,
+  threshold.  The adjustment is done only for phases of wet activity,
   completely ignoring phases with other activity.
 
   \code{\emph{labDive}} assigns a unique number to each dive along a
@@ -86,7 +86,8 @@ labDivePhase(x, diveID, descent.crit.q, ascent.crit.q, wiggle.tol)
   \code{labDivePhase} returns a factor with levels \dQuote{D},
   \dQuote{DB}, \dQuote{B}, \dQuote{BA}, \dQuote{A}, \dQuote{DA}, and
   \dQuote{X}, breaking the input into descent, descent/bottom, bottom,
-  bottom/ascent, ascent, and non-dive, respectively.}
+  bottom/ascent, ascent, and non-dive, respectively.  If \code{x}
+  contains no dives, only level \dQuote{X} is present for all readings.}
 
 % -------------------------------------------------------------------------
 

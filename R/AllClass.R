@@ -1,4 +1,3 @@
-## CLASSES
 setClass("TDR",
          representation=representation(file="character", dtime="numeric",
              time="POSIXct", depth="numeric", concurrentData="data.frame"),
@@ -29,7 +28,7 @@ setClass("TDRspeed", contains="TDR",
          validity=function(object) {
              ccData <- object@concurrentData
              ccDataNames <- names(ccData)
-             speedCol <- ccDataNames %in% .speedNames
+             speedCol <- ccDataNames %in% diveMove:::.speedNames
              if (length(ccDataNames[speedCol]) != 1) {
                  return("speed is not available in concurrentData slot")
              } else if (!is.numeric(ccData[, speedCol])) {
@@ -58,6 +57,3 @@ setClass("TDRcalibrate",
                  return("speed.calib.coefs must be a length-2 vector")
              }
          })
-
-
-## TEST ZONE --------------------------------------------------------------

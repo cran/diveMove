@@ -1,7 +1,7 @@
 \name{zoc}
 
 \alias{zoc}
-\alias{plotDive}
+\alias{plotTD}
 
 % -------------------------------------------------------------------------
 
@@ -15,11 +15,12 @@
 
 \usage{
 zoc(time, depth, offset)
-plotDive(time, depth, concurVars=NULL, xlim=NULL, depth.lim=NULL,
-         phaseCol=NULL, xlab="time (dd-mmm hh:mm)", ylab.depth="depth (m)",
-         concurVarTitles=NULL, xlab.format="\%d-\%b \%H:\%M",
-         sunrise.time="06:00:00", sunset.time="18:00:00",
-         night.col="gray60", key=TRUE)
+plotTD(time, depth, concurVars=NULL, xlim=NULL, depth.lim=NULL,
+       xlab="time (dd-mmm hh:mm)", ylab.depth="depth (m)",
+       concurVarTitles=deparse(substitute(concurVars)),
+       xlab.format="\%d-\%b \%H:\%M", sunrise.time="06:00:00",
+       sunset.time="18:00:00", night.col="gray60",
+       phaseCol=NULL, interact=TRUE, key=TRUE)
 
 }
 %- maybe also 'usage' for other objects documented here.
@@ -31,11 +32,11 @@ plotDive(time, depth, concurVars=NULL, xlim=NULL, depth.lim=NULL,
 
   \item{depth}{numeric vector with depth in m.}
 
-  \item{concurVars}{matrix with additional variables in each column to
-    plot concurrently with depth.}
-
   \item{offset}{known amount of meters to subtract for zero-offset
     correcting depth throughout the entire TDR record.}
+
+  \item{concurVars}{matrix with additional variables in each column to
+    plot concurrently with depth.}
 
   \item{xlim}{vector of length 2, with lower and upper limits of time to
     be plotted.}
@@ -43,24 +44,25 @@ plotDive(time, depth, concurVars=NULL, xlim=NULL, depth.lim=NULL,
   \item{depth.lim}{numeric vector of length 2, with the lower and upper
     limits of depth to be plotted.}
 
-  \item{phaseCol}{factor dividing rows into sections.}
-
   \item{xlab, ylab.depth}{strings to label the corresponding
     y-axes.}
-
-  \item{xlab.format}{format string for formatting the x axis; see
-    \code{\link{strptime}}.}
 
   \item{concurVarTitles}{character vector of titles to label each new
     variable given in \var{concurVars}.}
 
-  \item{sunrise.time}{character string with time of sunrise in 24 hr
-    format.  This is used for shading night time.}
+  \item{xlab.format}{format string for formatting the x axis; see
+    \code{\link{strptime}}.}
 
-  \item{sunset.time}{character string with time of sunset in 24 hr
-    format.  This is used for shading night time.}
+  \item{sunrise.time, sunset.time}{character string with time of sunrise
+    and sunset, respectively, in 24 hr format.  This is used for shading
+    night time.}
 
   \item{night.col}{color for shading night time.}
+
+  \item{phaseCol}{factor dividing rows into sections.}
+
+  \item{interact}{Logical; whether to provide interactive tcltk controls
+    and access to the associated ZOC functionality.}
 
   \item{key}{logical indicating whether to dray a key.}
 
@@ -98,6 +100,16 @@ plotDive(time, depth, concurVars=NULL, xlim=NULL, depth.lim=NULL,
 \seealso{\code{\link{detDive}}}
 
 % -------------------------------------------------------------------------
+
+\examples{
+
+data(divesTDR)
+
+tdr.zoc <- zoc(getTime(divesTDR), getDepth(divesTDR), offset=3)
+
+}
+
+
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}, with many ideas
   from CRAN package sfsmisc.}

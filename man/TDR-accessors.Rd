@@ -1,6 +1,7 @@
-\name{TDR-methods}
+\name{TDR-accessors}
 \docType{methods}
 \alias{TDR-methods}
+\alias{TDR-accessors}
 
 \alias{as.TDRspeed}
 \alias{ccData<-}
@@ -25,51 +26,26 @@
 \alias{getDtime,TDR-method}
 \alias{depth<-,TDR,numeric-method}
 \alias{getFileName,TDR-method}
-\alias{plot,TDR,missing-method}
-\alias{plot,TDRspeed,missing-method}
 \alias{show,TDR-method}
 \alias{getTime,TDR-method}
 \alias{getSpeed,TDRspeed-method}
 \alias{speed<-,TDRspeed,numeric-method}
 
 % -------------------------------------------------------------------------
-\title{Coerce, Extractor, and Replacement methods for class "TDR" objects}
+
+\title{Coerce, Extractor, and Replacement methods for class "TDR"
+  objects}
 
 
 \description{
-Basic methods for manipulating objects of class "TDR".
+  Basic methods for manipulating objects of class "TDR".
 }
 
 
-\usage{
-\S4method{plot}{TDRspeed,missing}(x, concurVars=NULL, concurVarTitles, ...)
-}
-
-
-\arguments{
-
-  \item{x}{\code{"\linkS4class{TDR}"} object.}
-
-  \item{concurVars, concurVarTitles, ...}{arguments passed to
-    plotDive. In this TDRspeed method, \var{concurVars} is a matrix with
-    variables to plot, in addition to speed.  \var{concurVarTitles} in
-    this case is a character vector with axis labels for speed and the
-    additional variables supplied in \var{concurVars}.}
-
-}
-
-
-\section{General Methods}{
+\section{Show Methods}{
   \describe{
 
-    \item{plot}{\code{signature(x = "TDR", y = "missing")}: interactive
-      graphical display of the data, with zooming and panning
-      capabilities.}
-
-    \item{plot}{\code{signature(x = "TDRspeed", y = "missing")}: As the
-      TDR method, but also plots the speed slot.}
-
-    \item{show}{\code{signature(object = "TDR")}: print an informative
+    \item{show}{\code{signature(object="TDR")}: print an informative
       summary of the data.}
 
   }
@@ -132,14 +108,26 @@ Basic methods for manipulating objects of class "TDR".
 }
 
 
-\seealso{
-\code{\link{extractDive}}, \code{\link{plotDive}}.
-}
+\seealso{ \code{\link{extractDive}}, \code{\link{plotTD}}.  }
 
 % -------------------------------------------------------------------------
-% \examples{
-% ## TODO
-% }
+
+\examples{
+data(divesTDR)
+
+## Retrieve the name of the source file
+getFileName(divesTDR)
+## Retrieve concurrent temperature measurements
+temp <- getCCData(divesTDR, "temperature")
+
+## Coerce to a data frame
+dives.df <- as.data.frame(divesTDR)
+head(dives.df)
+
+## Replace speed measurements
+newspeed <- getSpeed(divesTDR) + 2
+speed(divesTDR) <- newspeed
+}
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 

@@ -1,10 +1,8 @@
 \name{diveMove-internal}
 
 \alias{.cutDive}
-% \alias{.descAsc}
 \alias{.diveIndices}
 \alias{.getInterval}
-% \alias{.getSpeedCalib}
 \alias{.getSpeedStats}
 
 % -------------------------------------------------------------------------
@@ -19,10 +17,8 @@
 
 \usage{
 .cutDive(x, descent.crit.q, ascent.crit.q, wiggle.tol)
-% .descAsc(x, phase, type=c("all", "strict"), interval, z=0)
 .diveIndices(diveID, diveNo)
 .getInterval(time)
-% .getSpeedCalib(time, zdepth, speed, dives, phase, \dots)
 .getSpeedStats(x, vdist)
 }
 

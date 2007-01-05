@@ -41,9 +41,9 @@
               bottdist=ifelse(exists("bottdist"), bottdist, NA),
               ascdist=ascdist, divetim=divetim, maxdep=maxdep)
     } else {
-        descv <- .getSpeedStats(desc[, -2], vdist=descdist)
-        bottv <- .getSpeedStats(bott[, -2])
-        ascv <- .getSpeedStats(asc[, -2], vdist=ascdist)
+        descv <- diveMove:::.getSpeedStats(desc[, -2], vdist=descdist)
+        bottv <- diveMove:::.getSpeedStats(bott[, -2])
+        ascv <- diveMove:::.getSpeedStats(asc[, -2], vdist=ascdist)
         cbind(begdesc=begdesc, enddesc=enddesc, begasc=begasc,
               desctim=desctim,
               botttim=if (exists("botttim")) botttim else NA,

@@ -1,7 +1,7 @@
 "zoc" <- function(time, depth, offset)
 {
     ## Value: Vector with all depths with corrected values for time
-    ## windows selected with plotdives(). Make depths < 0 equal 0
+    ## windows selected with plotTDR(). Make depths < 0 equal 0
     ## --------------------------------------------------------------------
     ## Arguments: time=POSIXct, depth=uncalibrated depth, offset=offset to
     ## use if already known
@@ -9,7 +9,7 @@
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
     if (missing(offset)) {
-        zoclims <- plotDive(time, depth)
+        zoclims <- plotTDR(time, depth)
         dev.off()
         if (length(zoclims) == 0) {
             message("No ZOC performed.")

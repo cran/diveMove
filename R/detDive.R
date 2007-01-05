@@ -154,18 +154,23 @@
     ## --------------------------------------------------------------------
     if (!is(x, "TDR")) stop("x must be a TDR object")
     ok <- which(diveID > 0 & !is.na(getDepth(x))) # required diving indices
-    ddepths <- getDepth(x)[ok]               # diving depths
-    dtimes <- getTime(x)[ok]                 # diving times
-    dids <- diveID[ok]                       # dive IDs
-    ## We send a matrix of indices, and non-NA depths and times
-    td <- matrix(data=c(ok, ddepths, as.numeric(dtimes)), ncol=3)
-    perdivetd <- by(td, dids, .cutDive, descent.crit.q, ascent.crit.q,
-                    wiggle.tol)
-
-    labdF <- do.call(rbind, perdivetd)
-    ff <- factor(rep("X", length(diveID)), levels=c(unique(labdF[, 2]), "X"))
-    ff[as.numeric(labdF[, 1])] <- labdF[, 2]
-    ff
+    if (length(ok) > 0) {
+        ddepths <- getDepth(x)[ok]               # diving depths
+        dtimes <- getTime(x)[ok]                 # diving times
+        dids <- diveID[ok]                       # dive IDs
+        ## We send a matrix of indices, and non-NA depths and times
+        td <- matrix(data=c(ok, ddepths, as.numeric(dtimes)), ncol=3)
+        perdivetd <- by(td, dids, diveMove:::.cutDive, descent.crit.q,
+                        ascent.crit.q, wiggle.tol)
+        labdF <- do.call(rbind, perdivetd)
+        ff <- factor(rep("X", length(diveID)),
+                     levels=c(unique(labdF[, 2]), "X"))
+        ff[as.numeric(labdF[, 1])] <- labdF[, 2]
+        ff
+    } else {
+        warning("no dives were found in x")
+        factor(rep("X", length(diveID)))
+    }
 }
 
 ".diveIndices" <- function(diveID, diveNo)
