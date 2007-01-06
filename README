@@ -12,6 +12,10 @@ vignette is also available by doing vignette("diveMove").
 
 ** Changes/New Features
 
+Version 0.7-2:
+
+	* More examples for important functions.
+
 Version 0.7-1:
 
 	* 'TDRcalibrate' method for plot() now plots correctly if no dives

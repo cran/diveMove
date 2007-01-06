@@ -1,7 +1,7 @@
 Package: diveMove
 Type: Package
 Title: Dive analysis and calibration
-Version: 0.7-1
+Version: 0.7-2
 Depends: R (>= 2.4.0), methods
 ZipData: no
 Suggests: KernSmooth, quantreg
@@ -15,4 +15,4 @@ Collate: AllClass.R AllGenerics.R AllMethod.R austFilter.R calibrate.R
 	 oneDiveStats.R plotTD.R readLocs.R readTDR.R stampDive.R track.R
 	 zoc.R zzz.R
 License: GPL (GNU Public License), Version 2 or later
-Packaged: Fri Jan  5 08:58:06 2007; sluque
+Packaged: Sat Jan  6 17:36:34 2007; sluque
