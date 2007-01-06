@@ -7,11 +7,11 @@
     ## --------------------------------------------------------------------
     ## Author: Sebastian P. Luque
     ## --------------------------------------------------------------------
-    morn.uniq <- unique(format(time, format = paste("%F", sunrise.time)))
+    morn.uniq <- unique(format(time, format=paste("%Y-%m-%d", sunrise.time)))
     morn <- as.POSIXct(morn.uniq, tz = attr(time, "tzone")) + 86400
     morn.before <- morn[1] - 86400
     morn.all <- rbind(data.frame(x=morn.before), data.frame(x=morn))[[1]]
-    night.uniq <- unique(format(time, format=paste("%F", sunset.time)))
+    night.uniq <- unique(format(time, format=paste("%Y-%m-%d", sunset.time)))
     night <- as.POSIXct(night.uniq, tz=attr(time, "tzone"))
     night.before <- night[1] - 86400
     night.all <- rbind(data.frame(x=night.before), data.frame(x=night))[[1]]

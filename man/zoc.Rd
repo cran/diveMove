@@ -104,8 +104,10 @@ plotTD(time, depth, concurVars=NULL, xlim=NULL, depth.lim=NULL,
 \examples{
 
 data(divesTDR)
+plotTDR(divesTDR, interact=FALSE)
 
-tdr.zoc <- zoc(getTime(divesTDR), getDepth(divesTDR), offset=3)
+depth.zoc <- zoc(getTime(divesTDR), getDepth(divesTDR), offset=3)
+plotTD(getTime(divesTDR), depth.zoc, interact=FALSE)
 
 }
 

@@ -1,3 +1,9 @@
+2007-01-06  Sebastian P. Luque  <spluque@gmail.com>
+
+	* plotTD.R:
+	.night(): Changed %F format string for POSIXct to %Y-%m-%d as the former
+	fails in Windows platforms.
+
 2007-01-04  Sebastian P. Luque  <spluque@gmail.com>
 
 	* readTDR.R, AllClass.R, AllMethod.R, detDive.R, diveStats.R, oneDiveStats.R:
