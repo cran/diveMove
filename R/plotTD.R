@@ -3,7 +3,7 @@
 {
     ## Value: A list with sunset and sunrise times for dates in 'time'
     ## --------------------------------------------------------------------
-    ## Arguments: Passed from plotDive
+    ## Arguments: Passed from plotTD
     ## --------------------------------------------------------------------
     ## Author: Sebastian P. Luque
     ## --------------------------------------------------------------------

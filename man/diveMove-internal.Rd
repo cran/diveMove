@@ -1,9 +1,12 @@
 \name{diveMove-internal}
 
-\alias{.cutDive}
 \alias{.diveIndices}
 \alias{.getInterval}
 \alias{.getSpeedStats}
+\alias{.night}
+\alias{.rleActivity}
+\alias{.speedNames}
+\alias{.speedCol}
 
 % -------------------------------------------------------------------------
 
@@ -16,61 +19,40 @@
 
 
 \usage{
-.cutDive(x, descent.crit.q, ascent.crit.q, wiggle.tol)
 .diveIndices(diveID, diveNo)
 .getInterval(time)
 .getSpeedStats(x, vdist)
+.night(time, sunrise.time, sunset.time)
+.rleActivity(time, act, interval)
+.speedCol(x)
 }
 
 
 \arguments{
 
-  \item{x}{a single dive's data; for \emph{\code{.cutDive}}: a 2-col
-    matrix with subscript in original TDR object and non NA depths.  For
-    \emph{.descAsc}: a 4-col matrix with dive id, time, depth, and
-    speed.  For \emph{.getSpeedStats}: a 3-col matrix with time, depth,
-    and speed.}
+  \item{diveID}{Numeric vector of all dive and non dive IDs.}
+
+  \item{diveNo}{numeric vector of unique dive indices to extract from
+    \code{diveID}.}
 
   \item{time}{\code{POSIXct} object representing time.}
 
-  % \item{dtformat}{A string to interpret date and time (see
-  %   \code{\link{strptime}}.}
+  \item{x}{For \code{.getSpeedStats}, a matrix with a dive's section
+    data (time, speed).  A single dive's data, a 3-col matrix with time,
+    depth, and speed.  For .speedCol, a data frame where names are
+    searched for strings matching \code{.speedNames} (see Details).}
 
-  % \item{phase}{factor labelling each row for its phase in dive.}
+  \item{vdist}{Vertical distance travelled during this time.  If
+    \code{vdist} is missing, then it's all horizontal movements (no
+    angles).}
 
-  % \item{type}{string indicating whether all points belonging to
-  %   descent/ascent should be included (\dQuote{all}), or points shared
-  %   with bottom phase should be excluded (\dQuote{srict}).}
+  \item{sunrise.time, sunset.time}{Passed from \code{plotTD}.}
 
-  % \item{interval}{sampling interval in seconds.}
+  \item{act}{A numeric vector indicating the activity for every element
+    of \code{time}.}
 
-  % \item{z}{minimum depth differences to use.}
+  \item{interval}{sampling interval in seconds.}
 
-  % \item{zdepth}{zero-offset corrected depth m.}
-
-  % \item{speed}{speed in m/s.  For doSpeedCalib: uncalibrated speeds;
-  %   ignored if \code{calType} is \dQuote{none}.}
-
-  % \item{dives}{3-col \code{data.frame} with dive id (numeric), activity
-  %   (factor), and postdive id (numeric).}
-
-  % \item{\dots}{arguments to pass to .descAsc (\code{type},
-  %   \code{interval}, and \code{z}).}
-
-  % \item{vdist}{vertical distance travelled during ascent or descent.}
-
-  \item{diveID}{Numeric vector of all dive and non dive IDs.}
-
-  \item{diveNo}{Numeric vector of unique dive IDs to index in
-    \code{diveID}.}
-
-  \item{descent.crit.q}{critical quantile below which descent is deemed
-    to have ended.}
-
-  \item{ascent.crit.q}{critical quantile above which ascent is deemed to
-    have started.}
-
-  \item{wiggle.tol}{tolerance to wiggles.}
 }
 
 
@@ -78,18 +60,46 @@
   user, as he/she could not care less (right?).  This may change in the
   future.
 
-  \emph{.getSpeedCalib} extracts the rates of descent and ascent with
-  associated mean speed during descent and ascent phases, respectively
-  and returns a list that is later manipulated by doSpeedCalib to
-  calibrate speed.  The speed used for each rate of depth change
-  corresponds to the speed read for the last point, assuming that each
-  speed reading is the average speed for the last measurement interval.}
+  \code{.speedNames} is a character vector with possible names for a
+  speed vector.
+
+  \code{.rleActivity} takes a factor indicating different activity
+  phases, their associated time, and the sampling interval to return a
+  factor uniquely identifying each phase of activity, i.e. labelling
+  them.  In addition, it returns the duration of each phase, and their
+  beginning and end times.
+
+}
 
 
-\value{\emph{.getSpeedCalib}: A list with two elements (named
-  \dQuote{descent} and \dQuote{ascent}).  Each element is a 2-column
-  matrix with rate of depth change in the first column, and speed in the
-  second, corresponding to the descent phase of each dive.}
+\value{
+
+  \code{.diveIndices} returns a numeric vector with the indices of dives
+  (and their beginning/end indices) in \code{diveID}.
+
+  \code{.getInterval} returns a scalar, the mode of intervals between
+  time readings.
+
+  \code{.getSpeedStats} returns a 3-column matrix with total distance,
+  mean speed, and angle for a section of a dive.
+
+  \code{.night} returns a list with sunrise and sunset times for dates
+  in \code{time}.
+
+  \code{.speedCol} returns column number where speed is located in x.
+
+  \code{.rleActivity} returns a list with components:
+
+  \item{time.br}{A factor dividing \code{act} into different periods of
+    activity.}
+
+  \item{time.peract}{The duration of each period of activity.}
+
+  \item{beg.time, end.time}{POSIXct objects indicating the beginning and
+    ending times of each period of activity.}
+
+}
+
 
 % -------------------------------------------------------------------------
 

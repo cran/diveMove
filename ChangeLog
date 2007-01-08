@@ -1,4 +1,40 @@
+2007-01-08  Sebastian P. Luque  <spluque@gmail.com>
+
+	* distSpeed.R:
+	Removed arguments 'speed' and 'subset', as they are no longer necessary.
+
+	We now handle two matrices of the same shape and size, with argument 'id'
+	for dividing up the matrices into groups, and a 'subset' argument to
+	subset them.
+
+	* austFilter.R:
+	Functions adapted to new structure in distSpeed(), making it more
+	efficient.
+
+2007-01-07  Sebastian P. Luque  <spluque@gmail.com>
+
+	* distSpeed.R:
+	New arguments 'id' and 'subset' so that track() is no longer necessary;
+	we return a matrix with an 'id' column.
+
+	* readLocs.R: New argument ... passed to read.csv().
+
+	Added a check for missing location ID and individual ID columns.
+
+	* calibrate.R, detDive.R, detPhase.R:
+	Made .detPhase() and .detDive() private, as these are too specialized for
+	end users.
+
 2007-01-06  Sebastian P. Luque  <spluque@gmail.com>
+
+	* AllMethod.R, calibrate.R, detDive.R, detPhase.R, plotTD.R,
+	stampDive.R: Documented private objects .speedNames, .speedCol(),
+	.diveIndices(), and .night().  Also made .labDive(),
+	.labDivePhase(), and .rleActivity() private.
+
+	* zoc.R:
+	Fixed bug caused by relying on the plotTDR method, rather than on the
+	function plotTD() as it should be.
 
 	* plotTD.R:
 	.night(): Changed %F format string for POSIXct to %Y-%m-%d as the former
@@ -6,8 +42,9 @@
 
 2007-01-04  Sebastian P. Luque  <spluque@gmail.com>
 
-	* readTDR.R, AllClass.R, AllMethod.R, detDive.R, diveStats.R, oneDiveStats.R:
-	Make calls to private objects more precise using ':::' operator.
+	* readTDR.R, AllClass.R, AllMethod.R, detDive.R, diveStats.R,
+	oneDiveStats.R: Make calls to private objects more precise using
+	':::' operator.
 
 	* AllGenerics.R, AllMethod.R, plotTD.R, zoc.R:
 	Removed 'plot' method and replaced it with 'plotTDR', using the new
@@ -17,9 +54,9 @@
 	Renamed function 'getAct' to 'rleActivity'.
 
 	* AllMethod.R, detPhase.R, stampDive.R:
-	Renamed references to components 'trip.act', 'trip.beg', and 'trip.end' to
-	'activity', 'begin', and 'end', respectively, in returned objects and
-	methods using these.
+	Renamed references to components 'trip.act', 'trip.beg', and
+	'trip.end' to 'activity', 'begin', and 'end', respectively, in
+	returned objects and methods using these.
 
 2007-01-03  Sebastian P. Luque  <spluque@gmail.com>
 

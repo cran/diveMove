@@ -6,7 +6,6 @@
 \title{Read comma-delimited file with location data}
 
 
-
 \description{Read a comma delimited (*.csv) file with (at least) time,
   latitude, longitude readings.}
 
@@ -14,7 +13,7 @@
 \usage{
 readLocs(file, loc.idCol, idCol, dateCol, timeCol=NULL,
          dtformat="\%m/\%d/\%Y \%H:\%M:\%S", tz="GMT",
-         classCol, lonCol, latCol, alt.lonCol=NULL, alt.latCol=NULL)
+         classCol, lonCol, latCol, alt.lonCol=NULL, alt.latCol=NULL, \ldots)
 }
 %- maybe also 'usage' for other objects documented here.
 
@@ -52,7 +51,11 @@ readLocs(file, loc.idCol, idCol, dateCol, timeCol=NULL,
     readings.}
 
   \item{alt.latCol}{Column number containing alternative latitude
-    readings.}}
+    readings.}
+
+  \item{\ldots}{Passed to \code{\link{read.csv}}}
+
+}
 
 
 \details{The file must have a header row identifying each field, and all
@@ -63,6 +66,17 @@ readLocs(file, loc.idCol, idCol, dateCol, timeCol=NULL,
 \value{A data frame.}
 
 % -------------------------------------------------------------------------
+
+\examples{
+
+ringy <- readLocs(system.file(file.path("data", "ringy.csv"),
+                              package="diveMove"), dateCol=1,
+                  dtformat="\%Y-\%m-\%d \%H:\%M:\%S", classCol=2, lonCol=3,
+                  latCol=4)
+summary(ringy)
+
+}
+
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 

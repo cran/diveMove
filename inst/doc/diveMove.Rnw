@@ -37,7 +37,7 @@
 
 \setlength{\parindent}{0em}
 \setlength{\parskip}{0.5em}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% -------------------------------------------------------------------------
 
 \begin{document}
 
@@ -144,8 +144,7 @@ sampling interval, in addition to the variables described above.  Which of
 these objects is created is determined by the \Rfunarg{speed}.
 
 
-\section{Extraction and Display of Information from TDR and TDRspeed
-  Objects}
+\section{Extracting Information from TDR and TDRspeed Objects}
 \label{sec:extract}
 
 For convenience, extractor methods are available to access the different

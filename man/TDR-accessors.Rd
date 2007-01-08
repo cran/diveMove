@@ -55,10 +55,13 @@
   \describe{
 
     \item{as.data.frame}{\code{signature(x="TDR")}: Coerce object to
-      data.frame.}
+      data.frame.  This method returns a data frame, with attributes
+      \sQuote{file} and \sQuote{dtime} indicating the source file and
+      the interval between samples.}
 
     \item{as.data.frame}{\code{signature(x="TDRspeed")}: Coerce object
-      to data.frame.}
+      to data.frame.  Returns an object as for \code{\link{TDR}}
+      objects.}
 
     \item{as.TDRspeed}{\code{signature(x="TDR")}: Coerce object to
       TDRspeed class.}
@@ -70,7 +73,8 @@
   \describe{
 
     \item{[}{\code{signature(x="TDR")}: Subset a TDR object; these
-      objects can be subsetted on a single index \var{i}.}
+      objects can be subsetted on a single index \var{i}.  Selects
+      given rows from object.}
 
     \item{getDepth}{\code{signature(x = "TDR")}: depth slot accessor.}
 

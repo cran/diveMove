@@ -16,9 +16,9 @@
 
 \usage{
 austFilter(time, lon, lat, id=gl(1, 1, length(time)),
-           speedthres, distthres, window=5)
-grpSpeedFilter(x, speedthres, window=5)
-rmsDistFilter(x, speedthres, window=5, distthres)
+           speed.thr, dist.thr, window=5)
+grpSpeedFilter(x, speed.thr, window=5)
+rmsDistFilter(x, speed.thr, window=5, dist.thr)
 }
 %- maybe also 'usage' for other objects documented here.
 
@@ -35,11 +35,11 @@ rmsDistFilter(x, speedthres, window=5, distthres)
   \item{id}{a factor grouping points in different categories
     (e.g. individuals).}
 
-  \item{speedthres}{speed threshold (m/s) above which filter tests
+  \item{speed.thr}{speed threshold (m/s) above which filter tests
     should fail any given point.}
 
-  \item{distthres}{distance threshold above which the last filter test
-    should fail any given point.}
+  \item{dist.thr}{distance threshold (km) above which the last filter
+    test should fail any given point.}
 
   \item{window}{integer indicating the size of the moving window over
     which tests should be carried out.}
@@ -73,7 +73,10 @@ rmsDistFilter(x, speedthres, window=5, distthres)
   The third stage is run simultaneously with the second stage, but if
   the mean distance of all four pairs of points is greater than the
   specified threshold, then the point is marked as failing the third
-  stage.}
+  stage.
+
+  The speed and distance threshold should be obtained separately (see
+  \code{\link{distSpeed}}).}
 
 
 \section{Warning}{This function applies McConnell et al.'s filter as
@@ -84,10 +87,20 @@ whether the filter is applied iteratively or in a vectorized fashion, so
 authors may be using it inconsistently.}
 
 
-\value{A matrix with three columns of logical vectors with values TRUE
-  for points that failed each stage.  Results from each filter are
-  presented independently of the others; i.e. points marked as failing
-  one filter are not necessarily marked as failing the next one.}
+\value{
+
+  \code{grpSpeedFilter} returns a logical vector indicating those lines
+  that passed the test.
+
+  \code{rmsDistFilter} and \code{austFilter} return a matrix with 2 or 3
+  columns, respectively, of logical vectors with values TRUE for points
+  that passed each stage.  For the latter, lines that don't pass the
+  first stage do not pass the other stages.  The second and third
+  columns returned by \code{austFilter}, as well as those returned by
+  \code{rmsDistFilter} are independent of one another; i.e. lines that
+  don't pass stage 2 do not necessarily not pass stage 3.
+
+}
 
 
 \seealso{\code{\link{distSpeed}}}
@@ -102,6 +115,26 @@ authors may be using it inconsistently.}
   Science} 19: 371-383.}
 
 % -------------------------------------------------------------------------
+
+\examples{
+ringy <- readLocs(system.file(file.path("data", "ringy.csv"),
+                              package="diveMove"), dateCol=1,
+                  dtformat="\%Y-\%m-\%d \%H:\%M:\%S", classCol=2, lonCol=3,
+                  latCol=4)
+summary(ringy)
+
+## Austin et al.'s group filter
+grp <- grpSpeedFilter(ringy[, 3:5], speed.thr=0.9)
+
+## McConnell et al.'s filter (root mean square test), and distance test
+rms <- rmsDistFilter(ringy[, 3:5], speed.thr=0.9, dist.thr=100)
+
+## All three tests in sequence (Austin et al. procedure)
+austin <- with(ringy,
+               austFilter(time, lon, lat, speed.thr=0.9, dist.thr=100))
+
+}
+
 
 \author{Sebastian P. Luque \email{spluque@gmail.com} and Andy Liaw.}
 

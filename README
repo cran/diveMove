@@ -12,6 +12,19 @@ vignette is also available by doing vignette("diveMove").
 
 ** Changes/New Features
 
+Version 0.7-3:
+
+	* detPhase() and detDive() are now private functions (renamed with
+          a preceding dot), and should only be used through
+          calibrateDepth().
+
+	* Rearranged documentation, reflecting the higher importance of
+          calibrateDepth() and calibrateSpeed() functions.
+
+	* distSpeed() no longer uses 'speed' and 'subset' arguments, and
+          always returns a matrix.  All location filtering functions are
+          now adapted to this change.
+
 Version 0.7-2:
 
 	* More examples for important functions.

@@ -312,7 +312,7 @@ setMethod("timeBudget",            # a table of general attendance pattern
               interval <- getDtime(getTDR(obj))
               if (ignoreZ) {            # ignore the short baths
                   act[act == "Z"] <- "L"
-                  attlist <- rleActivity(tt, act, interval)
+                  attlist <- diveMove:::.rleActivity(tt, act, interval)
                   actlabel <- rle(as.vector(act))$values
                   tripno <- seq(along=actlabel)
               } else {                  # count the short baths

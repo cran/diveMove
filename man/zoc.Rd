@@ -97,7 +97,7 @@ plotTD(time, depth, concurVars=NULL, xlim=NULL, depth.lim=NULL,
   \code{\link{locator}}.}
 
 
-\seealso{\code{\link{detDive}}}
+\seealso{\code{\link{calibrateDepth}}}
 
 % -------------------------------------------------------------------------
 
@@ -106,6 +106,7 @@ plotTD(time, depth, concurVars=NULL, xlim=NULL, depth.lim=NULL,
 data(divesTDR)
 plotTDR(divesTDR, interact=FALSE)
 
+## Use interact=TRUE (default) to set the offset interactively
 depth.zoc <- zoc(getTime(divesTDR), getDepth(divesTDR), offset=3)
 plotTD(getTime(divesTDR), depth.zoc, interact=FALSE)
 
