@@ -13,9 +13,9 @@
 
 \description{This data set is meant to show the typical organization of
   a TDR *.csv file, suitable as input for \code{\link{readTDR}}, or to
-  construct a \code{TDR} object.  \code{divesTDR} and
-  \code{divesTDRcalibrate} are example \code{TDR} and
-  \code{TDRcalibrate} objects.}
+  construct a \code{\link{TDR}} object.  \code{divesTDR} and
+  \code{divesTDRcalibrate} are example \code{\link{TDR}} and
+  \code{\link{TDRcalibrate}} objects.}
 
 
 \format{
@@ -58,8 +58,5 @@
 \source{Sebastian P. Luque, Christophe Guinet, John P.Y. Arnould}
 
 % -------------------------------------------------------------------------
-
-\author{Sebastian P. Luque \email{spluque@gmail.com}}
-
 
 \keyword{datasets}

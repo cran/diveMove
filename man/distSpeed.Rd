@@ -1,7 +1,6 @@
 \name{distSpeed}
 
 \alias{distSpeed}
-\alias{track}
 
 % -------------------------------------------------------------------------
 
@@ -15,8 +14,7 @@
 
 
 \usage{
-distSpeed(pt1, pt2, speed=TRUE)
-track(txy, id=gl(1, nrow(txy)), subset)
+distSpeed(pt1, pt2, id=gl(1, nrow(pt1)))
 }
 %- maybe also 'usage' for other objects documented here.
 
@@ -30,16 +28,8 @@ track(txy, id=gl(1, nrow(txy)), subset)
 
   \item{pt2}{a matrix with the same structure as \code{pt1}.}
 
-  \item{speed}{logical; should speed between points be calculated?}
-
-  \item{txy}{a data frame with a \code{POSIXct} object in its first
-    column, lon and lat in second and third column, respectively.}
-
   \item{id}{a factor dividing the data in \code{txy} into distinct
     groups.}
-
-  \item{subset}{a logical expression indicating the rows to be analyzed,
-    in terms of elements of \code{txy}.}
 
 }
 
@@ -50,13 +40,34 @@ track(txy, id=gl(1, nrow(txy)), subset)
   are done between all successive rows.}
 
 
-\value{For \code{distSpeed}, a matrix with three columns: distance (km),
-  time difference (h), and speed (m/s).  For \code{track}, a data frame
-  with an id column and the same columns as in \code{distSpeed}.}
+\value{A matrix with three columns: distance (km), time difference (s),
+  and speed (m/s).}
 
 % -------------------------------------------------------------------------
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
+
+
+\examples{
+
+ringy <- readLocs(system.file(file.path("data", "ringy.csv"),
+                              package="diveMove"), dateCol=1,
+                  dtformat="\%Y-\%m-\%d \%H:\%M:\%S", classCol=2, lonCol=3,
+                  latCol=4)
+
+## Travel summary between successive standard locations
+ringy.std <- subset(ringy, subset=class == "0" | class == "1" |
+                    class == "2" | class == "3")
+ringy.travel <- distSpeed(ringy[-nrow(ringy), 3:5], ringy[-1, 3:5])
+## Particular quantiles from travel summaries
+quantile(ringy.travel[, 4], 0.99, na.rm=TRUE) # speed
+quantile(ringy.travel[, 2], 0.99, na.rm=TRUE) # distance
+
+## Travel summary between any two sets of points
+distSpeed(ringy[c(1, 5, 10), 3:5], ringy[c(25, 30, 35), 3:5])
+
+}
+
 
 
 \keyword{math}% at least one, from doc/KEYWORDS

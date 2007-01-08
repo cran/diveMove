@@ -9,7 +9,7 @@
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
     if (missing(offset)) {
-        zoclims <- plotTDR(time, depth)
+        zoclims <- plotTD(time, depth)
         dev.off()
         if (length(zoclims) == 0) {
             message("No ZOC performed.")

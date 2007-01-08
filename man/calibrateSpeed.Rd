@@ -1,6 +1,4 @@
-\name{calibrateDepth}
-
-\alias{calibrateDepth}
+\name{calibrateSpeed}
 \alias{calibrateSpeed}
 
 % -------------------------------------------------------------------------
@@ -14,8 +12,6 @@
 
 
 \usage{
-calibrateDepth(x, dry.thr=70, wet.thr=3610, dive.thr=4, offset,
-               descent.crit.q=0.1, ascent.crit.q=0.1, wiggle.tol=0.8)
 calibrateSpeed(x, tau=0.1, contour.level=0.1, z=0, bad=c(0, 0),
                main=slot(getTDR(x), "file"), coefs, plot=TRUE,
                postscript=FALSE, \ldots)
@@ -27,23 +23,6 @@ calibrateSpeed(x, tau=0.1, contour.level=0.1, z=0, bad=c(0, 0),
   \item{x}{an object of class \code{TDR} for
     \code{\link{calibrateDepth}} or an object of class
     \code{TDRcalibrate} for \code{\link{calibrateSpeed}}.}
-
-  \item{dry.thr, wet.thr}{arguments to \code{\link{detPhase}}.}
-
-  \item{dive.thr}{argument to \code{\link{detDive}}.}
-
-  \item{offset}{argument to \code{\link{zoc}}.}
-
-  \item{descent.crit.q}{critical quantile of rates of descent below
-    which descent is deemed to have ended.}
-
-  \item{ascent.crit.q}{critical quantile of rates of ascent above which
-    ascent is deemed to have started.}
-
-  \item{wiggle.tol}{Proportion of maximum depth above which wiggles
-    should not be allowed to define the end of descent.  It's also the
-    proportion of maximum depth below which wiggles should be considered
-    part of bottom phase.}
 
   \item{tau}{quantile on which to regress speed on rate of depth change;
     passed to \code{\link[quantreg]{rq}}.}
@@ -74,40 +53,33 @@ calibrateSpeed(x, tau=0.1, contour.level=0.1, z=0, bad=c(0, 0),
 }
 
 
-\details{These functions are really wrappers around functions that are
-  usually called in sequence, so they provided an abbreviated method for
-  running them together during analyses.  See the functions in the
-  \sQuote{See Also} section for more details.
+\details{This calibrates speed readings following the procedure outlined
+  in Blackwell et al. (1999).}
 
-  \code{calibrateDepth} performs zero-offset correction of depth,
-  wet/dry phase detection, and detection of dives, as well as proper
-  labelling of the latter.
 
-  \code{calibrateSpeed} calibrates speed readings.
+\value{An object of class \code{\link{TDRcalibrate}}.}
+
+
+\seealso{\code{\link{TDRcalibrate}}}
+
+
+\references{
+
+  Blackwell S, Haverl C, Le Boeuf B, Costa D (1999). A method for
+  calibrating swim-speed recorders.  Marine Mammal Science
+  15(3):894-905.
 
 }
-
-
-\value{An object of class \code{\link{TDRcalibrate-class}} for
-  \code{\link{calibrateDepth}} and an object of class
-  \code{\link{TDRspeed-class}} for \code{\link{calibrateSpeed}}.}
-
-
-\seealso{\code{\link{detPhase}}, \code{\link{detDive}},
-  \code{\link{zoc}}, \code{\link{rqPlot}}, for the underlying
-  functions.}
 
 % -------------------------------------------------------------------------
 
 \examples{
-data(divesTDR)
-
-## Consider a 3 m offset, and a dive threshold of 3 m
-dcalib <- calibrateDepth(divesTDR, dive.thr=3, offset=3)
-\dontrun{plotTDR(dcalib, labels="dive.phase", surface=TRUE)}
+data(divesTDRcalibrate)
+divesTDRcalibrate
 
 ## Calibrate speed using only changes in depth > 2 m
-vcalib <- calibrateSpeed(dcalib, z=2)
+vcalib <- calibrateSpeed(divesTDRcalibrate, z=2)
+vcalib
 }
 
 

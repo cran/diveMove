@@ -13,18 +13,19 @@
     ## --------------------------------------------------------------------
     if (!is(x, "TDR")) stop ("x is not a TDR object")
     ## Detect trips and dives
-    detp <- detPhase(getTime(x), getDepth(x), dry.thr=dry.thr,
-                     wet.thr=wet.thr, getDtime(x))
+    detp <- diveMove:::.detPhase(getTime(x), getDepth(x), dry.thr=dry.thr,
+                                 wet.thr=wet.thr, getDtime(x))
     zd <- if (missing(offset)) {
         zoc(getTime(x), getDepth(x))
     } else zoc(getTime(x), getDepth(x), offset=offset)
     if (!is.null(zd)) x@depth <- zd
-    detd <- detDive(getDepth(x), detp[[2]], dive.thr, getDtime(x))
+    detd <- diveMove:::.detDive(getDepth(x), detp[[2]], dive.thr, getDtime(x))
 
     ## label phases of dives with their activity
-    phaselabs <- labDivePhase(x, detd[, 1], descent.crit.q=descent.crit.q,
-                              ascent.crit.q=ascent.crit.q,
-                              wiggle.tol=wiggle.tol)
+    phaselabs <- diveMove:::.labDivePhase(x, detd[, 1],
+                                          descent.crit.q=descent.crit.q,
+                                          ascent.crit.q=ascent.crit.q,
+                                          wiggle.tol=wiggle.tol)
 
     new("TDRcalibrate",
         tdr=x,

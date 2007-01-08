@@ -1,4 +1,4 @@
-"rleActivity" <- function(time, act, interval)
+".rleActivity" <- function(time, act, interval)
 {
     ## Value: list with factor breaking activity phases, duration of each,
     ## and beginning and end times of each
@@ -23,7 +23,7 @@
          end.time=endtim)
 }
 
-"detPhase" <- function(time, depth, dry.thr, wet.thr, ...)
+".detPhase" <- function(time, depth, dry.thr, wet.thr, ...)
 {
     ## Value: list with index of per-row activities, the activity code,
     ## and start and end of each activity phase
@@ -43,16 +43,16 @@
     ## 10's when animal is wet; i.e. when depth is being recorded
     act[!is.na(depth)] <- "W"
     ## First run calculates times in each activity phase from the raw data
-    rawacts <- rleActivity(time, act, ...)
+    rawacts <- diveMove:::.rleActivity(time, act, ...)
     ## On-land activity < 'dry.thr' should be considered still at-sea
     land <- levels(rawacts[[1]])[rawacts[[2]] < dry.thr]
     act[rawacts[[1]] %in% land & act == "L"] <- "W"
     ## Second run; at-sea phases < wet.thr should be leisure
-    leiacts <- rleActivity(time, act, ...)
+    leiacts <- diveMove:::.rleActivity(time, act, ...)
     leisure <- levels(leiacts[[1]])[leiacts[[2]] < wet.thr]
     act[leiacts[[1]] %in% leisure & act == "W"] <- "Z"
     ## Final run to determine times with all corrected activities
-    finacts <- rleActivity(time, act, ...)
+    finacts <- diveMove:::.rleActivity(time, act, ...)
     nphase <- length(levels(finacts[[1]]))
     if(act[1] == "L" & act[length(act)] == "L") {
         message("Record is complete\n", nphase, " phases detected")

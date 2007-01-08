@@ -71,24 +71,30 @@
 \section{Extractor Methods}{
   \describe{
 
-    \item{getDAct}{\code{signature(x="TDRcalibrate", y="missing")}:
-      extracts a data frame with vectors identifying all readings to a
-      particular dive and postdive number, and a factor identifying all
-      readings to a particular activity.}
+    \item{getDAct}{\code{signature(x="TDRcalibrate", y="missing")}: this
+      accesses the \code{dive.activity} slot of
+      \code{\link{TDRcalibrate}} objects.  Thus, it extracts a data
+      frame with vectors identifying all readings to a particular dive
+      and postdive number, and a factor identifying all readings to a
+      particular activity.}
 
     \item{getDAct}{\code{signature(x="TDRcalibrate", y = "character")}:
 	as the method for missing \code{y}, but selects a particular
-	vector to extract.}
+	vector to extract.  See \code{\link{TDRcalibrate}} for possible
+	strings.}
 
     \item{getDPhaseLab}{\code{signature(x="TDRcalibrate", diveNo =
 	"missing")}: extracts a factor identifying all readings to a
-	particular dive phase.}
+	particular dive phase.  This accesses the dive.phases slot of
+	\code{\link{TDRcalibrate}} objects, which is a factor.}
 
     \item{getDPhaseLab}{\code{signature(x="TDRcalibrate", diveNo =
 	"numeric")}: as the method for missing \code{y}, but selects
 	data from a particular dive number to extract.}
 
-    \item{getGAct}{\code{signature(x="TDRcalibrate", y="missing")}:
+    \item{getGAct}{\code{signature(x="TDRcalibrate", y="missing")}: this
+      accesses the \code{gross.activity} slot of
+      \code{\link{TDRcalibrate}} objects, which is a named list.  It
       extracts elements that divide the data into major wet and dry
       activities.}
 
@@ -96,11 +102,14 @@
 	the method for missing \code{y}, but extracts particular
 	elements.}
 
-    \item{getTDR}{\code{signature(x="TDRcalibrate")}: extracts the
-      \code{TDR} object.}
+    \item{getTDR}{\code{signature(x="TDRcalibrate")}: this accesses the
+      tdr slot of \code{\link{TDRcalibrate}} objects, which is a
+      \code{\link{TDR}} object.}
 
-    \item{getSpeedCoef}{\code{signature(x="TDRcalibrate")}: extracts the
-      speed calibration coefficients.}
+    \item{getSpeedCoef}{\code{signature(x="TDRcalibrate")}: this
+      accesses the \code{speed.calib.coefs} slot of
+      \code{\link{TDRcalibrate}} objects; the speed calibration
+      coefficients.}
 
   }
 

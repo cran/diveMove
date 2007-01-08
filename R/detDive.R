@@ -1,4 +1,4 @@
-"labDive" <- function(act, string, interval)
+".labDive" <- function(act, string, interval)
 {
     ## Value: Label dives along vector of same length as input.  Return a
     ## matrix labelling each dive and postdive reading
@@ -24,7 +24,7 @@
 }
 
 
-"detDive" <- function(zdepth, act, dive.thr=4, ...)
+".detDive" <- function(zdepth, act, dive.thr=4, ...)
 {
     ## Value: A data frame; detecting dives, using a depth threshold
     ## --------------------------------------------------------------------
@@ -39,13 +39,13 @@
     underw <- which(act == "W" & zdepth > 0)
     act[underw] <- "U"
 
-    labuw <- labDive(act, "U", ...) # label underwater excursions
+    labuw <- diveMove:::.labDive(act, "U", ...) # label underwater excursions
     ## Max depth of each "U" phase
     uwmax <- tapply(zdepth[underw], labuw[underw, 1], max, na.rm=TRUE)
     ## Change each "U" phase to "D" if its max depth > dive threshold
     act[labuw[, 1] %in% as.numeric(names(uwmax[uwmax > dive.thr]))] <- "D"
 
-    inddive <- labDive(act, "D", ...)
+    inddive <- diveMove:::.labDive(act, "D", ...)
     ndives <- length(unique(inddive[act == "D", 1]))
     message(ndives, " dives detected")
 
@@ -63,7 +63,7 @@
     ## descent/ascent given a proportion of maximum depth for bottom time.
     ## Return a character matrix with orig ID and corresponding label.
     ## --------------------------------------------------------------------
-    ## Arguments: x=a 2-col matrix with index in original TDR object and
+    ## Arguments: x=a 3-col matrix with index in original TDR object and
     ## non NA depths.  A single dive's data.
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
@@ -143,7 +143,7 @@
     cbind(rowids, labs)
 }
 
-"labDivePhase" <- function(x, diveID, descent.crit.q, ascent.crit.q, wiggle.tol)
+".labDivePhase" <- function(x, diveID, descent.crit.q, ascent.crit.q, wiggle.tol)
 {
     ## Value: A factor labelling portions of dives
     ## --------------------------------------------------------------------

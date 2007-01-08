@@ -29,26 +29,26 @@
   In class \emph{TDR}:
   \describe{
 
-    \item{\code{file}:}{Object of class \code{"character"}, string
+    \item{\code{file}:}{Object of class \dQuote{character}, string
       indicating the file where the data comes from.}
 
-    \item{\code{dtime}:}{Object of class \code{"numeric"}, sampling
+    \item{\code{dtime}:}{Object of class \dQuote{numeric}, sampling
       interval in seconds.}
 
-    \item{\code{time}:}{Object of class \code{"POSIXct"}, time stamp for
+    \item{\code{time}:}{Object of class \dQuote{POSIXct}, time stamp for
       every reading.}
 
-    \item{\code{depth}:}{Object of class \code{"numeric"}, depth (m)
+    \item{\code{depth}:}{Object of class \dQuote{numeric}, depth (m)
       readings.}
 
-    \item{\code{concurrentData}:}{Object of class \code{"data.frame"},
+    \item{\code{concurrentData}:}{Object of class \dQuote{data.frame},
       optional data collected concurrently.}
 
   }
 
   Class \emph{TDRspeed} must also satisfy the condition that a component
   of the concurrentData slot is named speed or velocity, containing the
-  measured speed, a vector of class \code{"numeric"} containing speed
+  measured speed, a vector of class \dQuote{numeric} containing speed
   measurements in (m/s) readings.
 
   }
@@ -66,7 +66,7 @@
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
-\seealso{\code{\link{readTDR}}, \code{\link{TDRcalibrate-class}}.}
+\seealso{\code{\link{readTDR}}, \code{\link{TDRcalibrate}}.}
 
 
 \keyword{classes}
