@@ -1,19 +1,20 @@
-\name{ringy}
+\name{sealLocs}
 \docType{data}
 
-\alias{ringy}
+\alias{sealLocs}
 
 % -------------------------------------------------------------------------
 
-\title{Ringed Seal Ringy ARGOS Satellite Location Data}
+\title{Ringed and Gray Seal ARGOS Satellite Location Data}
 
 
-\description{
-Satellite locations of a ringed seal caught and released in New York.
-}
+\description{Satellite locations of a gray (Stephanie) and a ringed
+(Ringy) seal caught and released in New York.}
 
 
 \format{A data frame with the following information:
+
+  \item{id}{String naming the seal the data come from.}
 
   \item{time}{The date and time of the location.}
 
@@ -30,7 +31,7 @@ Satellite locations of a ringed seal caught and released in New York.
 
 
 \source{WhaleNet Satellite Tracking Program
-  \url{http://whale.wheelock.edu}.}
+  \url{http://whale.wheelock.edu/Welcome.html}.}
 
 % -------------------------------------------------------------------------
 

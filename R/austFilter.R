@@ -15,7 +15,7 @@
         mid <- tpos + 1                 # subscript of pt to test
         ref <- c(-seq(tpos), seq(tpos)) # subscripts of pts to test against
         mid.rep <- rep(mid, length(ref))
-        speeds <- distSpeed(k[mid.rep, ], k[mid + ref, ])[, 4]
+        speeds <- distSpeed(k[mid.rep, ], k[mid + ref, ])[, 3]
         all(speeds <= speed.thr, na.rm=TRUE) # FALSE if some speeds are > thr
     }
     pass <- !logical(nrow(x))         # all pass at start up
@@ -57,7 +57,7 @@
         xmid.rep <- rep(xmid, length(k) - 1)
         others <- k[-1]                 # stats to all other positions
         tr <- distSpeed(x[xmid.rep, ], x[others, ])
-        tr[, c(2, 4)]
+        tr[, c(1, 3)]
     }
     travel <- apply(testmtx, 1, dist.fun)
     dists <- travel[seq(length(ref)), ]

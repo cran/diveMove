@@ -32,7 +32,7 @@
   \item{x}{\code{"\linkS4class{TDR}"}, \code{"\linkS4class{TDRspeed}"},
     or \code{"\linkS4class{TDRcalibrate}"}object.}
 
-  \item{concurVars, concurVarTitles, \ldots}{arguments passed to
+  \item{concurVars, concurVarTitles, \ldots}{Arguments passed to
     \code{\link{plotTD}}. For the \code{\link{TDRspeed}} method,
     \var{concurVars} is a matrix with variables to plot, in addition to
     speed, if any.  \var{concurVarTitles} in this case is a character
@@ -42,14 +42,14 @@
     additional components from the concurrent data frame should also be
     plotted, if any.}
 
-  \item{diveNo}{numeric vector with dive numbers to plot.}
+  \item{diveNo}{Numeric vector with dive numbers to plot.}
 
-  \item{labels}{one of \dQuote{phase.id} or \dQuote{dive.phase},
+  \item{labels}{One of \dQuote{phase.id} or \dQuote{dive.phase},
     specifying whether to label observations based on the gross phase ID
     of the \code{"\linkS4class{TDR}"} object, or based on each dive
     phase, respectively.}
 
-  \item{surface}{logical indicating whether to plot surface readings.}
+  \item{surface}{Logical indicating whether to plot surface readings.}
 
 }
 

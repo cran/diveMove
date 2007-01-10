@@ -23,7 +23,7 @@
 
   \item{time}{\code{POSIXct} object with date and time for all depths.}
 
-  \item{depth}{numeric vector with depth readings.}
+  \item{depth}{Numeric vector with depth readings.}
 
   \item{dry.thr, wet.thr}{Passed from \code{\link{calibrateDepth}}.}
 
@@ -47,20 +47,20 @@
 
 \value{A list with components:
 
-  \item{phase.id}{numeric vector identifying each activity phase,
+  \item{phase.id}{Numeric vector identifying each activity phase,
     starting from 1 for every input record.}
 
-  \item{activity}{factor with levels \sQuote{L} indicating dry,
+  \item{activity}{Factor with levels \sQuote{L} indicating dry,
     \sQuote{W} indicating wet, \sQuote{U} for underwater (above dive
     criterion), \sQuote{D} for diving, \sQuote{Z} for trivial wet animal
     activities.  Only \sQuote{L}, \sQuote{W}, and \sQuote{Z} are
     actually represented.}
 
-  \item{begin}{a \code{POSIXct} object as long as the number of unique
+  \item{begin}{A \code{POSIXct} object as long as the number of unique
     activity phases identified, indicating the start times for each
     activity phase.}
 
-  \item{end}{a \code{POSIXct} object as long as the number of unique
+  \item{end}{A \code{POSIXct} object as long as the number of unique
     activity phases identified, indicating the end times for each
     activity phase.}
 

@@ -23,8 +23,8 @@
 \arguments{
 
   \item{obj}{\code{"\linkS4class{TDR}"} object.}
-  \item{diveNo}{numeric vector or scalar with dive numbers to extract.}
-  \item{id}{numeric vector of dive numbers from where \code{diveNo}
+  \item{diveNo}{Numeric vector or scalar with dive numbers to extract.}
+  \item{id}{Numeric vector of dive numbers from where \code{diveNo}
     should be chosen.}
 
 }

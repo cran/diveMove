@@ -1,5 +1,5 @@
 ## This one simply uses the mean speed to calculate the angles and tdist
-".getSpeedStats" <- function(x, vdist)
+".speedStats" <- function(x, vdist)
 {
     ## Value: A 3-column matrix with total distance, mean speed, and angle
     ## for a section of a dive

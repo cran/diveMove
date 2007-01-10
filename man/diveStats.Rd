@@ -23,15 +23,15 @@ stampDive(x, ignoreZ=TRUE)
 
 \arguments{
 
-  \item{x}{a \code{\link{TDRcalibrate-class}} object for
+  \item{x}{A \code{\link{TDRcalibrate-class}} object for
     \code{diveStats} and \code{stampDive}, and a data frame containing a
     single dive's data for \code{oneDiveStats}.}
 
-  \item{interval}{sampling interval for interpreting \code{x}.}
+  \item{interval}{Sampling interval for interpreting \code{x}.}
 
-  \item{speed}{logical; should speed statistics be calculated?}
+  \item{speed}{Logical; should speed statistics be calculated?}
 
-  \item{ignoreZ}{logical indicating whether trips should be numbered
+  \item{ignoreZ}{Logical indicating whether trips should be numbered
     considering all aquatic activities (\dQuote{W} and \dQuote{Z}) or
     ignoring \dQuote{Z} activities.}
 
@@ -56,49 +56,49 @@ stampDive(x, ignoreZ=TRUE)
   \item{begasc}{A \code{POSIXct} object, as \code{begdesc} indicating
     the time ascent began.}
 
-  \item{desctim}{descent duration of each dive.}
+  \item{desctim}{Descent duration of each dive.}
 
-  \item{botttim}{bottom duration of each dive.}
+  \item{botttim}{Bottom duration of each dive.}
 
-  \item{asctim}{ascent duration of each dive.}
+  \item{asctim}{Ascent duration of each dive.}
 
-  \item{descdist}{numeric vector with descent depth.}
+  \item{descdist}{Numeric vector with descent depth.}
 
-  \item{bottdist}{numeric vector with the sum of absolute depth
+  \item{bottdist}{Numeric vector with the sum of absolute depth
     differences while at the bottom of each dive; measure of amount of
     \dQuote{wiggling} while at bottom.}
 
-  \item{ascdist}{numeric vector with ascent depth.}
+  \item{ascdist}{Numeric vector with ascent depth.}
 
-  \item{desc.tdist}{numeric vector with descent total distance,
+  \item{desc.tdist}{Numeric vector with descent total distance,
     estimated from speed.}
 
-  \item{desc.mean.speed}{numeric vector with descent mean speed.}
+  \item{desc.mean.speed}{Numeric vector with descent mean speed.}
 
-  \item{desc.angle}{numeric vector with descent angle.}
+  \item{desc.angle}{Numeric vector with descent angle.}
 
-  \item{bott.tdist}{numeric vector with bottom total distance, estimated
+  \item{bott.tdist}{Numeric vector with bottom total distance, estimated
     from speed.}
 
-  \item{bott.mean.speed}{numeric vector with bottom mean speed.}
+  \item{bott.mean.speed}{Numeric vector with bottom mean speed.}
 
-  \item{asc.tdist}{numeric vector with ascent total distance, estimated
+  \item{asc.tdist}{Numeric vector with ascent total distance, estimated
     from speed.}
 
-  \item{asc.mean.speed}{numeric vector with ascent mean speed.}
+  \item{asc.mean.speed}{Numeric vector with ascent mean speed.}
 
-  \item{asc.angle}{numeric vector with ascent angle.}
+  \item{asc.angle}{Numeric vector with ascent angle.}
 
-  \item{divetim}{dive duration.}
+  \item{divetim}{Dive duration.}
 
-  \item{maxdep}{numeric vector with maximum depth.}
+  \item{maxdep}{Numeric vector with maximum depth.}
 
-  \item{postdive.dur}{postdive duration.}
+  \item{postdive.dur}{Postdive duration.}
 
-  \item{postdive.tdist}{numeric vector with postdive total distance,
+  \item{postdive.tdist}{Numeric vector with postdive total distance,
     estimated from speed.}
 
-  \item{postdive.mean.speed}{numeric vector with postdive mean speed.}
+  \item{postdive.mean.speed}{Numeric vector with postdive mean speed.}
 
   The number of columns depends on the value of speed.
 

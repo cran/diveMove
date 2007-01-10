@@ -20,34 +20,34 @@ calibrateSpeed(x, tau=0.1, contour.level=0.1, z=0, bad=c(0, 0),
 
 \arguments{
 
-  \item{x}{an object of class \code{TDR} for
+  \item{x}{An object of class \code{TDR} for
     \code{\link{calibrateDepth}} or an object of class
     \code{TDRcalibrate} for \code{\link{calibrateSpeed}}.}
 
-  \item{tau}{quantile on which to regress speed on rate of depth change;
+  \item{tau}{Quantile on which to regress speed on rate of depth change;
     passed to \code{\link[quantreg]{rq}}.}
 
-  \item{contour.level}{the mesh obtained from the bivariate kernel
+  \item{contour.level}{The mesh obtained from the bivariate kernel
     density estimation corresponding to this contour will be used for
     the quantile regression to define the calibration line.}
 
-  \item{z}{only changes in depth larger than this value will be used for
+  \item{z}{Only changes in depth larger than this value will be used for
     calibration.}
 
-  \item{bad}{length 2 numeric vector indicating that only rates of depth
+  \item{bad}{Length 2 numeric vector indicating that only rates of depth
     change and speed greater than the given value should be used for
     calibration, respectively.}
 
-  \item{coefs}{known speed calibration coefficients from quantile
+  \item{coefs}{Known speed calibration coefficients from quantile
     regression as a vector of length 2 (intercept, slope).  If provided,
     these coefficients are used for calibrating speed, ignoring all
     other arguments, except \code{x}.}
 
-  \item{main, \ldots}{arguments passed to \code{\link{rqPlot}}.}
+  \item{main, \ldots}{Arguments passed to \code{\link{rqPlot}}.}
 
-  \item{plot}{logical indicating whether to plot the results.}
+  \item{plot}{Logical indicating whether to plot the results.}
 
-  \item{postscript}{logical indicating whether to produce postscript
+  \item{postscript}{Logical indicating whether to produce postscript
     file output.}
 
 }

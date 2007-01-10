@@ -51,20 +51,17 @@ setMethod("show", signature=signature(object="TDRcalibrate"),
               wetz <- object@gross.activity$activity == "Z"
               ww <- length(unique(object@gross.activity$ phase.id[wet | wetz]))
               cat("Depth calibration -- Class", class(object), "object\n")
-              cat("  Source file                       :",
-                  object@tdr@file, "\n")
-              cat("  Number of dry phases              :", dd, "\n")
-              cat("  Number of aquatic phases          :", ww, "\n")
-              cat("  Number of dives detected          :",
+              cat("  Source file                   :", object@tdr@file, "\n")
+              cat("  Containing TDR of class       :", class(object@tdr), "\n")
+              cat("  Number of dry phases          :", dd, "\n")
+              cat("  Number of aquatic phases      :", ww, "\n")
+              cat("  Number of dives detected      :",
                   max(object@dive.activity$dive.id, na.rm=TRUE), "\n")
-              cat("  Dry threshold used (s)            :",
-                  object@dry.thr, "\n")
-              cat("  Aquatic theshold used (s)         :",
-                  object@wet.thr, "\n")
-              cat("  Dive threshold used (s)           :",
-                  object@dive.thr, "\n")
-              if (length(object@speed.calib.coefs) != 0) {
-                  cat("  Speed calibration coefficients    : a =",
+              cat("  Dry threshold used (s)        :", object@dry.thr, "\n")
+              cat("  Aquatic theshold used (s)     :", object@wet.thr, "\n")
+              cat("  Dive threshold used (s)       :", object@dive.thr)
+              if (is(object@tdr, "TDRspeed")) {
+                  cat("\n  Speed calibration coefficients: a =",
                       format(object@speed.calib.coefs[1], digits=2), "; b =",
                       format(object@speed.calib.coefs[2], digits=2), "\n")
               } else cat("\n")
@@ -247,7 +244,8 @@ setMethod("[", signature("TDR"), function(x, i, j, ..., drop) {
 
 
 ###_ Generators and Summaries
-"createTDR" <- function(time, depth, concurrentData, speed=FALSE, dtime, file)
+"createTDR" <- function(time, depth, concurrentData=data.frame(),
+                        speed=FALSE, dtime, file)
 {
     ## Value: An object of TDR or TDRspeed class.  Useful to recreate
     ## objects once depth has been zoc'ed and speed calibrated for further
@@ -257,6 +255,7 @@ setMethod("[", signature("TDR"), function(x, i, j, ..., drop) {
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
+    if (missing(dtime)) dtime <- diveMove:::.getInterval(time)
     if(speed) {
         new("TDRspeed", time=time, depth=depth, concurrentData=concurrentData,
             dtime=dtime, file=file)

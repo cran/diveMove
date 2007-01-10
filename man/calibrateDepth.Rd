@@ -20,26 +20,26 @@ calibrateDepth(x, dry.thr=70, wet.thr=3610, dive.thr=4, offset,
 
 \arguments{
 
-  \item{x}{an object of class \code{TDR} for
+  \item{x}{An object of class \code{TDR} for
     \code{\link{calibrateDepth}} or an object of class
     \code{TDRcalibrate} for \code{\link{calibrateSpeed}}.}
 
-  \item{dry.thr}{dry error threshold in seconds.  Dry phases shorter
+  \item{dry.thr}{Dry error threshold in seconds.  Dry phases shorter
     than this threshold will be considered as wet.}
 
-  \item{wet.thr}{wet threshold in seconds. At-sea phases shorter than
+  \item{wet.thr}{Wet threshold in seconds. At-sea phases shorter than
     this threshold will be considered as trivial wet.}
 
-  \item{dive.thr}{threshold depth below which an underwater phase
+  \item{dive.thr}{Threshold depth below which an underwater phase
     should be considered a dive.}
 
-  \item{offset}{argument to \code{\link{zoc}}.  If not provided, the
+  \item{offset}{Argument to \code{\link{zoc}}.  If not provided, the
     offset is obtained using an interactive plot of the data.}
 
-  \item{descent.crit.q}{critical quantile of rates of descent below
+  \item{descent.crit.q}{Critical quantile of rates of descent below
     which descent is deemed to have ended.}
 
-  \item{ascent.crit.q}{critical quantile of rates of ascent above which
+  \item{ascent.crit.q}{Critical quantile of rates of ascent above which
     ascent is deemed to have started.}
 
   \item{wiggle.tol}{Proportion of maximum depth above which wiggles
