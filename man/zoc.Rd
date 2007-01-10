@@ -20,7 +20,7 @@ plotTD(time, depth, concurVars=NULL, xlim=NULL, depth.lim=NULL,
        concurVarTitles=deparse(substitute(concurVars)),
        xlab.format="\%d-\%b \%H:\%M", sunrise.time="06:00:00",
        sunset.time="18:00:00", night.col="gray60",
-       phaseCol=NULL, interact=TRUE, key=TRUE)
+       phaseCol=NULL, interact=TRUE, key=TRUE, \ldots)
 
 }
 %- maybe also 'usage' for other objects documented here.
@@ -30,41 +30,46 @@ plotTD(time, depth, concurVars=NULL, xlim=NULL, depth.lim=NULL,
 
   \item{time}{\code{POSIXct} object with date and time.}
 
-  \item{depth}{numeric vector with depth in m.}
+  \item{depth}{Numeric vector with depth in m.}
 
-  \item{offset}{known amount of meters to subtract for zero-offset
+  \item{offset}{Known amount of meters to subtract for zero-offset
     correcting depth throughout the entire TDR record.}
 
-  \item{concurVars}{matrix with additional variables in each column to
+  \item{concurVars}{Matrix with additional variables in each column to
     plot concurrently with depth.}
 
-  \item{xlim}{vector of length 2, with lower and upper limits of time to
+  \item{xlim}{Vector of length 2, with lower and upper limits of time to
     be plotted.}
 
-  \item{depth.lim}{numeric vector of length 2, with the lower and upper
+  \item{depth.lim}{Numeric vector of length 2, with the lower and upper
     limits of depth to be plotted.}
 
-  \item{xlab, ylab.depth}{strings to label the corresponding
+  \item{xlab, ylab.depth}{Strings to label the corresponding
     y-axes.}
 
-  \item{concurVarTitles}{character vector of titles to label each new
+  \item{concurVarTitles}{Character vector of titles to label each new
     variable given in \var{concurVars}.}
 
-  \item{xlab.format}{format string for formatting the x axis; see
+  \item{xlab.format}{Format string for formatting the x axis; see
     \code{\link{strptime}}.}
 
-  \item{sunrise.time, sunset.time}{character string with time of sunrise
+  \item{sunrise.time, sunset.time}{Character string with time of sunrise
     and sunset, respectively, in 24 hr format.  This is used for shading
     night time.}
 
-  \item{night.col}{color for shading night time.}
+  \item{night.col}{Color for shading night time.}
 
-  \item{phaseCol}{factor dividing rows into sections.}
+  \item{phaseCol}{Factor dividing rows into sections.}
 
   \item{interact}{Logical; whether to provide interactive tcltk controls
     and access to the associated ZOC functionality.}
 
-  \item{key}{logical indicating whether to dray a key.}
+  \item{key}{Logical indicating whether to draw a key.}
+
+  \item{\ldots}{Arguments passed to \code{\link{par}}; useful defaults
+    \code{las=1}, \code{bty="n"}, and \code{mar} (the latter depending
+    on whether additional concurrent data will be plotted) are provided,
+    but they can be overridden.}
 
 }
 

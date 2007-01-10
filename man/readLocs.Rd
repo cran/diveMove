@@ -23,10 +23,13 @@ readLocs(file, loc.idCol, idCol, dateCol, timeCol=NULL,
   \item{file}{A string indicating the name of the file to read. Provide
     the entire path if the file is not on the current directory.}
 
-  \item{loc.idCol}{Column number containing location ID.}
+  \item{loc.idCol}{Column number containing location ID.  If missing, a
+    \code{loc.id} column is generated with sequential integers as long
+    as the input.}
 
   \item{idCol}{Column number containing an identifier for locations
-    belonging to different groups.}
+    belonging to different groups.  If missing, an id column is
+    generated with number one repeated as many times as the input.}
 
   \item{dateCol}{Column number containing dates, and, optionally,
     times.}
@@ -69,11 +72,11 @@ readLocs(file, loc.idCol, idCol, dateCol, timeCol=NULL,
 
 \examples{
 
-ringy <- readLocs(system.file(file.path("data", "ringy.csv"),
-                              package="diveMove"), dateCol=1,
-                  dtformat="\%Y-\%m-\%d \%H:\%M:\%S", classCol=2, lonCol=3,
-                  latCol=4)
-summary(ringy)
+locs <- readLocs(system.file(file.path("data", "sealLocs.csv"),
+                             package="diveMove"), idCol=1, dateCol=2,
+                 dtformat="\%Y-\%m-\%d \%H:\%M:\%S",
+                 classCol=3, lonCol=4, latCol=5)
+summary(locs)
 
 }
 

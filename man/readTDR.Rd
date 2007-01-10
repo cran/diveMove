@@ -19,45 +19,46 @@
 readTDR(file, dateCol=1, timeCol=2, depthCol=3, speed=FALSE,
         subsamp=5, concurrentCols=4:6,
         dtformat="\%d/\%m/\%Y \%H:\%M:\%S", tz="GMT")
-createTDR(time, depth, concurrentData, speed=FALSE, dtime, file)
+createTDR(time, depth, concurrentData=data.frame(), speed=FALSE, dtime, file)
 }
 
 
 \arguments{
 
-  \item{file}{a string indicating the path to the file to read.}
+  \item{file}{A string indicating the path to the file to read.}
 
-  \item{dateCol}{column number containing dates, and optionally, times.}
+  \item{dateCol}{Column number containing dates, and optionally, times.}
 
-  \item{timeCol}{column number with times.}
+  \item{timeCol}{Column number with times.}
 
-  \item{depthCol}{column number containing depth readings.}
+  \item{depthCol}{Column number containing depth readings.}
 
-  \item{speed}{for \code{readTDR}: Logical indicating whether speed is
+  \item{speed}{For \code{readTDR}: Logical indicating whether speed is
     included in one of the columns of concurrentCols.}
 
-  \item{subsamp}{subsample rows in \code{file} with \code{subsamp}
+  \item{subsamp}{Subsample rows in \code{file} with \code{subsamp}
     interval, in s.}
 
-  \item{concurrentCols}{column numbers to include as concurrent data
+  \item{concurrentCols}{Column numbers to include as concurrent data
     collected.}
 
-  \item{dtformat}{a string, specifying the format in which the date and
+  \item{dtformat}{A string, specifying the format in which the date and
     time columns, when pasted together, should be interpreted (see
     \code{\link{strptime}}).}
 
-  \item{tz}{a string indicating the time zone assumed for the date and
+  \item{tz}{A string indicating the time zone assumed for the date and
     time readings.}
 
-  \item{time}{a \code{POSIXct} object with date and time readings for
+  \item{time}{A \code{POSIXct} object with date and time readings for
     each reading.}
 
-  \item{depth}{numeric vector with depth readings.}
+  \item{depth}{Numeric vector with depth readings.}
 
-  \item{concurrentData}{data frame with additional, concurrent data
+  \item{concurrentData}{Data frame with additional, concurrent data
     collected.}
 
-  \item{dtime}{sampling interval used in seconds.}
+  \item{dtime}{Sampling interval used in seconds.  If missing, it is
+    calculated from the \code{time} argument.}
 
 }
 
@@ -83,6 +84,16 @@ createTDR(time, depth, concurrentData, speed=FALSE, dtime, file)
 \examples{
 readTDR(system.file(file.path("data", "dives.csv"),
                     package="diveMove"), speed=TRUE)
+
+## Or more pedestrian
+tdrX <- read.csv(system.file(file.path("data", "dives.csv"),
+                             package="diveMove"), na.strings="", as.is=TRUE)
+date.time <- paste(tdrX$date, tdrX$time)
+tdr.time <- as.POSIXct(strptime(date.time, format="\%d/\%m/\%Y \%H:\%M:\%S"),
+                       tz="GMT")
+createTDR(tdr.time, tdrX$depth, concurrentData=data.frame(speed=tdrX$speed),
+          file="dives.csv", speed=TRUE)
+
 }
 
 

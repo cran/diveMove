@@ -2,7 +2,7 @@
 
 \alias{.diveIndices}
 \alias{.getInterval}
-\alias{.getSpeedStats}
+\alias{.speedStats}
 \alias{.night}
 \alias{.rleActivity}
 \alias{.speedNames}
@@ -21,7 +21,7 @@
 \usage{
 .diveIndices(diveID, diveNo)
 .getInterval(time)
-.getSpeedStats(x, vdist)
+.speedStats(x, vdist)
 .night(time, sunrise.time, sunset.time)
 .rleActivity(time, act, interval)
 .speedCol(x)
@@ -32,13 +32,13 @@
 
   \item{diveID}{Numeric vector of all dive and non dive IDs.}
 
-  \item{diveNo}{numeric vector of unique dive indices to extract from
+  \item{diveNo}{Numeric vector of unique dive indices to extract from
     \code{diveID}.}
 
   \item{time}{\code{POSIXct} object representing time.}
 
-  \item{x}{For \code{.getSpeedStats}, a matrix with a dive's section
-    data (time, speed).  A single dive's data, a 3-col matrix with time,
+  \item{x}{For \code{.speedStats}, a matrix with a dive's section data
+    (time, speed).  A single dive's data, a 3-col matrix with time,
     depth, and speed.  For .speedCol, a data frame where names are
     searched for strings matching \code{.speedNames} (see Details).}
 
@@ -51,7 +51,7 @@
   \item{act}{A numeric vector indicating the activity for every element
     of \code{time}.}
 
-  \item{interval}{sampling interval in seconds.}
+  \item{interval}{Sampling interval in seconds.}
 
 }
 
@@ -80,8 +80,8 @@
   \code{.getInterval} returns a scalar, the mode of intervals between
   time readings.
 
-  \code{.getSpeedStats} returns a 3-column matrix with total distance,
-  mean speed, and angle for a section of a dive.
+  \code{.speedStats} returns a 3-column matrix with total distance, mean
+  speed, and angle for a section of a dive.
 
   \code{.night} returns a list with sunrise and sunset times for dates
   in \code{time}.

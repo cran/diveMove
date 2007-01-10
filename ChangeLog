@@ -1,15 +1,43 @@
+2007-01-10  Sebastian P. Luque  <spluque@gmail.com>
+
+	* plotTD.R:
+	plotTD(): Removed the 'lab' par() setting from the initial, as this is
+	better handled with the newly introduced ellipsis arg.
+
+	plotTD(): Added argument '...' to be passed to par() for more flexibility
+	in how to draw the plot.
+
+2007-01-09  Sebastian P. Luque  <spluque@gmail.com>
+
+	* AllMethod.R:
+	Display more information for 'TDRcalibrate' show() method.
+
+	Fixed buglet in 'TDRcalibrate' show() method that causing it to display
+	speed calibration information regardless of what specific class was
+	contained in the tdr slot.
+
+	* diveStats.R, oneDiveStats.R, speedStats.R:
+	Renamed .getSpeedStats() to speedStats(), as this is not really an
+	accessor.
+
 2007-01-08  Sebastian P. Luque  <spluque@gmail.com>
 
-	* distSpeed.R:
-	Removed arguments 'speed' and 'subset', as they are no longer necessary.
+	* AllMethod.R:
+	createTDR(): Provided useful default to 'concurrentData', and added a test
+	for missing 'dtime', producing it if it is.
 
-	We now handle two matrices of the same shape and size, with argument 'id'
-	for dividing up the matrices into groups, and a 'subset' argument to
-	subset them.
+	* distSpeed.R: Removed 'id' argument.
+
+	Removed arguments 'speed' and 'subset', as they are no longer necessary.
 
 	* austFilter.R:
 	Functions adapted to new structure in distSpeed(), making it more
 	efficient.
+
+	* distSpeed.R:
+	We now handle two matrices of the same shape and size, with argument 'id'
+	for dividing up the matrices into groups, and a 'subset' argument to
+	subset them.
 
 2007-01-07  Sebastian P. Luque  <spluque@gmail.com>
 

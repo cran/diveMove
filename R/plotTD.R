@@ -24,7 +24,7 @@
                      concurVarTitles=deparse(substitute(concurVars)),
                      xlab.format="%d-%b %H:%M", sunrise.time="06:00:00",
                      sunset.time="18:00:00", night.col="gray60",
-                     phaseCol=NULL, interact=TRUE, key=TRUE)
+                     phaseCol=NULL, interact=TRUE, key=TRUE, ...)
 {
     ## Value: Returns (invisibly) a list with coordinates for each zoc'ed
     ## time window.  Also Plot time, depth, and other concurrent data.
@@ -39,7 +39,7 @@
     ## for formatting time in x axis, sunrise.time=string specifying the
     ## time of sunrise, sunset.time=string specifying sunset time,
     ## night.col=color for masking night times, key=logical whether to
-    ## draw a legend.
+    ## draw a legend; ...=parameters passed to par.
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
@@ -56,11 +56,9 @@
     "plot.fun" <- function(xlim, ylim) {
         xticks <- orig + seq(from=xlim[1], to=xlim[2], length=20)
         if(is.null(concurVars)) {
-            par(lab=c(10, 10, 7), las=1, xaxs="i", cex.axis=0.9,
-                cex.lab=1.3, bty="n", mar=mardepthonly)
+            par(las=1, bty="n", mar=mardepthonly, ...)
         } else {
-            par(lab=c(10, 10, 7), las=1, xaxs="i", cex.axis=0.9,
-                cex.lab=1.3, bty="n", mar=mardepthmore)
+            par(las=1, bty="n", mar=mardepthmore, ...)
             layout(matrix(seq(plotrows, 1), nrow=plotrows, ncol=1),
                    heights=lheights)
         }

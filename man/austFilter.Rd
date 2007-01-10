@@ -28,20 +28,20 @@ rmsDistFilter(x, speed.thr, window=5, dist.thr)
   \item{time}{\code{POSIXct} object with dates and times for each
     point.}
 
-  \item{lon}{numeric vectors of longitudes, in decimal degrees.}
+  \item{lon}{Numeric vectors of longitudes, in decimal degrees.}
 
-  \item{lat}{numeric vector of latitudes, in decimal degrees.}
+  \item{lat}{Numeric vector of latitudes, in decimal degrees.}
 
-  \item{id}{a factor grouping points in different categories
+  \item{id}{A factor grouping points in different categories
     (e.g. individuals).}
 
-  \item{speed.thr}{speed threshold (m/s) above which filter tests
+  \item{speed.thr}{Speed threshold (m/s) above which filter tests
     should fail any given point.}
 
-  \item{dist.thr}{distance threshold (km) above which the last filter
+  \item{dist.thr}{Distance threshold (km) above which the last filter
     test should fail any given point.}
 
-  \item{window}{integer indicating the size of the moving window over
+  \item{window}{Integer indicating the size of the moving window over
     which tests should be carried out.}
 
   \item{x}{3-column matrix with column 1: \code{POSIXct} vector; column
@@ -117,11 +117,13 @@ authors may be using it inconsistently.}
 % -------------------------------------------------------------------------
 
 \examples{
-ringy <- readLocs(system.file(file.path("data", "ringy.csv"),
-                              package="diveMove"), dateCol=1,
-                  dtformat="\%Y-\%m-\%d \%H:\%M:\%S", classCol=2, lonCol=3,
-                  latCol=4)
-summary(ringy)
+locs <- readLocs(system.file(file.path("data", "sealLocs.csv"),
+                             package="diveMove"), idCol=1, dateCol=2,
+                  dtformat="\%Y-\%m-\%d \%H:\%M:\%S", classCol=3, lonCol=4,
+                  latCol=5)
+summary(locs)
+
+ringy <- subset(locs, id == "ringy")
 
 ## Austin et al.'s group filter
 grp <- grpSpeedFilter(ringy[, 3:5], speed.thr=0.9)
@@ -130,8 +132,8 @@ grp <- grpSpeedFilter(ringy[, 3:5], speed.thr=0.9)
 rms <- rmsDistFilter(ringy[, 3:5], speed.thr=0.9, dist.thr=100)
 
 ## All three tests in sequence (Austin et al. procedure)
-austin <- with(ringy,
-               austFilter(time, lon, lat, speed.thr=0.9, dist.thr=100))
+austin <- austFilter(locs$time, locs$lon, locs$lat, id=locs$id,
+                     speed.thr=0.9, dist.thr=100)
 
 }
 

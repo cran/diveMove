@@ -23,17 +23,17 @@
   A comma separated value (csv) file with 69560 TDR readings with the
   following columns:
 
-  \item{date}{date}
+  \item{date}{Date}
 
-  \item{time}{time}
+  \item{time}{Time}
 
-  \item{depth}{depth in m}
+  \item{depth}{Depth in m}
 
-  \item{light}{light level}
+  \item{light}{Light level}
 
-  \item{temperature}{temperature in C}
+  \item{temperature}{Temperature in C}
 
-  \item{speed}{speed in m/s}
+  \item{speed}{Speed in m/s}
 
   The data are also provided as a TDR object (*.RData format) for
   convenience.

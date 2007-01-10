@@ -19,28 +19,28 @@
 
 \arguments{
 
-  \item{zdepth}{vector of zero-offset corrected depths.}
+  \item{zdepth}{Vector of zero-offset corrected depths.}
 
-  \item{act}{factor as long as \code{depth} coding activity, with levels
+  \item{act}{Factor as long as \code{depth} coding activity, with levels
   specified as in \code{\link{.detPhase}}.}
 
-  \item{dive.thr}{threshold depth below which an underwater phase
+  \item{dive.thr}{Threshold depth below which an underwater phase
     should be considered a dive.}
 
-  \item{\dots}{the sampling interval in seconds.}
+  \item{\dots}{The sampling interval in seconds.}
 
 }
 
 
 \value{A data frame with the following elements for \code{.detDive}
 
-  \item{dive.id}{numeric vector numbering each dive in the record.}
+  \item{dive.id}{Numeric vector numbering each dive in the record.}
 
-  \item{dive.activity}{factor with levels \sQuote{L}, \sQuote{W},
+  \item{dive.activity}{Factor with levels \sQuote{L}, \sQuote{W},
     \sQuote{U}, \sQuote{D}, and \sQuote{Z}, see \code{\link{.detPhase}}.
     All levels may be represented.}
 
-  \item{postdive.id}{numeric vector numbering each postdive interval
+  \item{postdive.id}{Numeric vector numbering each postdive interval
     with the same value as the preceding dive.}
 
 }
