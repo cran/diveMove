@@ -24,7 +24,7 @@
                      concurVarTitles=deparse(substitute(concurVars)),
                      xlab.format="%d-%b %H:%M", sunrise.time="06:00:00",
                      sunset.time="18:00:00", night.col="gray60",
-                     phaseCol=NULL, interact=TRUE, key=TRUE, ...)
+                     phaseCol=NULL, interact=TRUE, key=TRUE, cex.pts=0.4, ...)
 {
     ## Value: Returns (invisibly) a list with coordinates for each zoc'ed
     ## time window.  Also Plot time, depth, and other concurrent data.
@@ -74,7 +74,7 @@
         if (!is.null(phaseCol)) {
             phaseCol <- phaseCol[, drop=TRUE]
             colors <- rainbow(nlevels(phaseCol))
-            points(time, depth, col=colors[phaseCol], pch=19, cex=0.4)
+            points(time, depth, col=colors[phaseCol], pch=19, cex=cex.pts)
             if (key && nlevels(phaseCol) < 11) {
                 legend("bottomright", legend=levels(phaseCol), col=colors,
                        pch=19, cex=0.7, ncol=nlevels(phaseCol), bg="white")
@@ -94,7 +94,7 @@
                 rect(xleft, usr[3], xright, usr[4], col=night.col, border=NA)
                 lines(time, vari)
                 if (!is.null(phaseCol)) { # we already have 'colors'
-                    points(time, vari, col=colors[phaseCol], pch=19, cex=0.4)
+                    points(time, vari, col=colors[phaseCol], pch=19, cex=cex.pts)
                 }
                 axis(side=2)
             }

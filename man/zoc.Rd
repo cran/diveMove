@@ -20,7 +20,7 @@ plotTD(time, depth, concurVars=NULL, xlim=NULL, depth.lim=NULL,
        concurVarTitles=deparse(substitute(concurVars)),
        xlab.format="\%d-\%b \%H:\%M", sunrise.time="06:00:00",
        sunset.time="18:00:00", night.col="gray60",
-       phaseCol=NULL, interact=TRUE, key=TRUE, \ldots)
+       phaseCol=NULL, interact=TRUE, key=TRUE, cex.pts=0.4, \ldots)
 
 }
 %- maybe also 'usage' for other objects documented here.
@@ -66,6 +66,9 @@ plotTD(time, depth, concurVars=NULL, xlim=NULL, depth.lim=NULL,
 
   \item{key}{Logical indicating whether to draw a key.}
 
+  \item{cex.pts}{Passed to \code{\link{points}} to set the relative size
+    of points to plot (if any).}
+
   \item{\ldots}{Arguments passed to \code{\link{par}}; useful defaults
     \code{las=1}, \code{bty="n"}, and \code{mar} (the latter depending
     on whether additional concurrent data will be plotted) are provided,
@@ -96,20 +99,19 @@ plotTD(time, depth, concurVars=NULL, xlim=NULL, depth.lim=NULL,
 \value{ \code{zoc} returns a numeric vector, as long as \code{depth} of
   zero-offset corrected depths.
 
-  \code{plotDive} returns a list with as many components as sections of
-  the record that were zero-offset corrected, each consisting of two
-  further lists with the same components as those returned by
-  \code{\link{locator}}.}
+  \code{plotTD} returns (invisibly) a list with as many components as
+  sections of the record that were zero-offset corrected, each
+  consisting of two further lists with the same components as those
+  returned by \code{\link{locator}}.}
 
 
-\seealso{\code{\link{calibrateDepth}}}
+\seealso{\code{\link{calibrateDepth}}, and \code{\link{plotTDR}}.}
 
 % -------------------------------------------------------------------------
 
 \examples{
 
 data(divesTDR)
-plotTDR(divesTDR, interact=FALSE)
 
 ## Use interact=TRUE (default) to set the offset interactively
 depth.zoc <- zoc(getTime(divesTDR), getDepth(divesTDR), offset=3)

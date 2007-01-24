@@ -6,20 +6,20 @@ setMethod("show", signature=signature(object="TDR"),
               trange <- range(object@time)
               cat("Time-Depth Recorder data -- Class",
                   class(object), "object\n")
-              cat("  Source File             :", object@file, "\n")
-              cat("  Sampling Interval (s)   :", object@dtime, "\n")
-              cat("  Number of Samples       :", length(object@time), "\n")
-              cat("  Sampling Begins         :",
+              cat("  Source File          :", object@file, "\n")
+              cat("  Sampling Interval (s):", object@dtime, "\n")
+              cat("  Number of Samples    :", length(object@time), "\n")
+              cat("  Sampling Begins      :",
                   paste(object@time[1]), "\n")
-              cat("  Sampling Ends           :",
+              cat("  Sampling Ends        :",
                   paste(object@time[length(object@time)]), "\n")
-              cat("  Total Duration (d)      :",
+              cat("  Total Duration (d)   :",
                   difftime(trange[2], trange[1], units="days"), "\n")
               drange <- range(object@depth, na.rm=TRUE)
-              cat("  Measured depth range (m): [",
+              cat("  Measured depth range : [",
                   drange[1], ",", drange[2], "]\n")
               if (length(names(object@concurrentData)) > 0) {
-                  cat("  Other variables         :",
+                  cat("  Other variables      :",
                       names(object@concurrentData), "\n")
               }
           })
@@ -88,7 +88,7 @@ setMethod("plotTDR", signature(x="TDRcalibrate"),
               if (!missing(concurVars)) {
                   if (!is.character(concurVars))
                       stop("concurVars must be of class character")
-                  ccd <- getCCData(tdr, concurVars)[ok, ]
+                  ccd <- getCCData(tdr, concurVars)[ok, , drop=FALSE]
                   plotTDR(newtdr, concurVars=ccd, phaseCol=labs, ...)
               } else plotTDR(newtdr, phaseCol=labs, ...)
           })
@@ -275,12 +275,12 @@ setMethod("extractDive", signature(obj="TDR", diveNo="numeric",
               if (is(obj, "TDRspeed")) {
                   new("TDRspeed", time=getTime(obj)[okpts],
                       depth=getDepth(obj)[okpts],
-                      concurrentData=getCCData(obj)[okpts, ],
+                      concurrentData=getCCData(obj)[okpts, , drop=FALSE],
                       dtime=getDtime(obj), file=obj@file)
               } else {
                   new("TDR", time=getTime(obj)[okpts],
                       depth=getDepth(obj)[okpts],
-                      concurrentData=getCCData(obj)[okpts, ],
+                      concurrentData=getCCData(obj)[okpts, , drop=FALSE],
                       dtime=getDtime(obj), file=obj@file)
               }
           })
@@ -293,12 +293,12 @@ setMethod("extractDive",                # for TDRcalibrate
               if (is(ctdr, "TDRspeed")) {
                   new("TDRspeed", time=getTime(ctdr)[okpts],
                       depth=getDepth(ctdr)[okpts],
-                      concurrentData=getCCData(ctdr)[okpts, ],
+                      concurrentData=getCCData(ctdr)[okpts, , drop=FALSE],
                       dtime=getDtime(ctdr), file=ctdr@file)
               } else {
                   new("TDR", time=getTime(ctdr)[okpts],
                       depth=getDepth(ctdr)[okpts],
-                      concurrentData=getCCData(ctdr)[okpts, ],
+                      concurrentData=getCCData(ctdr)[okpts, , drop=FALSE],
                       dtime=getDtime(ctdr), file=ctdr@file)
               }
           })
@@ -323,6 +323,7 @@ setMethod("timeBudget",            # a table of general attendance pattern
                          beg=attlist[[3]], end=attlist[[4]],
                          row.names=NULL)
           })
+
 
 
 ###_* Emacs local variables.
