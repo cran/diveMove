@@ -1,6 +1,23 @@
+2007-01-24  Sebastian P. Luque  <spluque@gmail.com>
+
+	* detDive.R:
+	.diveIndices(): Use pmax and pmin to avoid returning indices beyond the
+	limits of the input.
+
+	* AllMethod.R: Use drop=FALSE in extraction methods to keep structure.
+
+2007-01-21  Sebastian P. Luque  <spluque@gmail.com>
+
+	Moved package to CVS.
+
+	* track.R: Removed track.R, no longer needed.
+
 2007-01-10  Sebastian P. Luque  <spluque@gmail.com>
 
-	* plotTD.R:
+	* AllMethod.R: Improved show() method for TDR objects.
+
+	* plotTD.R: plotTD(): New argument 'cex.pts' passed to points().
+
 	plotTD(): Removed the 'lab' par() setting from the initial, as this is
 	better handled with the newly introduced ellipsis arg.
 

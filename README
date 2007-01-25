@@ -12,6 +12,10 @@ vignette is also available by doing vignette("diveMove").
 
 ** Changes/New Features
 
+Version 0.7-5:
+
+	* Full examples for movement functions.
+
 Version 0.7-4:
 
 	* distSpeed() no longer uses 'id' argument.
@@ -24,7 +28,9 @@ Version 0.7-4:
 	* Improved show() method for 'TDRcalibrate' objects.
 
 	* plotTD(), and hence the plotTDR() methods now accept an ellipsis
-          argument to pass to par() for more flexibility drawing the plot.
+          argument to pass to par() for more flexibility drawing the
+          plot.  They also now accept a new argument 'cex.pts' to set the
+          relative size of points.
 
 Version 0.7-3:
 

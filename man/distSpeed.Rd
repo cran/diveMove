@@ -43,20 +43,27 @@ distSpeed(pt1, pt2)
 
 locs <- readLocs(system.file(file.path("data", "sealLocs.csv"),
                              package="diveMove"), idCol=1, dateCol=2,
-                 dtformat="\%Y-\%m-\%d \%H:\%M:\%S",
-                 classCol=3, lonCol=4, latCol=5)
+                  dtformat="\%Y-\%m-\%d \%H:\%M:\%S", classCol=3, lonCol=4,
+                  latCol=5)
 
 ## Travel summary between successive standard locations
 locs.std <- subset(locs, subset=class == "0" | class == "1" |
-                   class == "2" | class == "3")
-locs.split <- by(locs.std, locs.std$id, function(x) {
+                   class == "2" | class == "3" &
+                   !is.na(lon) & !is.na(lat))
+locs.std.tr <- by(locs.std, locs.std$id, function(x) {
     distSpeed(x[-nrow(x), 3:5], x[-1, 3:5])
 })
-## Particular quantiles from travel summaries
-lapply(locs.split, function(x) quantile(x[, 3], 0.99, na.rm=TRUE)) # speed
-lapply(locs.split, function(x) quantile(x[, 1], 0.99, na.rm=TRUE)) # distance
+lapply(locs.std.tr, head)
 
-## Travel summary between any two sets of points
+## Particular quantiles from travel summaries
+lapply(locs.std.tr, function(x) {
+    quantile(x[, 3], seq(0.90, 0.99, 0.01), na.rm=TRUE) # speed
+})
+lapply(locs.std.tr, function(x) {
+    quantile(x[, 1], seq(0.90, 0.99, 0.01), na.rm=TRUE) # distance
+})
+
+## Travel summary between arbitrary two sets of points
 distSpeed(locs[c(1, 5, 10), 3:5], locs[c(25, 30, 35), 3:5])
 
 }
