@@ -79,6 +79,7 @@ if (!isGeneric("timeBudget")) {
 }
 
 
+
 ###_* Emacs local variables.
 ## Local variables:
 ## allout-widgets-mode-inhibit: t
