@@ -1,3 +1,4 @@
+importFrom(stats4, mle)
 importFrom(graphics, plot, image)
 import(methods)                         # Paranoid measure
 
@@ -27,4 +28,6 @@ exportMethods("as.data.frame",
               "getTDR",
               "getTime",
               "getSpeedCoef",
-              "getSpeed")
+              "getSpeed",
+              "plotBouts",
+              "bec2")

@@ -12,13 +12,18 @@ vignette is also available by doing vignette("diveMove").
 
 ** Changes/New Features
 
+*** Version 0.8.0:
+
+	* New methods for identification and analysis of bouts of
+          behaviour (mostly diving, but apply to others too).
+
 *** Version 0.7-8:
 
         * Better arrangement of widgets in plotTD() and its methods.
 
 *** Version 0.7-7:
 
-    	* S4 Documentation bug fix.
+	* S4 documentation bug fix.
 
 *** Version 0.7-6:
 

@@ -1,4 +1,4 @@
-## $Id: austFilter.R,v 1.1.1.1.2.1 2007-02-13 21:51:53 sluque Exp $
+## $Id: austFilter.R,v 1.3 2007-02-15 17:20:05 sluque Exp $
 
 "grpSpeedFilter" <- function(x, speed.thr, window=5)
 {
@@ -48,7 +48,7 @@
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
     if (!window %% 2) stop ("window size must be an odd number")
-    if (nrow(x) < window) stop ("fewer rows than window size")
+    if (nrow(x) < window) stop ("there are fewer rows than window size")
     tpos <- window %/% 2                      # test subscript - 1
     testrows <- seq(1 + tpos, nrow(x) - tpos) # rel subscripts of pts to test
     ref <- c(-seq(tpos), seq(tpos))     # reference points for test

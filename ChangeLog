@@ -1,19 +1,46 @@
+2007-07-07  Sebastian P. Luque  <spluque@gmail.com>
+
+	Version 0.8.0 released.
+
+	* DESCRIPTION: Changed 'SaveImage' field to 'LazyLoad' as per
+	deprecated 'SaveImage' in R-devel.
+
+2007-07-02  Sebastian P. Luque  <spluque@gmail.com>
+
+	* calibrate.R, plotTD.R:
+	Use the '::' operator to be explicit when referring to external packages.
+
+2007-07-01  Sebastian P. Luque  <spluque@gmail.com>
+
+	* DESCRIPTION: Updated to GPL 3, and added a Suggests: tcltk.
+
+2007-03-20  Sebastian P. Luque  <spluque@gmail.com>
+
+	* man: Provided better 'Values' section and descriptions.
+
 2007-02-16  Sebastian P. Luque  <spluque@gmail.com>
 
-	* R/plotTD.R (diveMove-no-bouts1-0): Better arrangement of tcltk
-	widgets.
+	* R/plotTD.R: Better arrangement of tcltk widgets.
+
+2007-02-14  Sebastian P. Luque  <spluque@gmail.com>
+
+	* R/austFilter.R (rmsFilter): Provided more meaningful error
+	message.
 
 2007-02-13  Sebastian P. Luque  <spluque@gmail.com>
 
-	* man/plotTDR-methods.Rd (diveMove-no-bouts1-0): S4 documentation
-	is now being checked in R devel, and a mismatch was found.  This
-	was fixed here.
+	* man/plotTDR-methods.Rd: S4 documentation is now being checked in
+	R devel, and a mismatch was found.  This was fixed here.
 
 2007-02-11  Sebastian P. Luque  <spluque@gmail.com>
 
 	* R/plotTD.R: Used unclass() on the first argument in pmax() and
 	pmin() calls, to standardize comparisons on a simple number.
 	Thanks to Brian Ripley.
+
+2007-01-25  Sebastian P. Luque  <spluque@gmail.com>
+
+	* bouts.R: Renamed revLogit() to unLogit() for appropriateness.
 
 2007-01-24  Sebastian P. Luque  <spluque@gmail.com>
 
@@ -26,7 +53,42 @@
 
 	Moved package to CVS.
 
+	* bouts.R:
+	plotBouts2.mle(): Removed density plot, we use only curve fit.
+
+	plotBouts2.mle(): Changed default draw.bec=FALSE.
+
 	* track.R: Removed track.R, no longer needed.
+
+2007-01-15  Sebastian P. Luque  <spluque@gmail.com>
+
+	* bouts.R:
+	plotBouts2.cf(): New function for plotting cumulative frequency
+	distribution.
+
+2007-01-12  Sebastian P. Luque  <spluque@gmail.com>
+
+	* bouts.R: plotBouts.mle(): Show the value of 1-p in the legend.
+
+	* AllMethod.R:
+	Fixed bug in 'nls' method for plotBouts() which should use eval.parent()
+	to search for data.
+
+2007-01-11  Sebastian P. Luque  <spluque@gmail.com>
+
+	* bouts.R:
+	boutfreqs(): Fixed bug causing unavailable 'upper' object when
+	method="seq.diff".
+
+	bouts.mle(): Removed require stats4 call.
+
+	* zzz.R: require'd stats4.
+
+	* AllGenerics.R, AllMethod.R: New plotBouts() and bec2() methods.
+
+	* AllClass.R: Use nls class as S4.
+
+	* bouts.R: New file.
 
 2007-01-10  Sebastian P. Luque  <spluque@gmail.com>
 

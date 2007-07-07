@@ -1,4 +1,4 @@
-## $Id: AllGenerics.R,v 1.1.1.1.2.4 2007-02-16 20:31:06 sluque Exp $
+## $Id: AllGenerics.R,v 1.4 2007-02-16 21:10:52 sluque Exp $
 
 ###_ PlotTDR
 if (!isGeneric("plotTDR")) {
@@ -80,6 +80,14 @@ if (!isGeneric("timeBudget")) {
                function(obj, ignoreZ) standardGeneric("timeBudget"))
 }
 
+###_ plotBouts and bec2
+if (!isGeneric("plotBouts")) {
+    setGeneric("plotBouts", function(fit, ...) standardGeneric("plotBouts"))
+}
+
+if (!isGeneric("bec2")) {
+    setGeneric("bec2", function(fit) standardGeneric("bec2"))
+}
 
 
 ###_ Emacs local variables
