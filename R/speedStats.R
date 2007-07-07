@@ -1,4 +1,4 @@
-## $Id: speedStats.R,v 1.1.1.1.2.1 2007-02-13 21:51:53 sluque Exp $
+## $Id: speedStats.R,v 1.2 2007-02-13 17:22:53 sluque Exp $
 
 ## This one simply uses the mean speed to calculate the angles and tdist
 ".speedStats" <- function(x, vdist)

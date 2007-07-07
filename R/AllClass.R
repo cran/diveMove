@@ -1,4 +1,4 @@
-## $Id: AllClass.R,v 1.1.1.1.2.2 2007-02-13 21:51:53 sluque Exp $
+## $Id: AllClass.R,v 1.3 2007-02-13 17:18:30 sluque Exp $
 
 setClass("TDR",
          representation=representation(file="character", dtime="numeric",
@@ -59,3 +59,5 @@ setClass("TDRcalibrate",
                  return("speed.calib.coefs must be a length-2 vector")
              }
          })
+
+setOldClass("nls")                      # For bout methods
