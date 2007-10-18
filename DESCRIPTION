@@ -1,7 +1,7 @@
 Package: diveMove
 Type: Package
 Title: Dive analysis and calibration
-Version: 0.8.2
+Version: 0.8.3
 Depends: R (>= 2.4.0), methods, stats4
 Suggests: KernSmooth, quantreg, tcltk
 Imports: stats4
@@ -16,4 +16,4 @@ Collate: AllClass.R AllGenerics.R AllMethod.R austFilter.R bouts.R calibrate.R
 	 readLocs.R readTDR.R speedStats.R stampDive.R zoc.R zzz.R
 License: GPL (GNU General Public License)
 	 Version 3 (http://www.gnu.org/licenses/gpl.html) or later
-Packaged: Thu Jul 12 14:05:03 2007; sluque
+Packaged: Thu Oct 18 14:32:37 2007; sluque
