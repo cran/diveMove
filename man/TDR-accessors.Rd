@@ -1,4 +1,4 @@
-% $Id: TDR-accessors.Rd,v 1.5 2007-12-08 21:50:54 sluque Exp $
+% $Id: TDR-accessors.Rd 121 2008-01-12 01:20:53Z sluque $
 \name{TDR-accessors}
 \docType{methods}
 \alias{TDR-methods}

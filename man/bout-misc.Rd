@@ -1,4 +1,4 @@
-% $Id: bout-misc.Rd,v 1.11 2007-12-08 21:50:54 sluque Exp $
+% $Id: bout-misc.Rd 121 2008-01-12 01:20:53Z sluque $
 \name{bout-misc}
 
 \alias{boutfreqs}

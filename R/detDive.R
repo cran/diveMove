@@ -1,4 +1,4 @@
-## $Id: detDive.R,v 1.3 2007-02-13 17:22:53 sluque Exp $
+## $Id: detDive.R 121 2008-01-12 01:20:53Z sluque $
 
 ".labDive" <- function(act, string, interval)
 {

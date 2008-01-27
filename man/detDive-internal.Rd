@@ -1,4 +1,4 @@
-% $Id: detDive-internal.Rd,v 1.5 2007-12-08 21:50:54 sluque Exp $
+% $Id: detDive-internal.Rd 121 2008-01-12 01:20:53Z sluque $
 \name{detDive-internal}
 \alias{detDive-internal}
 
