@@ -1,4 +1,4 @@
-## $Id: detPhase.R,v 1.2 2007-02-13 17:22:53 sluque Exp $
+## $Id: detPhase.R 121 2008-01-12 01:20:53Z sluque $
 
 ".rleActivity" <- function(time, act, interval)
 {

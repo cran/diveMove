@@ -1,4 +1,4 @@
-% $Id: sealLocs.Rd,v 1.4 2007-12-08 21:50:54 sluque Exp $
+% $Id: sealLocs.Rd 121 2008-01-12 01:20:53Z sluque $
 \name{sealLocs}
 \docType{data}
 
