@@ -1,23 +1,19 @@
-## $Id: Makefile 121 2008-01-12 01:20:53Z sluque $
+## $Id: Makefile 152 2008-01-29 15:18:27Z sluque $
 
-##_+ Makefile for LaTeX files ---------------------------------------------
+##_+ Prepare the vignettes ------------------------------------------------
 # We don't need to do anything with the Sweave files, as R CMD build
 # weaves them before calling make
-
-# LATEX	= latex
-PDFLATEX = pdflatex
+LATEX = pdflatex
 BIBTEX = bibtex
-# DVIPS = dvips
-# PSTOPDF = ps2pdf
 TEXTRASH = *.*ps $*.dvi $*.bbl $*.aux $*.blg *.log $*.toc $*.out auto/
 
 all : diveMove.pdf
 
 %.pdf :	%.tex
 	R CMD Rd2dvi --pdf -o 'diveMove-rd.pdf' --title='diveMove' ../../man/
-	$(PDFLATEX) $*
+	$(LATEX) $*
 	$(BIBTEX) $*
-	$(PDFLATEX) $*
-	$(PDFLATEX) $*
-	$(PDFLATEX) $*
+	$(LATEX) $*
+	$(LATEX) $*
+	$(LATEX) $*
 	rm -rf $(TEXTRASH) diveMove-*
