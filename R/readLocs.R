@@ -1,4 +1,4 @@
-## $Id: readLocs.R 121 2008-01-12 01:20:53Z sluque $
+## $Id: readLocs.R 164 2008-03-30 22:02:13Z sluque $
 
 "readLocs" <- function(file, loc.idCol, idCol, dateCol, timeCol=NULL,
                        dtformat="%m/%d/%Y %H:%M:%S", tz="GMT", classCol,
@@ -28,8 +28,6 @@
     } else id <- inLocs[, idCol]
     dtpasted <- paste(inLocs[, dateCol], inLocs[, timeCol])
     datetime <- as.POSIXct(strptime(dtpasted, format=dtformat), tz=tz)
-    ## Set up data frame with loc id, animal id, time, year, doy, period,
-    ## pttid, class, newclass, lat, lon, latalt, lonalt
     locs <- data.frame(loc.id=loc.id, id=id, time=datetime,
                        lon=inLocs[, lonCol], lat=inLocs[, latCol],
                        class=inLocs[, classCol])

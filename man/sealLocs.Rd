@@ -1,4 +1,4 @@
-% $Id: sealLocs.Rd 121 2008-01-12 01:20:53Z sluque $
+% $Id: sealLocs.Rd 167 2008-04-01 18:18:07Z sluque $
 \name{sealLocs}
 \docType{data}
 
@@ -35,5 +35,13 @@
   \url{http://whale.wheelock.edu/Welcome.html}.}
 
 % -------------------------------------------------------------------------
+
+\examples{
+sealLocs <- read.csv(system.file(file.path("data", "sealLocs.csv"),
+                                 package="diveMove"))
+str(sealLocs)
+
+}
+
 
 \keyword{datasets}

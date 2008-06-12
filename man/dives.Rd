@@ -1,4 +1,4 @@
-% $Id: dives.Rd 121 2008-01-12 01:20:53Z sluque $
+% $Id: dives.Rd 167 2008-04-01 18:18:07Z sluque $
 \name{dives}
 \docType{data}
 
@@ -9,7 +9,7 @@
 
 % -------------------------------------------------------------------------
 
-\title{Sample TDR data from a fur seal}
+\title{Sample of TDR data from a fur seal}
 
 
 
@@ -67,5 +67,13 @@
 \source{Sebastian P. Luque, Christophe Guinet, John P.Y. Arnould}
 
 % -------------------------------------------------------------------------
+
+\examples{
+dives <- read.csv(system.file(file.path("data", "dives.csv"),
+                              package="diveMove"))
+str(dives)
+
+}
+
 
 \keyword{datasets}

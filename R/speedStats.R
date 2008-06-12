@@ -1,6 +1,5 @@
-## $Id: speedStats.R 121 2008-01-12 01:20:53Z sluque $
+## $Id: speedStats.R 169 2008-04-09 14:39:31Z sluque $
 
-## This one simply uses the mean speed to calculate the angles and tdist
 ".speedStats" <- function(x, vdist)
 {
     ## Value: A 3-column matrix with total distance, mean speed, and angle
