@@ -1,4 +1,4 @@
-% $Id: diveStats.Rd 121 2008-01-12 01:20:53Z sluque $
+% $Id: diveStats.Rd 169 2008-04-09 14:39:31Z sluque $
 \name{diveStats}
 
 \alias{diveStats}
@@ -78,7 +78,8 @@ stampDive(x, ignoreZ=TRUE)
 
   \item{desc.mean.speed}{Numeric vector with descent mean speed.}
 
-  \item{desc.angle}{Numeric vector with descent angle.}
+  \item{desc.angle}{Numeric vector with descent angle, from the surface
+    plane.}
 
   \item{bott.tdist}{Numeric vector with bottom total distance, estimated
     from speed.}
@@ -90,7 +91,8 @@ stampDive(x, ignoreZ=TRUE)
 
   \item{asc.mean.speed}{Numeric vector with ascent mean speed.}
 
-  \item{asc.angle}{Numeric vector with ascent angle.}
+  \item{asc.angle}{Numeric vector with ascent angle, from the bottom
+    plane.}
 
   \item{divetim}{Dive duration.}
 
