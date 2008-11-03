@@ -1,4 +1,4 @@
-% $Id: austFilter.Rd 141 2008-01-27 21:00:35Z sluque $
+% $Id: austFilter.Rd 199 2008-11-04 03:06:40Z sluque $
 \name{austFilter}
 
 \alias{grpSpeedFilter}
@@ -8,7 +8,6 @@
 % -------------------------------------------------------------------------
 
 \title{Filter satellite locations}
-
 
 
 \description{Apply a three stage algorithm to eliminate erroneous

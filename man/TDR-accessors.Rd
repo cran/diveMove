@@ -1,4 +1,4 @@
-% $Id: TDR-accessors.Rd 121 2008-01-12 01:20:53Z sluque $
+% $Id: TDR-accessors.Rd 199 2008-11-04 03:06:40Z sluque $
 \name{TDR-accessors}
 \docType{methods}
 \alias{TDR-methods}
@@ -38,9 +38,8 @@
   objects}
 
 
-\description{
-  Basic methods for manipulating objects of class "TDR".
-}
+\description{Basic methods for manipulating objects of class
+  \code{\link{TDR}}. }
 
 
 \section{Show Methods}{
@@ -52,12 +51,13 @@
   }
 }
 
+
 \section{Coerce Methods}{
   \describe{
 
     \item{as.data.frame}{\code{signature(x="TDR")}: Coerce object to
       data.frame.  This method returns a data frame, with attributes
-      \sQuote{file} and \sQuote{dtime} indicating the source file and
+      \dQuote{file} and \dQuote{dtime} indicating the source file and
       the interval between samples.}
 
     \item{as.data.frame}{\code{signature(x="TDRspeed")}: Coerce object
@@ -65,10 +65,11 @@
       objects.}
 
     \item{as.TDRspeed}{\code{signature(x="TDR")}: Coerce object to
-      TDRspeed class.}
+      \code{\link{TDRspeed}} class.}
 
   }
 }
+
 
 \section{Extractor Methods}{
   \describe{
@@ -98,6 +99,7 @@
 
   }
 }
+
 
 \section{Replacement Methods}{
   \describe{
@@ -134,6 +136,8 @@ newspeed <- getSpeed(divesTDR) + 2
 speed(divesTDR) <- newspeed
 }
 
+
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
+
 
 \keyword{methods}

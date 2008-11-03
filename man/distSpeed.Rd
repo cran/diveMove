@@ -1,4 +1,4 @@
-% $Id: distSpeed.Rd 121 2008-01-12 01:20:53Z sluque $
+% $Id: distSpeed.Rd 199 2008-11-04 03:06:40Z sluque $
 \name{distSpeed}
 
 \alias{distSpeed}
@@ -6,7 +6,6 @@
 % -------------------------------------------------------------------------
 
 \title{Calculate distance and speed between locations}
-
 
 
 \description{Calculate distance, time difference, and speed between
@@ -37,9 +36,6 @@ distSpeed(pt1, pt2)
 
 % -------------------------------------------------------------------------
 
-\author{Sebastian P. Luque \email{spluque@gmail.com}}
-
-
 \examples{
 
 locs <- readLocs(system.file(file.path("data", "sealLocs.csv"),
@@ -69,6 +65,8 @@ distSpeed(locs[c(1, 5, 10), 3:5], locs[c(25, 30, 35), 3:5])
 
 }
 
+
+\author{Sebastian P. Luque \email{spluque@gmail.com}}
 
 
 \keyword{math}% at least one, from doc/KEYWORDS

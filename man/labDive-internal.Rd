@@ -1,4 +1,4 @@
-% $Id: labDive-internal.Rd 121 2008-01-12 01:20:53Z sluque $
+% $Id: labDive-internal.Rd 199 2008-11-04 03:06:40Z sluque $
 \name{labDive-internal}
 \alias{labDive-internal}
 
@@ -15,18 +15,20 @@
   These functions provide information for particular dives,
 }
 
+
 \usage{
 .cutDive(x, descent.crit.q, ascent.crit.q, wiggle.tol)
 .labDive(act, string, interval)
 .labDivePhase(x, diveID, descent.crit.q, ascent.crit.q, wiggle.tol)
 }
 
+
 \arguments{
 
-  \item{x}{For \code{.labDivePhase}, a class \sQuote{TDR} object.  For
-    \code{.cutDive}, a 3-col matrix with subscript in original TDR
-    object, non NA depths, and numeric vector representing POSIXct
-    times.}
+  \item{x}{For \code{.labDivePhase}, a class \code{\link{TDR}} object.
+    For \code{.cutDive}, a 3-col matrix with subscript in original TDR
+    object, non NA depths, and numeric vector representing
+    \code{\link{POSIXct}} times.}
 
   \item{descent.crit.q, ascent.crit.q, wiggle.tol}{Passed from
     \code{calibrateDepth}.}

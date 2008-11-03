@@ -1,4 +1,4 @@
-% $Id: diveMove-internal.Rd 121 2008-01-12 01:20:53Z sluque $
+% $Id: diveMove-internal.Rd 199 2008-11-04 03:06:40Z sluque $
 \name{diveMove-internal}
 
 \alias{.diveIndices}
@@ -12,7 +12,6 @@
 % -------------------------------------------------------------------------
 
 \title{Internal diveMove Functions}
-
 
 
 \description{Functions used for very particular tasks within larger
