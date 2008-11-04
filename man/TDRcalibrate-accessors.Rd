@@ -1,4 +1,4 @@
-% $Id: TDRcalibrate-accessors.Rd 121 2008-01-12 01:20:53Z sluque $
+% $Id: TDRcalibrate-accessors.Rd 199 2008-11-04 03:06:40Z sluque $
 \name{TDRcalibrate-accessors}
 \docType{methods}
 \alias{TDRcalibrate-methods}
@@ -26,10 +26,8 @@
   Objects}
 
 
-\description{
-  Plot, print summaries and extract information from "TDRcalibrate"
-  objects.
-}
+\description{ Plot, print summaries and extract information from
+  \code{\link{TDRcalibrate}} objects. }
 
 \usage{
 \S4method{getDAct}{TDRcalibrate,missing}(x)
@@ -43,7 +41,7 @@
 
 \arguments{
 
-  \item{x}{\code{"\linkS4class{TDRcalibrate}"} object.}
+  \item{x}{\code{\link{TDRcalibrate}} object.}
 
   \item{diveNo}{numeric vector with dive numbers to plot.}
 
@@ -140,6 +138,8 @@ getDPhaseLab(divesTDRcalibrate, 19)
 
 }
 
+
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
+
 
 \keyword{methods}
