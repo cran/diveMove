@@ -1,4 +1,4 @@
-% $Id: diveMove-package.Rd 199 2008-11-04 03:06:40Z sluque $
+% $Id: diveMove-package.Rd 209 2009-02-13 16:00:17Z sluque $
 \name{diveMove-package}
 \docType{package}
 
@@ -8,7 +8,7 @@
 \concept{Dive analysis}
 % -------------------------------------------------------------------------
 
-\title{Time depth recorder analysis}
+\title{Dive Analysis and Calibration}
 
 
 \description{This package is a collection of functions for visualizing,
@@ -25,7 +25,7 @@
   \code{\link[diveMove:diveMove-package]{calibrateDepth}},
   \code{\link[diveMove:diveMove-package]{calibrateSpeed}},
   \code{\link[diveMove:diveMove-package]{timeBudget}},
-  \code{\link[diveMove:diveMove-package]{stampDive}}.}
+  \code{\link[diveMove:diveMove-package]{stampDive}}. }
 
 % -------------------------------------------------------------------------
 

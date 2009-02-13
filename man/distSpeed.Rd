@@ -1,4 +1,4 @@
-% $Id: distSpeed.Rd 199 2008-11-04 03:06:40Z sluque $
+% $Id: distSpeed.Rd 209 2009-02-13 16:00:17Z sluque $
 \name{distSpeed}
 
 \alias{distSpeed}
@@ -60,7 +60,7 @@ lapply(locs.std.tr, function(x) {
     quantile(x[, 1], seq(0.90, 0.99, 0.01), na.rm=TRUE) # distance
 })
 
-## Travel summary between arbitrary two sets of points
+## Travel summary between two arbitrary sets of points
 distSpeed(locs[c(1, 5, 10), 3:5], locs[c(25, 30, 35), 3:5])
 
 }
