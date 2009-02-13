@@ -1,4 +1,4 @@
-% $Id: dives.Rd 199 2008-11-04 03:06:40Z sluque $
+% $Id: dives.Rd 209 2009-02-13 16:00:17Z sluque $
 \name{dives}
 \docType{data}
 
@@ -25,17 +25,18 @@
   A comma separated value (csv) file with 69560 \acronym{TDR} readings
   with the following columns:
 
-  \item{date}{Date}
+  \itemize{
+    \item{date}{Date}
 
-  \item{time}{Time}
+    \item{time}{Time}
 
-  \item{depth}{Depth in m}
+    \item{depth}{Depth in m}
 
-  \item{light}{Light level}
+    \item{light}{Light level}
 
-  \item{temperature}{Temperature in C}
+    \item{temperature}{Temperature in degrees Celsius}
 
-  \item{speed}{Speed in m/s}
+    \item{speed}{Speed in m/s} }
 
   The data are also provided as a \code{\link{TDR}} object (*.RData
   format) for convenience.  }

@@ -1,4 +1,4 @@
-% $Id: sealLocs.Rd 167 2008-04-01 18:18:07Z sluque $
+% $Id: sealLocs.Rd 209 2009-02-13 16:00:17Z sluque $
 \name{sealLocs}
 \docType{data}
 
@@ -15,13 +15,14 @@
 
 \format{A data frame with the following information:
 
-  \item{id}{String naming the seal the data come from.}
+  \itemize{
+    \item{id}{String naming the seal the data come from.}
 
-  \item{time}{The date and time of the location.}
+    \item{time}{The date and time of the location.}
 
-  \item{class}{The ARGOS location quality classification.}
+    \item{class}{The ARGOS location quality classification.}
 
-  \item{lon, lat}{x and y geographic coordinates of each location.}
+    \item{lon, lat}{x and y geographic coordinates of each location.} }
 
 }
 
