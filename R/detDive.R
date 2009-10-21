@@ -1,4 +1,4 @@
-## $Id: detDive.R 121 2008-01-12 01:20:53Z sluque $
+## $Id: detDive.R 219 2009-10-21 13:28:24Z sluque $
 
 ".labDive" <- function(act, string, interval)
 {
@@ -97,8 +97,8 @@
             desc.wiggle <- rate <= 0 & desc[-length(desc)] < bottom.depth
             if (length(low.rates) > 0 & any(desc.wiggle)) {
                 low.below <- setdiff(low.rates, which(desc.wiggle))
-                crit.id <- ifelse(length(low.below) < 1, low.rates[1],
-                                  low.below[1])
+                crit.id <- ifelse(length(low.below) < 1, length(rate),
+                                  low.below[length(low.below)])
             } else if (length(low.rates) < 1) {
                 crit.id <- length(rate)
             } else crit.id <- low.rates[1]
