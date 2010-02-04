@@ -1,3 +1,48 @@
+2010-02-04  Sebastian P. Luque <spluque@gmail.com>
+
+	  Version 0.9.7 released.
+
+	* ChangeLog, README, inst/doc/biblioSPL.bib:
+	Updated bibliography.
+
+2010-02-03  Sebastian P. Luque <spluque@gmail.com>
+
+	* R/readTDR.R, data/dives.csv, data/sealLocs.csv,
+	  inst/doc/diveMove.Rnw, man/austFilter.Rd, man/distSpeed.Rd,
+	  man/diveMove-package.Rd, man/dives.Rd, man/readLocs.Rd,
+	  man/readTDR.Rd, man/sealLocs.Rd, tests/calibrations.R,
+	  tests/class-tests.R, tests/final-stats.R:
+	  New argument '\ldots' to readTDR, passed to read.csv(), for
+	  consistency and more flexibility.
+
+	  We changed comma to semi-colon delimiter in data files. This
+	  prompted changes in the examples (*.Rd files).  Thanks to Kurt
+	  Hornik for spotting this in the warning check.
+
+2010-02-02  Sebastian P. Luque <spluque@gmail.com>
+
+	* man/dives.Rd, man/sealLocs.Rd:
+	  Fixed *.Rd files with markup that is no longer valid.
+
+2009-10-28  Sebastian P. Luque <spluque@gmail.com>
+
+	* DESCRIPTION, inst/doc/biblioSPL.bib:
+	  Updated DESCRIPTION and *.bib.
+
+2009-10-25  Sebastian P. Luque <spluque@gmail.com>
+
+	* .Rbuildignore, inst/doc/biblioSPL.bib, inst/doc/diveMove.Rnw,
+	  tests/calibrations.R, tests/final-stats.R:
+	  Adding *.bib file because it's needed for R-forge building, but
+	  ignore it for building.
+
+2009-10-24  Sebastian P. Luque <spluque@gmail.com>
+
+	* inst/doc, inst/doc/diveMove.Rnw, inst/doc/tcltk.png:
+	  Saved vignette in UTF-8, as that is what was used.
+
+	  Added tcltk.png, needed for building.
+
 2009-10-21  Sebastian P. Luque <spluque@gmail.com>
 
 	Version 0.9.6 released.

@@ -1,4 +1,4 @@
-## $Id: AllClass.R 121 2008-01-12 01:20:53Z sluque $
+## $Id: AllClass.R 122 2008-01-12 01:20:53Z sluque $
 
 setClass("TDR",
          representation=representation(file="character", dtime="numeric",

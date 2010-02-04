@@ -1,4 +1,4 @@
-## $Id: zzz.R 121 2008-01-12 01:20:53Z sluque $
+## $Id: zzz.R 122 2008-01-12 01:20:53Z sluque $
 
 ".onLoad" <- function(lib, pkg) {
     require(methods)

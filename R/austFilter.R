@@ -1,4 +1,4 @@
-## $Id: austFilter.R 144 2008-01-28 00:28:12Z sluque $
+## $Id: austFilter.R 145 2008-01-28 00:28:12Z sluque $
 
 "grpSpeedFilter" <- function(x, speed.thr, window=5)
 {

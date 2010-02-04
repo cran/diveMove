@@ -1,4 +1,4 @@
-## $Id: speedStats.R 169 2008-04-09 14:39:31Z sluque $
+## $Id: speedStats.R 170 2008-04-09 14:39:31Z sluque $
 
 ".speedStats" <- function(x, vdist)
 {

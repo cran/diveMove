@@ -1,4 +1,4 @@
-% $Id: diveMove-package.Rd 209 2009-02-13 16:00:17Z sluque $
+% $Id: diveMove-package.Rd 260 2010-02-03 18:13:12Z sluque $
 \name{diveMove-package}
 \docType{package}
 
@@ -32,7 +32,8 @@
 \examples{
 ## read in data and create a TDR object
 (sealX <- readTDR(system.file(file.path("data", "dives.csv"),
-                              package="diveMove"), speed=TRUE))
+                              package="diveMove"),
+                  speed=TRUE, sep=";", na.strings="", as.is=TRUE))
 
 if (dev.interactive(orNone=TRUE)) plotTDR(sealX)  # interactively pan and zoom
 

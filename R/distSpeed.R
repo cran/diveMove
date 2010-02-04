@@ -1,4 +1,4 @@
-## $Id: distSpeed.R 121 2008-01-12 01:20:53Z sluque $
+## $Id: distSpeed.R 122 2008-01-12 01:20:53Z sluque $
 
 "distSpeed" <- function(pt1, pt2)
 {
