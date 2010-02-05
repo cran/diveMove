@@ -1,4 +1,4 @@
-% $Id: bouts2MLE.Rd 199 2008-11-04 03:06:40Z sluque $
+% $Id: bouts2MLE.Rd 200 2008-11-04 03:06:40Z sluque $
 \name{bouts2MLE}
 
 \alias{bouts2.mleFUN}

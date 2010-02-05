@@ -1,4 +1,4 @@
-% $Id: sealLocs.Rd 209 2009-02-13 16:00:17Z sluque $
+% $Id: sealLocs.Rd 260 2010-02-03 18:13:12Z sluque $
 \name{sealLocs}
 \docType{data}
 
@@ -15,14 +15,15 @@
 
 \format{A data frame with the following information:
 
-  \itemize{
+  \describe{
     \item{id}{String naming the seal the data come from.}
 
     \item{time}{The date and time of the location.}
 
     \item{class}{The ARGOS location quality classification.}
 
-    \item{lon, lat}{x and y geographic coordinates of each location.} }
+    \item{lon, lat}{x and y geographic coordinates of each location.}
+  }
 
 }
 
@@ -39,7 +40,7 @@
 
 \examples{
 sealLocs <- read.csv(system.file(file.path("data", "sealLocs.csv"),
-                                 package="diveMove"))
+                                 package="diveMove"), sep=";")
 str(sealLocs)
 
 }

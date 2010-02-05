@@ -1,4 +1,4 @@
-% $Id: dives.Rd 209 2009-02-13 16:00:17Z sluque $
+% $Id: dives.Rd 260 2010-02-03 18:13:12Z sluque $
 \name{dives}
 \docType{data}
 
@@ -25,7 +25,7 @@
   A comma separated value (csv) file with 69560 \acronym{TDR} readings
   with the following columns:
 
-  \itemize{
+  \describe{
     \item{date}{Date}
 
     \item{time}{Time}
@@ -36,10 +36,13 @@
 
     \item{temperature}{Temperature in degrees Celsius}
 
-    \item{speed}{Speed in m/s} }
+    \item{speed}{Speed in m/s}
+  }
 
   The data are also provided as a \code{\link{TDR}} object (*.RData
-  format) for convenience.  }
+  format) for convenience.
+
+}
 
 
 \details{
@@ -71,7 +74,8 @@
 
 \examples{
 dives <- read.csv(system.file(file.path("data", "dives.csv"),
-                              package="diveMove"))
+                              package="diveMove"),
+                  sep=";", na.strings="")
 str(dives)
 
 }

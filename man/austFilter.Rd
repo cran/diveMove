@@ -1,4 +1,4 @@
-% $Id: austFilter.Rd 199 2008-11-04 03:06:40Z sluque $
+% $Id: austFilter.Rd 260 2010-02-03 18:13:12Z sluque $
 \name{austFilter}
 
 \alias{grpSpeedFilter}
@@ -130,7 +130,7 @@ higher than threshold.}
 locs <- readLocs(system.file(file.path("data", "sealLocs.csv"),
                              package="diveMove"), idCol=1, dateCol=2,
                   dtformat="\%Y-\%m-\%d \%H:\%M:\%S", classCol=3, lonCol=4,
-                  latCol=5)
+                  latCol=5, sep=";")
 ringy <- subset(locs, id == "ringy" & !is.na(lon) & !is.na(lat))
 
 ## Austin et al.'s group filter alone

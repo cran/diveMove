@@ -1,4 +1,4 @@
-% $Id: extractDive-methods.Rd 199 2008-11-04 03:06:40Z sluque $
+% $Id: extractDive-methods.Rd 200 2008-11-04 03:06:40Z sluque $
 \name{extractDive-methods}
 \docType{methods}
 \alias{extractDive-methods}

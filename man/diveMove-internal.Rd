@@ -1,4 +1,4 @@
-% $Id: diveMove-internal.Rd 199 2008-11-04 03:06:40Z sluque $
+% $Id: diveMove-internal.Rd 200 2008-11-04 03:06:40Z sluque $
 \name{diveMove-internal}
 
 \alias{.diveIndices}

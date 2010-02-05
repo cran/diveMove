@@ -1,4 +1,4 @@
-## $Id: stampDive.R 121 2008-01-12 01:20:53Z sluque $
+## $Id: stampDive.R 122 2008-01-12 01:20:53Z sluque $
 
 "stampDive" <- function(x, ignoreZ=TRUE)
 {

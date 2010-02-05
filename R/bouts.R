@@ -1,4 +1,4 @@
-## $Id: bouts.R 218 2009-05-07 01:58:04Z sluque $
+## $Id: bouts.R 219 2009-05-07 01:58:04Z sluque $
 
 "logit" <- function(p) log(p / (1 - p))
 

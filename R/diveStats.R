@@ -1,4 +1,4 @@
-## $Id: diveStats.R 186 2008-10-23 05:24:37Z sluque $
+## $Id: diveStats.R 187 2008-10-23 05:24:37Z sluque $
 
 "diveStats" <- function(x)
 {

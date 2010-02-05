@@ -1,4 +1,4 @@
-% $Id: diveStats.Rd 199 2008-11-04 03:06:40Z sluque $
+% $Id: diveStats.Rd 200 2008-11-04 03:06:40Z sluque $
 \name{diveStats}
 
 \alias{diveStats}

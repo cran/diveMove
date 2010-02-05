@@ -1,4 +1,4 @@
-% $Id: TDRcalibrate-class.Rd 199 2008-11-04 03:06:40Z sluque $
+% $Id: TDRcalibrate-class.Rd 200 2008-11-04 03:06:40Z sluque $
 \name{TDRcalibrate-class}
 \docType{class}
 

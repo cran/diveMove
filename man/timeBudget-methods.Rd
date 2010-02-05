@@ -1,4 +1,4 @@
-% $Id: timeBudget-methods.Rd 199 2008-11-04 03:06:40Z sluque $
+% $Id: timeBudget-methods.Rd 200 2008-11-04 03:06:40Z sluque $
 \name{timeBudget-methods}
 \docType{methods}
 
