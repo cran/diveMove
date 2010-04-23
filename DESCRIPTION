@@ -1,8 +1,8 @@
 Package: diveMove
 Type: Package
 Title: Dive analysis and calibration
-Version: 0.9.7
-Depends: R (>= 2.4.0), methods, stats4
+Version: 0.9.8
+Depends: R (>= 2.11.0), methods, stats4
 Suggests: KernSmooth, quantreg, tcltk
 Imports: stats4
 Author: Sebastian P. Luque <spluque@gmail.com>
@@ -18,8 +18,6 @@ Collate: AllClass.R AllGenerics.R AllMethod.R austFilter.R bouts.R
         stampDive.R zoc.R zzz.R
 License: GPL-3
 URL: http://r-forge.r-project.org/projects/divemove
+Packaged: 2010-04-23 23:19:36 UTC; sluque
 Repository: CRAN
-Repository/R-Forge/Project: divemove
-Repository/R-Forge/Revision: 263
-Date/Publication: 2010-02-05 17:27:43
-Packaged: 2010-02-04 21:18:29 UTC; rforge
+Date/Publication: 2010-04-25 07:26:20

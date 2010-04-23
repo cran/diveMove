@@ -1,4 +1,4 @@
-## $Id: diveStats.R 187 2008-10-23 05:24:37Z sluque $
+## $Id: diveStats.R 265 2010-04-13 14:47:20Z sluque $
 
 "diveStats" <- function(x)
 {
@@ -32,9 +32,7 @@
         td <- data.frame(dphases, dtimes, ddepths)
         perdive <- do.call(rbind, by(td, dids, oneDiveStats, interval=interval))
         res <- data.frame(perdive, postdive.dur)
-        for (i in 1:3) res[, i] <- structure(res[, i],
-                                             class=c("POSIXt", "POSIXct"),
-                                             tzone=dtimestz)
+        for (i in 1:3) res[, i] <- .POSIXct(res[, i], dtimestz)
     } else {
         dspeeds <- getSpeed(zvtdr)[ok]  # diving speeds
         td <- data.frame(dphases, dtimes, ddepths, dspeeds)
@@ -45,9 +43,7 @@
         pdv <- do.call(rbind, by(ptd, pdids, diveMove:::.speedStats))
         res <- data.frame(perdive, postdive.dur, postdive.tdist=pdv[, 1],
                           postdive.mean.speed=pdv[, 2], row.names=NULL)
-        for (i in 1:3) res[, i] <- structure(res[, i],
-                                             class=c("POSIXt", "POSIXct"),
-                                             tzone=dtimestz)
+        for (i in 1:3) res[, i] <- .POSIXct(res[, i], dtimestz)
     }
 
     res
