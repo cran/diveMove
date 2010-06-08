@@ -1,4 +1,4 @@
-% $Id: readLocs.Rd 260 2010-02-03 18:13:12Z sluque $
+% $Id: readLocs.Rd 275 2010-05-10 14:46:05Z sluque $
 \name{readLocs}
 \alias{readLocs}
 
@@ -12,7 +12,7 @@
 
 
 \usage{
-readLocs(file, loc.idCol, idCol, dateCol, timeCol=NULL,
+readLocs(locations, loc.idCol, idCol, dateCol, timeCol=NULL,
          dtformat="\%m/\%d/\%Y \%H:\%M:\%S", tz="GMT",
          classCol, lonCol, latCol, alt.lonCol=NULL, alt.latCol=NULL, \ldots)
 }
@@ -21,8 +21,9 @@ readLocs(file, loc.idCol, idCol, dateCol, timeCol=NULL,
 
 \arguments{
 
-  \item{file}{A string indicating the name of the file to read. Provide
-    the entire path if the file is not on the current directory.}
+  \item{locations}{A string indicating the name of the file to read, or
+    a \code{\link{data.frame}} available in the search list. Provide the
+    entire path if the file is not on the current directory.}
 
   \item{loc.idCol}{Column number containing location ID.  If missing, a
     \code{loc.id} column is generated with sequential integers as long
