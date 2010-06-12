@@ -1,4 +1,4 @@
-% $Id: calibrateDepth.Rd 220 2009-10-21 13:28:24Z sluque $
+% $Id: calibrateDepth.Rd 289 2010-06-12 19:54:10Z sluque $
 \name{calibrateDepth}
 \alias{calibrateDepth}
 

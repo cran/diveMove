@@ -1,4 +1,4 @@
-## $Id: AllMethod.R 265 2010-04-13 14:47:20Z sluque $
+## $Id: AllMethod.R 282 2010-06-11 19:22:28Z sluque $
 
 ###_ + Show and PlotTDR
 
@@ -252,7 +252,9 @@ setMethod("[", signature("TDR"), function(x, i, j, ..., drop) {
     if (!missing(j) || !missing(...) || !missing(drop))
         stop("subsetting TDR objects can only be done on a single index")
     new(class(x), file=getFileName(x), dtime=getDtime(x), time=getTime(x)[i],
-        depth=getDepth(x)[i], concurrentData=getCCData(x)[i, , drop=FALSE])
+        depth=getDepth(x)[i],
+        concurrentData=tryCatch(getCCData(x)[i, , drop=FALSE],
+          error=function(k) data.frame()))
 })
 
 
