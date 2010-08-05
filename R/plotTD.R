@@ -1,4 +1,4 @@
-## $Id: plotTD.R 200 2008-11-04 03:06:40Z sluque $
+## $Id: plotTD.R 314 2010-06-23 11:33:18Z sluque $
 
 ###_ + Internal Function
 ".night" <- function(time, sunrise.time, sunset.time)
@@ -26,7 +26,8 @@
                      concurVarTitles=deparse(substitute(concurVars)),
                      xlab.format="%d-%b %H:%M", sunrise.time="06:00:00",
                      sunset.time="18:00:00", night.col="gray60",
-                     phaseCol=NULL, interact=TRUE, key=TRUE, cex.pts=0.4, ...)
+                     phase.factor=NULL, interact=TRUE, key=TRUE,
+                     cex.pts=0.4, ...)
 {
     ## Value: Returns (invisibly) a list with coordinates for each zoc'ed
     ## time window.  Also Plot time, depth, and other concurrent data.
@@ -34,7 +35,7 @@
     ## Arguments: time=POSIXct; depth=numeric vector with depth readings,
     ## concurVars=matrix of numeric data with concurrent data to plot,
     ## xlim=POSIXct vector with lower and upper time limits to plot,
-    ## depth.lim=vector with lower and upper depth limits, phaseCol=factor
+    ## depth.lim=vector with lower and upper depth limits, phase.factor=factor
     ## classifying each reading, xlab=title for the x axis,
     ## ylab.depth=title for the depth axis, concurVarTitles=string vector
     ## with titles for the additional variables, xlab.format=format string
@@ -73,13 +74,15 @@
         axis.POSIXct(side=1, time, at=xticks, format=xlab.format)
         axis(side=2)
         lines(time, depth)
-        if (!is.null(phaseCol)) {
-            phaseCol <- phaseCol[, drop=TRUE]
-            colors <- rainbow(nlevels(phaseCol))
-            points(time, depth, col=colors[phaseCol], pch=19, cex=cex.pts)
-            if (key && nlevels(phaseCol) < 11) {
-                legend("bottomright", legend=levels(phaseCol), col=colors,
-                       pch=19, cex=0.7, ncol=nlevels(phaseCol), bg="white")
+        if (!is.null(phase.factor)) {
+            phase.factor <- phase.factor[, drop=TRUE]
+            nlevs <- nlevels(phase.factor)
+            ncolors <- max(3, min(nlevs, 9))
+            colors <- brewer.pal(n=ncolors, name="Set1")
+            points(time, depth, col=colors[phase.factor], pch=19, cex=cex.pts)
+            if (key && nlevs < 10) {
+                legend("bottomright", legend=levels(phase.factor), col=colors,
+                       pch=19, cex=0.7, ncol=nlevs, bg="white")
             }
         }
         if (!is.null(concurVars)) {
@@ -95,8 +98,9 @@
                 usr <- par("usr")    # to watch out for change in y coords
                 rect(xleft, usr[3], xright, usr[4], col=night.col, border=NA)
                 lines(time, vari)
-                if (!is.null(phaseCol)) { # we already have 'colors'
-                    points(time, vari, col=colors[phaseCol], pch=19, cex=cex.pts)
+                if (!is.null(phase.factor)) { # we already have 'colors'
+                    points(time, vari, col=colors[phase.factor], pch=19,
+                           cex=cex.pts)
                 }
                 axis(side=2)
             }

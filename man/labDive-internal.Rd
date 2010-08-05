@@ -1,4 +1,4 @@
-% $Id: labDive-internal.Rd 200 2008-11-04 03:06:40Z sluque $
+% $Id: labDive-internal.Rd 307 2010-06-22 02:46:15Z sluque $
 \name{labDive-internal}
 \alias{labDive-internal}
 
@@ -18,7 +18,7 @@
 
 \usage{
 .cutDive(x, descent.crit.q, ascent.crit.q, wiggle.tol)
-.labDive(act, string, interval)
+.labDive(act, string)
 .labDivePhase(x, diveID, descent.crit.q, ascent.crit.q, wiggle.tol)
 }
 
@@ -37,8 +37,6 @@
 
   \item{string}{A character belonging to a level of \code{act} to search
     for and label sequentially.}
-
-  \item{interval}{The sampling interval in seconds.}
 
   \item{diveID}{Numeric vector indexing each dive (non-dives should be
     0)}

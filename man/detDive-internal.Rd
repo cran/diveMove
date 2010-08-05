@@ -1,4 +1,4 @@
-% $Id: detDive-internal.Rd 200 2008-11-04 03:06:40Z sluque $
+% $Id: detDive-internal.Rd 327 2010-06-23 23:00:59Z sluque $
 \name{detDive-internal}
 \alias{detDive-internal}
 
@@ -14,7 +14,7 @@
 
 
 \usage{
-.detDive(zdepth, act, dive.thr=4, \dots)
+.detDive(zdepth, act, dive.thr)
 }
 
 
@@ -27,8 +27,6 @@
 
   \item{dive.thr}{Threshold depth below which an underwater phase
     should be considered a dive.}
-
-  \item{\dots}{The sampling interval in seconds.}
 
 }
 
@@ -47,9 +45,21 @@
 }
 
 
-\seealso{\code{\link{.detPhase}}, \code{\link{zoc}}}
+\seealso{\code{\link{.detPhase}}, \code{\link{.zoc}}}
 
 % -------------------------------------------------------------------------
+
+\examples{
+
+data(divesTDRcalibrate)
+
+tdr <- getTDR(divesTDRcalibrate)
+
+## Extract the gross activity from an already calibrated TDR object
+gross.act <- getGAct(divesTDRcalibrate)
+detd <- diveMove:::.detDive(getDepth(tdr), gross.act[[2]], 3)
+
+}
 
 \author{Sebastian P. Luque \email{spluque@gmail.com}}
 

@@ -1,3 +1,122 @@
+2010-08-05  Sebastian P. Luque <spluque@gmail.com>
+
+	Version 1.1 released.
+
+	* man/diveMove-internal.Rd:
+	  Example takes too long, so use \dontrun{}.
+
+2010-07-30  Sebastian P. Luque <spluque@gmail.com>
+
+	* man/calibrateDepth.Rd:
+	  Included reference to submitted paper.
+
+2010-07-25  Sebastian P. Luque <spluque@gmail.com>
+
+	* R/bouts.R:
+	  Use bouts2.mleFUN() in bouts2.ll() and bouts2.LL() as I
+	  originally intended to keep code cleaner.
+
+2010-07-20  Sebastian P. Luque  <spluque@gmail.com>
+
+	* R/zoc.R (".depthFilter"):
+	  Depths were not being included in the logical when na.rm=FALSE
+	  which was wrong.
+
+2010-07-20  Sebastian P. Luque <spluque@gmail.com>
+
+	* R/calibrate.R, R/zoc.R, inst/doc/diveMove.Rnw,
+	  man/calibrateDepth.Rd, man/diveMove-internal.Rd:
+	  New argument 'depth.bounds' to bound smoothing/filtering for
+	  searching surface.
+
+2010-06-23  Sebastian P. Luque <spluque@gmail.com>
+
+	* data/divesSummary.RData, data/divesTDRcalibrate.RData:
+	  Replaced data with results from new calibration procedures.
+
+	* man/TDRcalibrate-accessors.Rd:
+	  Fixed documentation.
+
+	* R/plotTD.R:
+	  Improved control over colors and legend.
+
+	* R/calibrate.R, man/calibrateDepth.Rd:
+	  Implemented spline interpolation option through wet periods for
+	  imputing missing data near the beginning/end of dives produced by
+	  certain instruments.
+
+	* R/plotTD.R:
+	  Minimum number of colors should be 3 due to limitation of
+	  palette.
+
+2010-06-22  Sebastian P. Luque <spluque@gmail.com>
+
+	* tests/calibrations.R:
+	  Remove unused '...' argument from .detDive() and replaced
+	  ellipsis argument by 'interval' in .detPhase().
+
+	* R/detDive.R, man/detDive-internal.Rd, man/labDive-internal.Rd:
+	  Remove unused 'interval' and '...' arguments from .labDive() and
+	  the calling .detDive(), respectively.
+
+	* R/calibrate.R:
+	  .detDive() no longer uses interval argument.
+
+	* R/calibrate.R, R/detPhase.R, man/detPhase-internal.Rd:
+	  Replaced ellipsis argument with 'interval' in .detPhase() since
+	  it is a single argument.
+
+2010-06-19  Sebastian P. Luque <spluque@gmail.com>
+
+	* R/zoc.R:
+	  Renamed 'depth.filters' object to 'filters' in function
+	  'depthFilter'.
+
+2010-06-18  Sebastian P. Luque <spluque@gmail.com>
+
+	* man/calibrateDepth.Rd, man/detPhase-internal.Rd,
+	  man/diveMove-package.Rd:
+	  Fixed documentation buglets.
+
+	* man/diveMove-internal.Rd, man/diveMove-package.Rd:
+	  Extended documentation.
+
+	* man/TDR-accessors.Rd, man/calibrateDepth.Rd,
+	  man/detDive-internal.Rd, man/detPhase-internal.Rd:
+	  Added to Examples.
+
+	* R/AllMethod.R:
+	  Return data.frame with appropriate names in getCCData().
+
+2010-06-17  Sebastian P. Luque <spluque@gmail.com>
+
+	* DESCRIPTION, NEWS, inst/doc/diveMove.Rnw, man/calibrateDepth.Rd,
+	  man/detDive-internal.Rd, man/diveMove-internal.Rd,
+	  man/diveMove-package.Rd, man/diveStats.Rd, man/plotTD.Rd,
+	  man/plotTDR-methods.Rd, tests/calibrations.R,
+	  tests/final-stats.R:
+	  New version to incorporate changes required to accomodate latest
+	  modifications under /R to implement new ZOC and phase techniques.
+
+	* R/calibrate.R, R/detDive.R, R/zoc.R:
+	  Implement new method for ZOC and identification of dives and dive
+	  phases. This was necessary to allow depth measurements above the
+	  dive threshold to retain their variability, while not affecting
+	  dive detection and dive phase identification.
+
+	* R/AllMethod.R, R/plotTD.R:
+	  Renamed argument 'phaseCol' to 'phase.factor' to avoid confusion
+	  with a column number identifier.
+
+2010-06-16  Sebastian P. Luque <spluque@gmail.com>
+
+	* man/plotTD.Rd:
+	  Renaming this file since we only have one function here.
+
+	* man/zoc.Rd:
+	  Removed zoc(), since that function was moved to the internal
+	  functions group.
+
 2010-06-12  Sebastian P. Luque  <spluque@gmail.com>
 
 	Version 1.0 released.

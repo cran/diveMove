@@ -1,4 +1,4 @@
-% $Id: detPhase-internal.Rd 200 2008-11-04 03:06:40Z sluque $
+% $Id: detPhase-internal.Rd 325 2010-06-23 21:15:18Z sluque $
 \name{detPhase-internal}
 \alias{detPhase-internal}
 
@@ -16,7 +16,7 @@
 
 
 \usage{
-.detPhase(time, depth, dry.thr, wet.thr, \dots)
+.detPhase(time, depth, dry.thr, wet.thr, interval)
 }
 %- maybe also 'usage' for other objects documented here.
 
@@ -29,7 +29,7 @@
 
   \item{dry.thr, wet.thr}{Passed from \code{\link{calibrateDepth}}.}
 
-  \item{\dots}{Passed from \code{\link{calibrateDepth}}; sampling
+  \item{interval}{Passed from \code{\link{calibrateDepth}}; sampling
     interval in seconds.}
 
 }
@@ -69,9 +69,24 @@
 }
 
 
-\seealso{\code{\link{.detDive}}}
+\seealso{\code{\link{.detDive}}, \code{\link{calibrateDepth}}}
 
 % -------------------------------------------------------------------------
+
+\examples{
+
+data(divesTDR)
+depths <- getDepth(divesTDR)
+times <- getTime(divesTDR)
+
+detp <- diveMove:::.detPhase(times, depths, dry.thr=70, wet.thr=3610,
+                             interval=getDtime(divesTDR))
+## Plot detected phases
+plotTD(times, depths, interact=FALSE)
+rect(xleft=detp$begin, xright=detp$end, ybottom=0, ytop=-4,
+     col=seq_along(detp$begin))
+
+}
 
 \author{Sebastian P. Luque \email{spluque@gmail.com} and Andy Liaw.}
 
