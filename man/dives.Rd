@@ -1,4 +1,4 @@
-% $Id: dives.Rd 260 2010-02-03 18:13:12Z sluque $
+% $Id: dives.Rd 323 2010-06-23 18:42:14Z sluque $
 \name{dives}
 \docType{data}
 
@@ -55,9 +55,12 @@
   data in \code{dives}.
 
   \code{divesTDRcalibrate} is a \code{\link{TDRcalibrate}} object
-  representing the data in dives, calibrated at default criteria (see
-  \code{\link{calibrateDepth}}), and 3 m offset.
+  representing the data in dives, calibrated as (see
+  \code{\link{calibrateDepth}}):
 
+  \preformatted{calibrateDepth(divesTDR, dive.thr=3, zoc.method="filter",
+               k=c(3, 5760), probs=c(0.5, 0.02), na.rm=TRUE)}
+  
   \code{divesSummary} is a data frame containing a summary of all dives
   in this dataset (see \code{\link{diveStats}} and
   \code{\link{stampDive}} for the information contained in this object.

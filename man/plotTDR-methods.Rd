@@ -1,4 +1,4 @@
-% $Id: plotTDR-methods.Rd 200 2008-11-04 03:06:40Z sluque $
+% $Id: plotTDR-methods.Rd 295 2010-06-17 21:59:56Z sluque $
 \name{plotTDR-methods}
 \docType{methods}
 \alias{plotTDR-methods}
@@ -72,12 +72,12 @@
 
 
 \value{ If called with the \code{interact} argument set to \code{TRUE},
-  returns coordinates from the ZOC procedure (see \code{\link{zoc}}). }
+  returns coordinates from the \dQuote{visual} ZOC method (see
+  \code{\link{calibrateDepth}} and underlying \code{\link{plotTD}}). }
 
 
-\seealso{
-  \code{\link{zoc}}
-}
+\seealso{ \code{\link{calibrateDepth}}, \code{\link{plotTD}},
+  \code{\link{.zoc}} }
 
 % -------------------------------------------------------------------------
 

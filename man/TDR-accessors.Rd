@@ -1,4 +1,4 @@
-% $Id: TDR-accessors.Rd 200 2008-11-04 03:06:40Z sluque $
+% $Id: TDR-accessors.Rd 297 2010-06-18 03:51:48Z sluque $
 \name{TDR-accessors}
 \docType{methods}
 \alias{TDR-methods}
@@ -125,7 +125,8 @@ data(divesTDR)
 ## Retrieve the name of the source file
 getFileName(divesTDR)
 ## Retrieve concurrent temperature measurements
-temp <- getCCData(divesTDR, "temperature")
+temp <- getCCData(divesTDR, "temperature"); head(temp)
+temp <- getCCData(divesTDR); head(temp)
 
 ## Coerce to a data frame
 dives.df <- as.data.frame(divesTDR)

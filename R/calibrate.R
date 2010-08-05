@@ -1,29 +1,62 @@
-## $Id: calibrate.R 122 2008-01-12 01:20:53Z sluque $
+## $Id: calibrate.R 331 2010-07-20 03:57:20Z sluque $
 
 "calibrateDepth" <-  function(x, dry.thr=70, wet.thr=3610, dive.thr=4,
-                              offset, descent.crit.q=0.1, ascent.crit.q=0.1,
-                              wiggle.tol=0.80)
+                              zoc.method=c("visual", "offset", "filter"),
+                              ..., interp.wet=FALSE, descent.crit.q=0.1,
+                              ascent.crit.q=0.1, wiggle.tol=0.80)
 {
     ## Value: A TDRcalibrate object.  Detect water/land phases in TDR
     ## object, zoc data, detect dives and their phases, and label them.
     ## Return a TDRcalibrate object.
     ## --------------------------------------------------------------------
-    ## Arguments: x=a TDR object; dry.thr, wet.thr and dive.thr (see
-    ## detPhase, detDive, and labDivePhase documentation
+    ## Arguments: x=a TDR object; dry.thr, wet.thr and dive.thr see
+    ## .detPhase and .detDive; descent.crit, ascent.crit, and wiggle.tol
+    ## see .labDivePhase documentation; zoc.method=method to use for
+    ## zero-offset correction; ...=arguments required for ZOC methods
+    ## zoc.filter (k, probs, depth.bounds, na.rm (defaults to TRUE)) and
+    ## offset (offset); interp.wet=logical (proposal) to control whether we
+    ## interpolate NA depths in wet periods (*after ZOC*).  Be careful with
+    ## latter, which uses an interpolating spline to impute the missing
+    ## data.
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
     if (!is(x, "TDR")) stop ("x is not a TDR object")
+    depth <- getDepth(x)
+    time <- getTime(x)
     ## Detect trips and dives
-    detp <- diveMove:::.detPhase(getTime(x), getDepth(x), dry.thr=dry.thr,
-                                 wet.thr=wet.thr, getDtime(x))
-    zd <- if (missing(offset)) {
-        zoc(getTime(x), getDepth(x))
-    } else zoc(getTime(x), getDepth(x), offset=offset)
+    detp <- diveMove:::.detPhase(time, depth, dry.thr=dry.thr,
+                                 wet.thr=wet.thr, interval=getDtime(x))
+    ## ZOC procedure
+    zoc.method <- match.arg(zoc.method)
+    ell <- list(...)
+    ell.names <- names(ell)
+    if (zoc.method == "offset" && !"offset" %in% ell.names)
+        stop("offset is indispensable for this method")
+    if (zoc.method == "filter") {
+        if (!("k" %in% ell.names && "probs" %in% ell.names))
+            stop("k and probs are indispensable for this method")
+        if (!("depth.bounds" %in% ell.names))
+            ell$depth.bounds <- range(depth, na.rm=TRUE)
+        if (!"na.rm" %in% ell.names) ell$na.rm <- TRUE
+    }
+    zd <- diveMove:::.zoc(time, depth, method=zoc.method, control=ell)
     if (!is.null(zd)) x@depth <- zd
-    detd <- diveMove:::.detDive(getDepth(x), detp[[2]], dive.thr, getDtime(x))
 
-    ## label phases of dives with their activity
+    if (interp.wet) {
+        zdepth <- getDepth(x)
+        wet <- detp[[2]] == "W"
+        wet.na <- wet & is.na(zdepth)
+        time.out <- time[wet.na]
+        interpFun <- splinefun(time[wet], zdepth[wet])
+        interp.depth <- interpFun(x=time.out)
+        zdepth[wet.na] <- pmax(0, interp.depth) # set negatives to 0
+        x@depth <- zdepth
+    }
+
+    detd <- diveMove:::.detDive(getDepth(x), detp[[2]], dive.thr)
+
+    ## Identify dive phases
     phaselabs <- diveMove:::.labDivePhase(x, detd[, 1],
                                           descent.crit.q=descent.crit.q,
                                           ascent.crit.q=ascent.crit.q,
@@ -148,3 +181,6 @@
     mtext(bquote(y == .(round(coef(rqFit)[1], 3)) +
                  .(round(coef(rqFit)[2], 3)) * x))
 }
+
+
+## TEST ZONE --------------------------------------------------------------

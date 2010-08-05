@@ -1,4 +1,4 @@
-% $Id: diveMove-package.Rd 260 2010-02-03 18:13:12Z sluque $
+% $Id: diveMove-package.Rd 299 2010-06-18 04:06:17Z sluque $
 \name{diveMove-package}
 \docType{package}
 
@@ -20,7 +20,7 @@
 
 
 \seealso{A vignette with a guide to this package is available by doing
-  'vignette("diveMove")'.
+  \code{vignette("diveMove")}.
   \code{\link[diveMove:diveMove-package]{TDR-class}},
   \code{\link[diveMove:diveMove-package]{calibrateDepth}},
   \code{\link[diveMove:diveMove-package]{calibrateSpeed}},
@@ -38,9 +38,10 @@
 if (dev.interactive(orNone=TRUE)) plotTDR(sealX)  # interactively pan and zoom
 
 ## detect periods of activity, and calibrate depth, creating
-## a 'TDRcalibrate' object
+## a "TDRcalibrate" object
 if (dev.interactive(orNone=TRUE)) dcalib <- calibrateDepth(sealX)
-(dcalib <- calibrateDepth(sealX, offset=3)) # zero-offset correct at 3 m
+## Use the "offset" ZOC method to zero-offset correct depth at 3 m
+(dcalib <- calibrateDepth(sealX, zoc.method="offset", offset=3))
 
 if (dev.interactive(orNone=TRUE)) {
     ## plot all readings and label them with the phase of the record

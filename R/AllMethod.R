@@ -1,4 +1,4 @@
-## $Id: AllMethod.R 282 2010-06-11 19:22:28Z sluque $
+## $Id: AllMethod.R 296 2010-06-18 02:06:29Z sluque $
 
 ###_ + Show and PlotTDR
 
@@ -91,8 +91,8 @@ setMethod("plotTDR", signature(x="TDRcalibrate"),
                   if (!is.character(concurVars))
                       stop("concurVars must be of class character")
                   ccd <- getCCData(tdr, concurVars)[ok, , drop=FALSE]
-                  plotTDR(newtdr, concurVars=ccd, phaseCol=labs, ...)
-              } else plotTDR(newtdr, phaseCol=labs, ...)
+                  plotTDR(newtdr, concurVars=ccd, phase.factor=labs, ...)
+              } else plotTDR(newtdr, phase.factor=labs, ...)
           })
 
 
@@ -157,7 +157,9 @@ setMethod("getCCData", signature(x="TDR", y="character"), function(x, y) {
     } else if (any(bady)) {
         warning("components: ", y[bady], " could not be found and were ignored")
     }
-    as.data.frame(ccd[, ok])
+    ccdf <- as.data.frame(ccd[, ok])
+    names(ccdf) <- ccdnames[ok]
+    ccdf
 })
 
 ###_  . TDRcalibrate

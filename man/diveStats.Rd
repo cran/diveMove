@@ -1,4 +1,4 @@
-% $Id: diveStats.Rd 200 2008-11-04 03:06:40Z sluque $
+% $Id: diveStats.Rd 295 2010-06-17 21:59:56Z sluque $
 \name{diveStats}
 
 \alias{diveStats}
@@ -111,7 +111,7 @@ stampDive(x, ignoreZ=TRUE)
   start and end times for each dive.}
 
 
-\seealso{\code{\link{.detPhase}}, \code{\link{zoc}},
+\seealso{\code{\link{calibrateDepth}}, \code{\link{.detPhase}},
   \code{\link{TDRcalibrate-class}}}
 
 % -------------------------------------------------------------------------

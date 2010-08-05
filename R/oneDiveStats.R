@@ -1,10 +1,10 @@
-## $Id: oneDiveStats.R 122 2008-01-12 01:20:53Z sluque $
+## $Id: oneDiveStats.R 326 2010-06-23 21:15:48Z sluque $
 
 "oneDiveStats" <- function(x, interval, speed=FALSE)
 {
     ## Value: A matrix with time/depth stats for each dive segment
     ## --------------------------------------------------------------------
-    ## Arguments: x=a matrix with data for a single dive interval=sampling
+    ## Arguments: x=a matrix with data for a single dive; interval=sampling
     ## interval speed=logical; should we calculate speed stats?
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
