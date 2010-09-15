@@ -3,6 +3,23 @@
 
 See ChangeLog for more details.
 
+** Version 1.2:
+
+   o Improved procedure for defining dive phases. The method uses smoothing
+     splines and their derivatives to find the end of descent and the
+     beginning of ascent, which form the basis for the identification of
+     the rest of the phases.  This prompted the creation of a new S4 class
+     to hold the details of the dive modelling process.  New plotting and
+     accessor methods are also provided to examine the process.  Additional
+     methods are being developed to take full advantage of the information
+     available in objects of this class.
+
+   o Removed /data objects 'divesTDRcalibrate' and 'divesSummary' because
+     it is better to generate and inspect them in examples in help files.
+
+   o New slot 'call' for 'TDRcalibrate' class recording the matching call
+     to the corresponding generator calibrateDepth().
+
 ** Version 1.1:
 
    o New method for zero-offset correction based on sequential running

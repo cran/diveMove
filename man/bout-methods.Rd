@@ -1,4 +1,4 @@
-% $Id: bout-methods.Rd 200 2008-11-04 03:06:40Z sluque $
+% $Id: bout-methods.Rd 401 2010-09-15 17:48:27Z sluque $
 \name{bout-methods}
 \docType{methods}
 \alias{bout-methods}
@@ -32,7 +32,7 @@
 
   \item{fit}{\code{\link{nls}} or \code{\link[stats4]{mle}} object.}
 
-  \item{x}{Numeric object with variable modelled.}
+  \item{x}{numeric object with variable modelled.}
 
   \item{\ldots}{Arguments passed to the underlying
     \code{\link{plotBouts2.nls}} and \code{\link{plotBouts2.mle}}.}

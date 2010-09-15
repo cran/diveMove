@@ -1,4 +1,4 @@
-## $Id: NAMESPACE 245 2009-10-24 07:23:01Z sluque $
+## $Id: NAMESPACE 384 2010-09-14 16:23:44Z sluque $
 importFrom(stats4, mle)
 importFrom(graphics, plot, image)
 import(methods)                         # Paranoid measure
@@ -7,7 +7,8 @@ exportPattern("^[^\\.]")
 
 exportClasses("TDR",
               "TDRspeed",
-              "TDRcalibrate")
+              "TDRcalibrate",
+              "diveModel")
 
 exportMethods("as.data.frame",
               "as.TDRspeed",
@@ -20,11 +21,13 @@ exportMethods("as.data.frame",
               "getDepth",
               "getDAct",
               "getDPhaseLab",
+              "getDiveModel",
               "getDtime",
               "getFileName",
               "extractDive",
               "getGAct",
               "plotTDR",
+              "plotDiveModel",
               "show",
               "getTDR",
               "getTime",

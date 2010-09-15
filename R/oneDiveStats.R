@@ -1,4 +1,4 @@
-## $Id: oneDiveStats.R 326 2010-06-23 21:15:48Z sluque $
+## $Id: oneDiveStats.R 352 2010-09-07 20:00:09Z sluque $
 
 "oneDiveStats" <- function(x, interval, speed=FALSE)
 {
@@ -23,6 +23,8 @@
     if (nrow(bott) > 0) {
         botttim <- difftime(bott[nrow(bott), 1], bott[1, 1], units="secs")
         bottdist <- sum(abs(diff(bott[!is.na(bott[, 2]), 2])))
+        bottdep.m <- mean(bott[, 2], na.rm=TRUE)
+        bottdep.sd <- sd(bott[, 2], na.rm=TRUE)
     }
     ## ASCENT
     begasc <- asc[1, 1]
@@ -39,24 +41,29 @@
         cbind(begdesc=begdesc, enddesc=enddesc, begasc=begasc,
               desctim=desctim,
               botttim=ifelse(exists("botttim"), botttim, NA),
-              asctim=asctim, descdist=descdist,
+              asctim=asctim, divetim=divetim, descdist=descdist,
               bottdist=ifelse(exists("bottdist"), bottdist, NA),
-              ascdist=ascdist, divetim=divetim, maxdep=maxdep)
+              ascdist=ascdist,
+              bottdep.m=ifelse(exists("botttim"), bottdep.m, NA),
+              bottdep.sd=ifelse(exists("botttim"), bottdep.sd, NA),
+              maxdep=maxdep)
     } else {
         descv <- diveMove:::.speedStats(desc[, -2], vdist=descdist)
         bottv <- diveMove:::.speedStats(bott[, -2])
         ascv <- diveMove:::.speedStats(asc[, -2], vdist=ascdist)
         cbind(begdesc=begdesc, enddesc=enddesc, begasc=begasc,
               desctim=desctim,
-              botttim=if (exists("botttim")) botttim else NA,
-              asctim=asctim, descdist=descdist,
-              bottdist=if (exists("bottdist")) bottdist else NA,
-              ascdist=ascdist, desc.tdist=descv[, 1],
+              botttim=ifelse(exists("botttim"), botttim, NA),
+              asctim=asctim,  divetim=divetim, descdist=descdist,
+              bottdist=ifelse(exists("bottdist"), bottdist, NA),
+              ascdist=ascdist,
+              bottdep.m=ifelse(exists("botttim"), bottdep.m, NA),
+              bottdep.sd=ifelse(exists("botttim"), bottdep.sd, NA),
+              maxdep=maxdep, desc.tdist=descv[, 1],
               desc.mean.speed=descv[, 2], desc.angle=descv[, 3],
               bott.tdist=bottv[, 1], bott.mean.speed=bottv[, 2],
               asc.tdist=ascv[, 1], asc.mean.speed=ascv[, 2],
-              asc.angle=ascv[, 3], divetim=divetim,
-              maxdep=maxdep)
+              asc.angle=ascv[, 3])
     }
 }
 

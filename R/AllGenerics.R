@@ -1,9 +1,14 @@
-## $Id: AllGenerics.R 200 2008-11-04 03:06:40Z sluque $
+## $Id: AllGenerics.R 393 2010-09-15 02:51:37Z sluque $
 
-###_ + PlotTDR
+###_ + Plottting
 if (!isGeneric("plotTDR")) {
     setGeneric("plotTDR",
                function(x, ...) standardGeneric("plotTDR"))
+}
+
+if (!isGeneric("plotDiveModel")) {
+    setGeneric("plotDiveModel",
+               function(x, y, ...) standardGeneric("plotDiveModel"))
 }
 
 ###_ + Accessors
@@ -46,6 +51,16 @@ if (!isGeneric("getDAct")) {            # dive activity accessor
 if (!isGeneric("getDPhaseLab")) {       # dive phase label accessor
     setGeneric("getDPhaseLab",
                function(x, diveNo) standardGeneric("getDPhaseLab"))
+}
+
+if (!isGeneric("getDiveModel")) {     # dive model accessor
+    setGeneric("getDiveModel",
+               function(x, diveNo) standardGeneric("getDiveModel"))
+}
+
+if (!isGeneric("getDiveDeriv")) {     # dive derivative accessor
+    setGeneric("getDiveDeriv",
+               function(x, ...) standardGeneric("getDiveDeriv"))
 }
 
 if (!isGeneric("getSpeedCoef")) {       # speed calibration coefs accessor
