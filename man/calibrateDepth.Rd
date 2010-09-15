@@ -1,4 +1,4 @@
-% $Id: calibrateDepth.Rd 340 2010-08-04 17:42:19Z sluque $
+% $Id: calibrateDepth.Rd 401 2010-09-15 17:48:27Z sluque $
 \name{calibrateDepth}
 \alias{calibrateDepth}
 
@@ -16,8 +16,8 @@
 \usage{
 calibrateDepth(x, dry.thr=70, wet.thr=3610, dive.thr=4,
                zoc.method=c("visual", "offset", "filter"), \ldots,
-               interp.wet=FALSE, descent.crit.q=0.1,
-               ascent.crit.q=0.1, wiggle.tol=0.8)
+               interp.wet=FALSE, smooth.par=0.1, knot.factor=3,
+               descent.crit.q=0, ascent.crit.q=0)
 }
 
 
@@ -27,16 +27,16 @@ calibrateDepth(x, dry.thr=70, wet.thr=3610, dive.thr=4,
     \code{\link{calibrateDepth}} or an object of class
     \code{\link{TDRcalibrate}} for \code{\link{calibrateSpeed}}.}
 
-  \item{dry.thr}{Dry error threshold in seconds.  Dry phases shorter
-    than this threshold will be considered as wet.}
+  \item{dry.thr}{numeric: dry error threshold in seconds.  Dry phases
+    shorter than this threshold will be considered as wet.}
 
-  \item{wet.thr}{Wet threshold in seconds. At-sea phases shorter than
-    this threshold will be considered as trivial wet.}
+  \item{wet.thr}{numeric: wet threshold in seconds. At-sea phases
+    shorter than this threshold will be considered as trivial wet.}
 
-  \item{dive.thr}{Threshold depth below which an underwater phase
-    should be considered a dive.}
+  \item{dive.thr}{numeric: threshold depth below which an underwater
+    phase should be considered a dive.}
 
-  \item{zoc.method}{Character string to indicate the method to use for
+  \item{zoc.method}{character string to indicate the method to use for
     zero offset correction.  One of \dQuote{visual}, \dQuote{offset}, or
     \dQuote{filter} (see \sQuote{Details}).}
 
@@ -44,23 +44,24 @@ calibrateDepth(x, dry.thr=70, wet.thr=3610, dive.thr=4,
     (\code{k}, \code{probs}, \code{depth.bounds} (defaults to range),
     \code{na.rm} (defaults to TRUE)) and \code{offset} (\code{offset}).}
 
-  \item{interp.wet}{Logical.  If TRUE (default is FALSE), then an
+  \item{interp.wet}{logical: if TRUE (default is FALSE), then an
   interpolating spline function is used to impute NA depths in wet
   periods (\emph{after ZOC}).  \emph{Use with caution}: it may only be
   useful in cases where the missing data pattern in wet periods is
   restricted to shallow depths near the beginning and end of dives.
   This pattern is common in some satellite-linked \acronym{TDR}s.}
 
-  \item{descent.crit.q}{Critical quantile of rates of descent below
-    which descent is deemed to have ended.}
+  \item{smooth.par}{numeric scalar representing amount of smoothing
+    (argument \code{spar} in \code{\link[stats]{smooth.spline}}.}
 
-  \item{ascent.crit.q}{Critical quantile of rates of ascent above which
-    ascent is deemed to have started.}
+  \item{knot.factor}{numeric scalar that multiplies the duration of the
+    dive (used to construct the time predictor for the derivative).}
 
-  \item{wiggle.tol}{Proportion of maximum depth above which wiggles
-    should not be allowed to define the end of descent.  It's also the
-    proportion of maximum depth below which wiggles should be considered
-    part of bottom phase.}
+  \item{descent.crit.q}{numeric: critical quantile of rates of descent
+    below which descent is deemed to have ended.}
+
+  \item{ascent.crit.q}{numeric: critical quantile of rates of ascent
+    above which ascent is deemed to have started.}
 
 }
 
@@ -170,62 +171,38 @@ calibrateDepth(x, dry.thr=70, wet.thr=3610, dive.thr=4,
 
 \section{Detection of dive phases}{
 
-  A bottom depth is defined as the maximum depth multiplied by factor
-  (\code{wiggle.tol}, [0, 1])
+  The process for each dive begins by taking all observations below the
+  dive detection threshold, and setting the beginning and end depths to
+  zero, at time steps prior to the first and after the last,
+  respectively.  The latter ensures that descent and ascent derivatives
+  are non-negative and non-positive, respectively, so that the end and
+  beginning of these phases are not truncated.  A smoothing spline is
+  used to model the dive and its derivative to investigate its changes
+  in vertical rate.  This method requires at least 4 observations (see
+  \code{\link[stats]{smooth.spline}}), so the time series is linearly
+  interpolated at equally spaced time steps if this limit is not
+  achieved in the current dive.  Wiggles at the beginning and end of the
+  dive are assumed to be zero offset correction errors, so depth
+  observations at these extremes are interpolated between zero and the
+  next observations when this occurs.
 
-  \describe{
+  A set of knots is established to fit the smoothing spline by using an
+  regular time sequence with beginning and end equal to the extremes of
+  the input sequence, and with length equal to \eqn{N \times
+  knot.factor}{N * \code{knot.factor}}.  The first derivate of the
+  spline is evaluated at the same set of knots to calculate the vertical
+  rate throughout the dive and determine the end of descent and
+  beginning of ascent.  Equivalent procedures are used for detecting
+  descent and ascent phases.
 
-    \item{Descent}{Using all depths from the first one in the dive down
-      to the maximum depth, the rate of descent for each segment is
-      calculated, and a critical rate is defined as the quantile
-      (\code{descent.crit.q}) of all the positive rates of descent.  This
-      subsetting avoids defining a critical rate that may be negative, due
-      to wiggling during the descent.
-
-      To allow detection of wiggles during descent, a vector of the
-      indices of the rates of descent that were lower than the critical
-      value is defined, and a logical vector with TRUE for rates of
-      descent >= 0 above the bottom depth defined previously is also
-      created.
-
-      The following tests are performed (in order):
-
-      If there were any rates below the critical value, as well as any
-      descent wiggles, the indices where the wiggles occurred are removed.
-      If this resulted in removal of all indices, then the index defining
-      the end of descent is the number of rates of descent, otherwise it
-      is the last after the removal.
-
-      If there were not any rates below the critical value, the index
-      defining the end of descent is the number of rates of descent,
-      otherwise it is the first of them.}
-
-
-    \item{Ascent}{The order of depths is reversed in order to detect
-      ascent starting from the bottom, taking all depths after the maximum
-      depth.  The rate of ascent for each segment is calculated, and a
-      critical rate is defined as the quantile (\code{ascent.crit.q}) of
-      all the positive rates of ascent, analogously to the descent
-      detection procedure.
-
-      To allow detection of bottom wiggling, a vector of the indices of
-      the rates of ascent that were higher than the critical value is
-      defined, and a logical vector with TRUE for rates of ascent <= 0
-      below the bottom depth defined previously is also created.
-
-      The following tests are performed (in order):
-
-      If there were any bottom wiggles, then the index defining the
-      beginning of ascent is that corresponding to the maximum depth plus
-      that corresponding to the last bottom wiggle, otherwise:
-
-      If there were no rates above the critical value, then the index
-      defining the beginning of ascent is the last reading below the
-      surface.  Otherwise, it is the one corresponding to the maximum
-      depth plus the first of the indices of rates above the critical
-      value.}
-
-  }
+  The quantile corresponding to (\code{descent.crit.q}) of all the
+  positive derivatives (rate of descent) at the beginning of the dive is
+  used as threshold for determining the end of descent.  Descent is
+  deemed to have ended at the \emph{first} minimum derivative, and the
+  nearest input time observation is considered to indicate the end of
+  descent.  The sign of the comparisons is reversed for detecting the
+  ascent.  If observed depth to the left and right of the derivative
+  defining the ascent are the same, the right takes precedence.
 
   The particular dive phase categories are subsequently defined using
   simple set operations.
@@ -245,8 +222,8 @@ calibrateDepth(x, dry.thr=70, wet.thr=3610, dive.thr=4,
 
 
 \seealso{\code{\link{TDRcalibrate}}, \code{\link{.zoc}},
-  \code{\link{.depthFilter}} \code{\link{.detPhase}},
-  \code{\link{.detDive}}.}
+  \code{\link{.depthFilter}}, \code{\link{.detPhase}},
+  \code{\link{.detDive}}, \code{\link{plotTDR}}.}
 
 % -------------------------------------------------------------------------
 
@@ -255,17 +232,19 @@ calibrateDepth(x, dry.thr=70, wet.thr=3610, dive.thr=4,
 data(divesTDR)
 divesTDR
 
-## Consider a 3 m offset, and a dive threshold of 3 m
-dcalib <- calibrateDepth(divesTDR, dive.thr=3, zoc.method="offset",
-                         offset=3)
+## Consider a 3 m offset, a dive threshold of 3 m, the 1\% quantile for
+## critical vertical rates, and a set of knots 20 times as long as the
+## observed time steps.
+(dcalib <- calibrateDepth(divesTDR, dive.thr=3, zoc.method="offset",
+                          offset=3, descent.crit.q=0.01, ascent.crit.q=0,
+                          knot.factor=20))
 ## Or ZOC algorithmically with method="filter":
 \dontrun{## This can take a while due to large window needed for 2nd
 ## filter in this dataset
-dcalib <- calibrateDepth(divesTDR, dive.thr=3, zoc.method="filter",
-                         k=c(3, 5760), probs=c(0.5, 0.02), na.rm=TRUE)
-}
-if (dev.interactive(orNone=TRUE)) {
-    plotTDR(dcalib, labels="dive.phase", surface=TRUE)
+(dcalib <- calibrateDepth(divesTDR, dive.thr=3, zoc.method="filter",
+                          k=c(3, 5760), probs=c(0.5, 0.02), na.rm=TRUE,
+                          descent.crit.q=0.01, ascent.crit.q=0,
+                          knot.factor=20))
 }
 
 }

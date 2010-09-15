@@ -1,4 +1,4 @@
-% $Id: detDive-internal.Rd 327 2010-06-23 23:00:59Z sluque $
+% $Id: detDive-internal.Rd 401 2010-09-15 17:48:27Z sluque $
 \name{detDive-internal}
 \alias{detDive-internal}
 
@@ -20,13 +20,13 @@
 
 \arguments{
 
-  \item{zdepth}{Vector of zero-offset corrected depths.}
+  \item{zdepth}{numeric vector of zero-offset corrected depths.}
 
-  \item{act}{Factor as long as \code{depth} coding activity, with levels
+  \item{act}{factor as long as \code{depth} coding activity, with levels
   specified as in \code{\link{.detPhase}}.}
 
-  \item{dive.thr}{Threshold depth below which an underwater phase
-    should be considered a dive.}
+  \item{dive.thr}{numeric scalar: threshold depth below which an
+    underwater phase should be considered a dive.}
 
 }
 
@@ -51,12 +51,15 @@
 
 \examples{
 
-data(divesTDRcalibrate)
+## Continuing the Example from '?calibrateDepth':
+utils::example("calibrateDepth", package="diveMove",
+               ask=FALSE, echo=FALSE)
+dcalib		# the 'TDRcalibrate' that was created
 
-tdr <- getTDR(divesTDRcalibrate)
+tdr <- getTDR(dcalib)
 
 ## Extract the gross activity from an already calibrated TDR object
-gross.act <- getGAct(divesTDRcalibrate)
+gross.act <- getGAct(dcalib)
 detd <- diveMove:::.detDive(getDepth(tdr), gross.act[[2]], 3)
 
 }

@@ -1,4 +1,4 @@
-% $Id: TDRcalibrate-class.Rd 200 2008-11-04 03:06:40Z sluque $
+% $Id: TDRcalibrate-class.Rd 380 2010-09-14 14:36:41Z sluque $
 \name{TDRcalibrate-class}
 \docType{class}
 
@@ -25,6 +25,10 @@
 
 \section{Slots}{
   \describe{
+
+    \item{\code{call}:}{Object of class \code{\link{call}}.
+
+      The matched call to the function that created the object.}
 
     \item{\code{tdr}:}{Object of class \code{\link{TDR}}.
 
@@ -62,12 +66,18 @@
       labelled 0).  See \code{\link{.detDive}}, and
       \code{\link{getDAct}} to access all or any one of these vectors.}
 
-    \item{\code{dive.phases}:}{Object of class \sQuote{factor}. must be
-      the same as value returned by \code{\link{.labDivePhase}}.
+    \item{\code{dive.phases}:}{Object of class \sQuote{factor}.  This
+      slot is a factor that labels each row in the record as belonging
+      to a particular phase of a dive.  It has the same form as the
+      \dQuote{phase.labels} component of the list returned by
+      \code{\link{.labDivePhase}}.}
 
-      This slot is a factor that labels each row in the record as
-      belonging to a particular phase of a dive.  It has the same form
-      as objects returned by \code{\link{.labDivePhase}}.}
+    \item{\code{dive.models}:}{Object of class \sQuote{list}.  This slot
+      contains the details of the process of dive phase identification
+      for each dive.  It has the same form as the \code{dive.models}
+      component of the list returned by \code{\link{.labDivePhase}}.  It
+      has as many components as there are dives in the \code{\link{TDR}}
+      object, each of them of class \code{\link{diveModel}}.}
 
     \item{\code{dry.thr}:}{Object of class \sQuote{numeric} the temporal
       criteria used for detecting dry periods that should be considered

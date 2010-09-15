@@ -1,4 +1,4 @@
-% $Id: bouts2NLS.Rd 200 2008-11-04 03:06:40Z sluque $
+% $Id: bouts2NLS.Rd 401 2010-09-15 17:48:27Z sluque $
 \name{bouts2NLS}
 
 \alias{bouts2.nlsFUN}
@@ -28,12 +28,12 @@ plotBouts2.nls(fit, lnfreq, bec.lty, \ldots)
 
 \arguments{
 
-  \item{x}{Numeric vector with values to model.}
+  \item{x}{numeric vector with values to model.}
 
-  \item{a1, lambda1, a2, lambda2}{Parameters from the mixture of Poisson
-    processes.}
+  \item{a1, lambda1, a2, lambda2}{numeric: parameters from the mixture
+    of Poisson processes.}
 
-  \item{lnfreq}{data frame with named components \var{lnfreq} (log
+  \item{lnfreq}{data.frame with named components \var{lnfreq} (log
     frequencies) and corresponding \var{x} (mid points of histogram
     bins).}
 
@@ -95,9 +95,11 @@ plotBouts2.nls(fit, lnfreq, bec.lty, \ldots)
 
 \examples{
 
-data(divesSummary)
+## Using the Example from '?diveStats':
+utils::example("diveStats", package="diveMove",
+               ask=FALSE, echo=FALSE)
 ## Postdive durations
-postdives <- divesSummary$postdive.dur[divesSummary$trip.no == 2]
+postdives <- tdrX.tab$postdive.dur[tdrX.tab$trip.no == 2]
 postdives.diff <- abs(diff(postdives))
 ## Remove isolated dives
 postdives.diff <- postdives.diff[postdives.diff < 2000]

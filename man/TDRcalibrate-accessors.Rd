@@ -1,4 +1,4 @@
-% $Id: TDRcalibrate-accessors.Rd 318 2010-06-23 18:01:56Z sluque $
+% $Id: TDRcalibrate-accessors.Rd 396 2010-09-15 03:48:32Z sluque $
 \name{TDRcalibrate-accessors}
 \docType{methods}
 \alias{TDRcalibrate-methods}
@@ -6,6 +6,8 @@
 
 \alias{getDAct}
 \alias{getDPhaseLab}
+\alias{getDiveModel}
+\alias{getDiveDeriv}
 \alias{getGAct}
 \alias{getTDR}
 \alias{getSpeedCoef}
@@ -14,6 +16,10 @@
 \alias{getDAct,TDRcalibrate,character-method}
 \alias{getDPhaseLab,TDRcalibrate,missing-method}
 \alias{getDPhaseLab,TDRcalibrate,numeric-method}
+\alias{getDiveModel,TDRcalibrate,missing-method}
+\alias{getDiveModel,TDRcalibrate,numeric-method}
+\alias{getDiveDeriv,diveModel-method}
+\alias{getDiveDeriv,TDRcalibrate-method}
 \alias{getGAct,TDRcalibrate,missing-method}
 \alias{getGAct,TDRcalibrate,character-method}
 \alias{show,TDRcalibrate-method}
@@ -34,6 +40,10 @@
 \S4method{getDAct}{TDRcalibrate,character}(x, y)
 \S4method{getDPhaseLab}{TDRcalibrate,missing}(x)
 \S4method{getDPhaseLab}{TDRcalibrate,numeric}(x, diveNo)
+\S4method{getDiveModel}{TDRcalibrate,missing}(x)
+\S4method{getDiveModel}{TDRcalibrate,numeric}(x, diveNo)
+\S4method{getDiveDeriv}{diveModel}(x, phase=c("all", "descent", "bottom", "ascent"))
+\S4method{getDiveDeriv}{TDRcalibrate}(x, diveNo, phase=c("all", "descent", "bottom", "ascent"))
 \S4method{getGAct}{TDRcalibrate,missing}(x)
 \S4method{getGAct}{TDRcalibrate,character}(x, y)
 }
@@ -56,7 +66,11 @@
     a factor indicating what major activity the observation corresponds
     to (where diving and underwater levels are not represented), or the
     beginning and end times of each phase in the record, respectively.}
-    }
+
+  \item{phase}{character vector indicating phase of the dive for which
+    to extract the derivative.}
+
+}
 
 
 \section{Show Methods}{
@@ -80,19 +94,37 @@
       and postdive number, and a factor identifying all readings to a
       particular activity.}
 
-    \item{getDAct}{\code{signature(x="TDRcalibrate", y = "character")}:
-	as the method for missing \code{y}, but selects a particular
-	vector to extract.  See \code{\link{TDRcalibrate}} for possible
+    \item{getDAct}{\code{signature(x="TDRcalibrate", y="character")}: as
+	the method for missing \code{y}, but selects a particular vector
+	to extract.  See \code{\link{TDRcalibrate}} for possible
 	strings.}
 
-    \item{getDPhaseLab}{\code{signature(x="TDRcalibrate", diveNo =
-	"missing")}: extracts a factor identifying all readings to a
-	particular dive phase.  This accesses the dive.phases slot of
-	\code{\link{TDRcalibrate}} objects, which is a factor.}
+    \item{getDPhaseLab}{\code{signature(x="TDRcalibrate",
+	diveNo="missing")}: extracts a factor identifying all readings
+	to a particular dive phase.  This accesses the dive.phases slot
+	of \code{\link{TDRcalibrate}} objects, which is a factor.}
 
-    \item{getDPhaseLab}{\code{signature(x="TDRcalibrate", diveNo =
-	"numeric")}: as the method for missing \code{y}, but selects
-	data from a particular dive number to extract.}
+    \item{getDPhaseLab}{\code{signature(x="TDRcalibrate",
+	diveNo="numeric")}: as the method for missing \code{y}, but
+	selects data from a particular dive number to extract.}
+
+    \item{getDiveModel}{\code{signature(x="TDRcalibrate",
+	diveNo="missing")}: extracts a list with all dive phase models.
+	This accesses the dive.models slot of \code{\link{TDRcalibrate}}
+	objects.}
+
+    \item{getDiveModel}{\code{signature(x="TDRcalibrate",
+	diveNo="numeric")}: as the method for missing \code{diveNo}, but
+	selects data from a particular dive number to extract.}
+
+    \item{getDiveDeriv}{\code{signature(x="TDRcalibrate")}: extracts the
+	derivative (list) of the dive model (smoothing spline) from the
+	dive.models slot of \code{\link{TDRcalibrate}} objects for one
+	or all phases of a dive.}
+
+    \item{getDiveDeriv}{\code{signature(x="diveModel")}: as the method
+	for \code{TDRcalibrate}, but selects data from one or all phases
+	of a dive.}
 
     \item{getGAct}{\code{signature(x="TDRcalibrate", y="missing")}: this
       accesses the \code{gross.activity} slot of
@@ -121,23 +153,42 @@
 \value{ The extractor methods return an object of the same class as
   elements of the slot they extracted. }
 
+
+\seealso{\code{\link{diveModel}}, \code{\link{plotDiveModel}}.}
+
 % -------------------------------------------------------------------------
 
 \examples{
 
-data(divesTDRcalibrate)
-
-divesTDRcalibrate		# show
+## Continuing the Example from '?calibrateDepth':
+utils::example("calibrateDepth", package="diveMove",
+               ask=FALSE, echo=FALSE)
+dcalib		# the 'TDRcalibrate' that was created
 
 ## Beginning times of each successive phase in record
-getGAct(divesTDRcalibrate, "begin")
+getGAct(dcalib, "begin")
 
 ## Factor of dive IDs
-dids <- getDAct(divesTDRcalibrate, "dive.id")
+dids <- getDAct(dcalib, "dive.id")
 table(dids[dids > 0])		# samples per dive
 
 ## Factor of dive phases for given dive
-getDPhaseLab(divesTDRcalibrate, 19)
+getDPhaseLab(dcalib, 19)
+## Full dive model
+getDiveModel(dcalib, 19)
+
+## Derivatives
+getDiveDeriv(dcalib, diveNo=19)
+(derivs.desc <- getDiveDeriv(dcalib, diveNo=19, phase="descent"))
+(derivs.bott <- getDiveDeriv(dcalib, diveNo=19, phase="bottom"))
+(derivs.asc <- getDiveDeriv(dcalib, diveNo=19, phase="ascent"))
+if (require(lattice)) {
+    fl <- c("descent", "bottom", "ascent")
+    bwplot(~ derivs.desc$y + derivs.bott$y + derivs.asc$y,
+           outer=TRUE, allow.multiple=TRUE, layout=c(1, 3),
+           xlab=expression(paste("Vertical rate (", m \%.\% s^-1, ")")),
+           strip=strip.custom(factor.levels=fl))
+}
 
 }
 

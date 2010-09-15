@@ -1,4 +1,4 @@
-% $Id: extractDive-methods.Rd 200 2008-11-04 03:06:40Z sluque $
+% $Id: extractDive-methods.Rd 401 2010-09-15 17:48:27Z sluque $
 \name{extractDive-methods}
 \docType{methods}
 \alias{extractDive-methods}
@@ -26,10 +26,10 @@
 
   \item{obj}{\code{\link{TDR}} object.}
 
-  \item{diveNo}{Numeric vector or scalar with dive numbers to extract.}
+  \item{diveNo}{numeric vector or scalar with dive numbers to extract.}
 
-  \item{id}{Numeric vector of dive numbers from where \code{diveNo}
-    should be chosen.}
+  \item{id}{numeric vector or scalar of dive numbers from where
+    \code{diveNo} should be chosen.}
 
 }
 
@@ -42,15 +42,15 @@
 
 \examples{
 
-data(divesTDR)
-divesTDR
-data(divesTDRcalibrate)
-divesTDRcalibrate
+## Continuing the Example from '?calibrateDepth':
+utils::example("calibrateDepth", package="diveMove",
+               ask=FALSE, echo=FALSE)
+dcalib		# the 'TDRcalibrate' that was created
 
-diveX <- extractDive(divesTDR, 9, getDAct(divesTDRcalibrate, "dive.id"))
+diveX <- extractDive(divesTDR, 9, getDAct(dcalib, "dive.id"))
 plotTDR(diveX, interact=FALSE)
 
-diveX <- extractDive(divesTDRcalibrate, 5:10)
+diveX <- extractDive(dcalib, 5:10)
 plotTDR(diveX, interact=FALSE)
 
 }

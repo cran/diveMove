@@ -1,4 +1,4 @@
-% $Id: diveStats.Rd 295 2010-06-17 21:59:56Z sluque $
+% $Id: diveStats.Rd 401 2010-09-15 17:48:27Z sluque $
 \name{diveStats}
 
 \alias{diveStats}
@@ -15,7 +15,7 @@
 
 
 \usage{
-diveStats(x)
+diveStats(x, depth.deriv=TRUE)
 oneDiveStats(x, interval, speed=FALSE)
 stampDive(x, ignoreZ=TRUE)
 }
@@ -30,13 +30,17 @@ stampDive(x, ignoreZ=TRUE)
     object with the time for each reading, a numeric depth vector, and a
     numeric speed vector) for \code{oneDiveStats}.}
 
-  \item{interval}{Sampling interval for interpreting \code{x}.}
+  \item{depth.deriv}{logical: should depth derivative statistics be
+    calculated?}
 
-  \item{speed}{Logical; should speed statistics be calculated?}
+  \item{interval}{numeric scalar: sampling interval for interpreting
+    \code{x}.}
 
-  \item{ignoreZ}{Logical indicating whether trips should be numbered
-    considering all aquatic activities (\dQuote{W} and \dQuote{Z}) or
-    ignoring \dQuote{Z} activities.}
+  \item{speed}{logical: should speed statistics be calculated?}
+
+  \item{ignoreZ}{logical: whether trips should be numbered considering
+    all aquatic activities (\dQuote{W} and \dQuote{Z}) or ignoring
+    \dQuote{Z} activities.}
 
 }
 
@@ -65,13 +69,21 @@ stampDive(x, ignoreZ=TRUE)
 
   \item{asctim}{Ascent duration of each dive.}
 
-  \item{descdist}{Numeric vector with descent depth.}
+  \item{divetim}{Dive duration.}
+
+  \item{descdist}{Numeric vector with last descent depth.}
 
   \item{bottdist}{Numeric vector with the sum of absolute depth
     differences while at the bottom of each dive; measure of amount of
     \dQuote{wiggling} while at bottom.}
 
-  \item{ascdist}{Numeric vector with ascent depth.}
+  \item{ascdist}{Numeric vector with first ascent depth.}
+
+  \item{bottdep.m}{Mean bottom depth.}
+
+  \item{bottdep.sd}{Standard deviation of bottom depths.}
+
+  \item{maxdep}{Numeric vector with maximum depth.}
 
   \item{desc.tdist}{Numeric vector with descent total distance,
     estimated from speed.}
@@ -94,10 +106,6 @@ stampDive(x, ignoreZ=TRUE)
   \item{asc.angle}{Numeric vector with ascent angle, from the bottom
     plane.}
 
-  \item{divetim}{Dive duration.}
-
-  \item{maxdep}{Numeric vector with maximum depth.}
-
   \item{postdive.dur}{Postdive duration.}
 
   \item{postdive.tdist}{Numeric vector with postdive total distance,
@@ -105,7 +113,10 @@ stampDive(x, ignoreZ=TRUE)
 
   \item{postdive.mean.speed}{Numeric vector with postdive mean speed.}
 
-  The number of columns depends on the value of speed.
+  If \code{depth.deriv=TRUE}, 21 additional columns with the minimum,
+  first quartile, median, mean, third quartile, maximum, and standard
+  deviation of the depth derivative for each phase of the dive.  The
+  number of columns also depends on the value of speed.
 
   \code{stampDive} returns a data.frame with trip number, trip type, and
   start and end times for each dive.}
@@ -118,11 +129,13 @@ stampDive(x, ignoreZ=TRUE)
 
 \examples{
 
-data(divesTDRcalibrate)
-divesTDRcalibrate
+## Continuing the Example from '?calibrateDepth':
+utils::example("calibrateDepth", package="diveMove",
+               ask=FALSE, echo=FALSE)
+dcalib		# the 'TDRcalibrate' that was created
 
-tdrX <- diveStats(divesTDRcalibrate)
-stamps <- stampDive(divesTDRcalibrate, ignoreZ=TRUE)
+tdrX <- diveStats(dcalib)
+stamps <- stampDive(dcalib, ignoreZ=TRUE)
 tdrX.tab <- data.frame(stamps, tdrX)
 summary(tdrX.tab)
 

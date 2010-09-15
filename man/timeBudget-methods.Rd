@@ -1,4 +1,4 @@
-% $Id: timeBudget-methods.Rd 200 2008-11-04 03:06:40Z sluque $
+% $Id: timeBudget-methods.Rd 401 2010-09-15 17:48:27Z sluque $
 \name{timeBudget-methods}
 \docType{methods}
 
@@ -25,8 +25,7 @@
 \arguments{
   \item{obj}{\code{\link{TDRcalibrate}} object.}
 
-  \item{ignoreZ}{Logical indicating whether to ignore trivial aquatic
-    periods.}
+  \item{ignoreZ}{logical: whether to ignore trivial aquatic periods.}
 
 }
 
@@ -55,9 +54,12 @@
 
 \examples{
 
-data(divesTDRcalibrate)
+## Continuing the Example from '?calibrateDepth':
+utils::example("calibrateDepth", package="diveMove",
+               ask=FALSE, echo=FALSE)
+dcalib		# the 'TDRcalibrate' that was created
 
-timeBudget(divesTDRcalibrate, TRUE)
+timeBudget(dcalib, TRUE)
 
 }
 

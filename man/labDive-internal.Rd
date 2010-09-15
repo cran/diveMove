@@ -1,4 +1,4 @@
-% $Id: labDive-internal.Rd 307 2010-06-22 02:46:15Z sluque $
+% $Id: labDive-internal.Rd 401 2010-09-15 17:48:27Z sluque $
 \name{labDive-internal}
 \alias{labDive-internal}
 
@@ -17,9 +17,9 @@
 
 
 \usage{
-.cutDive(x, descent.crit.q, ascent.crit.q, wiggle.tol)
+.cutDive(x, smooth.par, knot.factor, descent.crit.q, ascent.crit.q)
 .labDive(act, string)
-.labDivePhase(x, diveID, descent.crit.q, ascent.crit.q, wiggle.tol)
+.labDivePhase(x, diveID, \ldots)
 }
 
 
@@ -30,16 +30,19 @@
     object, non NA depths, and numeric vector representing
     \code{\link{POSIXct}} times.}
 
-  \item{descent.crit.q, ascent.crit.q, wiggle.tol}{Passed from
-    \code{calibrateDepth}.}
+  \item{smooth.par, knot.factor, descent.crit.q, ascent.crit.q}{Passed
+  from \code{calibrateDepth}.}
 
-  \item{act}{Factor with values to label.}
+  \item{act}{factor with values to label.}
 
-  \item{string}{A character belonging to a level of \code{act} to search
-    for and label sequentially.}
+  \item{string}{character string belonging to a level of \code{act} to
+    search for and label sequentially.}
 
-  \item{diveID}{Numeric vector indexing each dive (non-dives should be
+  \item{diveID}{numeric vector indexing each dive (non-dives should be
     0)}
+  
+  \item{\ldots}{Arguments passed to \code{.cutDive} (\code{smooth.par}
+    and \code{knot.factor}).}
 
 }
 
@@ -54,16 +57,17 @@
   arguments with two columns: dive.id, and postdive.id, each one
   sequentially numbering each dive and postdive period.
 
-  \code{.labDivePhase} returns a factor with levels \dQuote{D},
-  \dQuote{DB}, \dQuote{B}, \dQuote{BA}, \dQuote{A}, \dQuote{DA}, and
-  \dQuote{X}, breaking the input into descent, descent/bottom, bottom,
-  bottom/ascent, ascent, and non-dive, respectively.  If \code{x}
-  contains no dives, only level \dQuote{X} is present for all readings.
+  \code{.labDivePhase} returns a list with a factor having levels
+  \dQuote{D}, \dQuote{DB}, \dQuote{B}, \dQuote{BA}, \dQuote{A},
+  \dQuote{DA}, and \dQuote{X}, breaking the input into descent,
+  descent/bottom, bottom, bottom/ascent, ascent, and non-dive,
+  respectively.  If \code{x} contains no dives, only level \dQuote{X} is
+  present for all readings.  The list also contains another list with
+  \code{\link{diveModel}} objects for each dive.
 
-  .cutDive generates a character vector that breaks a dive into descent,
-  descent/bottom, bottom, bottom/ascent, ascent, and/or descent/ascent
-  given a proportion of maximum depth for bottom time.  It return a
-  character matrix with orig ID and corresponding label.
+  \code{.cutDive} generates a \code{\link{diveModel}} object with
+  details of model used to detect dive phases using cubic spline
+  smoothing and its first derivative.
 
 }
 

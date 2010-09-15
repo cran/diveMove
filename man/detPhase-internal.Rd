@@ -1,4 +1,4 @@
-% $Id: detPhase-internal.Rd 325 2010-06-23 21:15:18Z sluque $
+% $Id: detPhase-internal.Rd 401 2010-09-15 17:48:27Z sluque $
 \name{detPhase-internal}
 \alias{detPhase-internal}
 
@@ -25,7 +25,7 @@
 
   \item{time}{\code{POSIXct} object with date and time for all depths.}
 
-  \item{depth}{Numeric vector with depth readings.}
+  \item{depth}{numeric vector with depth readings.}
 
   \item{dry.thr, wet.thr}{Passed from \code{\link{calibrateDepth}}.}
 

@@ -1,9 +1,10 @@
-## $Id: calibrate.R 331 2010-07-20 03:57:20Z sluque $
+## $Id: calibrate.R 380 2010-09-14 14:36:41Z sluque $
 
 "calibrateDepth" <-  function(x, dry.thr=70, wet.thr=3610, dive.thr=4,
                               zoc.method=c("visual", "offset", "filter"),
-                              ..., interp.wet=FALSE, descent.crit.q=0.1,
-                              ascent.crit.q=0.1, wiggle.tol=0.80)
+                              ..., interp.wet=FALSE,
+                              smooth.par=0.1, knot.factor=3,
+                              descent.crit.q=0, ascent.crit.q=0)
 {
     ## Value: A TDRcalibrate object.  Detect water/land phases in TDR
     ## object, zoc data, detect dives and their phases, and label them.
@@ -17,11 +18,14 @@
     ## offset (offset); interp.wet=logical (proposal) to control whether we
     ## interpolate NA depths in wet periods (*after ZOC*).  Be careful with
     ## latter, which uses an interpolating spline to impute the missing
-    ## data.
+    ## data.  'smooth.par', 'knot.factor', 'descent.crit.q', and
+    ## 'ascent.crit.q' are arguments passed to .cutDive() via
+    ## .labDivePhase().
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
     if (!is(x, "TDR")) stop ("x is not a TDR object")
+    mCall <- match.call()
     depth <- getDepth(x)
     time <- getTime(x)
     ## Detect trips and dives
@@ -58,15 +62,20 @@
 
     ## Identify dive phases
     phaselabs <- diveMove:::.labDivePhase(x, detd[, 1],
+                                          smooth.par=smooth.par,
+                                          knot.factor=knot.factor,
                                           descent.crit.q=descent.crit.q,
-                                          ascent.crit.q=ascent.crit.q,
-                                          wiggle.tol=wiggle.tol)
+                                          ascent.crit.q=ascent.crit.q)
+    phaselabsF <- phaselabs$phase.labels
+    diveModels <- phaselabs$dive.models
 
     new("TDRcalibrate",
+        call=mCall,
         tdr=x,
         gross.activity=detp,
         dive.activity=detd,
-        dive.phases=phaselabs,
+        dive.phases=phaselabsF,
+        dive.models=diveModels,
         dry.thr=dry.thr,
         wet.thr=wet.thr,
         dive.thr=dive.thr)
