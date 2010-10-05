@@ -3,6 +3,17 @@
 
 See ChangeLog for more details.
 
+** Version 1.2.1:
+
+   o Implemented new plotTDR() generic, providing more consistent interface
+     for all classes.
+
+   o diveStats() provides more dive summary statistics, including
+     derivative summaries.  
+
+   o When interp.wet=TRUE and there are no missing depth observations,
+     calibrateDepth() no longer performs interpolation.
+
 ** Version 1.2:
 
    o Improved procedure for defining dive phases. The method uses smoothing

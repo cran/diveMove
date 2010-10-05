@@ -1,10 +1,11 @@
-% $Id: diveMove-internal.Rd 401 2010-09-15 17:48:27Z sluque $
+% $Id: diveMove-internal.Rd 419 2010-09-19 02:58:47Z sluque $
 \name{diveMove-internal}
 
 \alias{.depthFilter}
 \alias{.derivStats}
 \alias{.diveIndices}
 \alias{.getInterval}
+\alias{.plotTDR}
 \alias{.speedStats}
 \alias{.night}
 \alias{.rleActivity}
@@ -67,7 +68,7 @@
     \code{vdist} is missing, then it's all horizontal movements (no
     angles).}
 
-  \item{sunrise.time, sunset.time}{Passed from \code{plotTD}.}
+  \item{sunrise.time, sunset.time}{Passed from \code{plotTDR}.}
 
   \item{act}{A numeric vector indicating the activity for every element
     of \code{time}.}
@@ -105,6 +106,10 @@
 
   \code{.getInterval} takes a \code{\link{POSIXct}} object and
   calculates the the most frequent interval between successive elements.
+
+  \code{.plotTDR} is the underlying plotting function for
+  \code{\link{TDR}} objects.  Arguments are documented in the main S4
+  method (\code{\link{plotTDR}}).
 
   \code{.speedStats} takes matrix of time and speed, and an optional
   vector of vertical distance travelled between segments, and calculates

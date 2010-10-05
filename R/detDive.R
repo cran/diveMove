@@ -1,4 +1,4 @@
-## $Id: detDive.R 398 2010-09-15 13:14:40Z sluque $
+## $Id: detDive.R 432 2010-09-24 19:37:08Z sluque $
 
 ".labDive" <- function(act, string)
 {
@@ -31,8 +31,7 @@
     ## --------------------------------------------------------------------
     ## Arguments: zdepth=depth vector of zoc'ed data, act=factor with
     ## land/sea activity IDs (2nd element returned by detPhase), with
-    ## values "W" for at-sea, dive.thr=dive threshold in m ...=sampling
-    ## interval in (s), to pass to labDive
+    ## values "W" for at-sea, dive.thr=dive threshold in m
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
@@ -189,7 +188,7 @@
     }
     ## Correct for added 0 at ends
     descind <- seq(Dd1pos.crit - 1)
-    ascind <- seq(Ad1neg.crit - 2, length(times) - 2)
+    ascind <- seq(Ad1neg.crit - 1, length(times) - 2)
 
     ## Bottom -------------------------------------------------------------
     bottind <- c(descind[length(descind)],
@@ -204,21 +203,19 @@
     b <- setdiff(bottind, union(descind, ascind))
     ## bottom/ascent is what's common to ascind and bottind
     ba <- intersect(ascind, bottind)
-    ## ascent is everything in ascind that's not in union of descind and bottind
-    a <- setdiff(ascind, union(descind, bottind))
     ## descent/ascent is what's common to descind and ascind
     da <- intersect(descind, ascind)
+    ## ascent is everything in ascind that's not in union of descind and bottind
+    a <- setdiff(ascind, union(descind, bottind))
 
     labs <- character(nrow(x))
     labs[d] <- "D"
     labs[db] <- "DB"
     labs[b] <- "B"
     labs[ba] <- "BA"
-    labs[a] <- "A"
     labs[da] <- "DA"
-    ## If there are repetitions, keep the last one to avoid missing ascent labels
-    rowids <- unique(c(x[d, 1], x[db, 1], x[b, 1], x[ba, 1], x[a, 1], x[da, 1]),
-                     fromLast=TRUE)
+    labs[a] <- "A"
+    rowids <- unique(c(x[d, 1], x[db, 1], x[b, 1], x[ba, 1], x[a, 1], x[da, 1]))
     ## Any remaining rowids are nonexistent labels
     label.mat <- cbind(rowids[!is.na(rowids)], labs[!is.na(rowids)])
     new("diveModel",
@@ -287,12 +284,16 @@
 
 ## TEST ZONE --------------------------------------------------------------
 
-## utils::example("calibrateDepth", package="diveMove", ask=FALSE, echo=FALSE)
-## X <- c(2, 7, 100, 120)
-## X <- c(3548, 3550)
-## diveX <- as.data.frame(extractDive(tdr.calib, diveNo=X[2]))
+## ## utils::example("calibrateDepth", package="diveMove", ask=FALSE, echo=FALSE)
+## ## X <- c(2, 7, 100, 120, 240)
+## ## diveMove:::.labDivePhase(getTDR(tdr.calib), getDAct(tdr.calib, "dive.id"),
+## ##                          smooth.par=0.1, knot.factor=30, descent.crit=0.01,
+## ##                          ascent.crit=0)
+## ## diveX <- as.data.frame(extractDive(dcalib, diveNo=X[5]))
+## X <- c(2, 7, 100, 120, 743, 1224, 1222, 1223)
+## diveX <- as.data.frame(extractDive(tdr.calib, diveNo=X[5]))
 ## diveX.m <- cbind(as.numeric(row.names(diveX[-c(1, nrow(diveX)), ])),
 ##                  diveX$depth[-c(1, nrow(diveX))],
 ##                  diveX$time[-c(1, nrow(diveX))])
-## phases <- diveMove:::.cutDive(diveX.m, smooth.par=0.1, knot.factor=20,
-##                               descent.crit.q=0.01, ascent.crit.q=0.01)
+## phases <- diveMove:::.cutDive(diveX.m, smooth.par=0.1, knot.factor=30,
+##                               descent.crit.q=0.01, ascent.crit.q=0)

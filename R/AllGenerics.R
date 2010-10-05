@@ -1,9 +1,9 @@
-## $Id: AllGenerics.R 393 2010-09-15 02:51:37Z sluque $
+## $Id: AllGenerics.R 417 2010-09-18 15:49:11Z sluque $
 
-###_ + Plottting
+###_ + Plotting
 if (!isGeneric("plotTDR")) {
     setGeneric("plotTDR",
-               function(x, ...) standardGeneric("plotTDR"))
+               function(x, y, ...) standardGeneric("plotTDR"))
 }
 
 if (!isGeneric("plotDiveModel")) {

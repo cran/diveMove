@@ -1,4 +1,4 @@
-## $Id: zoc.R 333 2010-07-20 20:50:54Z sluque $
+## $Id: zoc.R 412 2010-09-17 03:12:34Z sluque $
 
 ".depthFilter" <- function(depth, k, probs, depth.bounds, na.rm)
 {
@@ -65,7 +65,7 @@
     ## something like method="filter")
     ## --------------------------------------------------------------------
     switch(method,
-           visual = {zoclims <- plotTD(time, depth)
+           visual = {zoclims <- plotTDR(time, depth)
                      dev.off()
                      if (length(zoclims) == 0) {
                          message("No ZOC performed.")

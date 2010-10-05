@@ -1,6 +1,6 @@
-## $Id: AllMethod.R 393 2010-09-15 02:51:37Z sluque $
+## $Id: AllMethod.R 436 2010-10-01 20:15:38Z sluque $
 
-###_ + Show and PlotTDR
+###_ + Show and plot
 
 ###_  . TDR and TDRspeed
 setMethod("show", signature=signature(object="TDR"),
@@ -29,22 +29,43 @@ setMethod("show", signature=signature(object="TDR"),
               }
           })
 
-setMethod("plotTDR", signature(x="TDR"),
-          function(x, ...) {
-              plotTD(getTime(x), getDepth(x), ...)
+setMethod("plotTDR", signature(x="POSIXt", y="numeric"),
+          function(x, y, concurVars=NULL, xlim=NULL, depth.lim=NULL,
+                   xlab="time (dd-mmm hh:mm)", ylab.depth="depth (m)",
+                   concurVarTitles=deparse(substitute(concurVars)),
+                   xlab.format="%d-%b %H:%M", sunrise.time="06:00:00",
+                   sunset.time="18:00:00", night.col="gray60", dry.time=NULL,
+                   phase.factor=NULL, interact=TRUE, key=TRUE,
+                   cex.pts=0.4, ...) {
+              stopifnot(identical(length(x), length(y)), is.vector(y))
+              diveMove:::.plotTDR(time=x, depth=y, concurVars=concurVars,
+                                  xlim=xlim, depth.lim=depth.lim, xlab=xlab,
+                                  ylab.depth=ylab.depth,
+                                  concurVarTitles=concurVarTitles,
+                                  xlab.format=xlab.format,
+                                  sunrise.time=sunrise.time,
+                                  sunset.time=sunset.time,
+                                  night.col=night.col, dry.time=dry.time,
+                                  phase.factor=phase.factor,
+                                  interact=interact, key=key,
+                                  cex.pts=cex.pts, ...)
           })
 
-setMethod("plotTDR", signature(x="TDRspeed"),
-          function(x, concurVars, concurVarTitles, ...) {
-              if (missing(concurVarTitles) && !missing(concurVars)) {
-                  concurVarTitles <- colnames(concurVars)
-              } else if (missing(concurVarTitles) && missing(concurVars)) {
-                  concurVars <- NULL
-                  concurVarTitles <- "speed (m/s)"
+setMethod("plotTDR", signature(x="TDR", y="missing"),
+          function(x, y, concurVars, concurVarTitles, ...) {
+              if (!missing(concurVars)) {
+                  ccd <- getCCData(x, concurVars)
+                  if (!missing(concurVarTitles)) {
+                      lcvt <- length(concurVarTitles)
+                      lcv <- length(concurVars)
+                      stopifnot(identical(lcvt, lcv))
+                  } else concurVarTitles <- colnames(ccd)
+              } else if (missing(concurVars) && missing(concurVarTitles)) {
+                  ccd <- concurVarTitles <- NULL
               }
-              plotTD(getTime(x), getDepth(x),
-                     concurVars=cbind(getSpeed(x), concurVars),
-                     concurVarTitles=concurVarTitles, ...)
+              diveMove:::.plotTDR(time=getTime(x), depth=getDepth(x),
+                                  concurVars=ccd,
+                                  concurVarTitles=concurVarTitles, ...)
           })
 
 ###_  . TDRcalibrate
@@ -56,8 +77,7 @@ setMethod("show", signature=signature(object="TDRcalibrate"),
               wet <- object@gross.activity$activity == "W"
               wetz <- object@gross.activity$activity == "Z"
               ww <- length(unique(object@gross.activity$ phase.id[wet | wetz]))
-              cat("Depth calibration -- Class", class(object), "object\n",
-                  sep="")
+              cat("Depth calibration -- Class", class(object), "object\n")
               cat("  Call                          : ", mCall, "\n", sep="")
               cat("  Source file                   : ", object@tdr@file, "\n",
                   sep="")
@@ -81,37 +101,102 @@ setMethod("show", signature=signature(object="TDRcalibrate"),
               } else cat("\n", sep="")
           })
 
-setMethod("plotTDR", signature(x="TDRcalibrate"),
-          function(x, diveNo=seq(max(getDAct(x, "dive.id"))),
-                   labels="phase.id", concurVars, surface=FALSE, ...) {
-              diveids <- getDAct(x, "dive.id")
-              tdr <- getTDR(x)
-              if (max(unique(diveids)) < 1) {
-                  ok <- seq(along=slot(tdr, "depth"))
-              } else if (surface) {
-                  dives <- diveids %in% diveNo
-                  postdiveids <- getDAct(x, "postdive.id")
-                  postdives <- postdiveids %in% diveNo
-                  ok <- which(dives | postdives)
-              } else ok <- diveMove:::.diveIndices(diveids, diveNo)
-              newtdr <- tdr[ok]
-              switch(labels,
-                     phase.id = {
-                         labs <- as.factor(getGAct(x, "phase.id")[ok])
+".plotTDRcalibratePhases" <- function(x, diveNo=seq(max(getDAct(x, "dive.id"))),
+                                      concurVars, surface=FALSE, ...)
+{
+    if (!is(x, "TDRcalibrate")) stop("x must be a TDRcalibrate object")
+    ell <- list(...)
+    diveNo <- sort(diveNo)
+    diveids <- getDAct(x, "dive.id")
+    tdr <- getTDR(x)
+    if (max(unique(diveids)) < 1) {
+        ok <- seq(along=slot(tdr, "depth"))
+    } else if (surface) {
+        dives <- diveids %in% diveNo
+        postdiveids <- getDAct(x, "postdive.id")
+        postdives <- postdiveids %in% diveNo
+        ok <- which(dives | postdives)
+    } else ok <- diveMove:::.diveIndices(diveids, diveNo)
+    newtdr <- tdr[ok]
+    alltimes <- getTime(tdr)
+    newtimes <- getTime(newtdr)
+    times.ok <- alltimes >= newtimes[1] & alltimes <= newtimes[length(newtimes)]
+    fulltimes <- alltimes[times.ok]
+    labs <- getDPhaseLab(x)[ok]
+    drys <- getGAct(x, "activity")[times.ok]
+    drys[drys == "Z"] <- "L"; drys <- drys[, drop=TRUE]
+    dry.time <- fulltimes[drys == "L"]
+    ell$x <- newtdr
+    ell$phase.factor <- labs
+    if(length(dry.time) > 0L) ell$dry.time <- dry.time
+    if (!missing(concurVars)) {
+        if (!is.character(concurVars))
+            stop("concurVars must be of class character")
+        ell$concurVars <- concurVars
+    }
+    do.call(plotTDR, args=ell)
+}
+setMethod("plotTDR", signature(x="TDRcalibrate", y="missing"),
+          function(x, y, what=c("phases", "dive.model"),
+                   diveNo=seq(max(getDAct(x, "dive.id"))), ...) {
+              what <- match.arg(what)
+              switch(what,
+                     phases = {
+                         diveMove:::.plotTDRcalibratePhases(x,
+                                                            diveNo=diveNo,
+                                                            ...)
                      },
-                     dive.phase = {labs <- getDPhaseLab(x)[ok]})
-              labs <- factor(as.character(labs))
-              if (!missing(concurVars)) {
-                  if (!is.character(concurVars))
-                      stop("concurVars must be of class character")
-                  ccd <- getCCData(tdr, concurVars)[ok, , drop=FALSE]
-                  plotTDR(newtdr, concurVars=ccd, phase.factor=labs, ...)
-              } else plotTDR(newtdr, phase.factor=labs, ...)
+                     dive.model = { plotDiveModel(x, diveNo=diveNo) })
           })
 
 ###_  . diveModel
-setMethod("plotDiveModel",
-          signature(x="diveModel", y="missing"),
+setMethod("show", signature=signature(object="diveModel"),
+          definition=function(object) {
+              ## Lots stolen from print.smooth.spline()
+              digits <- getOption("digits")
+              cat("Dive model -- Class",
+                  class(object), "object\n")
+              if(!is.null(cl <- object@dive.spline$call)) {
+                  cat("Call:\n")
+                  dput(cl, control=NULL)
+              }
+              ip <- object@dive.spline$iparms
+              cv <- cl$cv
+              if(is.null(cv)) cv <- FALSE else if(is.name(cv)) cv <- eval(cv)
+              cat("\nSmoothing Parameter  spar=",
+                  format(object@dive.spline$spar, digits=digits),
+                  " lambda=", format(object@dive.spline$lambda, digits=digits),
+                  if (ip["ispar"] != 1L) {
+                      paste("(", ip["iter"], " iterations)", sep="")
+                      }, "\n", sep="")
+              cat("Equivalent Degrees of Freedom :",
+                  format(object@dive.spline$df, digits=digits), "\n")
+              cat("Penalized Criterion           :",
+                  format(object@dive.spline$pen.crit, digits=digits), "\n")
+              cat(ifelse(cv,
+                         "PRESS                         : ",
+                         "GCV                           : "),
+                  format(object@dive.spline$cv.crit, digits=digits),
+                  "\n", sep="")
+              cat("Observed N                    : ",
+                  nrow(object@label.matrix), "\n", sep="")
+              cat("Modelled N                    : ",
+                  length(object@dive.spline$data$x), "\n", sep="")
+              cat("Modelled N (distinct)         : ",
+                  length(object@dive.spline$x), "\n", sep="")
+              cat("Derivative evaluated at       : ",
+                  length(object@spline.deriv$x), " points", "\n", sep="")
+              cat("Descent ends after            : ",
+                  object@descent.crit, " steps in model", "\n", sep="")
+              cat("Ascent begins after           : ",
+                  object@ascent.crit, " steps in model", "\n", sep="")
+              cat("Descent critical rate         : ",
+                  object@descent.crit.rate, "\n", sep="")
+              cat("Ascent critical rate          : ",
+                  object@ascent.crit.rate, "\n", sep="")
+          })
+
+setMethod("plotDiveModel", signature(x="diveModel", y="missing"),
           function(x, diveNo) {
               if (missing(diveNo)) diveNo <- "Unknown"
               diveM <- x
@@ -146,8 +231,7 @@ setMethod("plotDiveModel",
               depths.s <- diveM@dive.spline$y
               times.deriv <- diveM@spline.deriv$x
               if (length(times) < 4L) {
-                  ff <- times[length(times)] /
-                      times.s[length(times.s)]
+                  ff <- times[length(times)] / times.s[length(times.s)]
                   times.s <- times.s * ff
                   times.deriv <- times.deriv * ff
               }
@@ -308,11 +392,11 @@ setMethod("getDPhaseLab", signature(x="TDRcalibrate", diveNo="numeric"),
 ## access the entire object
 setMethod("getDiveModel", signature(x="TDRcalibrate", diveNo="missing"),
           function(x) x@dive.models)
-## access only those from certain dives
+## access only those from certain dives -- simplify if only one
 setMethod("getDiveModel", signature(x="TDRcalibrate", diveNo="numeric"),
           function(x, diveNo) {
               dm <- x@dive.models[diveNo]
-              if (length(diveNo == 1L)) dm[[1]] else dm
+              if (length(diveNo) == 1L) dm[[1]] else dm
           })
 
 ## Basic diveModel
@@ -350,12 +434,17 @@ setMethod("getDiveDeriv", signature(x="diveModel"),
                          spd
                      })
           })
-## TDRcalibrate
+## TDRcalibrate -- do all dives or selection.  Simplify if only one
 setMethod("getDiveDeriv", signature(x="TDRcalibrate"),
           function(x, diveNo, phase=c("all", "descent", "bottom", "ascent")) {
+              if (missing(diveNo)) diveNo <- seq(max(getDAct(x, "dive.id")))
               phase <- match.arg(phase)
-              dm <- getDiveModel(x, diveNo=diveNo)
-              getDiveDeriv(dm, phase=phase)
+              dl <- lapply(diveNo, function(k) {
+                  dm <- getDiveModel(x, diveNo=k)
+                  getDiveDeriv(dm, phase=phase)
+              })
+              names(dl) <- diveNo
+              if (length(diveNo) == 1L) dl[[1]] else dl
           })
 
 setMethod("getSpeedCoef", signature(x="TDRcalibrate"),

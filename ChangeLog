@@ -1,3 +1,66 @@
+2010-10-01  Sebastian P. Luque <spluque@gmail.com>
+
+	* R/AllMethod.R, man/TDRcalibrate-accessors.Rd:
+	  Implemented show() method for diveModel objects.
+
+	* R/calibrate.R:
+	  Guard against no missing data in calibrateDepth() when
+	  interp.wet=TRUE.
+
+2010-09-24  Sebastian P. Luque <spluque@gmail.com>
+
+	* R/detDive.R, R/detPhase.R:
+	  Force the last run of NA depth to be "L" (land) right before
+	  calculating final activity sequences, since it should not be
+	  allowed to be anything else.
+
+2010-09-23  Sebastian P. Luque <spluque@gmail.com>
+
+	* R/detDive.R:
+	  Subtraction to estimate start of ascent was incorrect in
+	  '.cutDive'.
+
+2010-09-20  Sebastian P. Luque <spluque@gmail.com>
+
+	* R/oneDiveStats.R, man/diveStats.Rd:
+	  Output median bottom depth.
+
+2010-09-19  Sebastian P. Luque <spluque@gmail.com>
+
+	* R/AllMethod.R:
+	  Fixed parentheses in getDiveModel() and provide a more complete
+	  getDiveDeriv().
+
+	* R/AllMethod.R, R/plotTDR.R:
+	  Fixed how 'dry.time' was being handled.
+
+	* R/AllMethod.R, R/plotTDR.R, inst/doc/diveMove.Rnw,
+	  man/diveMove-internal.Rd, man/diveMove-package.Rd,
+	  man/plotTDR-methods.Rd:
+	  Removed 'TDRspeed,missing' method for plotTDR, since it is not
+	  really useful. Corrected plotTDR() methods.
+
+2010-09-18  Sebastian P. Luque <spluque@gmail.com>
+
+	* NAMESPACE, R/AllGenerics.R, R/AllMethod.R, R/plotTDR.R,
+	  inst/doc/diveMove.Rnw, man/TDRcalibrate-accessors.Rd,
+	  man/calibrateDepth.Rd, man/diveMove-package.Rd,
+	  man/extractDive-methods.Rd, man/plotTDR-methods.Rd:
+	  Implementing new plotTDR() generic.
+
+2010-09-17  Sebastian P. Luque <spluque@gmail.com>
+
+	* inst/doc/diveMove.Rnw:
+	  Use proper height.
+
+	* man/plot-methods.Rd:
+	  Fixed documentation.
+
+2010-09-16  Sebastian P. Luque <spluque@gmail.com>
+
+	* R/plotTD.R:
+	  Renaming to plotTDR(), as this should be the main method.
+
 2010-09-15  Sebastian P. Luque <spluque@gmail.com>
 
 	Releasing version 1.2
