@@ -1,4 +1,4 @@
-% $Id: diveStats.Rd 401 2010-09-15 17:48:27Z sluque $
+% $Id: diveStats.Rd 428 2010-09-20 18:22:03Z sluque $
 \name{diveStats}
 
 \alias{diveStats}
@@ -79,7 +79,9 @@ stampDive(x, ignoreZ=TRUE)
 
   \item{ascdist}{Numeric vector with first ascent depth.}
 
-  \item{bottdep.m}{Mean bottom depth.}
+  \item{bottdep.mean}{Mean bottom depth.}
+
+  \item{bottdep.median}{Median bottom depth.}
 
   \item{bottdep.sd}{Standard deviation of bottom depths.}
 

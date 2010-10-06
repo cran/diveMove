@@ -1,4 +1,4 @@
-% $Id: TDR-accessors.Rd 297 2010-06-18 03:51:48Z sluque $
+% $Id: TDR-accessors.Rd 412 2010-09-17 03:12:34Z sluque $
 \name{TDR-accessors}
 \docType{methods}
 \alias{TDR-methods}
@@ -42,7 +42,8 @@
   \code{\link{TDR}}. }
 
 
-\section{Show Methods}{
+\section{Show Method}{
+
   \describe{
 
     \item{show}{\code{signature(object="TDR")}: print an informative
@@ -115,7 +116,7 @@
 }
 
 
-\seealso{ \code{\link{extractDive}}, \code{\link{plotTD}}.  }
+\seealso{ \code{\link{extractDive}}, \code{\link{plotTDR}}.  }
 
 % -------------------------------------------------------------------------
 

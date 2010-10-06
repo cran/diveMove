@@ -1,4 +1,4 @@
-## $Id: oneDiveStats.R 352 2010-09-07 20:00:09Z sluque $
+## $Id: oneDiveStats.R 428 2010-09-20 18:22:03Z sluque $
 
 "oneDiveStats" <- function(x, interval, speed=FALSE)
 {
@@ -23,7 +23,8 @@
     if (nrow(bott) > 0) {
         botttim <- difftime(bott[nrow(bott), 1], bott[1, 1], units="secs")
         bottdist <- sum(abs(diff(bott[!is.na(bott[, 2]), 2])))
-        bottdep.m <- mean(bott[, 2], na.rm=TRUE)
+        bottdep.mean <- mean(bott[, 2], na.rm=TRUE)
+        bottdep.median <- median(bott[, 2], na.rm=TRUE)
         bottdep.sd <- sd(bott[, 2], na.rm=TRUE)
     }
     ## ASCENT
@@ -44,7 +45,8 @@
               asctim=asctim, divetim=divetim, descdist=descdist,
               bottdist=ifelse(exists("bottdist"), bottdist, NA),
               ascdist=ascdist,
-              bottdep.m=ifelse(exists("botttim"), bottdep.m, NA),
+              bottdep.mean=ifelse(exists("botttim"), bottdep.mean, NA),
+              bottdep.median=ifelse(exists("botttim"), bottdep.median, NA),
               bottdep.sd=ifelse(exists("botttim"), bottdep.sd, NA),
               maxdep=maxdep)
     } else {
@@ -57,7 +59,8 @@
               asctim=asctim,  divetim=divetim, descdist=descdist,
               bottdist=ifelse(exists("bottdist"), bottdist, NA),
               ascdist=ascdist,
-              bottdep.m=ifelse(exists("botttim"), bottdep.m, NA),
+              bottdep.mean=ifelse(exists("botttim"), bottdep.mean, NA),
+              bottdep.median=ifelse(exists("botttim"), bottdep.median, NA),
               bottdep.sd=ifelse(exists("botttim"), bottdep.sd, NA),
               maxdep=maxdep, desc.tdist=descv[, 1],
               desc.mean.speed=descv[, 2], desc.angle=descv[, 3],

@@ -1,4 +1,4 @@
-% $Id: TDRcalibrate-accessors.Rd 396 2010-09-15 03:48:32Z sluque $
+% $Id: TDRcalibrate-accessors.Rd 436 2010-10-01 20:15:38Z sluque $
 \name{TDRcalibrate-accessors}
 \docType{methods}
 \alias{TDRcalibrate-methods}
@@ -23,6 +23,7 @@
 \alias{getGAct,TDRcalibrate,missing-method}
 \alias{getGAct,TDRcalibrate,character-method}
 \alias{show,TDRcalibrate-method}
+\alias{show,diveModel-method}
 \alias{getTDR,TDRcalibrate-method}
 \alias{getSpeedCoef,TDRcalibrate-method}
 
@@ -78,6 +79,9 @@
 
     \item{show}{\code{signature(object="TDRcalibrate")}: prints an
       informative summary of the data.}
+
+    \item{show}{\code{signature(object="diveModel")}: prints an
+      informative summary of a dive model.}
 
   }
 
@@ -154,7 +158,8 @@
   elements of the slot they extracted. }
 
 
-\seealso{\code{\link{diveModel}}, \code{\link{plotDiveModel}}.}
+\seealso{\code{\link{diveModel}}, \code{\link{plotDiveModel}},
+\code{\link{plotTDR}}.}
 
 % -------------------------------------------------------------------------
 
@@ -175,7 +180,8 @@ table(dids[dids > 0])		# samples per dive
 ## Factor of dive phases for given dive
 getDPhaseLab(dcalib, 19)
 ## Full dive model
-getDiveModel(dcalib, 19)
+(dm <- getDiveModel(dcalib, 19))
+str(dm)
 
 ## Derivatives
 getDiveDeriv(dcalib, diveNo=19)

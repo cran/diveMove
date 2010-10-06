@@ -1,4 +1,4 @@
-% $Id: diveMove.Rnw 397 2010-09-15 05:45:20Z sluque $
+% $Id: diveMove.Rnw 419 2010-09-19 02:58:47Z sluque $
 %\VignetteIndexEntry{Dive Analysis}
 %\VignetteDepends{diveMove}
 %\VignettePackage{diveMove}
@@ -228,11 +228,11 @@ ddtt.str <- paste(tdrXcsv$date, tdrXcsv$time)
 ddtt <- strptime(ddtt.str, format="%d/%m/%Y %H:%M:%S")
 time.posixct <- as.POSIXct(ddtt, tz="GMT")
 tdrX <- createTDR(time=time.posixct, depth=tdrXcsv$depth,
-concurrentData=tdrXcsv[, -c(1:3)], dtime=5, file=ff)
+                  concurrentData=tdrXcsv[, -c(1:3)], dtime=5, file=ff)
 ## Or a TDRspeed object, since we know we have speed measurements:
 tdrX <- createTDR(time=time.posixct, depth=tdrXcsv$depth,
-concurrentData=tdrXcsv[, -c(1:3)], dtime=5, file=ff,
-speed=TRUE)
+                  concurrentData=tdrXcsv[, -c(1:3)], dtime=5, file=ff,
+                  speed=TRUE)
 @
 
 If the files are in *.csv format, these steps can be automated using the
@@ -251,9 +251,8 @@ png("plot_tdr.png"); plotTDR(tdrX, interact=FALSE, cex.lab=1.3); dev.off()
   \centering
   \includegraphics[width=\linewidth]{plot_tdr}
   \includegraphics[width=0.5\linewidth]{tcltk}
-  \caption{The \Rmethod{plotTDR()} method for \Rclass{TDR} objects
-    produces an interactive plot of the data, allowing for zooming and
-    panning.}
+  \caption{The \Rmethod{plotTDR()} method for \Rclass{TDR} objects produces
+    an interactive plot of the data, allowing for zooming and panning.}
   \label{fig:1}
 \end{figure}
 
@@ -401,8 +400,8 @@ A more refined call to \Rfunction{calibrateDepth()} for object
 
 <<zoc>>=
 dcalib <- calibrateDepth(tdrX, dive.thr=3, zoc.method="offset",
-                               offset=3, descent.crit.q=0.01, ascent.crit.q=0,
-                               knot.factor=20)
+                         offset=3, descent.crit.q=0.01, ascent.crit.q=0,
+                         knot.factor=20)
 @
 
 The result (value) of this function is an object of class
@@ -463,12 +462,12 @@ allows visualizing the major wet/dry activities throughout the record
 (Figure~\ref{fig:2}):
 
 <<plot-gross-activity, eval=FALSE>>=
-plotTDR(dcalib, concurVars="light", concurVarTitles=c("speed (m/s)", "light"),
-surface=TRUE)
+plotTDR(dcalib, concurVars=c("speed", "light"),
+        surface=TRUE)
 <<eval=TRUE, echo=FALSE, results=hide>>=
 png("plot_tdr_calibrate.png", width=380)
-plotTDR(dcalib, concurVars="light", concurVarTitles=c("speed (m/s)", "light"),
-surface=TRUE, interact=FALSE, cex.lab=1.3)
+plotTDR(dcalib, concurVars=c("speed", "light"),
+        surface=TRUE, interact=FALSE, cex.lab=1.3)
 dev.off()
 @
 \begin{figure}[tb]
@@ -502,9 +501,9 @@ of dives 2 through 8 (Figure~\ref{fig:3}):
 <<plot-dive-activity, eval=FALSE>>=
 plotTDR(dcalib, diveNo=2:8, labels="dive.phase")
 <<eval=TRUE, echo=FALSE, results=hide>>=
-png("plot_tdr_dives.png")
+png("plot_tdr_dives.png", height=380)
 plotTDR(dcalib, diveNo=2:8, labels="dive.phase", interact=FALSE,
-cex.lab=1.3, depth.lim=c(0, 80))
+        cex.lab=1.3, depth.lim=c(0, 80))
 dev.off()
 @
 \begin{figure}%[tb]
@@ -629,7 +628,7 @@ As can be seen, the function \Rfunction{extractDive} takes a
 extract, and returns a \Rclass{TDR} object containing the subsetted data.
 Once a subset of data has been selected, it is possible to plot them and
 pass the factor labelling dive phases as the argument \Rfunarg{phaseCol} to
-the \Rmethod{plotTDR} method\footnote{The function that the method uses is
+the \Rmethod{plot} method\footnote{The function that the method uses is
   actually \Rfunction{plotTD}, so all the possible arguments can be studied
   by reading the help page for \Rfunction{plotTD}}:
 
@@ -770,11 +769,11 @@ measured speeds and rates of depth change~$>$~0:
 
 <<calibrate-speed, eval=FALSE>>=
 vcalib <- calibrateSpeed(dcalib, tau=0.1, contour.level=0.1,
-z=1, bad=c(0, 0), cex.pts=0.2)
+                         z=1, bad=c(0, 0), cex.pts=0.2)
 <<eval=TRUE, echo=FALSE, results=hide>>=
 png("speed_calibration.png")
 calibrateSpeed(dcalib, tau=0.1, contour.level=0.1,
-z=1, bad=c(0, 0), cex.pts=0.2)
+               z=1, bad=c(0, 0), cex.pts=0.2)
 dev.off()
 @
 \begin{figure}%

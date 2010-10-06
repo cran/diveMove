@@ -1,33 +1,34 @@
-## $Id: plotTD.R 314 2010-06-23 11:33:18Z sluque $
+## $Id: plotTDR.R 421 2010-09-19 04:33:01Z sluque $
 
 ###_ + Internal Function
 ".night" <- function(time, sunrise.time, sunset.time)
 {
     ## Value: A list with sunset and sunrise times for dates in 'time'
     ## --------------------------------------------------------------------
-    ## Arguments: Passed from plotTD
+    ## Arguments: Passed from plotTDR
     ## --------------------------------------------------------------------
     ## Author: Sebastian P. Luque
     ## --------------------------------------------------------------------
     morn.uniq <- unique(format(time, format=paste("%Y-%m-%d", sunrise.time)))
-    morn <- as.POSIXct(morn.uniq, tz = attr(time, "tzone")) + 86400
+    tz <- ifelse(is.null(attr(time, "tzone")), "", attr(time, "tzone"))
+    morn <- as.POSIXct(morn.uniq, tz=tz) + 86400
     morn.before <- morn[1] - 86400
     morn.all <- rbind(data.frame(x=morn.before), data.frame(x=morn))[[1]]
     night.uniq <- unique(format(time, format=paste("%Y-%m-%d", sunset.time)))
-    night <- as.POSIXct(night.uniq, tz=attr(time, "tzone"))
+    night <- as.POSIXct(night.uniq, tz=tz)
     night.before <- night[1] - 86400
     night.all <- rbind(data.frame(x=night.before), data.frame(x=night))[[1]]
     list(sunrises=morn.all, sunsets=night.all)
 }
 
 ###_ + Main Function
-"plotTD" <- function(time, depth, concurVars=NULL, xlim=NULL, depth.lim=NULL,
-                     xlab="time (dd-mmm hh:mm)", ylab.depth="depth (m)",
-                     concurVarTitles=deparse(substitute(concurVars)),
-                     xlab.format="%d-%b %H:%M", sunrise.time="06:00:00",
-                     sunset.time="18:00:00", night.col="gray60",
-                     phase.factor=NULL, interact=TRUE, key=TRUE,
-                     cex.pts=0.4, ...)
+".plotTDR" <- function(time, depth, concurVars=NULL, xlim=NULL, depth.lim=NULL,
+                       xlab="time (dd-mmm hh:mm)", ylab.depth="depth (m)",
+                       concurVarTitles=deparse(substitute(concurVars)),
+                       xlab.format="%d-%b %H:%M", sunrise.time="06:00:00",
+                       sunset.time="18:00:00", night.col="gray60",
+                       dry.time=NULL, phase.factor=NULL, interact=TRUE,
+                       key=TRUE, cex.pts=0.4, ...)
 {
     ## Value: Returns (invisibly) a list with coordinates for each zoc'ed
     ## time window.  Also Plot time, depth, and other concurrent data.
@@ -35,14 +36,15 @@
     ## Arguments: time=POSIXct; depth=numeric vector with depth readings,
     ## concurVars=matrix of numeric data with concurrent data to plot,
     ## xlim=POSIXct vector with lower and upper time limits to plot,
-    ## depth.lim=vector with lower and upper depth limits, phase.factor=factor
-    ## classifying each reading, xlab=title for the x axis,
-    ## ylab.depth=title for the depth axis, concurVarTitles=string vector
-    ## with titles for the additional variables, xlab.format=format string
-    ## for formatting time in x axis, sunrise.time=string specifying the
-    ## time of sunrise, sunset.time=string specifying sunset time,
-    ## night.col=color for masking night times, key=logical whether to
-    ## draw a legend; ...=parameters passed to par.
+    ## depth.lim=vector with lower and upper depth limits, dry.time=subset
+    ## of time corresponding to observations considered to be dry;
+    ## phase.factor=factor classifying each reading, xlab=title for the x
+    ## axis, ylab.depth=title for the depth axis, concurVarTitles=string
+    ## vector with titles for the additional variables, xlab.format=format
+    ## string for formatting time in x axis, sunrise.time=string specifying
+    ## the time of sunrise, sunset.time=string specifying sunset time,
+    ## night.col=color for masking night times, key=logical whether to draw
+    ## a legend; ...=parameters passed to par.
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
@@ -71,6 +73,8 @@
         xleft <- pmax(unclass(nights$sunsets), usr[1])
         xright <- pmin(unclass(nights$sunrises), usr[2])
         rect(xleft, usr[3], xright, usr[4], col=night.col, border=NA)
+        if (!is.null(dry.time)) segments(dry.time, usr[4], dry.time, usr[4],
+                                         lwd=4, col="tan")
         axis.POSIXct(side=1, time, at=xticks, format=xlab.format)
         axis(side=2)
         lines(time, depth)
@@ -208,6 +212,7 @@
         invisible(coords)
     }
 }
+
 
 
 ###_ + Emacs local variables
