@@ -1,4 +1,4 @@
-% $Id: plotTDR-methods.Rd 419 2010-09-19 02:58:47Z sluque $
+% $Id: plotTDR-methods.Rd 439 2010-10-06 03:44:19Z sluque $
 \name{plotTDR-methods}
 \docType{methods}
 \alias{plotTDR-methods}
@@ -28,8 +28,8 @@
         concurVarTitles=deparse(substitute(concurVars)),
         xlab.format="\%d-\%b \%H:\%M", sunrise.time="06:00:00",
         sunset.time="18:00:00", night.col="gray60",
-        dry.time=NULL, phase.factor=NULL, interact=TRUE, key=TRUE,
-        cex.pts=0.4, \ldots)
+        dry.time=NULL, phase.factor=NULL, plot.points=FALSE,
+        interact=TRUE, key=TRUE, cex.pts=0.4, \ldots)
 \S4method{plotTDR}{TDR,missing}(x, y, concurVars, concurVarTitles, \ldots)
 \S4method{plotTDR}{TDRcalibrate,missing}(x, y, what=c("phases", "dive.model"),
         diveNo=seq(max(getDAct(x, "dive.id"))), \ldots)
@@ -75,6 +75,8 @@
     considered to be dry.}
 
   \item{phase.factor}{factor dividing rows into sections.}
+
+  \item{plot.points}{logical: whether to plot points.}
 
   \item{interact}{logical: whether to provide interactive tcltk controls
     and access to the associated ZOC functionality.}
