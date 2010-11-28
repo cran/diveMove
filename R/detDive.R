@@ -1,4 +1,4 @@
-## $Id: detDive.R 432 2010-09-24 19:37:08Z sluque $
+## $Id: detDive.R 447 2010-10-12 22:06:15Z sluque $
 
 ".labDive" <- function(act, string)
 {
@@ -66,7 +66,7 @@
 }
 
 ##_+ Dive Detection with smoothing spline and derivative
-".cutDive" <- function(x, smooth.par, knot.factor, descent.crit.q,
+".cutDive" <- function(x, smooth.par=NULL, knot.factor, descent.crit.q,
                        ascent.crit.q)
 {
     ## Value: 'diveModel' object with details of dive phase model.
@@ -112,8 +112,14 @@
     }
     times.pred <- seq(times.scaled[1], times.scaled[length(times.scaled)],
                       length.out=length(times.scaled) * knot.factor)
-    depths.smooth <- stats::smooth.spline(times.scaled, depths,
-                                          spar=smooth.par, all.knots=TRUE)
+    if (is.null(smooth.par)) {
+        spl <- stats::smooth.spline(times.scaled, depths, all.knots=TRUE)
+        depths.smooth <- stats::smooth.spline(times.scaled, depths,
+                                              spar=spl$spar, all.knots=TRUE)
+    } else {
+        depths.smooth <- stats::smooth.spline(times.scaled, depths,
+                                              spar=smooth.par, all.knots=TRUE)
+    }
     depths.deriv <- predict(depths.smooth, times.pred, deriv=1)
     depths.d <- depths.deriv$y
 
@@ -188,7 +194,7 @@
     }
     ## Correct for added 0 at ends
     descind <- seq(Dd1pos.crit - 1)
-    ascind <- seq(Ad1neg.crit - 1, length(times) - 2)
+    ascind <- seq(min(nrow(x), Ad1neg.crit - 1), length(times) - 2)
 
     ## Bottom -------------------------------------------------------------
     bottind <- c(descind[length(descind)],
@@ -284,16 +290,25 @@
 
 ## TEST ZONE --------------------------------------------------------------
 
-## ## utils::example("calibrateDepth", package="diveMove", ask=FALSE, echo=FALSE)
-## ## X <- c(2, 7, 100, 120, 240)
+## utils::example("calibrateDepth", package="diveMove", ask=FALSE, echo=FALSE)
+## X <- c(2, 7, 100, 120, 240)
 ## ## diveMove:::.labDivePhase(getTDR(tdr.calib), getDAct(tdr.calib, "dive.id"),
 ## ##                          smooth.par=0.1, knot.factor=30, descent.crit=0.01,
 ## ##                          ascent.crit=0)
 ## ## diveX <- as.data.frame(extractDive(dcalib, diveNo=X[5]))
 ## X <- c(2, 7, 100, 120, 743, 1224, 1222, 1223)
-## diveX <- as.data.frame(extractDive(tdr.calib, diveNo=X[5]))
+## diveX <- as.data.frame(extractDive(tdr.calib, diveNo=X[8]))
 ## diveX.m <- cbind(as.numeric(row.names(diveX[-c(1, nrow(diveX)), ])),
 ##                  diveX$depth[-c(1, nrow(diveX))],
 ##                  diveX$time[-c(1, nrow(diveX))])
 ## phases <- diveMove:::.cutDive(diveX.m, smooth.par=0.1, knot.factor=30,
 ##                               descent.crit.q=0.01, ascent.crit.q=0)
+
+## for (dive in seq(max(dives[dives > 0]))) {
+##     diveX <- as.data.frame(extractDive(tdr.calib, diveNo=dive))
+##     diveX.m <- cbind(as.numeric(row.names(diveX[-c(1, nrow(diveX)), ])),
+##                      diveX$depth[-c(1, nrow(diveX))],
+##                      diveX$time[-c(1, nrow(diveX))])
+##     phases <- diveMove:::.cutDive(diveX.m, smooth.par=0.1, knot.factor=50,
+##                                   descent.crit.q=0.01, ascent.crit.q=0)
+## }

@@ -1,4 +1,4 @@
-% $Id: calibrateDepth.Rd 417 2010-09-18 15:49:11Z sluque $
+% $Id: calibrateDepth.Rd 450 2010-11-28 05:53:29Z sluque $
 \name{calibrateDepth}
 \alias{calibrateDepth}
 
@@ -52,7 +52,9 @@ calibrateDepth(x, dry.thr=70, wet.thr=3610, dive.thr=4,
   This pattern is common in some satellite-linked \acronym{TDR}s.}
 
   \item{smooth.par}{numeric scalar representing amount of smoothing
-    (argument \code{spar} in \code{\link[stats]{smooth.spline}}.}
+    (argument \code{spar} in \code{\link[stats]{smooth.spline}}.  If it
+    is NULL, then the smoothing parameter is determined by Generalized
+    Cross-validation (GCV).}
 
   \item{knot.factor}{numeric scalar that multiplies the duration of the
     dive (used to construct the time predictor for the derivative).}
@@ -212,8 +214,8 @@ calibrateDepth(x, dry.thr=70, wet.thr=3610, dive.thr=4,
 
 \references{
 
-  Luque, S.P. and Fried, R. (Submitted) Recursive filtering for zero
-  offset correction of diving depth time series.
+  Luque, S.P. and Fried, R. (in press) Recursive filtering for zero
+  offset correction of diving depth time series. PLoS ONE
 
 }
 
