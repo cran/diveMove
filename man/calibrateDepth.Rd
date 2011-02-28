@@ -1,4 +1,4 @@
-% $Id: calibrateDepth.Rd 450 2010-11-28 05:53:29Z sluque $
+% $Id: calibrateDepth.Rd 453 2011-01-30 21:30:43Z sluque $
 \name{calibrateDepth}
 \alias{calibrateDepth}
 
@@ -138,7 +138,8 @@ calibrateDepth(x, dry.thr=70, wet.thr=3610, dive.thr=4,
 
   Method \dQuote{filter} implements a smoothing/filtering mechanism
   where running quantiles can be applied to depth measurements in a
-  recursive manner, using \code{.depth.filter}. It relies on function
+  recursive manner (Luque and Fried 2011), using
+  \code{.depth.filter}. It relies on function
   \code{\link[caTools]{runquantile}} from the \code{caTools} package.
   The method calculates the first running quantile defined by
   \code{probs[1]} on a moving window of size \code{k[1]}.  The next
@@ -214,8 +215,8 @@ calibrateDepth(x, dry.thr=70, wet.thr=3610, dive.thr=4,
 
 \references{
 
-  Luque, S.P. and Fried, R. (in press) Recursive filtering for zero
-  offset correction of diving depth time series. PLoS ONE
+  Luque, S.P. and Fried, R. (2011) Recursive filtering for zero offset
+  correction of diving depth time series. PLoS ONE 6:e15850
 
 }
 
