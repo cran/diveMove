@@ -1,4 +1,4 @@
-% $Id: diveMove.Rnw 419 2010-09-19 02:58:47Z sluque $
+% $Id: diveMove.Rnw 459 2011-02-28 18:18:22Z sluque $
 %\VignetteIndexEntry{Dive Analysis}
 %\VignetteDepends{diveMove}
 %\VignettePackage{diveMove}
@@ -358,7 +358,8 @@ can be performed within specified minimum and maximum depth bounds using
 argument \Rfunarg{depth.bounds}\footnote{Defaults to the depth range}, in
 cases where surface durations are relatively brief separated by long
 periods of deep diving.  These cases usually require large windows, and
-using depth bounds helps to stabilize the surface signal.
+using depth bounds helps to stabilize the surface signal.  Further details
+on this method are provided by \citet{8642}.
 
 <<eval=FALSE>>=
 dcalib <- calibrateDepth(tdrX, zoc.method="filter",
