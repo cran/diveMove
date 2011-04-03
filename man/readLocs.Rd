@@ -1,4 +1,4 @@
-% $Id: readLocs.Rd 401 2010-09-15 17:48:27Z sluque $
+% $Id: readLocs.Rd 475 2011-03-28 23:09:01Z sluque $
 \name{readLocs}
 \alias{readLocs}
 
@@ -24,7 +24,8 @@ readLocs(locations, loc.idCol, idCol, dateCol, timeCol=NULL,
   \item{locations}{character: a string indicating the path to the file
     to read, or a \code{\link{data.frame}} available in the search
     list. Provide the entire path if the file is not on the current
-    directory.}
+    directory.  This can also be a text-mode connection, as allowed in
+    \code{\link{read.csv}}.}
 
   \item{loc.idCol}{integer: column number containing location ID.  If
     missing, a \code{loc.id} column is generated with sequential
@@ -75,8 +76,9 @@ readLocs(locations, loc.idCol, idCol, dateCol, timeCol=NULL,
 
 \examples{
 
-locs <- readLocs(system.file(file.path("data", "sealLocs.csv"),
-                             package="diveMove"), idCol=1, dateCol=2,
+zz <- gzfile(system.file(file.path("data", "sealLocs.csv.gz"),
+                         package="diveMove"), open="r")
+locs <- readLocs(zz, idCol=1, dateCol=2,
                  dtformat="\%Y-\%m-\%d \%H:\%M:\%S", classCol=3,
                  lonCol=4, latCol=5, sep=";")
 

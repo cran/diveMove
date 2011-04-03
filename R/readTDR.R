@@ -1,4 +1,4 @@
-## $Id: readTDR.R 260 2010-02-03 18:13:12Z sluque $
+## $Id: readTDR.R 473 2011-03-28 23:04:33Z sluque $
 
 ".getInterval" <- function(time)
 {
@@ -25,15 +25,22 @@
 {
     ## Value: TDR or TDRspeed object from *.csv file
     ## --------------------------------------------------------------------
-    ## Arguments: file=path to file to read; dateCol=col no. with date,
-    ## timeCol=col no. with time, depthCol=col no. with depth,
-    ## speedCol=col no. with speed; subsamp=subsample at this interval;
-    ## dtformat=format to interpret the pasted date and time columns;
-    ## tz=time zone to assume; ...=passed to read.csv()
+    ## Arguments: file=path to file or connection to read from, or a
+    ## text-mode connection; dateCol=col no. with date, timeCol=col
+    ## no. with time, depthCol=col no. with depth, speedCol=col no. with
+    ## speed; subsamp=subsample at this interval; dtformat=format to
+    ## interpret the pasted date and time columns; tz=time zone to assume;
+    ## ...=passed to read.csv()
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
-    srcfile <- basename(file)
+    if (inherits(file, "connection") || file.exists(file)) {
+        srcfile <- ifelse(inherits(file, "connection"),
+                          basename(summary(file)$description),
+                          basename(file))
+    } else {
+        stop ("'file' must be a path to a file, or a connection")
+    }
     rawdat <- read.csv(file, ...)
     names(rawdat) <- tolower(names(rawdat))
     rawdat.ncol <- seq(ncol(rawdat))
