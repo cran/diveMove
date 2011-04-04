@@ -1,4 +1,4 @@
-% $Id: readTDR.Rd 401 2010-09-15 17:48:27Z sluque $
+% $Id: readTDR.Rd 475 2011-03-28 23:09:01Z sluque $
 \name{readTDR}
 
 \alias{readTDR}
@@ -27,7 +27,8 @@ createTDR(time, depth, concurrentData=data.frame(), speed=FALSE, dtime, file)
 \arguments{
 
   \item{file}{character: a string indicating the path to the file to
-    read.}
+    read.  This can also be a text-mode connection, as allowed in
+    \code{\link{read.csv}}.}
 
   \item{dateCol}{integer: column number containing dates, and
     optionally, times.}
@@ -96,19 +97,21 @@ createTDR(time, depth, concurrentData=data.frame(), speed=FALSE, dtime, file)
 % -------------------------------------------------------------------------
 
 \examples{
-readTDR(system.file(file.path("data", "dives.csv"),
-                    package="diveMove"),
-        speed=TRUE, sep=";", na.strings="", as.is=TRUE)
+
+zz <- gzfile(system.file(file.path("data", "dives.csv.gz"),
+                         package="diveMove"), open="r")
+srcfn <- basename(summary(zz)$description)
+readTDR(zz, speed=TRUE, sep=";", na.strings="", as.is=TRUE)
 
 ## Or more pedestrian
-tdrX <- read.csv(system.file(file.path("data", "dives.csv"),
-                             package="diveMove"),
-                 sep=";", na.strings="", as.is=TRUE)
+zz <- gzfile(system.file(file.path("data", "dives.csv.gz"),
+                         package="diveMove"), open="r")
+tdrX <- read.csv(zz, sep=";", na.strings="", as.is=TRUE)
 date.time <- paste(tdrX$date, tdrX$time)
 tdr.time <- as.POSIXct(strptime(date.time, format="\%d/\%m/\%Y \%H:\%M:\%S"),
                        tz="GMT")
 createTDR(tdr.time, tdrX$depth, concurrentData=data.frame(speed=tdrX$speed),
-          file="dives.csv", speed=TRUE)
+          file=srcfn, speed=TRUE)
 
 }
 

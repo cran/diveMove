@@ -1,4 +1,4 @@
-% $Id: dives.Rd 355 2010-09-08 05:22:10Z sluque $
+% $Id: dives.Rd 472 2011-03-28 23:03:28Z sluque $
 \name{dives}
 \docType{data}
 
@@ -62,9 +62,10 @@
 % -------------------------------------------------------------------------
 
 \examples{
-dives <- read.csv(system.file(file.path("data", "dives.csv"),
-                              package="diveMove"),
-                  sep=";", na.strings="")
+
+zz <- gzfile(system.file(file.path("data", "dives.csv.gz"),
+                         package="diveMove"), open="r")
+dives <- read.csv(zz, sep=";", na.strings="")
 str(dives)
 
 }

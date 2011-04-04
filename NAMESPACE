@@ -1,9 +1,11 @@
-## $Id: NAMESPACE 417 2010-09-18 15:49:11Z sluque $
+## $Id: NAMESPACE 478 2011-04-03 17:10:25Z sluque $
 importFrom(stats4, mle)
 importFrom(graphics, plot, image)
 import(methods)                         # Paranoid measure
 
 exportPattern("^[^\\.]")
+
+exportClassPattern("^$")               # to over-ride classes implied above
 
 exportClasses("TDR",
               "TDRspeed",
@@ -34,4 +36,5 @@ exportMethods("as.data.frame",
               "getSpeedCoef",
               "getSpeed",
               "plotBouts",
-              "bec2")
+              "bec2",
+              "bec3")
