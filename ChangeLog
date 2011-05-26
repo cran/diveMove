@@ -1,3 +1,26 @@
+2011-05-26  Sebastian P. Luque <spluque@gmail.com>
+
+	Releasing version 1.2.6
+
+	* .Rbuildignore:
+	  bib file has to be built now, as per request from CRAN
+	  maintainers who see error when building package.
+
+	* ChangeLog, man/bouts2MLE.Rd:
+	  Note about ndeps.
+
+2011-05-25  Sebastian P. Luque  <spluque@gmail.com>
+
+	* man/bouts2MLE.Rd: Note about ndeps for optim.
+
+2011-04-05  Sebastian P. Luque <spluque@gmail.com>
+
+	* DESCRIPTION, NAMESPACE, NEWS, R/AllGenerics.R, R/AllMethod.R,
+	  R/calibrate.R, R/plotZOC.R, TODO, man/calibrateDepth.Rd,
+	  man/diveMove-internal.Rd, man/plotZOC-methods.Rd:
+	  New generic plotZOC() with methods for plotting ZOC procedure
+	  and visually assess performance.
+
 2011-04-03  Sebastian P. Luque <spluque@gmail.com>
 
 	Releasing version 1.2.5

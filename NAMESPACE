@@ -1,4 +1,4 @@
-## $Id: NAMESPACE 478 2011-04-03 17:10:25Z sluque $
+## $Id: NAMESPACE 481 2011-04-05 16:32:37Z sluque $
 importFrom(stats4, mle)
 importFrom(graphics, plot, image)
 import(methods)                         # Paranoid measure
@@ -30,6 +30,7 @@ exportMethods("as.data.frame",
               "getGAct",
               "plotTDR",
               "plotDiveModel",
+              "plotZOC",
               "show",
               "getTDR",
               "getTime",

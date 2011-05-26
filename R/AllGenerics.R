@@ -1,4 +1,4 @@
-## $Id: AllGenerics.R 478 2011-04-03 17:10:25Z sluque $
+## $Id: AllGenerics.R 481 2011-04-05 16:32:37Z sluque $
 
 ###_ + Plotting
 if (!isGeneric("plotTDR")) {
@@ -6,9 +6,18 @@ if (!isGeneric("plotTDR")) {
                function(x, y, ...) standardGeneric("plotTDR"))
 }
 
+if (!isGeneric("plotZOC")) {
+    setGeneric("plotZOC",
+               function(x, y, ...) standardGeneric("plotZOC"))
+}
+
 if (!isGeneric("plotDiveModel")) {
     setGeneric("plotDiveModel",
                function(x, y, ...) standardGeneric("plotDiveModel"))
+}
+
+if (!isGeneric("plotBouts")) {
+    setGeneric("plotBouts", function(fit, ...) standardGeneric("plotBouts"))
 }
 
 ###_ + Accessors
@@ -95,11 +104,7 @@ if (!isGeneric("timeBudget")) {
                function(obj, ignoreZ) standardGeneric("timeBudget"))
 }
 
-###_ + plotBouts, bec2, and bec3
-if (!isGeneric("plotBouts")) {
-    setGeneric("plotBouts", function(fit, ...) standardGeneric("plotBouts"))
-}
-
+###_ + bec2, and bec3
 if (!isGeneric("bec2")) {
     setGeneric("bec2", function(fit) standardGeneric("bec2"))
 }
