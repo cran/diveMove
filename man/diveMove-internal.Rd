@@ -1,4 +1,4 @@
-% $Id: diveMove-internal.Rd 419 2010-09-19 02:58:47Z sluque $
+% $Id: diveMove-internal.Rd 481 2011-04-05 16:32:37Z sluque $
 \name{diveMove-internal}
 
 \alias{.depthFilter}
@@ -6,6 +6,8 @@
 \alias{.diveIndices}
 \alias{.getInterval}
 \alias{.plotTDR}
+\alias{.plotZOCfilters}
+\alias{.plotZOCtdrs}
 \alias{.speedStats}
 \alias{.night}
 \alias{.rleActivity}
@@ -110,6 +112,11 @@
   \code{.plotTDR} is the underlying plotting function for
   \code{\link{TDR}} objects.  Arguments are documented in the main S4
   method (\code{\link{plotTDR}}).
+
+  \code{.plotZOCfilters} and \code{plotZOCtdrs} are the underlying
+  plotting functions for visually assessing the ZOC procedure.
+  Arguments are documented in the main S4 methods
+  (\code{\link{plotZOC}}).
 
   \code{.speedStats} takes matrix of time and speed, and an optional
   vector of vertical distance travelled between segments, and calculates

@@ -1,4 +1,4 @@
-## $Id: calibrate.R 434 2010-10-01 15:29:20Z sluque $
+## $Id: calibrate.R 481 2011-04-05 16:32:37Z sluque $
 
 "calibrateDepth" <-  function(x, dry.thr=70, wet.thr=3610, dive.thr=4,
                               zoc.method=c("visual", "offset", "filter"),
@@ -178,6 +178,8 @@
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
     axlims <- range(rddepth, speed, na.rm=TRUE)
+    old.par <- par(no.readonly=TRUE)
+    on.exit(par(old.par))
     par(pty="s")
     image(z$x1, z$x2, z$fhat, xlim=axlims, ylim=axlims, col=colramp(256),
           main=main, xlab=xlab, ylab=ylab, cex.lab=1.3, las=1)

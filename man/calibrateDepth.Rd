@@ -1,4 +1,4 @@
-% $Id: calibrateDepth.Rd 453 2011-01-30 21:30:43Z sluque $
+% $Id: calibrateDepth.Rd 481 2011-04-05 16:32:37Z sluque $
 \name{calibrateDepth}
 \alias{calibrateDepth}
 
@@ -226,7 +226,8 @@ calibrateDepth(x, dry.thr=70, wet.thr=3610, dive.thr=4,
 
 \seealso{\code{\link{TDRcalibrate}}, \code{\link{.zoc}},
   \code{\link{.depthFilter}}, \code{\link{.detPhase}},
-  \code{\link{.detDive}}, \code{\link{plotTDR}}.}
+  \code{\link{.detDive}}, \code{\link{plotTDR}}, and
+  \code{\link{plotZOC}} to visually assess ZOC procedure.}
 
 % -------------------------------------------------------------------------
 
