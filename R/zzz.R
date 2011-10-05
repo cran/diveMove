@@ -1,6 +1,6 @@
-## $Id: zzz.R 122 2008-01-12 01:20:53Z sluque $
+## $Id: zzz.R 492 2011-10-04 18:41:57Z sluque $
 
-".onLoad" <- function(lib, pkg) {
-    require(methods)
-    require(stats4)
-}
+## ".onLoad" <- function(lib, pkg) {
+##     require(methods)
+##     require(stats4)
+## }
