@@ -1,4 +1,4 @@
-## $Id: Makefile 474 2011-03-28 23:05:43Z sluque $
+## $Id: Makefile 491 2011-10-04 12:17:31Z sluque $
 
 ###_+ Custom VARS ---------------------------------------------------------
 
@@ -19,7 +19,7 @@ RMOTHERTRASH=-find . -name '*.png' -a ! -name 'tcltk.png' -delete
 all : diveMove.pdf
 
 %.pdf : %.tex
-	$(R_HOME)/bin/R CMD Rd2dvi --pdf --no-preview -o '$*-rd.pdf' \
+	$(R_HOME)/bin/R CMD Rd2pdf --no-preview -o '$*-rd.pdf' \
 	--title='$*' ../../man/
 	$(LATEX) $*
 	$(BIBTEX) $*
