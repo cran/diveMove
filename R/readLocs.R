@@ -1,4 +1,4 @@
-## $Id: readLocs.R 473 2011-03-28 23:04:33Z sluque $
+## $Id: readLocs.R 496 2011-12-13 18:22:57Z sluque $
 
 "readLocs" <- function(locations, loc.idCol, idCol, dateCol, timeCol=NULL,
                        dtformat="%m/%d/%Y %H:%M:%S", tz="GMT", classCol,
@@ -19,7 +19,8 @@
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
-    if (inherits(locations, "connection") || file.exists(locations)) {
+    if (inherits(locations, "connection") ||
+        (is.character(locations) && file.exists(locations))) {
         srcfile.name <- ifelse(inherits(locations, "connection"),
                                basename(summary(locations)$description),
                                basename(locations))
