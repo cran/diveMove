@@ -1,4 +1,4 @@
-## $Id: plotTDR.R 501 2012-02-06 15:25:24Z sluque $
+## $Id: plotTDR.R 505 2012-03-01 20:32:03Z sluque $
 
 ###_ + Internal Function
 ".night" <- function(time, sunrise.time, sunset.time)
@@ -88,7 +88,7 @@
             colors <- brewer.pal(n=ncolors, name="Set1")
             points(time.now, depth.now, col=colors[phase.factor],
                    pch=19, cex=cex.pts)
-            if (key && nlevs < 10) {
+            if (key && nlevs < 10 && nlevs > 0) {
                 legend("bottomright", legend=levels(phase.factor), col=colors,
                        pch=19, cex=0.7, ncol=nlevs, bg="white")
             }
@@ -213,7 +213,7 @@
         tcltk::tkgrid(zoc.pts, row=2, column=1, sticky="ns")
         tcltk::tkgrid(q.but, row=2, column=2)
 
-        ## replot()
+        if (getRversion() >= "2.14.2") replot()
         tcltk::tkwait.window(base)
         invisible(coords)
     }
