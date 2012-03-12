@@ -1,4 +1,4 @@
-## $Id: AllClass.R 379 2010-09-14 06:49:30Z sluque $
+## $Id: AllClass.R 509 2012-03-07 19:04:10Z sluque $
 
 setClass("TDR",
          representation=representation(file="character", dtime="numeric",
@@ -47,9 +47,7 @@ setClass("TDRcalibrate",
          prototype=prototype(speed.calib.coefs=c(0, 1)),
          validity=function(object) {
              ndives <- max(object@dive.activity$dive.id, na.rm=TRUE)
-             if (length(slot(object, "dive.models")) != ndives) {
-                 return("All dives must have a corresponding dive model")
-             }
+             dml <- slot(object, "dive.models")
              if (length(slot(object, "dry.thr")) > 1) {
                  return("dry.thr must be a single number")
              }
@@ -61,6 +59,12 @@ setClass("TDRcalibrate",
              }
              if (length(slot(object, "speed.calib.coefs")) != 2) {
                  return("speed.calib.coefs must be a length-2 vector")
+             }
+             if (length(dml) != ndives) {
+                 return("All dives must have a corresponding dive model")
+             }
+             if (! all(sapply(dml, is, "diveModel"))) {
+                 return("All elements of dive.models must be class diveModel")
              }
              return(TRUE)
          })

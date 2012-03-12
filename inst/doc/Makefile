@@ -1,4 +1,4 @@
-## $Id: Makefile 491 2011-10-04 12:17:31Z sluque $
+## $Id: Makefile 521 2012-03-12 15:41:10Z sluque $
 
 ###_+ Custom VARS ---------------------------------------------------------
 
@@ -27,6 +27,10 @@ all : diveMove.pdf
 	$(LATEX) $*
 	$(LATEX) $*
 	rm -rf $(TEXTRASH) $*-*
+	# gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook \
+	# -dCompatibilityLevel=1.5 -dAutoRotatePages=/None \
+	# -sOutputFile='$*_compressed.pdf' '$*.pdf'
+	# mv -f '$*_compressed.pdf' '$*.pdf'
 	$(RMOTHERTRASH)
 
 clean :
