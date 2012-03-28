@@ -1,4 +1,4 @@
-% $Id: readTDR.Rd 475 2011-03-28 23:09:01Z sluque $
+% $Id: readTDR.Rd 528 2012-03-27 19:11:38Z sluque $
 \name{readTDR}
 
 \alias{readTDR}
@@ -98,14 +98,12 @@ createTDR(time, depth, concurrentData=data.frame(), speed=FALSE, dtime, file)
 
 \examples{
 
-zz <- gzfile(system.file(file.path("data", "dives.csv.gz"),
-                         package="diveMove"), open="r")
-srcfn <- basename(summary(zz)$description)
+zz <- system.file(file.path("data", "dives.csv"),
+                  package="diveMove")
+srcfn <- basename(zz)
 readTDR(zz, speed=TRUE, sep=";", na.strings="", as.is=TRUE)
 
 ## Or more pedestrian
-zz <- gzfile(system.file(file.path("data", "dives.csv.gz"),
-                         package="diveMove"), open="r")
 tdrX <- read.csv(zz, sep=";", na.strings="", as.is=TRUE)
 date.time <- paste(tdrX$date, tdrX$time)
 tdr.time <- as.POSIXct(strptime(date.time, format="\%d/\%m/\%Y \%H:\%M:\%S"),

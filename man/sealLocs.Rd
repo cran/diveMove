@@ -1,4 +1,4 @@
-% $Id: sealLocs.Rd 472 2011-03-28 23:03:28Z sluque $
+% $Id: sealLocs.Rd 528 2012-03-27 19:11:38Z sluque $
 \name{sealLocs}
 \docType{data}
 
@@ -13,7 +13,8 @@
 (Ringy) seal caught and released in New York.}
 
 
-\format{A data frame with the following information:
+\format{Bzip2-compressed file.  A data frame with the following
+  information:
 
   \describe{
     \item{id}{String naming the seal the data come from.}
@@ -40,8 +41,8 @@
 
 \examples{
 
-zz <- gzfile(system.file(file.path("data", "sealLocs.csv.gz"),
-                         package="diveMove"), open="r")
+zz <- system.file(file.path("data", "sealLocs.csv"),
+                  package="diveMove")
 sealLocs <- read.csv(zz, sep=";")
 str(sealLocs)
 
