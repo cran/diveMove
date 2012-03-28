@@ -1,4 +1,4 @@
-% $Id: readLocs.Rd 475 2011-03-28 23:09:01Z sluque $
+% $Id: readLocs.Rd 528 2012-03-27 19:11:38Z sluque $
 \name{readLocs}
 \alias{readLocs}
 
@@ -76,8 +76,8 @@ readLocs(locations, loc.idCol, idCol, dateCol, timeCol=NULL,
 
 \examples{
 
-zz <- gzfile(system.file(file.path("data", "sealLocs.csv.gz"),
-                         package="diveMove"), open="r")
+zz <- system.file(file.path("data", "sealLocs.csv"),
+                  package="diveMove")
 locs <- readLocs(zz, idCol=1, dateCol=2,
                  dtformat="\%Y-\%m-\%d \%H:\%M:\%S", classCol=3,
                  lonCol=4, latCol=5, sep=";")
