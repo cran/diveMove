@@ -1,4 +1,4 @@
-## $Id: AllClass.R 509 2012-03-07 19:04:10Z sluque $
+## $Id: AllClass.R 533 2012-04-05 03:30:59Z sluque $
 
 setClass("TDR",
          representation=representation(file="character", dtime="numeric",
@@ -12,9 +12,9 @@ setClass("TDR",
              if (any(time.diffs < 0)) {
                  return("time stamps must be in increasing order")
              }
-             ## if (any(time.diffs == 0)) {
-             ##     return("time stamps must not contain duplicate values")
-             ## }
+             if (any(time.diffs == 0)) {
+                 return("time stamps must not contain duplicate values")
+             }
              ccDataN <- nrow(object@concurrentData)
              if (ccDataN > 0 && ccDataN != length(object@time)) {
                  mes <- paste("concurrentData must have the same number of rows",

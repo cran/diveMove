@@ -1,4 +1,4 @@
-% $Id: extractDive-methods.Rd 417 2010-09-18 15:49:11Z sluque $
+% $Id: extractDive-methods.Rd 535 2012-04-05 03:49:51Z sluque $
 \name{extractDive-methods}
 \docType{methods}
 \alias{extractDive-methods}
@@ -26,7 +26,8 @@
 
   \item{obj}{\code{\link{TDR}} object.}
 
-  \item{diveNo}{numeric vector or scalar with dive numbers to extract.}
+  \item{diveNo}{numeric vector or scalar with dive numbers to extract.
+    Duplicates are ignored.}
 
   \item{id}{numeric vector or scalar of dive numbers from where
     \code{diveNo} should be chosen.}

@@ -1,4 +1,4 @@
-## $Id: detDive.R 510 2012-03-08 17:13:58Z sluque $
+## $Id: detDive.R 533 2012-04-05 03:30:59Z sluque $
 
 ".labDive" <- function(act, string)
 {
@@ -310,7 +310,7 @@
         ok <- which(diveID %in% diveNo[didx])
         okl <- pmax(1, setdiff(ok - 1, ok))
         okr <- pmin(length(diveID), setdiff(ok + 1, ok))
-        sort(c(okl, ok, okr))               # add the surface points
+        unique(sort(c(okl, ok, okr)))   # add the surface points
     })
 }
 
