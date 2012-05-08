@@ -1,4 +1,4 @@
-% $Id: bouts2NLS.Rd 478 2011-04-03 17:10:25Z sluque $
+% $Id: bouts2NLS.Rd 546 2012-04-10 20:47:01Z sluque $
 \name{bouts2NLS}
 
 \alias{bouts2.nlsFUN}
@@ -100,7 +100,7 @@ plotBouts2.nls(fit, lnfreq, bec.lty, \ldots)
 utils::example("diveStats", package="diveMove",
                ask=FALSE, echo=FALSE)
 ## Postdive durations
-postdives <- tdrX.tab$postdive.dur[tdrX.tab$trip.no == 2]
+postdives <- tdrX.tab$postdive.dur[tdrX.tab$phase.no == 2]
 postdives.diff <- abs(diff(postdives))
 ## Remove isolated dives
 postdives.diff <- postdives.diff[postdives.diff < 2000]

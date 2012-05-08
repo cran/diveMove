@@ -1,4 +1,4 @@
-## $Id: calibrate.R 481 2011-04-05 16:32:37Z sluque $
+## $Id: calibrate.R 548 2012-04-10 20:48:15Z sluque $
 
 "calibrateDepth" <-  function(x, dry.thr=70, wet.thr=3610, dive.thr=4,
                               zoc.method=c("visual", "offset", "filter"),
@@ -28,7 +28,7 @@
     mCall <- match.call()
     depth <- getDepth(x)
     time <- getTime(x)
-    ## Detect trips and dives
+    ## Detect phases and dives
     detp <- diveMove:::.detPhase(time, depth, dry.thr=dry.thr,
                                  wet.thr=wet.thr, interval=getDtime(x))
     ## ZOC procedure

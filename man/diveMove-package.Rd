@@ -1,4 +1,4 @@
-% $Id: diveMove-package.Rd 528 2012-03-27 19:11:38Z sluque $
+% $Id: diveMove-package.Rd 547 2012-04-10 20:47:47Z sluque $
 \name{diveMove-package}
 \docType{package}
 
@@ -61,7 +61,7 @@ head(dives)
 ## Attendance table
 att <- timeBudget(vcalib, FALSE) # taking trivial aquatic activities into account
 att <- timeBudget(vcalib, TRUE)  # ignoring them
-## Add trip stamps to each dive
+## Identify which phase each dive belongs to
 stamps <- stampDive(vcalib)
 sumtab <- data.frame(stamps, dives)
 head(sumtab)
