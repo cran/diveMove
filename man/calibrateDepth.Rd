@@ -1,4 +1,4 @@
-% $Id: calibrateDepth.Rd 481 2011-04-05 16:32:37Z sluque $
+% $Id: calibrateDepth.Rd 541 2012-04-10 17:01:17Z sluque $
 \name{calibrateDepth}
 \alias{calibrateDepth}
 
@@ -56,8 +56,9 @@ calibrateDepth(x, dry.thr=70, wet.thr=3610, dive.thr=4,
     is NULL, then the smoothing parameter is determined by Generalized
     Cross-validation (GCV).}
 
-  \item{knot.factor}{numeric scalar that multiplies the duration of the
-    dive (used to construct the time predictor for the derivative).}
+  \item{knot.factor}{numeric scalar that multiplies the number of
+    samples in the dive.  This is used to construct the time predictor
+    for the derivative.}
 
   \item{descent.crit.q}{numeric: critical quantile of rates of descent
     below which descent is deemed to have ended.}

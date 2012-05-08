@@ -1,4 +1,4 @@
-## $Id: plotTDR.R 505 2012-03-01 20:32:03Z sluque $
+## $Id: plotTDR.R 543 2012-04-10 20:44:09Z sluque $
 
 ###_ + Internal Function
 ".night" <- function(time, sunrise.time, sunset.time)
@@ -186,7 +186,7 @@
         tzoom.l <- tcltk::tklabel(xr.frame, text="Date Zoom (%)")
         tzoom.s <- tcltk::tkscale(xr.frame, command=replot.maybe, from=100,
                                   to=maxZoom, showvalue=TRUE, variable=xZoom,
-                                  length=200, orient="horiz")
+                                  resolution=100, length=200, orient="horiz")
         ## Pan
         tpan.l <- tcltk::tklabel(xmid.frame, text="Pan through Date")
         tpan.s <- tcltk::tkscale(xmid.frame, command=replot.maybe,

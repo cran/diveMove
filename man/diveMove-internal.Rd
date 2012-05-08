@@ -1,4 +1,4 @@
-% $Id: diveMove-internal.Rd 513 2012-03-08 17:16:17Z sluque $
+% $Id: diveMove-internal.Rd 553 2012-05-04 19:24:00Z sluque $
 \name{diveMove-internal}
 
 \alias{.depthFilter}
@@ -26,7 +26,7 @@
 
 \usage{
 .depthFilter(depth, k, probs, depth.bounds, na.rm)
-.derivStats(x)
+.derivStats(x, diveNo)
 .diveIndices(diveID, diveNo)
 .diveMatches(diveID, diveNo)
 .getInterval(time)
@@ -58,7 +58,8 @@
     all dive and non dive IDs.}
 
   \item{diveNo}{Numeric vector of unique dive indices to extract from
-    \code{diveID}.}
+    \code{diveID}, or \code{x} in the case of \code{.derivStats}.  For
+    \code{.derivStats} any duplicates are ignored.}
 
   \item{time}{\code{POSIXct} object representing time.}
 
@@ -84,8 +85,8 @@
     \dQuote{filter} (see \sQuote{Details}).}
 
   \item{control}{Named list of control parameters to be used for ZOC
-    method \code{filter} (\code{k}, \code{probs}, \code{na.rm}) and
-    \code{offset} (\code{offset}).}
+    method \code{filter} (\code{k}, \code{probs}, \code{na.rm},
+    \code{depth.bounds}) and \code{offset} (\code{offset}).}
 
 }
 
