@@ -1,4 +1,4 @@
-% $Id: sealLocs.Rd 528 2012-03-27 19:11:38Z sluque $
+% $Id: sealLocs.Rd 558 2012-05-28 21:34:47Z sluque $
 \name{sealLocs}
 \docType{data}
 
@@ -13,8 +13,8 @@
 (Ringy) seal caught and released in New York.}
 
 
-\format{Bzip2-compressed file.  A data frame with the following
-  information:
+\format{Bzip2-compressed file.  A \code{\link{data.frame}} with the
+  following information:
 
   \describe{
     \item{id}{String naming the seal the data come from.}

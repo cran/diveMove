@@ -1,4 +1,4 @@
-% $Id: detDive-internal.Rd 401 2010-09-15 17:48:27Z sluque $
+% $Id: detDive-internal.Rd 558 2012-05-28 21:34:47Z sluque $
 \name{detDive-internal}
 \alias{detDive-internal}
 
@@ -31,7 +31,8 @@
 }
 
 
-\value{A data frame with the following elements for \code{.detDive}
+\value{A \code{\link{data.frame}} with the following elements for
+  \code{.detDive}
 
   \item{dive.id}{Numeric vector numbering each dive in the record.}
 

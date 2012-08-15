@@ -1,4 +1,4 @@
-% $Id: timeBudget-methods.Rd 401 2010-09-15 17:48:27Z sluque $
+% $Id: timeBudget-methods.Rd 558 2012-05-28 21:34:47Z sluque $
 \name{timeBudget-methods}
 \docType{methods}
 
@@ -31,7 +31,7 @@
 
 
 \value{
-  A data frame with components:
+  A \code{\link{data.frame}} with components:
 
   \item{phaseno}{A numeric vector numbering each period of activity.}
 
