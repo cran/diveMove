@@ -1,4 +1,4 @@
-% $Id: diveMove-internal.Rd 553 2012-05-04 19:24:00Z sluque $
+% $Id: diveMove-internal.Rd 558 2012-05-28 21:34:47Z sluque $
 \name{diveMove-internal}
 
 \alias{.depthFilter}
@@ -65,9 +65,9 @@
 
   \item{x}{For \code{.speedStats}, a matrix with a dive's section data.
     A single dive's data: 3-col matrix with time, depth, and speed.  For
-    .speedCol, a data frame where names are searched for strings
-    matching \code{.speedNames} (see Details).  For \code{.derivStats},
-    a \code{\link{TDRcalibrate}} object.}
+    .speedCol, a \code{\link{data.frame}} where names are searched for
+    strings matching \code{.speedNames} (see Details).  For
+    \code{.derivStats}, a \code{\link{TDRcalibrate}} object.}
 
   \item{vdist}{Vertical distance travelled during this time.  If
     \code{vdist} is missing, then it's all horizontal movements (no

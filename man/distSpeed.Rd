@@ -1,4 +1,4 @@
-% $Id: distSpeed.Rd 472 2011-03-28 23:03:28Z sluque $
+% $Id: distSpeed.Rd 558 2012-05-28 21:34:47Z sluque $
 \name{distSpeed}
 
 \alias{distSpeed}
@@ -21,10 +21,10 @@ distSpeed(pt1, pt2)
 
 \arguments{
 
-  \item{pt1}{A matrix or data frame with three columns; the first a
-    \code{POSIXct} object with dates and times for all points, the
-    second and third numeric vectors of longitude and latitude for all
-    points, respectively, in decimal degrees.}
+  \item{pt1}{A matrix or \code{\link{data.frame}} with three columns;
+    the first a \code{POSIXct} object with dates and times for all
+    points, the second and third numeric vectors of longitude and
+    latitude for all points, respectively, in decimal degrees.}
 
   \item{pt2}{A matrix with the same size and structure as \code{pt1}.}
 
