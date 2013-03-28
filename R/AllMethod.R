@@ -1,4 +1,4 @@
-## $Id: AllMethod.R 542 2012-04-10 20:43:36Z sluque $
+## $Id: AllMethod.R 571 2013-01-31 22:55:32Z sluque $
 
 ###_ + Show and plot
 
@@ -78,23 +78,23 @@ setMethod("show", signature=signature(object="TDRcalibrate"),
               wetz <- object@gross.activity$activity == "Z"
               ww <- length(unique(object@gross.activity$ phase.id[wet | wetz]))
               cat("Depth calibration -- Class", class(object), "object\n")
-              cat("  Call                          : ", mCall, "\n", sep="")
-              cat("  Source file                   : ", object@tdr@file, "\n",
+              cat("  Call                              : ", mCall, "\n", sep="")
+              cat("  Source file                       : ", object@tdr@file, "\n",
                   sep="")
-              cat("  Containing TDR of class       : ", class(object@tdr),
+              cat("  Containing TDR of class           : ", class(object@tdr),
                   "\n", sep="")
-              cat("  Number of dry phases          : ", dd, "\n", sep="")
-              cat("  Number of aquatic phases      : ", ww, "\n", sep="")
-              cat("  Number of dives detected      : ",
+              cat("  Number of dry phases              : ", dd, "\n", sep="")
+              cat("  Number of aquatic phases          : ", ww, "\n", sep="")
+              cat("  Number of dives detected          : ",
                   max(object@dive.activity$dive.id, na.rm=TRUE), "\n", sep="")
-              cat("  Dry threshold used (s)        : ", object@dry.thr, "\n",
+              cat("  Dry threshold used (s)            : ", object@dry.thr, "\n",
                   sep="")
-              cat("  Aquatic theshold used (s)     : ", object@wet.thr, "\n",
+              cat("  Aquatic theshold used (s)         : ", object@wet.thr, "\n",
                   sep="")
-              cat("  Dive threshold used (s)       : ", object@dive.thr,
+              cat("  Dive threshold used (depth units) : ", object@dive.thr,
                   sep="")
               if (is(object@tdr, "TDRspeed")) {
-                  cat("\n  Speed calibration coefficients: a=",
+                  cat("\n  Speed calibration coefficients    : a=",
                       format(object@speed.calib.coefs[1], digits=2), "; b=",
                       format(object@speed.calib.coefs[2], digits=2), "\n",
                       sep="")
@@ -266,7 +266,7 @@ setMethod("plotDiveModel",
               par(mar=c(3, 4, 0, 1) + 0.1, las=1)
               plot(times, depths, type="o", axes=FALSE, pch=19, cex=0.5,
                    frame.plot=TRUE, ylab="Depth",
-                   ylim=range(depths, depths.s))
+                   ylim=range(depths, depths.s, na.rm=TRUE))
               axis(side=1)
               axis(side=2, at=pretty(c(depths, depths.s)),
                    labels=rev(pretty(-c(depths, depths.s))), las=1)

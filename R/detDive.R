@@ -1,4 +1,4 @@
-## $Id: detDive.R 533 2012-04-05 03:30:59Z sluque $
+## $Id: detDive.R 568 2012-10-29 20:54:43Z sluque $
 
 ".labDive" <- function(act, string)
 {
@@ -30,8 +30,8 @@
     ## Value: A data frame; detecting dives, using a depth threshold
     ## --------------------------------------------------------------------
     ## Arguments: zdepth=depth vector of zoc'ed data, act=factor with
-    ## land/sea activity IDs (2nd element returned by detPhase), with
-    ## values "W" for at-sea, dive.thr=dive threshold in m
+    ## dry/wet activity IDs (2nd element returned by detPhase), with values
+    ## "W" for at-sea, dive.thr=dive threshold in m
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
