@@ -1,10 +1,10 @@
-## $Id: NAMESPACE 481 2011-04-05 16:32:37Z sluque $
+## $Id: NAMESPACE 572 2013-03-28 03:31:38Z sluque $
+
 importFrom(stats4, mle)
 importFrom(graphics, plot, image)
 import(methods)                         # Paranoid measure
 
 exportPattern("^[^\\.]")
-
 exportClassPattern("^$")               # to over-ride classes implied above
 
 exportClasses("TDR",

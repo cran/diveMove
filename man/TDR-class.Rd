@@ -1,8 +1,8 @@
-% $Id: TDR-class.Rd 200 2008-11-04 03:06:40Z sluque $
+% $Id: TDR-class.Rd 572 2013-03-28 03:31:38Z sluque $
 \name{TDR-class}
 \docType{class}
-
 \alias{TDR-class}
+
 \alias{TDRspeed-class}
 \alias{TDR}
 \alias{TDRspeed}
