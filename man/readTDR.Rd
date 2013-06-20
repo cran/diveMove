@@ -1,4 +1,4 @@
-% $Id: readTDR.Rd 558 2012-05-28 21:34:47Z sluque $
+% $Id: readTDR.Rd 596 2013-06-20 16:36:44Z sluque $
 \name{readTDR}
 
 \alias{readTDR}
@@ -20,7 +20,9 @@
 readTDR(file, dateCol=1, timeCol=2, depthCol=3, speed=FALSE,
         subsamp=5, concurrentCols=4:6,
         dtformat="\%d/\%m/\%Y \%H:\%M:\%S", tz="GMT", \ldots)
-createTDR(time, depth, concurrentData=data.frame(), speed=FALSE, dtime, file)
+createTDR(time, depth,
+          concurrentData=data.frame(matrix(ncol=0, nrow=length(time))),
+          speed=FALSE, dtime, file)
 }
 
 
@@ -98,8 +100,9 @@ createTDR(time, depth, concurrentData=data.frame(), speed=FALSE, dtime, file)
 
 \examples{
 
-zz <- system.file(file.path("data", "dives.csv"),
-                  package="diveMove")
+## Do example to define object zz with location of dataset
+utils::example("dives", package="diveMove",
+               ask=FALSE, echo=FALSE)
 srcfn <- basename(zz)
 readTDR(zz, speed=TRUE, sep=";", na.strings="", as.is=TRUE)
 

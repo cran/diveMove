@@ -1,4 +1,4 @@
-% $Id: austFilter.Rd 472 2011-03-28 23:03:28Z sluque $
+% $Id: austFilter.Rd 579 2013-03-30 04:56:56Z sluque $
 \name{austFilter}
 
 \alias{grpSpeedFilter}
@@ -16,9 +16,9 @@
 
 \usage{
 austFilter(time, lon, lat, id=gl(1, 1, length(time)),
-           speed.thr, dist.thr, window=5)
-grpSpeedFilter(x, speed.thr, window=5)
-rmsDistFilter(x, speed.thr, window=5, dist.thr)
+           speed.thr, dist.thr, window=5, \ldots)
+grpSpeedFilter(x, speed.thr, window=5, \ldots)
+rmsDistFilter(x, speed.thr, window=5, dist.thr, \ldots)
 }
 %- maybe also 'usage' for other objects documented here.
 
@@ -46,6 +46,8 @@ rmsDistFilter(x, speed.thr, window=5, dist.thr)
 
   \item{x}{3-column matrix with column 1: \code{POSIXct} vector; column
     2: numeric longitude vector; column 3: numeric latitude vector.}
+
+  \item{\ldots}{Arguments ultimately passed to \code{\link{distSpeed}}.}
 
 }
 
@@ -133,6 +135,8 @@ utils::example("readLocs", package="diveMove",
                ask=FALSE, echo=FALSE)
 ringy <- subset(locs, id == "ringy" & !is.na(lon) & !is.na(lat))
 
+## Examples below use default Meeus algorithm for computing distances.
+## See ?distSpeed for specifying other methods.
 ## Austin et al.'s group filter alone
 grp <- grpSpeedFilter(ringy[, 3:5], speed.thr=1.1)
 

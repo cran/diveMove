@@ -1,6 +1,15 @@
-## $Id: zzz.R 492 2011-10-04 18:41:57Z sluque $
+## $Id: zzz.R 590 2013-04-03 15:24:46Z sluque $
 
 ## ".onLoad" <- function(lib, pkg) {
-##     require(methods)
-##     require(stats4)
+##     packageStartupMessage("diveMove ",
+##                           utils::packageVersion("diveMove"),
+##                           " loaded")
 ## }
+
+".onAttach" <- function(lib, pkg)
+{
+    version <- utils::packageVersion("diveMove")
+    packageStartupMessage("This is diveMove ", version,
+                          ". For overview type vignette(\"diveMove\")",
+                          appendLF=TRUE)
+}

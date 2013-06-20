@@ -1,8 +1,16 @@
-## $Id: NAMESPACE 572 2013-03-28 03:31:38Z sluque $
+## $Id: NAMESPACE 577 2013-03-29 05:39:42Z sluque $
 
 importFrom(stats4, mle)
 importFrom(graphics, plot, image)
 import(methods)                         # Paranoid measure
+
+## runquantile for ZOC
+importFrom(caTools, runquantile)
+## bkde2d and rq for speed calibration
+importFrom(KernSmooth, bkde2D)
+importFrom(quantreg, rq)
+## distance algorithms
+importFrom(geosphere, distMeeus, distVincentyEllipsoid)
 
 exportPattern("^[^\\.]")
 exportClassPattern("^$")               # to over-ride classes implied above

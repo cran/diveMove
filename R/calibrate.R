@@ -1,4 +1,4 @@
-## $Id: calibrate.R 562 2012-08-15 19:35:23Z sluque $
+## $Id: calibrate.R 578 2013-03-29 05:43:43Z sluque $
 
 "calibrateDepth" <-  function(x, dry.thr=70, wet.cond, wet.thr=3610,
                               dive.thr=4,
@@ -121,9 +121,6 @@
     } else if (!is(x@tdr, "TDRspeed")) {
         stop("tdr slot in x must be a TDRspeed object")
     }
-    require(KernSmooth) || stop(paste("KernSmooth package is required",
-                                      "for calibrations"))
-    require(quantreg) || stop("quantreg package is required for calibrations")
     tt <- getTDR(x)
     if (!missing(coefs)) {
         newspeed <- (getSpeed(tt) - coefs[1]) / coefs[2]
