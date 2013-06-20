@@ -1,4 +1,4 @@
-## $Id: AllMethod.R 571 2013-01-31 22:55:32Z sluque $
+## $Id: AllMethod.R 594 2013-06-20 16:08:33Z sluque $
 
 ###_ + Show and plot
 
@@ -574,7 +574,9 @@ setMethod("[", signature("TDR"), function(x, i, j, ..., drop) {
 
 
 ###_ + Generators and Summaries
-"createTDR" <- function(time, depth, concurrentData=data.frame(),
+"createTDR" <- function(time, depth,
+                        concurrentData=data.frame(matrix(ncol=0,
+                          nrow=length(time))),
                         speed=FALSE, dtime, file)
 {
     ## Value: An object of TDR or TDRspeed class.  Useful to recreate

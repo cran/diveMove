@@ -1,4 +1,4 @@
-## $Id: zoc.R 412 2010-09-17 03:12:34Z sluque $
+## $Id: zoc.R 576 2013-03-28 14:40:09Z sluque $
 
 ".depthFilter" <- function(depth, k, probs, depth.bounds, na.rm)
 {
@@ -19,7 +19,6 @@
     ## --------------------------------------------------------------------
     ## Author: Sebastian P. Luque
     ## --------------------------------------------------------------------
-    require(caTools) || stop("caTools package is required for this method")
     if (length(k) != length(probs))
         stop("k and probs should have the same length")
     if (length(depth.bounds) != 2 && !is.numeric(depth.bounds))

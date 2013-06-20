@@ -1,4 +1,4 @@
-% $Id: dives.Rd 528 2012-03-27 19:11:38Z sluque $
+% $Id: dives.Rd 584 2013-04-02 00:03:09Z sluque $
 \name{dives}
 \docType{data}
 
@@ -20,7 +20,8 @@
 \format{
 
   Bzip2-compressed file.  A comma separated value (csv) file with 69560
-  \acronym{TDR} readings with the following columns:
+  \acronym{TDR} readings, measured at 5 s intervals, with the following
+  columns:
 
   \describe{
     \item{date}{Date}
@@ -64,9 +65,8 @@
 \examples{
 
 zz <- system.file(file.path("data", "dives.csv"),
-                  package="diveMove")
-dives <- read.csv(zz, sep=";", na.strings="")
-str(dives)
+                  package="diveMove", mustWork=TRUE)
+str(read.csv(zz, sep=";", na.strings=""))
 
 }
 

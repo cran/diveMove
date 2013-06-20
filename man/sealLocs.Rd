@@ -1,4 +1,4 @@
-% $Id: sealLocs.Rd 558 2012-05-28 21:34:47Z sluque $
+% $Id: sealLocs.Rd 584 2013-04-02 00:03:09Z sluque $
 \name{sealLocs}
 \docType{data}
 
@@ -42,9 +42,8 @@
 \examples{
 
 zz <- system.file(file.path("data", "sealLocs.csv"),
-                  package="diveMove")
-sealLocs <- read.csv(zz, sep=";")
-str(sealLocs)
+                  package="diveMove", mustWork=TRUE)
+str(read.csv(zz, sep=";"))
 
 }
 
