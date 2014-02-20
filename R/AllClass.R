@@ -1,4 +1,4 @@
-## $Id: AllClass.R 533 2012-04-05 03:30:59Z sluque $
+## $Id: AllClass.R 600 2014-01-30 03:31:47Z sluque $
 
 setClass("TDR",
          representation=representation(file="character", dtime="numeric",
@@ -30,7 +30,7 @@ setClass("TDRspeed", contains="TDR",
          validity=function(object) {
              ccData <- object@concurrentData
              ccDataNames <- names(ccData)
-             speedCol <- ccDataNames %in% diveMove:::.speedNames
+             speedCol <- ccDataNames %in% .speedNames
              if (length(ccDataNames[speedCol]) != 1) {
                  return("speed is not available in concurrentData slot")
              } else if (!is.numeric(ccData[, speedCol])) {

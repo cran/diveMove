@@ -1,4 +1,4 @@
-## $Id: diveStats.R 553 2012-05-04 19:24:00Z sluque $
+## $Id: diveStats.R 600 2014-01-30 03:31:47Z sluque $
 
 ".derivStats" <- function(x, diveNo)
 {
@@ -75,13 +75,13 @@
                                      speed=TRUE))
         ## for postdive total distance and mean speed
         ptd <- matrix(c(pdtimes, getSpeed(zvtdr)[okpd]), ncol=2)
-        pdv <- do.call(rbind, by(ptd, pdids, diveMove:::.speedStats))
+        pdv <- do.call(rbind, by(ptd, pdids, .speedStats))
         res <- data.frame(perdive, postdive.dur, postdive.tdist=pdv[, 1],
                           postdive.mean.speed=pdv[, 2], row.names=NULL)
         for (i in 1:3) res[, i] <- .POSIXct(res[, i], dtimestz)
     }
 
     if (depth.deriv) {
-        data.frame(res, diveMove:::.derivStats(x, diveNo=dids))
+        data.frame(res, .derivStats(x, diveNo=dids))
     } else res
 }

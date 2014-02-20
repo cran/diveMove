@@ -1,4 +1,4 @@
-## $Id: oneDiveStats.R 554 2012-05-04 19:24:55Z sluque $
+## $Id: oneDiveStats.R 600 2014-01-30 03:31:47Z sluque $
 
 "oneDiveStats" <- function(x, interval, speed=FALSE)
 {
@@ -50,9 +50,9 @@
               bottdep.sd=ifelse(exists("botttim"), bottdep.sd, NA),
               maxdep=maxdep)
     } else {
-        descv <- diveMove:::.speedStats(desc[, -2], vdist=descdist)
-        bottv <- diveMove:::.speedStats(bott[, -2])
-        ascv <- diveMove:::.speedStats(asc[, -2], vdist=ascdist)
+        descv <- .speedStats(desc[, -2], vdist=descdist)
+        bottv <- .speedStats(bott[, -2])
+        ascv <- .speedStats(asc[, -2], vdist=ascdist)
         cbind(begdesc=begdesc, enddesc=enddesc, begasc=begasc,
               desctim=desctim,
               botttim=ifelse(exists("botttim"), botttim, NA),

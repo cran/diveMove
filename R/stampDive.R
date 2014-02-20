@@ -1,4 +1,4 @@
-## $Id: stampDive.R 568 2012-10-29 20:54:43Z sluque $
+## $Id: stampDive.R 600 2014-01-30 03:31:47Z sluque $
 
 "stampDive" <- function(x, ignoreZ=TRUE)
 {
@@ -17,7 +17,7 @@
         tt <- getTime(getTDR(x))
         interval <- getDtime(getTDR(x))
         act[act == "Z"] <- "L"
-        attlist <- diveMove:::.rleActivity(tt, act, interval) # recalculate
+        attlist <- .rleActivity(tt, act, interval) # recalculate
         phaseid <- as.numeric(attlist[[1]])  # what phase.id is now
     } else {
         attlist <- getGAct(x)
