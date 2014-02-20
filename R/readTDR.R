@@ -1,4 +1,4 @@
-## $Id: readTDR.R 473 2011-03-28 23:04:33Z sluque $
+## $Id: readTDR.R 600 2014-01-30 03:31:47Z sluque $
 
 ".getInterval" <- function(time)
 {
@@ -46,7 +46,7 @@
     rawdat.ncol <- seq(ncol(rawdat))
     dtpasted <- paste(rawdat[, dateCol], rawdat[, timeCol])
     datetime <- as.POSIXct(strptime(dtpasted, format=dtformat), tz=tz)
-    origint <- diveMove:::.getInterval(datetime)
+    origint <- .getInterval(datetime)
     if(!identical(all.equal(origint, subsamp), TRUE)) {
         steptim <- as.numeric((subsamp) / origint)
         stepind <- seq(from=1, to=length(datetime), by=round(steptim))
@@ -65,14 +65,14 @@
         warning("None of the columns given as concurrentCols exist\n")
         tdr <- new("TDR", file=srcfile, time=datetime,
                    depth=rawdat[, depthCol],
-                   dtime=diveMove:::.getInterval(datetime))
+                   dtime=.getInterval(datetime))
     } else {
         concurrentCols <- concurrentCols[okconcurCols]
         ccData <- as.data.frame(rawdat[, concurrentCols[okconcurCols]])
         names(ccData) <- names(rawdat)[concurrentCols[okconcurCols]]
         tdr <- new("TDR", file=srcfile, time=datetime,
                    depth=rawdat[, depthCol],
-                   dtime=diveMove:::.getInterval(datetime),
+                   dtime=.getInterval(datetime),
                    concurrentData=ccData)
     }
     if (speed) as.TDRspeed(tdr) else tdr

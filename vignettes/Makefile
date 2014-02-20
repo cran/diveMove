@@ -1,4 +1,4 @@
-## $Id: Makefile 521 2012-03-12 15:41:10Z sluque $
+## $Id: Makefile 598 2014-01-29 05:41:13Z sluque $
 
 ###_+ Custom VARS ---------------------------------------------------------
 
@@ -20,7 +20,7 @@ all : diveMove.pdf
 
 %.pdf : %.tex
 	$(R_HOME)/bin/R CMD Rd2pdf --no-preview -o '$*-rd.pdf' \
-	--title='$*' ../../man/
+	--title='$*' ../man/
 	$(LATEX) $*
 	$(BIBTEX) $*
 	$(LATEX) $*
