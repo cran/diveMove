@@ -1,4 +1,4 @@
-% $Id: plotTDR-methods.Rd 439 2010-10-06 03:44:19Z sluque $
+% $Id$
 \name{plotTDR-methods}
 \docType{methods}
 \alias{plotTDR-methods}

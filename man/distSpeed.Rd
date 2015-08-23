@@ -1,4 +1,4 @@
-% $Id: distSpeed.Rd 588 2013-04-02 05:15:04Z sluque $
+% $Id$
 \name{distSpeed}
 
 \alias{distSpeed}

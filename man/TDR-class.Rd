@@ -1,4 +1,4 @@
-% $Id: TDR-class.Rd 572 2013-03-28 03:31:38Z sluque $
+% $Id$
 \name{TDR-class}
 \docType{class}
 \alias{TDR-class}

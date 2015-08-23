@@ -1,4 +1,4 @@
-## $Id: diveStats.R 600 2014-01-30 03:31:47Z sluque $
+## $Id$
 
 ".derivStats" <- function(x, diveNo)
 {

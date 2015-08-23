@@ -1,4 +1,4 @@
-## $Id: zzz.R 590 2013-04-03 15:24:46Z sluque $
+## $Id$
 
 ## ".onLoad" <- function(lib, pkg) {
 ##     packageStartupMessage("diveMove ",

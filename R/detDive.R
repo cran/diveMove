@@ -1,4 +1,4 @@
-## $Id: detDive.R 600 2014-01-30 03:31:47Z sluque $
+## $Id$
 
 ".labDive" <- function(act, string)
 {

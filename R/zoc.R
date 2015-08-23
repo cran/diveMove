@@ -1,4 +1,4 @@
-## $Id: zoc.R 600 2014-01-30 03:31:47Z sluque $
+## $Id$
 
 ".depthFilter" <- function(depth, k, probs, depth.bounds, na.rm)
 {

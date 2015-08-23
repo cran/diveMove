@@ -1,4 +1,4 @@
-% $Id: dives.Rd 584 2013-04-02 00:03:09Z sluque $
+% $Id$
 \name{dives}
 \docType{data}
 

@@ -1,4 +1,4 @@
-% $Id: labDive-internal.Rd 401 2010-09-15 17:48:27Z sluque $
+% $Id$
 \name{labDive-internal}
 \alias{labDive-internal}
 

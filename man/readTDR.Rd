@@ -1,4 +1,4 @@
-% $Id: readTDR.Rd 596 2013-06-20 16:36:44Z sluque $
+% $Id$
 \name{readTDR}
 
 \alias{readTDR}

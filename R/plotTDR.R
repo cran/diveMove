@@ -1,4 +1,4 @@
-## $Id: plotTDR.R 600 2014-01-30 03:31:47Z sluque $
+## $Id$
 
 ###_ + Internal Function
 ".night" <- function(time, sunrise.time, sunset.time)
@@ -124,7 +124,8 @@
         } else rev(depth.lim)
         plot.fun(xlim=xlim, ylim=ylim)
     } else {
-        require(tcltk) || stop("tcltk support is absent")
+        requireNamespace("tcltk", quietly=TRUE) ||
+            stop("tcltk support is absent")
         rx <- range(as.numeric(time))   # max and min of dates
         diffrx <- diff(rx)
         xlim <- x10 <- if(is.null(xlim)) { # define xlim if not there already

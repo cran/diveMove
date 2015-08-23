@@ -1,4 +1,4 @@
-% $Id: austFilter.Rd 579 2013-03-30 04:56:56Z sluque $
+% $Id$
 \name{austFilter}
 
 \alias{grpSpeedFilter}

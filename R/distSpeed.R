@@ -1,4 +1,4 @@
-## $Id: distSpeed.R 578 2013-03-29 05:43:43Z sluque $
+## $Id$
 
 "distSpeed" <- function(pt1, pt2, method=c("Meeus", "VincentyEllipsoid"))
 {

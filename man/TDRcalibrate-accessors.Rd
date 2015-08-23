@@ -1,4 +1,4 @@
-% $Id: TDRcalibrate-accessors.Rd 527 2012-03-22 21:35:26Z sluque $
+% $Id$
 \name{TDRcalibrate-accessors}
 \docType{methods}
 \alias{TDRcalibrate-methods}

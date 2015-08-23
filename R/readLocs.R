@@ -1,4 +1,4 @@
-## $Id: readLocs.R 496 2011-12-13 18:22:57Z sluque $
+## $Id$
 
 "readLocs" <- function(locations, loc.idCol, idCol, dateCol, timeCol=NULL,
                        dtformat="%m/%d/%Y %H:%M:%S", tz="GMT", classCol,

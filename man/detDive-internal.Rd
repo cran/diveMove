@@ -1,4 +1,4 @@
-% $Id: detDive-internal.Rd 558 2012-05-28 21:34:47Z sluque $
+% $Id$
 \name{detDive-internal}
 \alias{detDive-internal}
 

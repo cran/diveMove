@@ -1,4 +1,4 @@
-## $Id: AllGenerics.R 481 2011-04-05 16:32:37Z sluque $
+## $Id$
 
 ###_ + Plotting
 if (!isGeneric("plotTDR")) {

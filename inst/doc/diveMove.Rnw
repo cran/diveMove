@@ -1,4 +1,4 @@
-% $Id: diveMove.Rnw 552 2012-04-13 19:52:02Z sluque $
+% $Id$
 %\VignetteIndexEntry{Dive Analysis}
 %\VignetteDepends{diveMove}
 %\VignettePackage{diveMove}

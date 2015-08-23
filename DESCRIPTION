@@ -1,7 +1,7 @@
 Package: diveMove
 Type: Package
-Title: Dive analysis and calibration
-Version: 1.3.9
+Title: Dive Analysis and Calibration
+Version: 1.4.0
 Depends: R (>= 2.13.0), methods, stats4
 Suggests: lattice, tcltk
 Imports: caTools, KernSmooth, quantreg, geosphere
@@ -20,7 +20,7 @@ Collate: AllClass.R AllGenerics.R AllMethod.R austFilter.R bouts.R
         speedStats.R stampDive.R zoc.R zzz.R
 License: GPL-3
 URL: http://r-forge.r-project.org/projects/divemove
-Packaged: 2014-02-20 04:51:09 UTC; sluque
 NeedsCompilation: no
+Packaged: 2015-08-23 04:56:05 UTC; sluque
 Repository: CRAN
-Date/Publication: 2014-02-20 07:02:18
+Date/Publication: 2015-08-23 10:35:50

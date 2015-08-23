@@ -1,4 +1,4 @@
-% $Id: bout-misc.Rd 558 2012-05-28 21:34:47Z sluque $
+% $Id$
 \name{bout-misc}
 
 \alias{boutfreqs}
