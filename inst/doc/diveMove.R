@@ -14,7 +14,7 @@ library(diveMove)
 
 
 ###################################################
-### code chunk number 3: diveMove.Rnw:165-166 (eval = FALSE)
+### code chunk number 3: diveMove.Rnw:164-165 (eval = FALSE)
 ###################################################
 ## example(diveMove)
 
@@ -74,13 +74,13 @@ plotTDR(tdrX, interact=FALSE, cex.lab=1.3)
 
 
 ###################################################
-### code chunk number 9: diveMove.Rnw:334-335 (eval = FALSE)
+### code chunk number 9: diveMove.Rnw:333-334 (eval = FALSE)
 ###################################################
 ## dcalib <- calibrateDepth(tdrX)
 
 
 ###################################################
-### code chunk number 10: diveMove.Rnw:357-360 (eval = FALSE)
+### code chunk number 10: diveMove.Rnw:356-359 (eval = FALSE)
 ###################################################
 ## dcalib <- calibrateDepth(tdrX, 
 ##                          zoc.method="offset",
@@ -88,7 +88,7 @@ plotTDR(tdrX, interact=FALSE, cex.lab=1.3)
 
 
 ###################################################
-### code chunk number 11: diveMove.Rnw:382-387 (eval = FALSE)
+### code chunk number 11: diveMove.Rnw:381-386 (eval = FALSE)
 ###################################################
 ## dcalib <- calibrateDepth(tdrX, 
 ##                          zoc.method="filter",
@@ -204,7 +204,7 @@ sealX
 
 
 ###################################################
-### code chunk number 28: diveMove.Rnw:671-672
+### code chunk number 28: diveMove.Rnw:670-671
 ###################################################
 options(width=105)
 
@@ -222,7 +222,7 @@ names(tdrXSumm2)
 
 
 ###################################################
-### code chunk number 30: diveMove.Rnw:681-682
+### code chunk number 30: diveMove.Rnw:680-681
 ###################################################
 options(width=34, digits=4)
 
