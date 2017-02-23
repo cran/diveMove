@@ -7,7 +7,7 @@ importFrom(graphics, abline, arrows, axTicks, axis, axis.POSIXct, box,
            mtext, par, plot, points, rect, rug, segments, text)
 importFrom(grDevices, colorRampPalette, contourLines, dev.off, hsv, rgb)
 importFrom(stats, approx, approxfun, bw.nrd, ecdf, lm, median, nls,
-           nls.control, predict, quantile, sd, splinefun)
+           nls.control, predict, quantile, sd, smooth.spline, splinefun)
 importFrom(utils, read.csv)
 
 ## runquantile for ZOC
@@ -15,6 +15,8 @@ importFrom(caTools, runquantile)
 ## bkde2d and rq for speed calibration
 importFrom(KernSmooth, bkde2D)
 importFrom(quantreg, rq)
+## unireg for dive phase identification
+importFrom(uniReg, unireg)
 ## distance algorithms
 importFrom(geosphere, distMeeus, distVincentyEllipsoid)
 

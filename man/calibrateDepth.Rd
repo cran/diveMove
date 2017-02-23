@@ -15,7 +15,9 @@
 \usage{
 calibrateDepth(x, dry.thr=70, wet.cond, wet.thr=3610, dive.thr=4,
                zoc.method=c("visual", "offset", "filter"), \ldots,
-               interp.wet=FALSE, smooth.par=0.1, knot.factor=3,
+               interp.wet=FALSE,
+               dive.model=c("unimodal", "smooth.spline"),
+               smooth.par=0.1, knot.factor=3,
                descent.crit.q=0, ascent.crit.q=0)
 }
 
@@ -55,10 +57,16 @@ calibrateDepth(x, dry.thr=70, wet.cond, wet.thr=3610, dive.thr=4,
     restricted to shallow depths near the beginning and end of dives.
     This pattern is common in some satellite-linked \acronym{TDR}s.}
 
+  \item{dive.model}{character string specifying what model to use for
+    each dive for the purpose of dive phase identification.  One of
+    \dQuote{smooth.spline} or \dQuote{unimodal}, to choose among
+    smoothing spline of unimodal regression (see \sQuote{Details}.}
+
   \item{smooth.par}{numeric scalar representing amount of smoothing
-    (argument \code{spar} in \code{\link[stats]{smooth.spline}}.  If it
-    is NULL, then the smoothing parameter is determined by Generalized
-    Cross-validation (GCV).}
+    (argument \code{spar} in \code{\link[stats]{smooth.spline}}) when
+    \code{dive.model="smooth.spline"}.  If it is NULL, then the
+    smoothing parameter is determined by Generalized Cross-validation
+    (GCV). Ignored with default \code{dive.model="unimodal"}.}
 
   \item{knot.factor}{numeric scalar that multiplies the number of
     samples in the dive.  This is used to construct the time predictor
@@ -110,7 +118,7 @@ calibrateDepth(x, dry.thr=70, wet.cond, wet.thr=3610, dive.thr=4,
   their duration was briefer than \code{dry.thr}.  Therefore,
   \code{dry.thr} must be chosen carefully to avoid interpolation through
   legitimate dry periods.
-  
+
   The next step is to detect dives whenever the zero-offset corrected
   depth in an underwater phase is below the specified dive threshold.  A
   new factor with finer levels of activity is thus generated, including
@@ -192,33 +200,67 @@ calibrateDepth(x, dry.thr=70, wet.cond, wet.thr=3610, dive.thr=4,
   zero, at time steps prior to the first and after the last,
   respectively.  The latter ensures that descent and ascent derivatives
   are non-negative and non-positive, respectively, so that the end and
-  beginning of these phases are not truncated.  A smoothing spline is
-  used to model the dive and its derivative to investigate its changes
-  in vertical rate.  This method requires at least 4 observations (see
-  \code{\link[stats]{smooth.spline}}), so the time series is linearly
-  interpolated at equally spaced time steps if this limit is not
-  achieved in the current dive.  Wiggles at the beginning and end of the
-  dive are assumed to be zero offset correction errors, so depth
+  beginning of these phases are not truncated.  The next step is to fit
+  a model to each dive.  Two models can be chosen for this purpose:
+  \sQuote{unimodal} (default) and \sQuote{smooth.spline}.
+
+  Both models consist of a cubic spline, and its first derivative is
+  evaluated to investigate changes in vertical rate.  Therefore, at
+  least 4 observations are required for each dive, so the time series is
+  linearly interpolated at equally spaced time steps if this limit is
+  not achieved in the current dive.  Wiggles at the beginning and end of
+  the dive are assumed to be zero offset correction errors, so depth
   observations at these extremes are interpolated between zero and the
   next observations when this occurs.
 
-  A set of knots is established to fit the smoothing spline by using an
-  regular time sequence with beginning and end equal to the extremes of
-  the input sequence, and with length equal to \eqn{N \times
-  knot.factor}{N * \code{knot.factor}}.  The first derivate of the
-  spline is evaluated at the same set of knots to calculate the vertical
-  rate throughout the dive and determine the end of descent and
-  beginning of ascent.  Equivalent procedures are used for detecting
-  descent and ascent phases.
+  \subsection{\sQuote{unimodal}}{
 
-  The quantile corresponding to (\code{descent.crit.q}) of all the
-  positive derivatives (rate of descent) at the beginning of the dive is
-  used as threshold for determining the end of descent.  Descent is
-  deemed to have ended at the \emph{first} minimum derivative, and the
-  nearest input time observation is considered to indicate the end of
-  descent.  The sign of the comparisons is reversed for detecting the
-  ascent.  If observed depth to the left and right of the derivative
-  defining the ascent are the same, the right takes precedence.
+    In this default model, the spline is constrained to be unimodal
+    (Koellmann et al. 2014), assuming the diver must return to the
+    surface to breathe.  The model is fitted using the uniReg package
+    (see \code{\link[uniReg]{unireg}}).  This model and constraint are
+    consistent with the definition of dives in air-breathers, so is
+    certainly appropriate for this group of divers.  A major advantage
+    of this approach over the next one is that the degree of smoothing
+    is determined via restricted maximum likelihood, and has no
+    influence on identifying the transition between descent and ascent.
+    Therefore, unimodal regression splines make the latter transition
+    clearer compared to using smoothing splines.
+
+  }
+
+  \subsection{\sQuote{smooth.spline}}{
+
+    In this model, specified via \code{dive.model="smooth.spline"}, a
+    smoothing spline is used to model each dive (see
+    \code{\link{smooth.spline}}), using the chosen smoothing parameter.
+
+    Dive phases identified via this model, however, are highly sensitive
+    to the degree of smoothing (\code{smooth.par}) used, thus making it
+    difficult to determine what amount of smoothing is adequate.
+
+  }
+
+  A comparison between these methods is shown in the Examples section of
+  \code{\link{diveModel}}.
+
+  The first derivate of the spline is evaluated at a set of knots to
+  calculate the vertical rate throughout the dive and determine the end
+  of descent and beginning of ascent.  This set of knots is established
+  using a regular time sequence with beginning and end equal to the
+  extremes of the input sequence, and with length equal to \eqn{N \times
+  knot.factor}{N * \code{knot.factor}}.  Equivalent procedures are used
+  for detecting descent and ascent phases.
+
+  Once one of the models above has been fitted to each dive, the
+  quantile corresponding to (\code{descent.crit.q}) of all the positive
+  derivatives (rate of descent) at the beginning of the dive is used as
+  threshold for determining the end of descent.  Descent is deemed to
+  have ended at the \emph{first} minimum derivative, and the nearest
+  input time observation is considered to indicate the end of descent.
+  The sign of the comparisons is reversed for detecting the ascent.  If
+  observed depth to the left and right of the derivative defining the
+  ascent are the same, the right takes precedence.
 
   The particular dive phase categories are subsequently defined using
   simple set operations.
@@ -236,6 +278,12 @@ calibrateDepth(x, dry.thr=70, wet.cond, wet.thr=3610, dive.thr=4,
 
 \references{
 
+  Koellmann, C., Ickstadt, K. and Fried, R. (2014) Beyond unimodal
+  regression: modelling multimodality with piecewise unimodal, mixture
+  or additive regression. Technical Report
+  8. \url{http://sfb876.tu-dortmund.de/FORSCHUNG/techreports.html}, SFB
+  876, TU Dortmund
+
   Luque, S.P. and Fried, R. (2011) Recursive filtering for zero offset
   correction of diving depth time series. PLoS ONE 6:e15850
 
@@ -248,7 +296,9 @@ calibrateDepth(x, dry.thr=70, wet.cond, wet.thr=3610, dive.thr=4,
 \seealso{\code{\link{TDRcalibrate}}, \code{\link{.zoc}},
   \code{\link{.depthFilter}}, \code{\link{.detPhase}},
   \code{\link{.detDive}}, \code{\link{plotTDR}}, and
-  \code{\link{plotZOC}} to visually assess ZOC procedure.}
+  \code{\link{plotZOC}} to visually assess ZOC procedure. See
+  \code{\link{diveModel}}, \code{\link{smooth.spline}},
+  \code{\link{unireg}} for dive models.}
 
 % -------------------------------------------------------------------------
 
@@ -257,14 +307,15 @@ calibrateDepth(x, dry.thr=70, wet.cond, wet.thr=3610, dive.thr=4,
 data(divesTDR)
 divesTDR
 
+\donttest{## Too long for checks
 ## Consider a 3 m offset, a dive threshold of 3 m, the 1\% quantile for
 ## critical vertical rates, and a set of knots 20 times as long as the
-## observed time steps.
+## observed time steps. Default smoothing spline model for dive phase
+## detection, using default smoothing parameter.
 (dcalib <- calibrateDepth(divesTDR, dive.thr=3, zoc.method="offset",
                           offset=3, descent.crit.q=0.01, ascent.crit.q=0,
                           knot.factor=20))
 ## Or ZOC algorithmically with method="filter":
-\dontrun{## This can take a while due to large window needed for 2nd
 ## filter in this dataset
 (dcalib <- calibrateDepth(divesTDR, dive.thr=3, zoc.method="filter",
                           k=c(3, 5760), probs=c(0.5, 0.02), na.rm=TRUE,

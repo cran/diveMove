@@ -24,19 +24,24 @@
   generated during depth calibration, using
   \code{\link{calibrateDepth}}, more specifically
   \code{\link{.cutDive}}.
-  
+
 }
 
 
 \section{Slots}{
 
   \describe{
-    
+
     \item{\code{label.matrix}:}{Object of class \code{"matrix"}.  A
       2-column character matrix with row numbers matching each
       observation to the full \code{\link{TDR}} object, and a vector
       labelling the phases of each dive.}
-    
+
+    \item{\code{model}:}{Object of class \code{"character"}.  A string
+      identifying the specific model fit to dives for the purpose of
+      dive phase identification.  It should be one of
+      \sQuote{smooth.spline} or \sQuote{unimodal}.}
+
     \item{\code{dive.spline}:}{Object of class \code{"smooth.spline"}.
       Details of cubic smoothing spline fit (see
       \code{\link[stats]{smooth.spline}}).}
@@ -60,9 +65,9 @@
     \item{\code{ascent.crit.rate}:}{Object of class \code{"numeric"}.
       The rate of ascent corresponding to the critical quantile
       used.}
-   
+
   }
-  
+
 }
 
 
@@ -75,6 +80,34 @@
 \examples{
 
 showClass("diveModel")
+
+\donttest{## Too long for checks
+## Continuing the Example from '?calibrateDepth':
+utils::example("calibrateDepth", package="diveMove",
+               ask=FALSE, echo=FALSE)
+dcalib		# the 'TDRcalibrate' that was created
+
+## Compare dive models for dive phase detection
+diveNo <- 255
+diveX <- as.data.frame(extractDive(dcalib, diveNo=diveNo))
+diveX.m <- cbind(as.numeric(row.names(diveX[-c(1, nrow(diveX)), ])),
+                 diveX$depth[-c(1, nrow(diveX))],
+                 diveX$time[-c(1, nrow(diveX))])
+
+## calibrateDepth() default unimodal regression. Number of inner knots is
+## either 10 or the number of samples in the dive, whichever is larger.
+(phases.uni <- diveMove:::.cutDive(diveX.m, smooth.par=0.2, knot.factor=20,
+                                   dive.model="unimodal",
+                                   descent.crit.q=0.01, ascent.crit.q=0))
+## Smoothing spline model, using default smoothing parameter.
+(phases.spl <- diveMove:::.cutDive(diveX.m, smooth.par=0.2, knot.factor=20,
+                                   dive.model="smooth.spline",
+                                   descent.crit.q=0.01, ascent.crit.q=0))
+plotDiveModel(phases.spl,
+              diveNo=paste(diveNo, ", smooth.par=", 0.2, sep=""))
+plotDiveModel(phases.uni, diveNo=paste(diveNo))
+
+}
 
 }
 

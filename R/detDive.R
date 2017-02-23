@@ -67,19 +67,23 @@
 }
 
 ##_+ Dive Detection with smoothing spline and derivative
-".cutDive" <- function(x, smooth.par=NULL, knot.factor, descent.crit.q,
-                       ascent.crit.q)
+".cutDive" <- function(x, dive.model, smooth.par=NULL, knot.factor,
+                       sigmasq=2, g=max(10, nrow(x) - 4),
+                       ordpen=2, descent.crit.q, ascent.crit.q)
 {
     ## Value: 'diveModel' object with details of dive phase model.
     ## --------------------------------------------------------------------
     ## Arguments: x=a 3-col numeric matrix with index in original TDR
     ## object, non-NA depths and numeric time.  A single dive's data
-    ## (*below* 'dive.threshold'); smooth.par=spar parameter for
-    ## smooth.spline(); knot.factor=numeric scalar that multiplies the
-    ## duration of the dive (used to construct the time predictor for the
-    ## derivative); descent.crit.q=ascent.crit.q quantiles defining the
-    ## critical vertical rates of descent and ascent where descent should
-    ## and ascent begin.
+    ## (*below* 'dive.threshold'); dive.model=string identifying method for
+    ## identifying dive phases ("smooth.spline" or "unimodal");
+    ## smooth.par=spar parameter for smooth.spline() (for method
+    ## "smooth.spline", ignored otherwise); knot.factor=numeric scalar that
+    ## multiplies the duration of the dive (used to construct the time
+    ## predictor for the derivative); sigmasq=g=parameters passed to unireg
+    ## for unimodal regression model; descent.crit.q=ascent.crit.q
+    ## quantiles defining the critical vertical rates of descent and ascent
+    ## where descent should and ascent begin.
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------
@@ -113,15 +117,49 @@
     }
     times.pred <- seq(times.scaled[1], times.scaled[length(times.scaled)],
                       length.out=length(times.scaled) * knot.factor)
-    if (is.null(smooth.par)) {
-        spl <- stats::smooth.spline(times.scaled, depths, all.knots=TRUE)
-        depths.smooth <- stats::smooth.spline(times.scaled, depths,
-                                              spar=spl$spar, all.knots=TRUE)
-    } else {
-        depths.smooth <- stats::smooth.spline(times.scaled, depths,
-                                              spar=smooth.par, all.knots=TRUE)
-    }
+
+    switch(dive.model,
+           unimodal = {
+               ## Need to learn more about the number of knots 'g' in
+               ## unireg and its effect on the process.  For now, g=25
+               ## works well in most cases
+               unispline <- unireg(times.scaled, depths, g=g, k=3,
+                                   sigmasq=sigmasq, tuning=FALSE,
+                                   penalty="diff", constr="unimodal",
+                                   ordpen=ordpen, abstol=0.01)
+               ## This is a temporary object, as uniReg might develop a
+               ## class for its unireg output.  For now, we're placing into
+               ## a bSpline class for handling as diveModel.  Order: 4,
+               ## since we're using cubic spline (k=3);
+               ## unispline$x=time.scaled in unireg below.
+               depths.smooth <- list(knots=unispline$knotsequence,
+                                     coefficients=unispline$coef, order=4,
+                                     data=list(x=times.scaled, y=depths),
+                                     x=unispline$x, y=unispline$fitted.values,
+                                     unimod.func=unispline$unimod.func,
+                                     lambda.opt=unispline$lambdaopt,
+                                     sigmasq=unispline$sigmasq,
+                                     degree=unispline$degree,
+                                     g=unispline$g, a=unispline$a,
+                                     b=unispline$b, variter=unispline$variter)
+               class(depths.smooth) <- c("bSpline", "spline")
+           },
+           smooth.spline = {
+               if (is.null(smooth.par)) {
+                   spl <- smooth.spline(times.scaled, depths,
+                                        all.knots=TRUE)
+                   depths.smooth <- smooth.spline(times.scaled, depths,
+                                                  spar=spl$spar,
+                                                  all.knots=TRUE)
+               } else {
+                   depths.smooth <- smooth.spline(times.scaled, depths,
+                                                  spar=smooth.par,
+                                                  all.knots=TRUE)
+               }})
+
     depths.deriv <- predict(depths.smooth, times.pred, deriv=1)
+    ## The derivative is efficiently handled as a 'xyVector' or 'list'
+    class(depths.deriv) <- c("xyVector", "list")
     depths.d <- depths.deriv$y
 
     ## Descent ------------------------------------------------------------
@@ -135,7 +173,7 @@
     if (all(Dd1.maybe <= 0)) {     # but first maximum if all non-positives
         Dd1pos.min <- which.max(Dd1.maybe)
     } else {
-        d.crit.rate <- quantile(Dd1.maybe, probs=descent.crit.q)
+        d.crit.rate <- quantile(Dd1.maybe, probs=descent.crit.q, na.rm=TRUE)
         beyond <- Dd1.maybe > d.crit.rate
         Dd1pos.min <- ifelse(any(beyond),
                              which.min(Dd1.maybe[beyond]),
@@ -161,7 +199,8 @@
     if (all(Ad1.maybe >= 0)) {      # but first minimum if all non-negative
         Ad1neg.max.nat <- which.min(Ad1.maybe.nat)
     } else {
-        a.crit.rate <- quantile(Ad1.maybe.nat, probs=(1 - ascent.crit.q))
+        a.crit.rate <- quantile(Ad1.maybe.nat, probs=(1 - ascent.crit.q),
+                                na.rm=TRUE)
         beyond <- Ad1.maybe.nat < a.crit.rate
         beyond.w <- which(beyond)    # indices below critical in candidates
         beyond0 <- Ad1.maybe.nat < 0
@@ -174,7 +213,7 @@
     ## the end of the predicted smooth depths (from end)
     Ad1neg.max <- Ad1neg.sum - Ad1neg.max.nat + 1
     ## Absolute differences between time predictor corresponding to the
-    ## position above and scaled time (it's important it's in reverse, so
+    ## position above and scaled time (it's important it's reversed, so
     ## that we can find the first minimum below)
     Ad1neg.diff <- rev(times.pred)[Ad1neg.max] - rev(times.scaled)
     left <- max(which(Ad1neg.diff <= 0))
@@ -226,6 +265,8 @@
     ## Any remaining rowids are nonexistent labels
     label.mat <- cbind(rowids[!is.na(rowids)], labs[!is.na(rowids)])
     new("diveModel",
+        model=ifelse("smooth.spline" %in% class(depths.smooth),
+                     "smooth.spline", "unimodal"),
         label.matrix=label.mat,
         dive.spline=depths.smooth,
         spline.deriv=depths.deriv,
@@ -244,7 +285,8 @@
     ## dive (non-dives should be 0). As it is called by calibrateDepth,
     ## these indices include underwater phases, not necessarily below dive
     ## threshold. ...=arguments passed to .cutDive(), usually from
-    ## calibrateDepth() and include 'smooth.par' and 'knot.factor'.
+    ## calibrateDepth() and include 'dive.model', 'smooth.par' and
+    ## 'knot.factor'.
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
     ## --------------------------------------------------------------------

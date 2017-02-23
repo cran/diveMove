@@ -3,6 +3,7 @@
                               dive.thr=4,
                               zoc.method=c("visual", "offset", "filter"),
                               ..., interp.wet=FALSE,
+                              dive.model=c("unimodal", "smooth.spline"),
                               smooth.par=0.1, knot.factor=3,
                               descent.crit.q=0, ascent.crit.q=0)
 {
@@ -18,8 +19,8 @@
     ## offset (offset); interp.wet=logical (proposal) to control whether we
     ## interpolate NA depths in wet periods (*after ZOC*).  Be careful with
     ## latter, which uses an interpolating spline to impute the missing
-    ## data.  'smooth.par', 'knot.factor', 'descent.crit.q', and
-    ## 'ascent.crit.q' are arguments passed to .cutDive() via
+    ## data.  'dive.model', 'smooth.par', 'knot.factor', 'descent.crit.q',
+    ## and 'ascent.crit.q' are arguments passed to .cutDive() via
     ## .labDivePhase().
     ## --------------------------------------------------------------------
     ## Author: Sebastian Luque
@@ -44,12 +45,12 @@
     zd <- .zoc(time, depth, method=zoc.method, control=ell)
     if (!is.null(zd)) x@depth <- zd
     ## Detect phases and dives
-    if (missing(wet.cond)) 
+    if (missing(wet.cond))
         r <- !is.na(zd)
     else {
         e <- substitute(wet.cond)
         r <- eval(e, as.data.frame(x), parent.frame())
-        if (!is.logical(r)) 
+        if (!is.logical(r))
             stop("'subset' must evaluate to logical")
         r <- r & !is.na(r)
     }
@@ -72,7 +73,9 @@
     detd <- .detDive(getDepth(x), detp[[2]], dive.thr)
 
     ## Identify dive phases
-    phaselabs <- .labDivePhase(x, detd[, 1], smooth.par=smooth.par,
+    dive.model <- match.arg(dive.model)
+    phaselabs <- .labDivePhase(x, detd[, 1], dive.model=dive.model,
+                               smooth.par=smooth.par,
                                knot.factor=knot.factor,
                                descent.crit.q=descent.crit.q,
                                ascent.crit.q=ascent.crit.q)
@@ -133,11 +136,11 @@
         rddepth <- rddepth[ok]
         curspeed <- curspeed[ok]
         bandw <- c(bw.nrd(rddepth), bw.nrd(curspeed))
-        z <- KernSmooth::bkde2D(cbind(rddepth, curspeed), bandwidth=bandw)
+        z <- bkde2D(cbind(rddepth, curspeed), bandwidth=bandw)
         bins <- contourLines(z$x1, z$x2, z$fhat, levels=contour.level)
         ctr.x <- unlist(sapply(bins, "[", "x"), use.names=FALSE)
         ctr.y <- unlist(sapply(bins, "[", "y"), use.names=FALSE)
-        rqFit <- quantreg::rq(ctr.y ~ ctr.x, tau=tau)
+        rqFit <- rq(ctr.y ~ ctr.x, tau=tau)
         coefs <- coef(rqFit)
         newspeed <- (getSpeed(tt) - coefs[1]) / coefs[2]
         speed(x@tdr) <- newspeed

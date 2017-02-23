@@ -16,7 +16,8 @@
 
 
 \usage{
-.cutDive(x, smooth.par, knot.factor, descent.crit.q, ascent.crit.q)
+.cutDive(x, dive.model, smooth.par=NULL, knot.factor, sigmasq=2,
+         g=max(10, nrow(x) - 4), ordpen=2, descent.crit.q, ascent.crit.q)
 .labDive(act, string)
 .labDivePhase(x, diveID, \ldots)
 }
@@ -29,8 +30,11 @@
     object, non NA depths, and numeric vector representing
     \code{\link{POSIXct}} times.}
 
-  \item{smooth.par, knot.factor, descent.crit.q, ascent.crit.q}{Passed
-  from \code{calibrateDepth}.}
+  \item{dive.model, smooth.par, knot.factor, sigmasq, g, ordpen,
+        descent.crit.q, ascent.crit.q}{Passed from \code{calibrateDepth}.}
+
+  \item{g, ordpen}{default arguments for \code{\link{unireg}}, so only
+    relevant for \code{divemodel="unimodal"}.}
 
   \item{act}{factor with values to label.}
 
@@ -39,7 +43,7 @@
 
   \item{diveID}{numeric vector indexing each dive (non-dives should be
     0)}
-  
+
   \item{\ldots}{Arguments passed to \code{.cutDive} (\code{smooth.par}
     and \code{knot.factor}).}
 

@@ -106,8 +106,9 @@
 
     \item{getDPhaseLab}{\code{signature(x="TDRcalibrate",
 	diveNo="missing")}: extracts a factor identifying all readings
-	to a particular dive phase.  This accesses the dive.phases slot
-	of \code{\link{TDRcalibrate}} objects, which is a factor.}
+	to a particular dive phase.  This accesses the
+	\code{dive.phases} slot of \code{\link{TDRcalibrate}} objects,
+	which is a factor.}
 
     \item{getDPhaseLab}{\code{signature(x="TDRcalibrate",
 	diveNo="numeric")}: as the method for missing \code{y}, but
@@ -166,6 +167,7 @@
 
 \examples{
 
+\donttest{## Too long for checks
 ## Continuing the Example from '?calibrateDepth':
 utils::example("calibrateDepth", package="diveMove",
                ask=FALSE, echo=FALSE)
@@ -195,6 +197,8 @@ if (require(lattice)) {
            outer=TRUE, allow.multiple=TRUE, layout=c(1, 3),
            xlab=expression(paste("Vertical rate (", m \%.\% s^-1, ")")),
            strip=strip.custom(factor.levels=fl))
+}
+
 }
 
 }

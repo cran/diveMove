@@ -1,3 +1,18 @@
+Changes in version 1.4.2:
+
+   o New method for dive phase detection in calibrateDepth().  By default,
+     a new unimodal cubic spline is now available to model dives, which
+     removes the burden of selecting the amount of smoothing in the
+     previous smoothing spline model, although the latter is still
+     available.  The new model is fitted via unireg() from the uniReg
+     package.
+
+   o Use na.rm=TRUE to remove missing values from defining quantiles.
+
+Changes in version 1.4.1:
+
+   o Updated CITATION to reflect new person() arguments.
+
 Changes in version 1.4.0:
 
    o Packages lattice and tcltk are no longer attached, but their
@@ -156,7 +171,7 @@ Changes in version 1.2.1:
      for all classes.
 
    o diveStats() provides more dive summary statistics, including
-     derivative summaries.  
+     derivative summaries.
 
    o When interp.wet=TRUE and there are no missing depth observations,
      calibrateDepth() no longer performs interpolation.
