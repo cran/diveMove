@@ -1,6 +1,6 @@
-ce5e991de956564b9b7118587d4846d1 *DESCRIPTION
+ebc24ac16d8ff1f31b6acfc770b967fc *DESCRIPTION
 afa0504d806cc11ecebfd1f12e7737c8 *NAMESPACE
-f1eb1b1e0bea04728732c71683f05350 *NEWS
+e37c1f06e9351e52f3a45fc2771534d8 *NEWS
 59b158706551b0298e8bbd51d3b79eaa *R/AllClass.R
 e10480b3ed51dd22bec014d8ea3c1ae5 *R/AllGenerics.R
 9e96da2248d137885cc3706402245d9d *R/AllMethod.R
@@ -10,7 +10,7 @@ e8e7065e4e70eecd39a85b2f96f38978 *R/calibrate.R
 438acac495f4305ec7c898ed911f9b76 *R/detDive.R
 5da7325666d813593539346dcc0aad59 *R/detPhase.R
 dcc294ea371bf28d99cb127acf375a12 *R/distSpeed.R
-7fa58d4a858401626fcd627aa30d703c *R/diveStats.R
+746de19e2eb5f3a0037a2b51f203f0f1 *R/diveStats.R
 deae591d0b0b901972e872a57f8be8b0 *R/oneDiveStats.R
 42ebc757c7f8e75c4c2e01f07815ccb2 *R/plotTDR.R
 2d290b6bd3cd17f01024ecaf72efc2a2 *R/plotZOC.R
@@ -28,7 +28,7 @@ e288617d2cf850aa7ddfb0322ad2feef *build/vignette.rds
 43561ed7a7023ea33afa4fc5941f8d4f *inst/CITATION
 cb354ad84e7e04601824e32caa91662d *inst/doc/diveMove.R
 05bcff86d0e85ef271947e686c999090 *inst/doc/diveMove.Rnw
-511c2bf192efc42395b54701eeca5cea *inst/doc/diveMove.pdf
+97014c976a7bcef138c3aebc486b2d1f *inst/doc/diveMove.pdf
 93d1ff4ee5798ceedf63b8c0ae0501d8 *man/TDR-accessors.Rd
 08cd271ba27a93de41ed3de1b6230d31 *man/TDR-class.Rd
 be7e7005450010c80c0007216713b4e8 *man/TDRcalibrate-accessors.Rd
