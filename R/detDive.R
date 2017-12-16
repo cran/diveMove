@@ -68,7 +68,7 @@
 
 ##_+ Dive Detection with smoothing spline and derivative
 ".cutDive" <- function(x, dive.model, smooth.par=NULL, knot.factor,
-                       sigmasq=2, g=max(10, nrow(x) - 4),
+                       sigmasq=2, g=min(max(10, nrow(x) - 4), 25),
                        ordpen=2, descent.crit.q, ascent.crit.q)
 {
     ## Value: 'diveModel' object with details of dive phase model.
@@ -95,6 +95,7 @@
     if (length(times) >= 4) {   # guard against smooth.spline() limitations
         times.scaled <- times - times[1]
     } else {
+        dive.model <- "smooth.spline"   # override passed-in model
         times.scaledOrig <- times - times[1]
         times4 <- seq(times[1], times[length(times)], length.out=4)
         times4.scaled <- as.numeric(times4) - as.numeric(times4[1])
@@ -169,11 +170,11 @@
     ## How long is this sequence from beginning?
     Dd1pos.sum <- sum(Dd1pos.rle$lengths[seq(Dd1pos.idx)])
     Dd1.maybe <- depths.d[seq(Dd1pos.sum)]
+    d.crit.rate <- quantile(Dd1.maybe, probs=descent.crit.q, na.rm=TRUE)
     ## Index with first minimum from beginning (only positives)
     if (all(Dd1.maybe <= 0)) {     # but first maximum if all non-positives
         Dd1pos.min <- which.max(Dd1.maybe)
     } else {
-        d.crit.rate <- quantile(Dd1.maybe, probs=descent.crit.q, na.rm=TRUE)
         beyond <- Dd1.maybe > d.crit.rate
         Dd1pos.min <- ifelse(any(beyond),
                              which.min(Dd1.maybe[beyond]),
@@ -195,12 +196,12 @@
     Ad1.maybe <- Ad1[seq(Ad1neg.sum)]
     ## Potential ascent derivatives in natural order
     Ad1.maybe.nat <- rev(Ad1[seq(Ad1neg.sum)])
+    a.crit.rate <- quantile(Ad1.maybe.nat, probs=(1 - ascent.crit.q),
+                            na.rm=TRUE)
     ## Index with first maximum in natural ascent order (only negatives)
     if (all(Ad1.maybe >= 0)) {      # but first minimum if all non-negative
         Ad1neg.max.nat <- which.min(Ad1.maybe.nat)
     } else {
-        a.crit.rate <- quantile(Ad1.maybe.nat, probs=(1 - ascent.crit.q),
-                                na.rm=TRUE)
         beyond <- Ad1.maybe.nat < a.crit.rate
         beyond.w <- which(beyond)    # indices below critical in candidates
         beyond0 <- Ad1.maybe.nat < 0
@@ -359,18 +360,22 @@
 ## TEST ZONE --------------------------------------------------------------
 
 ## utils::example("calibrateDepth", package="diveMove", ask=FALSE, echo=FALSE)
+## diveMove:::.labDivePhase(getTDR(dcalib), getDAct(dcalib, "dive.id"),
+##                          smooth.par=0.1, knot.factor=30, descent.crit=0.01,
+##                          ascent.crit=0)
 ## X <- c(2, 7, 100, 120, 240)
-## ## .labDivePhase(getTDR(tdr.calib), getDAct(tdr.calib, "dive.id"),
-## ##                          smooth.par=0.1, knot.factor=30, descent.crit=0.01,
-## ##                          ascent.crit=0)
 ## ## diveX <- as.data.frame(extractDive(dcalib, diveNo=X[5]))
-## X <- c(2, 7, 100, 120, 743, 1224, 1222, 1223)
-## diveX <- as.data.frame(extractDive(tdr.calib, diveNo=X[8]))
+## X <- c(2, 7, 100, 120, 743)
+## diveX <- as.data.frame(extractDive(dcalib, diveNo=X[4]))
 ## diveX.m <- cbind(as.numeric(row.names(diveX[-c(1, nrow(diveX)), ])),
 ##                  diveX$depth[-c(1, nrow(diveX))],
 ##                  diveX$time[-c(1, nrow(diveX))])
-## phases <- .cutDive(diveX.m, smooth.par=0.1, knot.factor=30,
-##                    descent.crit.q=0.01, ascent.crit.q=0)
+## phases <- diveMove:::.cutDive(diveX.m, dive.model="unimodal",
+##                               smooth.par=0.1, knot.factor=30,
+##                               descent.crit.q=0.01, ascent.crit.q=0)
+## system.time(diveMove:::.cutDive(diveX.m, dive.model="smooth.spline",
+##                                 smooth.par=0.1, knot.factor=30,
+##                                 descent.crit.q=0.01, ascent.crit.q=0))
 
 ## for (dive in seq(max(dives[dives > 0]))) {
 ##     diveX <- as.data.frame(extractDive(tdr.calib, diveNo=dive))
