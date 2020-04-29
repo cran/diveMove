@@ -1,4 +1,4 @@
-## ----include=FALSE-------------------------------------------------------
+## ----include=FALSE------------------------------------------------------------
 library(knitr)
 opts_chunk$set(strip.white=TRUE, size="relsize{-1}",
                dev="png", resolution=180)
