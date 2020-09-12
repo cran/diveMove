@@ -3,6 +3,7 @@
 
 \alias{dives}
 \alias{divesTDR}
+\alias{divesTDRzoc}
 
 % -------------------------------------------------------------------------
 
@@ -18,7 +19,7 @@
 
 \format{
 
-  Bzip2-compressed file.  A comma separated value (csv) file with 69560
+  Bzip2-compressed file.  A comma separated value (csv) file with 34199
   \acronym{TDR} readings, measured at 5 s intervals, with the following
   columns:
 
@@ -50,6 +51,11 @@
 
   \code{divesTDR} is a \code{\link{TDR}} object representation of the
   data in \code{dives}.
+
+  \code{divesTDRzoc} is the same data, but has been zero-offset corrected
+  with the "filter" method (\code{k=c(3, 5760), probs=c(0.5, 0.02),
+  na.rm=TRUE, depth.bounds=range(getDepth(divesTDR))}).
+
 
 }
 
