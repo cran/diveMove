@@ -1,6 +1,6 @@
-514e73cf745a3f91522cd0a73b7f0478 *DESCRIPTION
+0edac62bdb32106863cb88ffe268eeb6 *DESCRIPTION
 bf5d8bc7292c5adfa98acda587fd0216 *NAMESPACE
-4dfce5b8b16c4b818f9f4548a16960f1 *NEWS
+4dcddef4f743ac4c437f9c622f1082de *NEWS
 59b158706551b0298e8bbd51d3b79eaa *R/AllClass.R
 e10480b3ed51dd22bec014d8ea3c1ae5 *R/AllGenerics.R
 13f29462a917d38adbdce1854aa19191 *R/AllMethod.R
@@ -28,10 +28,10 @@ afc89d9ea59ddc608ba6e73c68c363ef *R/speedStats.R
 140653e2ab5eed3cac72962382461fcd *data/divesTDRzoc.RData
 861829d1ba52cf8c47a990edc974a012 *data/sealLocs.csv
 43561ed7a7023ea33afa4fc5941f8d4f *inst/CITATION
-5fde08c76217dc75f4e7c8f4daacc777 *inst/doc/diveMove.R
-086817512bd49a5cd5a3f0de2e87c16c *inst/doc/diveMove.Rmd
-280823c2302a8f61b41df7f56a88e997 *inst/doc/diveMove.html
-855d381dece10f81e57db810cb120703 *inst/tinytest/test_calibrations.R
+6a1bdcb1b73ffd3fdecee7f880b8f909 *inst/doc/diveMove.R
+7cd10407679a22b72c9ebeb0d573c77f *inst/doc/diveMove.Rmd
+a3d787c93930eb95ec1c56b56c2f1b02 *inst/doc/diveMove.html
+b75c489fd78d5e158109163beae62fe9 *inst/tinytest/test_calibrations.R
 dc51edb71ff7b953eca748184bcff322 *inst/tinytest/test_classes.R
 a31316eade2beee809afe24bfc54b48d *inst/tinytest/test_stats.R
 93d1ff4ee5798ceedf63b8c0ae0501d8 *man/TDR-accessors.Rd
@@ -68,7 +68,8 @@ cfe57213f9e064f31265378b54c8a58a *man/sealLocs.Rd
 a3db803897ff9547a476a511da42efed *src/diveMove_init.c
 e8601ddeee6c3d73197e3d0bbcddba52 *src/run_quantile.c
 a7335a1a1de6e65ac7fa673a9f9a4791 *tests/tinytest.R
-f8c910238ef3949ae5fef11549eda155 *vignettes/auto/diveMove.el
 eb8ae263234eb916f275649aa2b8b714 *vignettes/biblioSPL.bib
-086817512bd49a5cd5a3f0de2e87c16c *vignettes/diveMove.Rmd
-63187f61a80e661724df7ec8abd41d38 *vignettes/tcltk.png
+7cd10407679a22b72c9ebeb0d573c77f *vignettes/diveMove.Rmd
+769d6ec7cdd19bab777f5779ecf6b60f *vignettes/figs/plot_tdr.png
+779431a73f35c93fa15c5d722936c522 *vignettes/figs/plot_tdrcalib_01.png
+c3c2159619ac016fb996145c3c9232a6 *vignettes/figs/plot_tdrcalib_02.png

@@ -38,13 +38,15 @@ tdrX <- createTDR(time=time.posixct,
 #                  na.strings="", as.is=TRUE)
 #  plotTDR(tdrX)
 
-## ----plot-tdr, echo=FALSE, warning=FALSE, fig.cap="The `plotTDR()` method for `TDR` objects produces an interactive plot of the data, allowing for zooming and panning.", fig.asp=1.3----
+## ----plot-tdr, echo=FALSE, eval.after="fig.cap", fig.cap=capt, fig.asp=1.3----
 fp <- file.path("data", "dives.csv")
 sfp <- system.file(fp, package="diveMove")
 tdrX <- readTDR(sfp, speed=TRUE, sep=";",
                 na.strings="", as.is=TRUE)
-ptdr <- plotTDR(tdrX)
-ptdr
+capt <- paste("The `plotTDR()` method for *TDR* objects produces an",
+              "interactive (disabled here to minimize vignette size)",
+              "plot of the data, allowing for zooming and panning.")
+knitr::include_graphics("figs/plot_tdr.png")
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  dcalib <- calibrateDepth(tdrX, zoc.method="visual")
@@ -69,12 +71,26 @@ dcalib <- calibrateDepth(tdrX, dive.thr=3,
                          ascent.crit.q=0,
                          knot.factor=20)
 
-## ----plot-tdrcalibrate, echo=FALSE, warning=FALSE, fig.cap="The `plotTDR()` method for *TDRcalibrate* objects displays information on the major activities identified throughout the record (wet/dry periods here).", fig.asp=1.9----
-ptdrcal <- plotTDR(dcalib, concurVars=c("speed", "light"), surface=TRUE)
-ptdrcal
+## ----plot-tdrcalibrate, eval=FALSE--------------------------------------------
+#  plotTDR(dcalib, concurVars=c("speed", "light"), surface=TRUE)
 
-## ----plot-dive-activity, echo=FALSE, fig.cap="The `plotTDR()` method for *TDRcalibrate* objects can also display information on the different activities during each dive record (descent=D, descent/bottom=DB, bottom=B, bottom/ascent=BA, ascent=A, X=surface)."----
-plotTDR(dcalib, diveNo=2:8, what="phases", depth.lim=c(0, 80))
+## ---- echo=FALSE, eval.after="fig.cap", fig.cap=capt, out.height="180%"-------
+capt <- paste("The `plotTDR()` method for *TDRcalibrate* objects produces",
+              "an interactive (disabled here to minimize vignette size)",
+              "plot displaying information on the major activities",
+              "identified throughout the record",
+              "(wet/dry periods in this case).")
+knitr::include_graphics("figs/plot_tdrcalib_01.png", dpi=NA)
+
+## ----plot-dive-activity, eval=FALSE-------------------------------------------
+#  plotTDR(dcalib, diveNo=2:8, what="phases", depth.lim=c(0, 80))
+
+## ---- echo=FALSE, eval.after="fig.cap", fig.cap=capt--------------------------
+capt <- paste("The `plotTDR()` method for *TDRcalibrate* objects can also",
+              "display information on the different activities identified",
+              "during each dive (descent=D, descent/bottom=DB,",
+              "bottom/ascent=BA, ascent=A, X=surface).")
+knitr::include_graphics("figs/plot_tdrcalib_02.png")
 
 ## ----extract-dive, eval=FALSE-------------------------------------------------
 #  extractDive(dcalib, diveNo=2:8)
@@ -98,7 +114,12 @@ getTDR(dcalib)
 ## ----dphaselab2---------------------------------------------------------------
 dphases <- getDPhaseLab(dcalib, c(100:300))
 
-## ----diveModel, echo=FALSE, fig.cap="Details of the process of identification of dive phases shown by `plotDiveModel`, which has methods for objects of class *TDRcalibrate* and *diveModel*.", fig.width=5, fig.height=5, out.width=NULL, dev.args=list(type="cairo-png")----
+## ---- echo=FALSE--------------------------------------------------------------
+capt <- paste("Details of the process of identification of dive phases",
+              "shown by `plotDiveModel`, which has methods for objects",
+              "of class *TDRcalibrate* and *diveModel*.")
+
+## ----diveModel, eval.after="fig.cap", fig.cap=capt, fig.width=5, fig.height=5, out.width=NULL, dev.args=list(type="cairo-png")----
 plotDiveModel(dcalib, diveNo=260)
 
 ## ----extractdive--------------------------------------------------------------
@@ -108,19 +129,24 @@ sealX
 ## ----plot-phases, eval=FALSE--------------------------------------------------
 #  plotTDR(sealX, phaseCol=dphases)
 
-## ----dive-summaries-----------------------------------------------------------
+## ----dive-summaries, results="asis"-------------------------------------------
 tdrXSumm1 <- head(diveStats(dcalib), 2)
 cap <- "Per-dive summaries can be obtained with function `diveStats()`."
-otbl <- pander(tdrXSumm1, digits=2, caption=cap)
-otbl
+pander(tdrXSumm1, digits=2, caption=cap)
 
-## ----time-budget--------------------------------------------------------------
+## ----time-budget, results="asis"----------------------------------------------
 tbudget <- head(timeBudget(dcalib, ignoreZ=TRUE), 5)
 cap <- "Time budget summary can be calculated with function `timeBudget()`."
-otbl <- pander(tbudget, digits=2, caption=cap)
-otbl
+pander(tbudget, digits=2, caption=cap)
 
-## ----calibrate-speed, fig.cap="The relationship between measured speed and rate of depth change can be used to calibrate speed readings.  The line defining the calibration for speed measurements passes through the bottom edge of a chosen contour, extracted from a bivariate kernel density grid.", fig.width=5, fig.height=5, out.width=NULL, dev.args=list(type="cairo-png")----
+## ---- echo=FALSE--------------------------------------------------------------
+capt <- paste("The relationship between measured speed and rate of depth",
+              "change can be used to calibrate speed readings.",
+              "The line defining the calibration for speed measurements",
+              "passes through the bottom edge of a chosen contour,",
+              "extracted from a bivariate kernel density grid.")
+
+## ----calibrate-speed, fig.cap=capt, fig.width=5, fig.height=5, out.width=NULL, dev.args=list(type="cairo-png")----
 vcalib <- calibrateSpeed(dcalib, tau=0.1,
                          contour.level=0.1,
                          z=1, bad=c(0, 0),
