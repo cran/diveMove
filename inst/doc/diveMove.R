@@ -119,7 +119,7 @@ capt <- paste("Details of the process of identification of dive phases",
               "shown by `plotDiveModel`, which has methods for objects",
               "of class *TDRcalibrate* and *diveModel*.")
 
-## ----diveModel, eval.after="fig.cap", fig.cap=capt, fig.width=5, fig.height=5, out.width=NULL, dev.args=list(type="cairo-png")----
+## ----diveModel, fig.cap=capt, fig.width=5, fig.height=5, out.width=NULL-------
 plotDiveModel(dcalib, diveNo=260)
 
 ## ----extractdive--------------------------------------------------------------
@@ -146,7 +146,7 @@ capt <- paste("The relationship between measured speed and rate of depth",
               "passes through the bottom edge of a chosen contour,",
               "extracted from a bivariate kernel density grid.")
 
-## ----calibrate-speed, fig.cap=capt, fig.width=5, fig.height=5, out.width=NULL, dev.args=list(type="cairo-png")----
+## ----calibrate-speed, fig.cap=capt, fig.width=5, fig.height=5, out.width=NULL----
 vcalib <- calibrateSpeed(dcalib, tau=0.1,
                          contour.level=0.1,
                          z=1, bad=c(0, 0),
