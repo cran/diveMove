@@ -1,6 +1,6 @@
-e0de8e7ce773e008d7fd76ff46dd406c *DESCRIPTION
+29e5a97a7a5e438f8d428f0a6a0db7b9 *DESCRIPTION
 bf5d8bc7292c5adfa98acda587fd0216 *NAMESPACE
-81fdd87a07948efc4679e15594fea8f6 *NEWS
+87e5cccb7b2a5d36680b5b97175ca81c *NEWS
 59b158706551b0298e8bbd51d3b79eaa *R/AllClass.R
 e10480b3ed51dd22bec014d8ea3c1ae5 *R/AllGenerics.R
 13f29462a917d38adbdce1854aa19191 *R/AllMethod.R
@@ -17,7 +17,7 @@ a69eb8de98549bfc755d6bdf7a92d203 *R/plotTDR.R
 4e5aa65991bf970c016c06dd3986ab50 *R/readLocs.R
 b6028da83977bb69ced9bf379ff4199d *R/readTDR.R
 05f3748257f8d1990b2e67d4dfdd6a36 *R/runquantile.R
-afc89d9ea59ddc608ba6e73c68c363ef *R/speedStats.R
+df0fbba41bcf925d575c6a9268ca1c4d *R/speedStats.R
 647f8333ca3ae633b846e72e59c75ce7 *R/stampDive.R
 19e42ca10a100bd528dfff44d4c5e046 *R/zoc.R
 52e2df1a4f373670bfc06c0ab1e84168 *R/zzz.R
@@ -30,7 +30,7 @@ afc89d9ea59ddc608ba6e73c68c363ef *R/speedStats.R
 43561ed7a7023ea33afa4fc5941f8d4f *inst/CITATION
 2beee12f7dff3e1ef5f396de19b7615d *inst/doc/diveMove.R
 fa79c6c1d4f72aaf349ab9f94e9660b6 *inst/doc/diveMove.Rmd
-f9eac837fbf6f030089318c8f3fde795 *inst/doc/diveMove.html
+52eaae7f29b061479548c057e543bc84 *inst/doc/diveMove.html
 b75c489fd78d5e158109163beae62fe9 *inst/tinytest/test_calibrations.R
 dc51edb71ff7b953eca748184bcff322 *inst/tinytest/test_classes.R
 a31316eade2beee809afe24bfc54b48d *inst/tinytest/test_stats.R
