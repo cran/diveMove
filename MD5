@@ -1,4 +1,4 @@
-d3ec35dd1cd78123917c0ac4222a39d9 *DESCRIPTION
+1705e71e92b879a62d80753ba9e14b9e *DESCRIPTION
 f802cd2430f2fbc510eab968c3b6e1e7 *NAMESPACE
 1bb72e7de0b0251d2d2c6e57701c3e7a *NEWS
 45a51dbae83e878056506b95f135f5a1 *R/AllClass.R
@@ -25,7 +25,7 @@ df0fbba41bcf925d575c6a9268ca1c4d *R/speedStats.R
 19e42ca10a100bd528dfff44d4c5e046 *R/zoc.R
 52e2df1a4f373670bfc06c0ab1e84168 *R/zzz.R
 65bbad5424fc183738b100a12bf7536f *README.md
-f4c5c2e0cd1d27aeb3b67b9bc67a0ffd *build/vignette.rds
+7b679600d14c2d03f8bc5d768735abd6 *build/vignette.rds
 4c084a1b06faa2ff4d726490145ec21a *data/dives.csv
 5ef50a7654416ece63ae010b460c5b34 *data/divesTDR.RData
 140653e2ab5eed3cac72962382461fcd *data/divesTDRzoc.RData
@@ -33,7 +33,7 @@ f4c5c2e0cd1d27aeb3b67b9bc67a0ffd *build/vignette.rds
 43561ed7a7023ea33afa4fc5941f8d4f *inst/CITATION
 2beee12f7dff3e1ef5f396de19b7615d *inst/doc/diveMove.R
 fa79c6c1d4f72aaf349ab9f94e9660b6 *inst/doc/diveMove.Rmd
-716d489b5a0e43d4bcf888abcb71409d *inst/doc/diveMove.html
+74e21fec4fb35864b0ba8edc2936828c *inst/doc/diveMove.html
 b75c489fd78d5e158109163beae62fe9 *inst/tinytest/test_calibrations.R
 dc51edb71ff7b953eca748184bcff322 *inst/tinytest/test_classes.R
 a31316eade2beee809afe24bfc54b48d *inst/tinytest/test_stats.R
@@ -67,7 +67,7 @@ ee69b0d00692efc6955935e5f68554d3 *man/dot-runquantile.Rd
 3414e6b383369092a41c331879d0b9cc *man/extractDive.Rd
 4000c8a9d9ff33128c1767d167e8357c *man/fitMLEbouts.Rd
 724384467049321017cb56697e398e85 *man/fitNLSbouts.Rd
-bfced8c44fcb22a0a7b7d1f10e6b6b3a *man/labDive-internal.Rd
+f1d52ffea1be0fef3b68f078bee5ca15 *man/labDive-internal.Rd
 6e1ee159b12718beab371f0aab221556 *man/labelBouts.Rd
 f92806dd912bf705aa5ae02973f5ab99 *man/plotBouts.Rd
 e4790ef3a6b5e09c601d0bf7a2205875 *man/plotBoutsCDF.Rd
