@@ -74,7 +74,7 @@ dcalib <- calibrateDepth(tdrX, dive.thr=3,
 ## ----plot-tdrcalibrate, eval=FALSE--------------------------------------------
 #  plotTDR(dcalib, concurVars=c("speed", "light"), surface=TRUE)
 
-## ---- echo=FALSE, eval.after="fig.cap", fig.cap=capt, out.height="180%"-------
+## ----echo=FALSE, eval.after="fig.cap", fig.cap=capt, out.height="180%"--------
 capt <- paste("The `plotTDR()` method for *TDRcalibrate* objects produces",
               "an interactive (disabled here to minimize vignette size)",
               "plot displaying information on the major activities",
@@ -85,7 +85,7 @@ knitr::include_graphics("figs/plot_tdrcalib_01.png", dpi=NA)
 ## ----plot-dive-activity, eval=FALSE-------------------------------------------
 #  plotTDR(dcalib, diveNo=2:8, what="phases", depth.lim=c(0, 80))
 
-## ---- echo=FALSE, eval.after="fig.cap", fig.cap=capt--------------------------
+## ----echo=FALSE, eval.after="fig.cap", fig.cap=capt---------------------------
 capt <- paste("The `plotTDR()` method for *TDRcalibrate* objects can also",
               "display information on the different activities identified",
               "during each dive (descent=D, descent/bottom=DB,",
@@ -114,7 +114,7 @@ getTDR(dcalib)
 ## ----dphaselab2---------------------------------------------------------------
 dphases <- getDPhaseLab(dcalib, c(100:300))
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 capt <- paste("Details of the process of identification of dive phases",
               "shown by `plotDiveModel`, which has methods for objects",
               "of class *TDRcalibrate* and *diveModel*.")
@@ -139,7 +139,7 @@ tbudget <- head(timeBudget(dcalib, ignoreZ=TRUE), 5)
 cap <- "Time budget summary can be calculated with function `timeBudget()`."
 pander(tbudget, digits=2, caption=cap)
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 capt <- paste("The relationship between measured speed and rate of depth",
               "change can be used to calibrate speed readings.",
               "The line defining the calibration for speed measurements",

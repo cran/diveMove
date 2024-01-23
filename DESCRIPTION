@@ -1,7 +1,7 @@
 Package: diveMove
 Type: Package
 Title: Dive Analysis and Calibration
-Version: 1.6.1
+Version: 1.6.2
 Depends: R (>= 3.5.0), methods, stats4
 Suggests: knitr, lattice, pander, rmarkdown, tinytest
 Imports: geosphere, KernSmooth, plotly, quantreg, uniReg
@@ -26,6 +26,6 @@ License: GPL-3
 URL: https://github.com/spluque/diveMove
 BugReports: https://github.com/spluque/diveMove/issues
 RoxygenNote: 7.1.1
-Packaged: 2022-11-09 04:35:25 UTC; sluque
+Packaged: 2024-01-23 21:13:41 UTC; sluque
 Repository: CRAN
-Date/Publication: 2022-11-10 03:30:02 UTC
+Date/Publication: 2024-01-23 22:02:47 UTC

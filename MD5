@@ -1,4 +1,4 @@
-1705e71e92b879a62d80753ba9e14b9e *DESCRIPTION
+2e2c3e2af3e4c3a4360ddd858ad3af61 *DESCRIPTION
 f802cd2430f2fbc510eab968c3b6e1e7 *NAMESPACE
 1bb72e7de0b0251d2d2c6e57701c3e7a *NEWS
 45a51dbae83e878056506b95f135f5a1 *R/AllClass.R
@@ -24,16 +24,16 @@ df0fbba41bcf925d575c6a9268ca1c4d *R/speedStats.R
 518e4841d0ff391b71d3e6b42d826e4e *R/stampDive.R
 19e42ca10a100bd528dfff44d4c5e046 *R/zoc.R
 52e2df1a4f373670bfc06c0ab1e84168 *R/zzz.R
-65bbad5424fc183738b100a12bf7536f *README.md
-7b679600d14c2d03f8bc5d768735abd6 *build/vignette.rds
+5c1ca9384ef1c1326e7ea203f0fe6e8d *README.md
+9e43745f247b6742738d99e54d35c643 *build/vignette.rds
 4c084a1b06faa2ff4d726490145ec21a *data/dives.csv
 5ef50a7654416ece63ae010b460c5b34 *data/divesTDR.RData
 140653e2ab5eed3cac72962382461fcd *data/divesTDRzoc.RData
 861829d1ba52cf8c47a990edc974a012 *data/sealLocs.csv
-43561ed7a7023ea33afa4fc5941f8d4f *inst/CITATION
-2beee12f7dff3e1ef5f396de19b7615d *inst/doc/diveMove.R
+59aabcb7f80ce2d928bcbb9472228851 *inst/CITATION
+c0f88e7802b91169b7b00ffc9098752d *inst/doc/diveMove.R
 fa79c6c1d4f72aaf349ab9f94e9660b6 *inst/doc/diveMove.Rmd
-74e21fec4fb35864b0ba8edc2936828c *inst/doc/diveMove.html
+52fc75f5aaef89591330718557f4f33a *inst/doc/diveMove.html
 b75c489fd78d5e158109163beae62fe9 *inst/tinytest/test_calibrations.R
 dc51edb71ff7b953eca748184bcff322 *inst/tinytest/test_classes.R
 a31316eade2beee809afe24bfc54b48d *inst/tinytest/test_stats.R
@@ -59,7 +59,7 @@ b8aee0b764b5af72f4cb5b1422291e02 *man/detPhase-internal.Rd
 01763d1165c889c732f82fd3d859571c *man/diveModel-class.Rd
 21a005c952983fc5c7178a1a2ea82f2f *man/diveMove-defunct.Rd
 3fe803d779c8416860e15b00d8448e04 *man/diveMove-deprecated.Rd
-2e9684e297e06ddb67af54536a630b2a *man/diveMove-internal.Rd
+8ddfc7a45ba0b9ea48b5f858842e3365 *man/diveMove-internal.Rd
 67e1f45e590ff0b9f4783342fd25b264 *man/diveMove-package.Rd
 405bfb61d7cb4e51253c511c365bd105 *man/diveStats.Rd
 9e275f4f13337a2e9d83ac4f47c9521a *man/dives.Rd
