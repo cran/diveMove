@@ -1,13 +1,13 @@
-2e2c3e2af3e4c3a4360ddd858ad3af61 *DESCRIPTION
+2fb04aa938d6f90a874bd289cf19a79b *DESCRIPTION
 f802cd2430f2fbc510eab968c3b6e1e7 *NAMESPACE
-1bb72e7de0b0251d2d2c6e57701c3e7a *NEWS
+39af52b4e6f7ef70a052c8e4d3a5579c *NEWS
 45a51dbae83e878056506b95f135f5a1 *R/AllClass.R
 0f1f46c7ccb6fcc2854eecfc4f493740 *R/AllGenerics.R
 578a5668d9e12e53cf4773ae095ad114 *R/AllMethod.R
 9102301b92eab09d3fada9d600959e32 *R/austFilter.R
 8f0799c9a6fd06dacf216b9a0c874cd4 *R/bouts.R
 096ebb72f79a8d0117ba66acdb7e9fec *R/bouts_helpers.R
-bd27b56fddabbeef961304e1ef0fcb58 *R/calibrate.R
+a2c1563b82dbaf97e6c77a5491e01e8a *R/calibrate.R
 8d14003a92aff03d2e2d8cf68dff258b *R/detDive.R
 b185f8c1c96a9969d5589a7cc1529b4a *R/detPhase.R
 9bcfd3140a01dfc3c166005d2d35e8ca *R/distSpeed.R
@@ -25,7 +25,7 @@ df0fbba41bcf925d575c6a9268ca1c4d *R/speedStats.R
 19e42ca10a100bd528dfff44d4c5e046 *R/zoc.R
 52e2df1a4f373670bfc06c0ab1e84168 *R/zzz.R
 5c1ca9384ef1c1326e7ea203f0fe6e8d *README.md
-9e43745f247b6742738d99e54d35c643 *build/vignette.rds
+78ae8143f41faeb25839cd98fb4a09be *build/vignette.rds
 4c084a1b06faa2ff4d726490145ec21a *data/dives.csv
 5ef50a7654416ece63ae010b460c5b34 *data/divesTDR.RData
 140653e2ab5eed3cac72962382461fcd *data/divesTDRzoc.RData
@@ -33,7 +33,7 @@ df0fbba41bcf925d575c6a9268ca1c4d *R/speedStats.R
 59aabcb7f80ce2d928bcbb9472228851 *inst/CITATION
 c0f88e7802b91169b7b00ffc9098752d *inst/doc/diveMove.R
 fa79c6c1d4f72aaf349ab9f94e9660b6 *inst/doc/diveMove.Rmd
-52fc75f5aaef89591330718557f4f33a *inst/doc/diveMove.html
+0de1c02e9821f3f0dc026144596a244d *inst/doc/diveMove.html
 b75c489fd78d5e158109163beae62fe9 *inst/tinytest/test_calibrations.R
 dc51edb71ff7b953eca748184bcff322 *inst/tinytest/test_classes.R
 a31316eade2beee809afe24bfc54b48d *inst/tinytest/test_stats.R
@@ -50,7 +50,7 @@ b19810cd9c2d1995d89c863301749b15 *man/boutinit.Rd
 d41e204e42b96a783d8da592c00b470d *man/boutsCDF.Rd
 d0fa3d2b635a9c1fc70bfd627654b01a *man/boutsMLEll.Rd
 8cb5060e3a66ddc503323b55761e42d8 *man/boutsNLSll.Rd
-e5db64c447163a0ae6463bea92a3d90d *man/calibrateDepth.Rd
+2ecc0c31aa783c010c19dfa09ea9baeb *man/calibrateDepth.Rd
 00c3577ec3dbc3e9ab2f2eb780e0fcca *man/calibrateSpeed.Rd
 e698387da9dc378ed9e0066887e6712c *man/createTDR.Rd
 e862e3c1c663d01fe0e64aefd747d389 *man/detDive-internal.Rd
@@ -67,7 +67,7 @@ ee69b0d00692efc6955935e5f68554d3 *man/dot-runquantile.Rd
 3414e6b383369092a41c331879d0b9cc *man/extractDive.Rd
 4000c8a9d9ff33128c1767d167e8357c *man/fitMLEbouts.Rd
 724384467049321017cb56697e398e85 *man/fitNLSbouts.Rd
-f1d52ffea1be0fef3b68f078bee5ca15 *man/labDive-internal.Rd
+9cea863a6b40f20f33dbe4bee3991415 *man/labDive-internal.Rd
 6e1ee159b12718beab371f0aab221556 *man/labelBouts.Rd
 f92806dd912bf705aa5ae02973f5ab99 *man/plotBouts.Rd
 e4790ef3a6b5e09c601d0bf7a2205875 *man/plotBoutsCDF.Rd
@@ -80,7 +80,7 @@ bcff378ef23302b7254473b9e56dd147 *man/plotZOC.Rd
 cfe57213f9e064f31265378b54c8a58a *man/sealLocs.Rd
 14d50fcb26da71b578eeda531ed224a9 *man/timeBudget.Rd
 a3db803897ff9547a476a511da42efed *src/diveMove_init.c
-e8601ddeee6c3d73197e3d0bbcddba52 *src/run_quantile.c
+e1669f86a7a2b6f621f97d325f4572a7 *src/run_quantile.c
 a7335a1a1de6e65ac7fa673a9f9a4791 *tests/tinytest.R
 eb8ae263234eb916f275649aa2b8b714 *vignettes/biblioSPL.bib
 fa79c6c1d4f72aaf349ab9f94e9660b6 *vignettes/diveMove.Rmd
